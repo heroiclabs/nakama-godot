@@ -127,6 +127,7 @@ To run tests you will need to run the server and database. Most tests are writte
 
 ```shell
 docker-compose -f ./docker-compose-postgres.yml up
+# TODO add tests
 ```
 
 ### License
