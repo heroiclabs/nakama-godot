@@ -45,15 +45,16 @@ func _init(p_adapter : NakamaHTTPAdapter,
 		p_scheme : String,
 		p_host : String,
 		p_port : int,
+		p_timeout : int,
 		p_logger = null):
 
 	server_key = p_server_key
 	scheme = p_scheme
 	host = p_host
 	port = p_port
-	timeout = 15
+	timeout = p_timeout
 	logger = p_logger
-	_api_client = NakamaAPI.ApiClient.new(scheme + "://" + host + ":" + str(port), p_adapter, NakamaAPI, timeout)
+	_api_client = NakamaAPI.ApiClient.new(scheme + "://" + host + ":" + str(port), p_adapter, NakamaAPI, p_timeout)
 
 ### <summary>
 ### Restore a session from the auth token.
