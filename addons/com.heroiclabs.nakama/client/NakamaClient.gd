@@ -64,7 +64,7 @@ func _init(p_adapter : NakamaHTTPAdapter,
 ### </remarks>
 ### <param name="authToken">The authentication token to restore as a session.</param>
 ### <returns>A session.</returns>
-func restore_session(auth_token):
+static func restore_session(auth_token):
 	return NakamaSession.new(auth_token, false) if auth_token else null
 
 func _to_string():
