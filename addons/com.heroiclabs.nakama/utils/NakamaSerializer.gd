@@ -116,3 +116,30 @@ static func deserialize(p_ns : GDScript, p_cls_name : String, p_dict : Dictionar
 			obj._ex = NakamaException.new("ERROR [%s]: Missing or invalid required prop %s = %s:\n\t%s" % [p_cls_name, prop, p_dict.get(k), p_dict])
 			return obj
 	return obj
+
+
+###
+### Compatibility with Godot 3.1 which does not expose String.http_escape
+###
+const HEX = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"]
+
+static func escape_http(p_str : String) -> String:
+	var out : String = ""
+	for o in p_str:
+		if (o == '.' or o == '-' or o == '_' or o == '~' or
+			(o >= 'a' and o <= 'z') or
+			(o >= 'A' and o <= 'Z') or
+			(o >= '0' and o <= '9')):
+			out += o
+		else:
+			for b in o.to_utf8():
+				out += "%%%s" % to_hex(b)
+	return out
+
+static func to_hex(p_val : int) -> String:
+	var v := p_val
+	var o := ""
+	while v != 0:
+		o = HEX[v % 16] + o
+		v /= 16
+	return o

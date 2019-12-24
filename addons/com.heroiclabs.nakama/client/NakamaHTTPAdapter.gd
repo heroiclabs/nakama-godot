@@ -10,6 +10,9 @@ class_name NakamaHTTPAdapter
 ### </summary>
 var logger : Reference = null
 
+var _pending = {}
+var id : int = 0
+
 ### <summary>
 ### Send a HTTP request.
 ### </summary>
@@ -22,7 +25,9 @@ var logger : Reference = null
 func send_async(p_method : String, p_uri : String, p_headers : Dictionary, p_body : PoolByteArray, p_timeout : int = 3):
 	var req = HTTPRequest.new()
 	req.use_threads = true
-	req.timeout = p_timeout
+
+	# Not supported in 3.1
+	#req.timeout = p_timeout
 
 	# Parse method
 	var method = HTTPClient.METHOD_GET
@@ -41,11 +46,28 @@ func send_async(p_method : String, p_uri : String, p_headers : Dictionary, p_bod
 	for k in p_headers:
 		headers.append("%s: %s" % [k, p_headers[k]])
 
+	# Handle timeout for 3.1 compatibility
+	id += 1
+	_pending[id] = [req, OS.get_ticks_msec() + (p_timeout * 1000)]
+
 	add_child(req)
-	return _send_async(req, p_uri, headers, method, p_body)
+	return _send_async(req, p_uri, headers, method, p_body, id, _pending)
+
+func _process(delta):
+	# Handle timeout for 3.1 compatibility
+	var ids = _pending.keys()
+	for id in ids:
+		var p = _pending[id]
+		if p[0].is_queued_for_deletion():
+			_pending.erase(id)
+			continue
+		if p[1] < OS.get_ticks_msec():
+			p[0].cancel_request()
+			_pending.erase(id)
+			p[0].emit_signal("request_completed", HTTPRequest.RESULT_REQUEST_FAILED, 0, PoolStringArray(), PoolByteArray())
 
 static func _send_async(request : HTTPRequest, p_uri : String, p_headers : PoolStringArray,
-		p_method : int, p_body : PoolByteArray, p_timeout : int = 3):
+		p_method : int, p_body : PoolByteArray, p_id : int, p_pending : Dictionary):
 
 	if request.request(p_uri, p_headers, true, p_method, p_body.get_string_from_utf8()) != OK:
 		yield(request.get_tree(), "idle_frame")
@@ -61,6 +83,7 @@ static func _send_async(request : HTTPRequest, p_uri : String, p_headers : PoolS
 	# Will be deleted next frame
 	if not request.is_queued_for_deletion():
 		request.queue_free()
+		p_pending.erase(p_id)
 
 	if result != HTTPRequest.RESULT_SUCCESS:
 		return NakamaException.new("HTTPRequest failed!", result)

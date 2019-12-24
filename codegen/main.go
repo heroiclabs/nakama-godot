@@ -170,7 +170,7 @@ class ApiClient extends Reference:
             {{- range $parameter := $operation.Parameters }}
             {{- $camelcase := $parameter.Name | prependParameter }}
             {{- if eq $parameter.In "path" }}
-		urlpath = urlpath.replace("{{- print "{" $parameter.Name "}"}}", {{ $camelcase }}.http_escape())
+		urlpath = NakamaSerializer.escape_http(urlpath.replace("{{- print "{" $parameter.Name "}"}}", {{ $camelcase }}))
             {{- end }}
             {{- end }}
 		var query_params = ""
@@ -185,7 +185,7 @@ class ApiClient extends Reference:
                 {{- if eq $parameter.Type "integer" }}
 			query_params += "{{- $parameter.Name }}=%d&" % {{ $camelcase }}
                 {{- else if eq $parameter.Type "string" }}
-			query_params += "{{- $parameter.Name }}=%s&" % {{ $camelcase }}.http_escape()
+			query_params += "{{- $parameter.Name }}=%s&" % NakamaSerializer.escape_http({{ $camelcase }})
                 {{- else if eq $parameter.Type "boolean" }}
 			query_params += "{{- $parameter.Name }}=%s&" % str(bool({{ $camelcase }})).to_lower()
                 {{- else if eq $parameter.Type "array" }}
