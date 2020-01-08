@@ -1,4 +1,4 @@
-extends Node
+extends Reference
 
 ### <summary>
 ### An exception generated during a request.
