@@ -194,7 +194,7 @@ func _resume_response(p_id : String, p_data):
 		_logger.warning("Trying to resume missing response: %s: %s" % [p_id, p_data])
 
 func _cancel_response(p_id : String):
-	_logger.debug("Canceling response: %d" % [p_id])
+	_logger.debug("Cancelling response: %s" % [p_id])
 	_resume_response(p_id, NakamaException.new("Request cancelled."))
 
 func _clear_responses():
