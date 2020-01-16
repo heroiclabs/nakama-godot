@@ -40,7 +40,7 @@ class GroupUserListGroupUser extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "state: %s, " % _state
 		output += "user: %s, " % _user
@@ -83,7 +83,7 @@ class UserGroupListUserGroup extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "group: %s, " % _group
 		output += "state: %s, " % _state
@@ -135,7 +135,7 @@ class WriteLeaderboardRecordRequestLeaderboardRecordWrite extends NakamaAsyncRes
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "metadata: %s, " % _metadata
 		output += "score: %s, " % _score
@@ -188,7 +188,7 @@ class WriteTournamentRecordRequestTournamentRecordWrite extends NakamaAsyncResul
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "metadata: %s, " % _metadata
 		output += "score: %s, " % _score
@@ -268,7 +268,7 @@ class ApiAccount extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "custom_id: %s, " % _custom_id
 		output += "devices: %s, " % [_devices]
@@ -315,7 +315,7 @@ class ApiAccountCustom extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "id: %s, " % _id
 		var map_string : String = ""
@@ -362,7 +362,7 @@ class ApiAccountDevice extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "id: %s, " % _id
 		var map_string : String = ""
@@ -418,7 +418,7 @@ class ApiAccountEmail extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "email: %s, " % _email
 		output += "password: %s, " % _password
@@ -466,7 +466,7 @@ class ApiAccountFacebook extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "token: %s, " % _token
 		var map_string : String = ""
@@ -558,7 +558,7 @@ class ApiAccountGameCenter extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "bundle_id: %s, " % _bundle_id
 		output += "player_id: %s, " % _player_id
@@ -610,7 +610,7 @@ class ApiAccountGoogle extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "token: %s, " % _token
 		var map_string : String = ""
@@ -657,7 +657,7 @@ class ApiAccountSteam extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "token: %s, " % _token
 		var map_string : String = ""
@@ -803,7 +803,7 @@ class ApiChannelMessage extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "channel_id: %s, " % _channel_id
 		output += "code: %s, " % _code
@@ -866,7 +866,7 @@ class ApiChannelMessageList extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "messages: %s, " % [_messages]
 		output += "next_cursor: %s, " % _next_cursor
@@ -946,7 +946,7 @@ class ApiCreateGroupRequest extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "avatar_url: %s, " % _avatar_url
 		output += "description: %s, " % _description
@@ -1002,7 +1002,7 @@ class ApiDeleteStorageObjectId extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "collection: %s, " % _collection
 		output += "key: %s, " % _key
@@ -1037,7 +1037,7 @@ class ApiDeleteStorageObjectsRequest extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "object_ids: %s, " % [_object_ids]
 		return output
@@ -1097,7 +1097,7 @@ class ApiEvent extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "external: %s, " % _external
 		output += "name: %s, " % _name
@@ -1146,7 +1146,7 @@ class ApiFriend extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "state: %s, " % _state
 		output += "user: %s, " % _user
@@ -1189,7 +1189,7 @@ class ApiFriendList extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "cursor: %s, " % _cursor
 		output += "friends: %s, " % [_friends]
@@ -1322,7 +1322,7 @@ class ApiGroup extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "avatar_url: %s, " % _avatar_url
 		output += "create_time: %s, " % _create_time
@@ -1375,7 +1375,7 @@ class ApiGroupList extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "cursor: %s, " % _cursor
 		output += "groups: %s, " % [_groups]
@@ -1418,7 +1418,7 @@ class ApiGroupUserList extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "cursor: %s, " % _cursor
 		output += "group_users: %s, " % [_group_users]
@@ -1551,7 +1551,7 @@ class ApiLeaderboardRecord extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "create_time: %s, " % _create_time
 		output += "expiry_time: %s, " % _expiry_time
@@ -1622,7 +1622,7 @@ class ApiLeaderboardRecordList extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "next_cursor: %s, " % _next_cursor
 		output += "owner_records: %s, " % [_owner_records]
@@ -1685,7 +1685,7 @@ class ApiMatch extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "authoritative: %s, " % _authoritative
 		output += "label: %s, " % _label
@@ -1721,7 +1721,7 @@ class ApiMatchList extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "matches: %s, " % [_matches]
 		return output
@@ -1808,7 +1808,7 @@ class ApiNotification extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "code: %s, " % _code
 		output += "content: %s, " % _content
@@ -1856,7 +1856,7 @@ class ApiNotificationList extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "cacheable_cursor: %s, " % _cacheable_cursor
 		output += "notifications: %s, " % [_notifications]
@@ -1908,7 +1908,7 @@ class ApiReadStorageObjectId extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "collection: %s, " % _collection
 		output += "key: %s, " % _key
@@ -1943,7 +1943,7 @@ class ApiReadStorageObjectsRequest extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "object_ids: %s, " % [_object_ids]
 		return output
@@ -1994,7 +1994,7 @@ class ApiRpc extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "http_key: %s, " % _http_key
 		output += "id: %s, " % _id
@@ -2038,7 +2038,7 @@ class ApiSession extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "created: %s, " % _created
 		output += "token: %s, " % _token
@@ -2144,7 +2144,7 @@ class ApiStorageObject extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "collection: %s, " % _collection
 		output += "create_time: %s, " % _create_time
@@ -2212,7 +2212,7 @@ class ApiStorageObjectAck extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "collection: %s, " % _collection
 		output += "key: %s, " % _key
@@ -2248,7 +2248,7 @@ class ApiStorageObjectAcks extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "acks: %s, " % [_acks]
 		return output
@@ -2290,7 +2290,7 @@ class ApiStorageObjectList extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "cursor: %s, " % _cursor
 		output += "objects: %s, " % [_objects]
@@ -2324,7 +2324,7 @@ class ApiStorageObjects extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "objects: %s, " % [_objects]
 		return output
@@ -2501,7 +2501,7 @@ class ApiTournament extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "can_enter: %s, " % _can_enter
 		output += "category: %s, " % _category
@@ -2559,7 +2559,7 @@ class ApiTournamentList extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "cursor: %s, " % _cursor
 		output += "tournaments: %s, " % [_tournaments]
@@ -2620,7 +2620,7 @@ class ApiTournamentRecordList extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "next_cursor: %s, " % _next_cursor
 		output += "owner_records: %s, " % [_owner_records]
@@ -2701,7 +2701,7 @@ class ApiUpdateAccountRequest extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "avatar_url: %s, " % _avatar_url
 		output += "display_name: %s, " % _display_name
@@ -2784,7 +2784,7 @@ class ApiUpdateGroupRequest extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "avatar_url: %s, " % _avatar_url
 		output += "description: %s, " % _description
@@ -2957,7 +2957,7 @@ class ApiUser extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "avatar_url: %s, " % _avatar_url
 		output += "create_time: %s, " % _create_time
@@ -3014,7 +3014,7 @@ class ApiUserGroupList extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "cursor: %s, " % _cursor
 		output += "user_groups: %s, " % [_user_groups]
@@ -3048,7 +3048,7 @@ class ApiUsers extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "users: %s, " % [_users]
 		return output
@@ -3126,7 +3126,7 @@ class ApiWriteStorageObject extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "collection: %s, " % _collection
 		output += "key: %s, " % _key
@@ -3164,7 +3164,7 @@ class ApiWriteStorageObjectsRequest extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
 		output += "objects: %s, " % [_objects]
 		return output

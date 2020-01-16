@@ -40,7 +40,7 @@ func is_valid():
 
 func _to_string():
 	if is_exception():
-		return get_exception().to_string()
+		return get_exception()._to_string()
 	return "Session<created=%s, token=%s, create_time=%d, username=%s, user_id=%s, vars=%s>" % [
 		created, token, create_time, username, user_id, str(vars)]
 

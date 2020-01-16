@@ -56,7 +56,7 @@ class Channel extends NakamaAsyncResult:
 		pass
 
 	func _to_string():
-		if is_exception(): return get_exception().to_string()
+		if is_exception(): return get_exception()._to_string()
 		return "Channel<id=%s, presences=%s, self=%s, room_name=%s, group_id=%s, user_id_one=%s, user_id_two=%s>" % [
 			id, presences, self_presence, room_name, group_id, user_id_one, user_id_two
 		]
@@ -143,7 +143,7 @@ class ChannelMessageAck extends NakamaAsyncResult:
 		pass
 
 	func _to_string():
-		if is_exception(): return get_exception().to_string()
+		if is_exception(): return get_exception()._to_string()
 		return "ChannelMessageAck<channel_id=%s, code=%d, create_time=%s, message_id=%s, persistent=%s, update_time=%s, username=%s room_name=%s, group_id=%s, user_id_one=%s, user_id_two=%s>" % [
 			channel_id, code, create_time, message_id, persistent, update_time, username, room_name, group_id, user_id_one, user_id_two
 		]
@@ -209,7 +209,7 @@ class ChannelPresenceEvent extends NakamaAsyncResult:
 		pass
 
 	func _to_string():
-		if is_exception(): return get_exception().to_string()
+		if is_exception(): return get_exception()._to_string()
 		return "ChannelPresenceEvent<channel_id=%s, joins=%s, leaves=%s, room_name=%s, group_id=%s, user_id_one=%s, user_id_two=%s>" % [
 			channel_id, joins, leaves, room_name, group_id, user_id_one, user_id_two
 		]
@@ -271,7 +271,7 @@ class Match extends NakamaAsyncResult:
 		return _safe_ret(NakamaSerializer.deserialize(p_ns, "Match", p_dict), Match) as Match
 
 	func _to_string():
-		if is_exception(): return get_exception().to_string()
+		if is_exception(): return get_exception()._to_string()
 		return "Match<authoritative=%s, match_id=%s, label=%s, presences=%s, size=%d, self=%s>" % [authoritative, match_id, label, presences, size, self_user]
 
 	static func get_result_key() -> String:
@@ -311,7 +311,7 @@ class MatchData extends NakamaAsyncResult:
 		pass
 
 	func _to_string():
-		if is_exception(): return get_exception().to_string()
+		if is_exception(): return get_exception()._to_string()
 		return "MatchData<match_id=%s, op_code=%s, data=%s>" % [match_id, op_code, data]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> MatchData:
@@ -350,7 +350,7 @@ class MatchPresenceEvent extends NakamaAsyncResult:
 		pass
 
 	func _to_string():
-		if is_exception(): return get_exception().to_string()
+		if is_exception(): return get_exception()._to_string()
 		return "MatchPresenceEvent<match_id=%s, joins=%s, leaves=%s>" % [match_id, joins, leaves]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> MatchPresenceEvent:
@@ -404,7 +404,7 @@ class MatchmakerMatched extends NakamaAsyncResult:
 		pass
 
 	func _to_string():
-		if is_exception(): return get_exception().to_string()
+		if is_exception(): return get_exception()._to_string()
 		return "<MatchmakerMatched match_id=%s, ticket=%s, token=%s, users=%s, self=%s>" % [
 			match_id, ticket, token, users, self_user
 		]
@@ -437,7 +437,7 @@ class MatchmakerTicket extends NakamaAsyncResult:
 		return _safe_ret(NakamaSerializer.deserialize(p_ns, "MatchmakerTicket", p_dict), MatchmakerTicket) as MatchmakerTicket
 
 	func _to_string():
-		if is_exception(): return get_exception().to_string()
+		if is_exception(): return get_exception()._to_string()
 		return "<MatchmakerTicket ticket=%s>" % ticket
 
 	static func get_result_key() -> String:
@@ -474,7 +474,7 @@ class MatchmakerUser extends NakamaAsyncResult:
 		pass
 
 	func _to_string():
-		if is_exception(): return get_exception().to_string()
+		if is_exception(): return get_exception()._to_string()
 		return "<MatchmakerUser presence=%s, numeric_properties=%s, string_properties=%s>" % [
 			presence, numeric_properties, string_properties]
 
@@ -506,7 +506,7 @@ class Status extends NakamaAsyncResult:
 		return _safe_ret(NakamaSerializer.deserialize(p_ns, "Status", p_dict), Status) as Status
 
 	func _to_string():
-		if is_exception(): return get_exception().to_string()
+		if is_exception(): return get_exception()._to_string()
 		return "<Status presences=%s>" % [presences]
 
 	static func get_result_key() -> String:
@@ -542,7 +542,7 @@ class StatusPresenceEvent extends NakamaAsyncResult:
 		pass
 
 	func _to_string():
-		if is_exception(): return get_exception().to_string()
+		if is_exception(): return get_exception()._to_string()
 		return "StatusPresenceEvent<joins=%s, leaves=%s>" % [joins, leaves]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> StatusPresenceEvent:
@@ -588,7 +588,7 @@ class Stream extends NakamaAsyncResult:
 		pass
 
 	func _to_string():
-		if is_exception(): return get_exception().to_string()
+		if is_exception(): return get_exception()._to_string()
 		return "Stream<descriptor=%s, label=%s, mode=%s, subject=%s>" % [descriptor, label, mode, subject]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> Stream:
@@ -628,7 +628,7 @@ class StreamPresenceEvent extends NakamaAsyncResult:
 	var stream : Stream = null
 
 	func _to_string():
-		if is_exception(): return get_exception().to_string()
+		if is_exception(): return get_exception()._to_string()
 		return "StreamPresenceEvent<stream=%s, joins=%s, leaves=%s>" % [stream, joins, leaves]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> StreamPresenceEvent:
@@ -671,7 +671,7 @@ class StreamData extends NakamaAsyncResult:
 	var reliable : bool
 
 	func _to_string():
-		if is_exception(): return get_exception().to_string()
+		if is_exception(): return get_exception()._to_string()
 		return "StreamData<sender=%s, state=%s, stream=%s>" % [sender, state, stream]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> StreamData:
@@ -729,7 +729,7 @@ class UserPresence extends NakamaAsyncResult:
 		return NakamaSerializer.serialize(self)
 
 	func _to_string():
-		if is_exception(): return get_exception().to_string()
+		if is_exception(): return get_exception()._to_string()
 		return "UserPresence<persistence=%s, session_id=%s, status=%s, username=%s, user_id=%s>" % [
 			persistence, session_id, status, username, user_id]
 
