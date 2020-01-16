@@ -18,7 +18,7 @@ func get_exception() -> NakamaException:
 
 func _to_string():
 	if is_exception():
-		return get_exception().to_string()
+		return get_exception()._to_string()
 	return "NakamaAsyncResult<>"
 
 static func _safe_ret(p_obj, p_type : GDScript):

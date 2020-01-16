@@ -85,7 +85,7 @@ class {{ $classname }} extends NakamaAsyncResult:
 
 	func _to_string() -> String:
 		if is_exception():
-			return get_exception().to_string()
+			return get_exception()._to_string()
 		var output : String = ""
             {{- range $fieldname, $property := $definition.Properties }}
             {{- $_field := printf "_%s" $fieldname }}
@@ -95,7 +95,7 @@ class {{ $classname }} extends NakamaAsyncResult:
 		var map_string : String = ""
 		if typeof({{ $_field }}) == TYPE_DICTIONARY:
 			for k in {{ $_field }}:
-			    map_string += "{%s=%s}, " % [k, {{ $_field }}[k]]
+				map_string += "{%s=%s}, " % [k, {{ $_field }}[k]]
 		output += "{{ $fieldname }}: [%s], " % map_string
             {{- else }}
 		output += "{{ $fieldname }}: %s, " % {{ $_field }}
