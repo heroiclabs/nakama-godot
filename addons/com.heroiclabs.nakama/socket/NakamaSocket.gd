@@ -74,15 +74,15 @@ var _base_uri : String
 var _responses : Dictionary
 var _last_id : int = 1
 var _conn : GDScriptFunctionState = null
-var _logger : NakamaLogger = null
+var logger : NakamaLogger = null
 
 func _resume_conn(p_err : int):
 	if _conn:
 		if p_err: # Exception
-			_logger.warning("Connection error: %d" % p_err)
+			logger.warning("Connection error: %d" % p_err)
 			_conn.resume(NakamaAsyncResult.new(NakamaException.new()))
 		else:
-			_logger.info("Connected!")
+			logger.info("Connected!")
 			_conn.resume(NakamaAsyncResult.new())
 		call_deferred("_survive", _conn)
 		_conn = null
@@ -91,8 +91,8 @@ func _init(p_adapter : NakamaSocketAdapter,
 		p_host : String,
 		p_port : int,
 		p_scheme : String,
-		p_logger = null,
 		p_free_adapter : bool = false):
+	logger = p_adapter.logger
 	_adapter = p_adapter
 	_weak_ref = weakref(_adapter)
 	var port = ""
@@ -104,11 +104,6 @@ func _init(p_adapter : NakamaSocketAdapter,
 	_adapter.connect("connected", self, "_connected")
 	_adapter.connect("received_error", self, "_closed")
 	_adapter.connect("received", self, "_received")
-	if p_logger:
-		_logger = p_logger
-	else:
-		_logger = NakamaLogger.new()
-		_logger._module = "NakamaSocket"
 
 func _notification(what):
 	if what == NOTIFICATION_PREDELETE:
@@ -185,17 +180,17 @@ func _received(p_bytes : PoolByteArray):
 			var res = NakamaRTAPI.StreamData.create(NakamaRTAPI, dict["stream_data"])
 			emit_signal("received_stream_state", res)
 		else:
-			_logger.warning("Unhandled response: %s" % dict)
+			logger.warning("Unhandled response: %s" % dict)
 
 func _resume_response(p_id : String, p_data):
 	if _responses.has(p_id):
-		_logger.debug("Resuming response: %s: %s" % [p_id, p_data])
+		logger.debug("Resuming response: %s: %s" % [p_id, p_data])
 		_responses[p_id].resume(p_data)
 	else:
-		_logger.warning("Trying to resume missing response: %s: %s" % [p_id, p_data])
+		logger.warning("Trying to resume missing response: %s: %s" % [p_id, p_data])
 
 func _cancel_response(p_id : String):
-	_logger.debug("Cancelling response: %s" % [p_id])
+	logger.debug("Cancelling response: %s" % [p_id])
 	_resume_response(p_id, NakamaException.new("Request cancelled."))
 
 func _clear_responses():
@@ -229,21 +224,21 @@ func _parse_result(p_responses : Dictionary, p_id : String, p_type, p_ns : GDScr
 		if typeof(err) == TYPE_DICTIONARY:
 			msg = err.get("message", "")
 			code = err.get("code", -1)
-		_logger.warning("Error response from server: %s" % err)
+		logger.warning("Error response from server: %s" % err)
 		return p_type.new(NakamaException.new(msg, code))
 	# Simple ack response
 	elif p_type == NakamaAsyncResult:
 		return NakamaAsyncResult.new()
 	# Missing expected result key
 	elif not data.has(result_key):
-		_logger.warning("Missing expected result key: %s" % result_key)
+		logger.warning("Missing expected result key: %s" % result_key)
 		return p_type.new(NakamaException.new("Missing expected result key: %s" % result_key))
 	# All good, proceed with parsing
 	else:
 		return p_type.create(p_ns, data.get(result_key))
 
 func _send_async(p_message, p_parse_type = NakamaAsyncResult, p_ns = NakamaRTAPI, p_msg_key = null, p_result_key = null):
-	_logger.debug("Sending async request: %s" % p_message)
+	logger.debug("Sending async request: %s" % p_message)
 	# For messages coming from the API which does not have a key defined, so we can override it
 	var msg = p_msg_key
 	# For regular RT messages
@@ -291,7 +286,7 @@ func close():
 ### <returns>A task to represent the asynchronous operation.</returns>
 func connect_async(p_session : NakamaSession, p_appear_online : bool = false, p_connect_timeout : int = 3):
 	var uri = "%s/ws?lang=en&status=%s&token=%s" % [_base_uri, str(p_appear_online).to_lower(), p_session.token]
-	_logger.debug("Connecting to host: %s" % uri)
+	logger.debug("Connecting to host: %s" % uri)
 	_adapter.connect_to_host(uri, p_connect_timeout)
 	_conn = _connect_function()
 	return _conn
