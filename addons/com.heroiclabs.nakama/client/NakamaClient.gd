@@ -47,15 +47,14 @@ func _init(p_adapter : NakamaHTTPAdapter,
 		p_scheme : String,
 		p_host : String,
 		p_port : int,
-		p_timeout : int,
-		p_logger = null):
+		p_timeout : int):
 
 	server_key = p_server_key
 	scheme = p_scheme
 	host = p_host
 	port = p_port
 	timeout = p_timeout
-	logger = p_logger
+	logger = p_adapter.logger
 	_api_client = NakamaAPI.ApiClient.new(scheme + "://" + host + ":" + str(port), p_adapter, NakamaAPI, p_timeout)
 
 ### <summary>

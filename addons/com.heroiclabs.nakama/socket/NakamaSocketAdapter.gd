@@ -9,6 +9,7 @@ class_name NakamaSocketAdapter
 var _ws := WebSocketClient.new()
 var _timeout : int = 30
 var _start : int = 0
+var logger = NakamaLogger.new()
 
 ### <summary>
 ### A signal emitted when the socket is connected.
@@ -59,6 +60,7 @@ func connect_to_host(p_uri : String, p_timeout : int):
 	_start = OS.get_unix_time()
 	var err = _ws.connect_to_url(p_uri)
 	if err != OK:
+		logger.debug("Error connecting to host %s" % p_uri)
 		call_deferred("emit_signal", "received_error", err)
 
 ### <summary>
@@ -72,6 +74,7 @@ func send(p_buffer : PoolByteArray, p_reliable : bool = true) -> int:
 func _process(delta):
 	if _ws.get_connection_status() == WebSocketClient.CONNECTION_CONNECTING:
 		if _start + _timeout < OS.get_unix_time():
+			logger.debug("Timeout when connecting to socket")
 			emit_signal("received_error", ERR_TIMEOUT)
 			_ws.disconnect_from_host()
 		else:

@@ -29,10 +29,12 @@ const DEFAULT_SOCKET_SCHEME : String = "ws"
 const DEFAULT_LOG_LEVEL = NakamaLogger.LOG_LEVEL.DEBUG
 
 var _http_adapter = null
+var logger = NakamaLogger.new()
 
 func get_client_adapter() -> NakamaHTTPAdapter:
 	if _http_adapter == null:
 		_http_adapter = NakamaHTTPAdapter.new()
+		_http_adapter.logger = logger
 		_http_adapter.name = "NakamaHTTPAdapter"
 		add_child(_http_adapter)
 	return _http_adapter
@@ -40,6 +42,7 @@ func get_client_adapter() -> NakamaHTTPAdapter:
 func create_socket_adapter() -> NakamaSocketAdapter:
 	var adapter = NakamaSocketAdapter.new()
 	adapter.name = "NakamaWebSocketAdapter"
+	adapter.logger = logger
 	add_child(adapter)
 	return adapter
 
@@ -47,21 +50,16 @@ func create_client(p_server_key : String,
 		p_host : String = DEFAULT_HOST,
 		p_port : int = DEFAULT_PORT,
 		p_scheme : String = DEFAULT_CLIENT_SCHEME,
-		p_timeout : int = DEFAULT_TIMEOUT,
-		p_logger = null) -> NakamaClient:
-	return NakamaClient.new(get_client_adapter(), p_server_key, p_scheme, p_host, p_port, p_timeout, p_logger)
+		p_timeout : int = DEFAULT_TIMEOUT) -> NakamaClient:
+	return NakamaClient.new(get_client_adapter(), p_server_key, p_scheme, p_host, p_port, p_timeout)
 
 func create_socket(p_host : String = DEFAULT_HOST,
 		p_port : int = DEFAULT_PORT,
-		p_scheme : String = DEFAULT_SOCKET_SCHEME,
-		p_logger = null) -> NakamaSocket:
-	return NakamaSocket.new(create_socket_adapter(), p_host, p_port, p_scheme, p_logger, true)
+		p_scheme : String = DEFAULT_SOCKET_SCHEME) -> NakamaSocket:
+	return NakamaSocket.new(create_socket_adapter(), p_host, p_port, p_scheme, true)
 
-func create_socket_from(p_client : NakamaClient, p_logger = null) -> NakamaSocket:
+func create_socket_from(p_client : NakamaClient) -> NakamaSocket:
 	var scheme = "ws"
 	if p_client.scheme == "https":
 		scheme = "wss"
-	var logger = p_client.logger
-	if p_logger:
-		logger = p_logger
-	return NakamaSocket.new(create_socket_adapter(), p_client.host, p_client.port, scheme, logger, true)
+	return NakamaSocket.new(create_socket_adapter(), p_client.host, p_client.port, scheme, true)
