@@ -170,7 +170,7 @@ class ApiClient extends Reference:
             {{- range $parameter := $operation.Parameters }}
             {{- $camelcase := $parameter.Name | prependParameter }}
             {{- if eq $parameter.In "path" }}
-		urlpath = NakamaSerializer.escape_http(urlpath.replace("{{- print "{" $parameter.Name "}"}}", {{ $camelcase }}))
+		urlpath = urlpath.replace("{{- print "{" $parameter.Name "}"}}", NakamaSerializer.escape_http({{ $camelcase }}))
             {{- end }}
             {{- end }}
 		var query_params = ""
