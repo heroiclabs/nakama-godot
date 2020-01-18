@@ -5,6 +5,8 @@ extends Reference
 ### </summary>
 class_name NakamaClient
 
+const ChannelType = NakamaRTMessage.ChannelJoin.ChannelType
+
 func _no_set(_p):
 	return
 
@@ -64,8 +66,8 @@ func _init(p_adapter : NakamaHTTPAdapter,
 ### </remarks>
 ### <param name="authToken">The authentication token to restore as a session.</param>
 ### <returns>A session.</returns>
-static func restore_session(auth_token):
-	return NakamaSession.new(auth_token, false) if auth_token else null
+static func restore_session(auth_token : String):
+	return NakamaSession.new(auth_token, false)
 
 func _to_string():
 	return "Client(Host='%s', Port=%s, Scheme='%s', ServerKey='%s', Timeout=%s)" % [

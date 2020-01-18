@@ -5,6 +5,8 @@ extends Reference
 ### </summary>
 class_name NakamaSocket
 
+const ChannelType = NakamaRTMessage.ChannelJoin.ChannelType
+
 ### <summary>
 ### Emitted when a socket is closed.
 ### </summary>
@@ -64,7 +66,6 @@ signal received_stream_presence(p_stream_presence_event) # StreamPresenceEvent
 ### Emitted when receiving a message from a realtime stream.
 ### </summary>
 signal received_stream_state(p_stream_state) # StreamState
-
 
 var _adapter : NakamaSocketAdapter
 var _free_adapter : bool = false
