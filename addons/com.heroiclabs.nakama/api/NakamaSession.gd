@@ -3,13 +3,14 @@ class_name NakamaSession
 
 
 var created : bool = false setget _no_set
-var token : String setget _no_set
-var create_time : int setget _no_set
-var expire_time : int setget _no_set
-var expired : bool setget _no_set, is_expired
-var vars : Dictionary setget _no_set
-var username : String setget _no_set
-var user_id : String setget _no_set
+var token : String = "" setget _no_set
+var create_time : int = 0 setget _no_set
+var expire_time : int = 0 setget _no_set
+var expired : bool = true setget _no_set, is_expired
+var vars : Dictionary = {} setget _no_set
+var username : String = "" setget _no_set
+var user_id : String = "" setget _no_set
+var valid : bool = false setget _no_set, is_valid
 
 func _no_set(v):
 	return
@@ -17,14 +18,23 @@ func _no_set(v):
 func is_expired() -> bool:
 	return expire_time - OS.get_unix_time() > 0
 
+func is_valid():
+	return valid
+
 func _init(p_token = null, p_created : bool = false, p_exception = null).(p_exception):
 	if p_token:
 		var unpacked = _jwt_unpack(p_token)
 		var decoded = {}
 		if not validate_json(unpacked):
 			decoded = parse_json(unpacked)
+			valid = true
 		if typeof(decoded) != TYPE_DICTIONARY:
 			decoded = {}
+		if decoded.empty():
+			valid = false
+			if p_exception == null:
+				_ex = NakamaException.new("Unable to unpack token")
+
 		token = p_token
 		created = p_created
 		create_time = OS.get_unix_time()
@@ -34,9 +44,6 @@ func _init(p_token = null, p_created : bool = false, p_exception = null).(p_exce
 		if decoded.has("vrs") and typeof(decoded["vrs"]) == TYPE_DICTIONARY:
 			for k in decoded["vrs"]:
 				vars[k] = decoded["vrs"][k]
-
-func is_valid():
-	return token.length() > 0 # TODO add created check?
 
 func _to_string():
 	if is_exception():

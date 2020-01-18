@@ -47,8 +47,9 @@ func create_client(p_server_key : String,
 		p_host : String = DEFAULT_HOST,
 		p_port : int = DEFAULT_PORT,
 		p_scheme : String = DEFAULT_CLIENT_SCHEME,
-		p_timeout : int = DEFAULT_TIMEOUT) -> NakamaClient:
-	return NakamaClient.new(get_client_adapter(), p_server_key, p_scheme, p_host, p_port, p_timeout)
+		p_timeout : int = DEFAULT_TIMEOUT,
+		p_logger = null) -> NakamaClient:
+	return NakamaClient.new(get_client_adapter(), p_server_key, p_scheme, p_host, p_port, p_timeout, p_logger)
 
 func create_socket(p_host : String = DEFAULT_HOST,
 		p_port : int = DEFAULT_PORT,
