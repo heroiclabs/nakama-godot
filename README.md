@@ -125,9 +125,18 @@ The development roadmap is managed as GitHub issues and pull requests are welcom
 
 To run tests you will need to run the server and database. Most tests are written as integration tests which execute against the server. A quick approach we use with our test workflow is to use the Docker compose file described in the [documentation](https://heroiclabs.com/docs/install-docker-quickstart).
 
+Additionally, you will need to copy (or symlink) the `addons` folder inside the `test_suite` folder. You can now run the `test_suite` project from the Godot Editor.
+
+To run the tests on a headless machine (without a GPU) you can download a copy of [Godot Headless](https://godotengine.org/download/server) and run it from the command line.
+
+To automate this procedure, move the headless binary to `test_suite/bin/godot.elf`, and run the tests via the `test_suite/run_tests.sh` shell script (exit code will report test failure/success).
+
 ```shell
+cd nakama
 docker-compose -f ./docker-compose-postgres.yml up
-# TODO add tests
+cd ..
+cd nakama-godot
+sh test_suite/run_tests.sh
 ```
 
 ### License
