@@ -1,2 +1,5 @@
 *.swp
 *.import
+test_suite/addons
+test_suite/addons/*
+test_suite/.import/*
