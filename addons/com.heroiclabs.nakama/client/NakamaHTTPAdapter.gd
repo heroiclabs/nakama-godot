@@ -77,7 +77,7 @@ static func _send_async(request : HTTPRequest, p_uri : String, p_headers : PoolS
 		yield(request.get_tree(), "idle_frame")
 		logger.debug("Request %d failed to start, error: %d" % [p_id, err])
 		request.queue_free()
-		return NakamaAPI.ResponseException.new()
+		return NakamaException.new("Request failed")
 
 	var args = yield(request, "request_completed")
 	var result = args[0]
