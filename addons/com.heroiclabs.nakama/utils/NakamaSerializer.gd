@@ -18,13 +18,13 @@ static func serialize(p_obj : Object) -> Dictionary:
 		var val_type = typeof(val)
 		match val_type:
 			TYPE_OBJECT: # Simple objects
-				out[k] = serialize(p_obj)
+				out[k] = serialize(val)
 			TYPE_ARRAY: # Array of objects
 				var arr = []
 				for e in val:
 					if typeof(e) != TYPE_OBJECT:
 						continue
-					arr.append(serialize(p_obj))
+					arr.append(serialize(e))
 				out[k] = arr
 			TYPE_INT_ARRAY, TYPE_STRING_ARRAY: # Array of ints, bools, or strings
 				var arr = []
@@ -41,7 +41,7 @@ static func serialize(p_obj : Object) -> Dictionary:
 					for k in val:
 						if val_type != TYPE_OBJECT:
 							continue
-						dict[k] = serialize(p_obj)
+						dict[k] = serialize(val)
 				else: # Map of simple types
 					for k in val:
 						if val_type != content:

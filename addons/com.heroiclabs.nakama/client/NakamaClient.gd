@@ -299,7 +299,7 @@ func delete_storage_objects_async(p_session : NakamaSession, p_ids : Array) -> N
 		if not id is NakamaStorageObjectId:
 			continue # TODO Exceptions
 		var obj_id : NakamaStorageObjectId = id
-		ids.append(obj_id.as_delete())
+		ids.append(obj_id.as_delete().serialize())
 	return _api_client.delete_storage_objects_async(p_session.token,
 		NakamaAPI.ApiDeleteStorageObjectsRequest.create(NakamaAPI, {
 			"object_ids": ids
@@ -672,7 +672,7 @@ func read_storage_objects_async(p_session : NakamaSession, p_ids : Array): # -> 
 		if not id is NakamaStorageObjectId:
 			continue # TODO Exceptions
 		var obj_id : NakamaStorageObjectId = id
-		ids.append(obj_id.as_read())
+		ids.append(obj_id.as_read().serialize())
 	return _api_client.read_storage_objects_async(p_session.token,
 		NakamaAPI.ApiReadStorageObjectsRequest.create(NakamaAPI, {
 			"object_ids": ids
@@ -870,7 +870,7 @@ func write_storage_objects_async(p_session : NakamaSession, p_objects : Array): 
 		if not obj is NakamaWriteStorageObject:
 			continue # TODO Exceptions
 		var write_obj : NakamaWriteStorageObject = obj
-		writes.append(write_obj.as_write())
+		writes.append(write_obj.as_write().serialize())
 	return _api_client.write_storage_objects_async(p_session.token,
 		NakamaAPI.ApiWriteStorageObjectsRequest.create(NakamaAPI, {
 			"objects": writes
