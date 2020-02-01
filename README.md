@@ -20,6 +20,7 @@ You'll need to setup the server and database before you can connect with the cli
 3. Add the `Nakama.gd` singleton (in `addons/com.heroiclabs.nakama/`) as an [autoload in Godot](https://docs.godotengine.org/en/stable/getting_started/step_by_step/singletons_autoload.html).
 
 4. Use the connection credentials to build a client object using the singleton.
+
     ```gdscript
     extends Node
 
