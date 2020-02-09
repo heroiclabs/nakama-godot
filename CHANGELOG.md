@@ -5,6 +5,10 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix parsing of MatchmakerMatched messages when no token is specified.
+
 ## [1.0.0] - 2020-01-28
 ### Added
 - Initial public release.
