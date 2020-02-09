@@ -367,7 +367,7 @@ class MatchmakerMatched extends NakamaAsyncResult:
 	const _SCHEMA = {
 		"match_id": {"name": "match_id", "type": TYPE_STRING, "required": false},
 		"ticket": {"name": "ticket", "type": TYPE_STRING, "required": true},
-		"token": {"name": "token", "type": TYPE_STRING, "required": true},
+		"token": {"name": "token", "type": TYPE_STRING, "required": false},
 		"users": {"name": "users", "type": TYPE_ARRAY, "required": false, "content": "MatchmakerUser"},
 		"self": {"name": "self_user", "type": "MatchmakerUser", "required": true}
 	}
