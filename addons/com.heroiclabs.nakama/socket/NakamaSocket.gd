@@ -141,7 +141,7 @@ func _received(p_bytes : PoolByteArray):
 	var json_str = p_bytes.get_string_from_utf8()
 	var json := JSON.parse(json_str)
 	if json.error != OK or typeof(json.result) != TYPE_DICTIONARY:
-		print("Unable to parse response")
+		logger.error("Unable to parse response: %s" % json_str)
 		return
 	var dict : Dictionary = json.result
 	var cid = dict.get("cid")
@@ -149,7 +149,7 @@ func _received(p_bytes : PoolByteArray):
 		if _responses.has(cid):
 			_resume_response(cid, dict)
 		else:
-			print("Invalid call id received")
+			logger.error("Invalid call id received %s" % dict)
 	else:
 		if dict.has("channel_message"):
 			var res = NakamaAPI.ApiChannelMessage.create(NakamaAPI, dict["channel_message"])
@@ -429,10 +429,11 @@ func rpc_async(p_func_id : String, p_payload = null) -> NakamaAPI.ApiRpc:
 func send_match_state_async(p_match_id, p_op_code : int, p_data : String, p_presences = null):
 	var req = _send_async(NakamaRTMessage.MatchDataSend.new(
 		p_match_id,
-		str(p_op_code),
-		p_data,
+		p_op_code,
+		Marshalls.utf8_to_base64(p_data),
 		p_presences
 	))
+	# This do not return a response from server, you don't really need to wait for it.
 	req.call_deferred("resume", {})
 	call_deferred("_survive", req)
 	return req
@@ -449,12 +450,16 @@ func send_match_state_async(p_match_id, p_op_code : int, p_data : String, p_pres
 ### <param name="p_presences">The presences in the match who should receive the input.</param>
 ### <returns>A task which represents the asynchronous operation.</returns>
 func send_match_state_raw_async(p_match_id, p_op_code : int, p_data : PoolByteArray, p_presences = null):
-	return _send_async(NakamaRTMessage.MatchDataSend.new(
+	var req = _send_async(NakamaRTMessage.MatchDataSend.new(
 		p_match_id,
-		str(p_op_code),
+		p_op_code,
 		Marshalls.raw_to_base64(p_data),
 		p_presences
 	))
+	# This do not return a response from server, you don't really need to wait for it.
+	req.call_deferred("resume", {})
+	call_deferred("_survive", req)
+	return req
 
 ### <summary>
 ### Unfollow one or more users from their status updates.

@@ -228,17 +228,17 @@ class MatchDataSend extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"match_id": {"name": "match_id", "type": TYPE_STRING, "required": true},
-		"op_code": {"name": "op_code", "type": TYPE_STRING, "required": true},
+		"op_code": {"name": "op_code", "type": TYPE_INT, "required": true},
 		"presences": {"name": "presences", "type": TYPE_ARRAY, "required": false, "content": "UserPresences"},
 		"data": {"name": "data", "type": TYPE_STRING, "required": true},
 	}
 
 	var match_id : String
 	var presences = null
-	var op_code : String
+	var op_code : int
 	var data : String
 
-	func _init(p_match_id : String, p_op_code : String, p_data : String, p_presences):
+	func _init(p_match_id : String, p_op_code : int, p_data : String, p_presences):
 		match_id = p_match_id
 		presences = p_presences
 		op_code = p_op_code
