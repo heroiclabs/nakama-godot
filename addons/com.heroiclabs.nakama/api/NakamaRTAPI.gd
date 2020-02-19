@@ -315,7 +315,10 @@ class MatchData extends NakamaAsyncResult:
 		return "MatchData<match_id=%s, op_code=%s, data=%s>" % [match_id, op_code, data]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> MatchData:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "MatchData", p_dict), MatchData) as MatchData
+		var out := _safe_ret(NakamaSerializer.deserialize(p_ns, "MatchData", p_dict), MatchData) as MatchData
+		if out.data: # Decode base64 received data
+			out.data = Marshalls.base64_to_utf8(out.data)
+		return out
 
 	static func get_result_key() -> String:
 		return "match_data"
