@@ -5,7 +5,7 @@ func setup():
 	var client = Nakama.create_client(Config.SERVER_KEY, Config.HOST, Config.PORT, Config.SCHEME)
 	# POST
 	var session = yield(client.authenticate_custom_async("MyIdentifier"), "completed")
-	if assert_cond(session.is_valid()):
+	if assert_cond(session.is_valid()) or assert_cond(!session.is_expired()):
 		return
 	# PUT
 	var update = yield(client.update_account_async(session, username), "completed")

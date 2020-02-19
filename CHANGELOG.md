@@ -13,6 +13,7 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 - Fix encoding of `op_code` in `MatchDataSend` and marshalling of `NakamaSocket.send_match_state_[raw_]async`.
 - Fix parsing of `MatchmakerMatched` messages when no token is specified.
 - Disable `HTTPRequest.use_threads` in HTML5 exports.
+- `NakamaSession.is_expired` returned reversed result.
 
 ## [1.0.0] - 2020-01-28
 ### Added
