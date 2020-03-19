@@ -576,11 +576,12 @@ func list_notifications_async(p_session : NakamaSession, p_limit : int = 1, p_ca
 ### </summary>
 ### <param name="p_session">The session of the user.</param>
 ### <param name="p_collection">The collection to list over.</param>
+### <param name="p_user_id">The id of the user that owns the objects.</param>
 ### <param name="p_limit">The number of objects to list.</param>
 ### <param name="p_cursor">A cursor to paginate over the collection.</param>
 ### <returns>A task which resolves to the storage object list.</returns>
-func list_storage_objects_async(p_session : NakamaSession, p_collection : String, p_limit : int = 1, p_cursor = null): # -> NakamaAPI.ApiStorageObjectList:
-	return _api_client.list_storage_objects_async(p_session.token, p_collection, "", p_limit, p_cursor)
+func list_storage_objects_async(p_session : NakamaSession, p_collection : String, p_user_id : String = "", p_limit : int = 1, p_cursor = null): # -> NakamaAPI.ApiStorageObjectList:
+	return _api_client.list_storage_objects_async(p_session.token, p_collection, p_user_id, p_limit, p_cursor)
 
 ### <summary>
 ### List tournament records around the owner.
@@ -666,7 +667,7 @@ func promote_group_users_async(p_session : NakamaSession, p_group_id : String, p
 ### <param name="p_session">The session of the user.</param>
 ### <param name="p_ids">The objects to read.</param>
 ### <returns>A task which resolves to the storage batch object.</returns>
-func read_storage_objects_async(p_session : NakamaSession, p_ids : Array): # -> NakamaAPI.ApiStorageObjectList:
+func read_storage_objects_async(p_session : NakamaSession, p_ids : Array): # -> NakamaAPI.ApiStorageObjects:
 	var ids = []
 	for id in p_ids:
 		if not id is NakamaStorageObjectId:
