@@ -3,9 +3,7 @@
 extends Reference
 class_name NakamaAPI
 
-### <summary>
-### A single user-role pair.
-### </summary>
+# A single user-role pair.
 class GroupUserListGroupUser extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -13,17 +11,13 @@ class GroupUserListGroupUser extends NakamaAsyncResult:
 		"user": {"name": "_user", "type": "ApiUser", "required": false},
 	}
 
-	### <summary>
-	### Their relationship to the group.
-	### </summary>
+	# Their relationship to the group.
 	var state : int setget , _get_state
 	var _state = null
 	func _get_state() -> int:
 		return 0 if not _state is int else int(_state)
 
-	### <summary>
-	### User.
-	### </summary>
+	# User.
 	var user : ApiUser setget , _get_user
 	var _user = null
 	func _get_user() -> ApiUser:
@@ -46,9 +40,7 @@ class GroupUserListGroupUser extends NakamaAsyncResult:
 		output += "user: %s, " % _user
 		return output
 
-### <summary>
-### A single group-role pair.
-### </summary>
+# A single group-role pair.
 class UserGroupListUserGroup extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -56,17 +48,13 @@ class UserGroupListUserGroup extends NakamaAsyncResult:
 		"state": {"name": "_state", "type": TYPE_INT, "required": false},
 	}
 
-	### <summary>
-	### Group.
-	### </summary>
+	# Group.
 	var group : ApiGroup setget , _get_group
 	var _group = null
 	func _get_group() -> ApiGroup:
 		return _group as ApiGroup
 
-	### <summary>
-	### The user's relationship to the group.
-	### </summary>
+	# The user's relationship to the group.
 	var state : int setget , _get_state
 	var _state = null
 	func _get_state() -> int:
@@ -89,9 +77,7 @@ class UserGroupListUserGroup extends NakamaAsyncResult:
 		output += "state: %s, " % _state
 		return output
 
-### <summary>
-### Record values to write.
-### </summary>
+# Record values to write.
 class WriteLeaderboardRecordRequestLeaderboardRecordWrite extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -100,25 +86,19 @@ class WriteLeaderboardRecordRequestLeaderboardRecordWrite extends NakamaAsyncRes
 		"subscore": {"name": "_subscore", "type": TYPE_STRING, "required": false},
 	}
 
-	### <summary>
-	### Optional record metadata.
-	### </summary>
+	# Optional record metadata.
 	var metadata : String setget , _get_metadata
 	var _metadata = null
 	func _get_metadata() -> String:
 		return "" if not _metadata is String else String(_metadata)
 
-	### <summary>
-	### The score value to submit.
-	### </summary>
+	# The score value to submit.
 	var score : String setget , _get_score
 	var _score = null
 	func _get_score() -> String:
 		return "" if not _score is String else String(_score)
 
-	### <summary>
-	### An optional secondary value.
-	### </summary>
+	# An optional secondary value.
 	var subscore : String setget , _get_subscore
 	var _subscore = null
 	func _get_subscore() -> String:
@@ -142,9 +122,7 @@ class WriteLeaderboardRecordRequestLeaderboardRecordWrite extends NakamaAsyncRes
 		output += "subscore: %s, " % _subscore
 		return output
 
-### <summary>
-### Record values to write.
-### </summary>
+# Record values to write.
 class WriteTournamentRecordRequestTournamentRecordWrite extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -153,25 +131,19 @@ class WriteTournamentRecordRequestTournamentRecordWrite extends NakamaAsyncResul
 		"subscore": {"name": "_subscore", "type": TYPE_STRING, "required": false},
 	}
 
-	### <summary>
-	### A JSON object of additional properties (optional).
-	### </summary>
+	# A JSON object of additional properties (optional).
 	var metadata : String setget , _get_metadata
 	var _metadata = null
 	func _get_metadata() -> String:
 		return "" if not _metadata is String else String(_metadata)
 
-	### <summary>
-	### The score value to submit.
-	### </summary>
+	# The score value to submit.
 	var score : String setget , _get_score
 	var _score = null
 	func _get_score() -> String:
 		return "" if not _score is String else String(_score)
 
-	### <summary>
-	### An optional secondary value.
-	### </summary>
+	# An optional secondary value.
 	var subscore : String setget , _get_subscore
 	var _subscore = null
 	func _get_subscore() -> String:
@@ -195,9 +167,7 @@ class WriteTournamentRecordRequestTournamentRecordWrite extends NakamaAsyncResul
 		output += "subscore: %s, " % _subscore
 		return output
 
-### <summary>
-### A user with additional account details. Always the current user.
-### </summary>
+# A user with additional account details. Always the current user.
 class ApiAccount extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -209,49 +179,37 @@ class ApiAccount extends NakamaAsyncResult:
 		"wallet": {"name": "_wallet", "type": TYPE_STRING, "required": false},
 	}
 
-	### <summary>
-	### The custom id in the user's account.
-	### </summary>
+	# The custom id in the user's account.
 	var custom_id : String setget , _get_custom_id
 	var _custom_id = null
 	func _get_custom_id() -> String:
 		return "" if not _custom_id is String else String(_custom_id)
 
-	### <summary>
-	### The devices which belong to the user's account.
-	### </summary>
+	# The devices which belong to the user's account.
 	var devices : Array setget , _get_devices
 	var _devices = null
 	func _get_devices() -> Array:
 		return Array() if not _devices is Array else Array(_devices)
 
-	### <summary>
-	### The email address of the user.
-	### </summary>
+	# The email address of the user.
 	var email : String setget , _get_email
 	var _email = null
 	func _get_email() -> String:
 		return "" if not _email is String else String(_email)
 
-	### <summary>
-	### The user object.
-	### </summary>
+	# The user object.
 	var user : ApiUser setget , _get_user
 	var _user = null
 	func _get_user() -> ApiUser:
 		return _user as ApiUser
 
-	### <summary>
-	### The UNIX time when the user's email was verified.
-	### </summary>
+	# The UNIX time when the user's email was verified.
 	var verify_time : String setget , _get_verify_time
 	var _verify_time = null
 	func _get_verify_time() -> String:
 		return "" if not _verify_time is String else String(_verify_time)
 
-	### <summary>
-	### The user's wallet data.
-	### </summary>
+	# The user's wallet data.
 	var wallet : String setget , _get_wallet
 	var _wallet = null
 	func _get_wallet() -> String:
@@ -278,9 +236,7 @@ class ApiAccount extends NakamaAsyncResult:
 		output += "wallet: %s, " % _wallet
 		return output
 
-### <summary>
-### Send a custom ID to the server. Used with authenticate/link/unlink.
-### </summary>
+# Send a custom ID to the server. Used with authenticate/link/unlink.
 class ApiAccountCustom extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -288,17 +244,13 @@ class ApiAccountCustom extends NakamaAsyncResult:
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false},
 	}
 
-	### <summary>
-	### A custom identifier.
-	### </summary>
+	# A custom identifier.
 	var id : String setget , _get_id
 	var _id = null
 	func _get_id() -> String:
 		return "" if not _id is String else String(_id)
 
-	### <summary>
-	### Extra information that will be bundled in the session token.
-	### </summary>
+	# Extra information that will be bundled in the session token.
 	var vars : Dictionary setget , _get_vars
 	var _vars = null
 	func _get_vars() -> Dictionary:
@@ -325,9 +277,7 @@ class ApiAccountCustom extends NakamaAsyncResult:
 		output += "vars: [%s], " % map_string
 		return output
 
-### <summary>
-### Send a device to the server. Used with authenticate/link/unlink and user.
-### </summary>
+# Send a device to the server. Used with authenticate/link/unlink and user.
 class ApiAccountDevice extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -335,17 +285,13 @@ class ApiAccountDevice extends NakamaAsyncResult:
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false},
 	}
 
-	### <summary>
-	### A device identifier. Should be obtained by a platform-specific device API.
-	### </summary>
+	# A device identifier. Should be obtained by a platform-specific device API.
 	var id : String setget , _get_id
 	var _id = null
 	func _get_id() -> String:
 		return "" if not _id is String else String(_id)
 
-	### <summary>
-	### Extra information that will be bundled in the session token.
-	### </summary>
+	# Extra information that will be bundled in the session token.
 	var vars : Dictionary setget , _get_vars
 	var _vars = null
 	func _get_vars() -> Dictionary:
@@ -372,9 +318,7 @@ class ApiAccountDevice extends NakamaAsyncResult:
 		output += "vars: [%s], " % map_string
 		return output
 
-### <summary>
-### Send an email with password to the server. Used with authenticate/link/unlink.
-### </summary>
+# Send an email with password to the server. Used with authenticate/link/unlink.
 class ApiAccountEmail extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -383,25 +327,19 @@ class ApiAccountEmail extends NakamaAsyncResult:
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false},
 	}
 
-	### <summary>
-	### A valid RFC-5322 email address.
-	### </summary>
+	# A valid RFC-5322 email address.
 	var email : String setget , _get_email
 	var _email = null
 	func _get_email() -> String:
 		return "" if not _email is String else String(_email)
 
-	### <summary>
-	### A password for the user account.
-	### </summary>
+	# A password for the user account.
 	var password : String setget , _get_password
 	var _password = null
 	func _get_password() -> String:
 		return "" if not _password is String else String(_password)
 
-	### <summary>
-	### Extra information that will be bundled in the session token.
-	### </summary>
+	# Extra information that will be bundled in the session token.
 	var vars : Dictionary setget , _get_vars
 	var _vars = null
 	func _get_vars() -> Dictionary:
@@ -429,9 +367,7 @@ class ApiAccountEmail extends NakamaAsyncResult:
 		output += "vars: [%s], " % map_string
 		return output
 
-### <summary>
-### Send a Facebook token to the server. Used with authenticate/link/unlink.
-### </summary>
+# Send a Facebook token to the server. Used with authenticate/link/unlink.
 class ApiAccountFacebook extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -439,17 +375,13 @@ class ApiAccountFacebook extends NakamaAsyncResult:
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false},
 	}
 
-	### <summary>
-	### The OAuth token received from Facebook to access their profile API.
-	### </summary>
+	# The OAuth token received from Facebook to access their profile API.
 	var token : String setget , _get_token
 	var _token = null
 	func _get_token() -> String:
 		return "" if not _token is String else String(_token)
 
-	### <summary>
-	### Extra information that will be bundled in the session token.
-	### </summary>
+	# Extra information that will be bundled in the session token.
 	var vars : Dictionary setget , _get_vars
 	var _vars = null
 	func _get_vars() -> Dictionary:
@@ -476,9 +408,48 @@ class ApiAccountFacebook extends NakamaAsyncResult:
 		output += "vars: [%s], " % map_string
 		return output
 
-### <summary>
-### Send Apple's Game Center account credentials to the server. Used with authenticate/link/unlink.
-### </summary>
+# Send a Facebook Instant Game token to the server. Used with authenticate/link/unlink.
+class ApiAccountFacebookInstantGame extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"signed_player_info": {"name": "_signed_player_info", "type": TYPE_STRING, "required": false},
+		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false},
+	}
+
+	# 
+	var signed_player_info : String setget , _get_signed_player_info
+	var _signed_player_info = null
+	func _get_signed_player_info() -> String:
+		return "" if not _signed_player_info is String else String(_signed_player_info)
+
+	# Extra information that will be bundled in the session token.
+	var vars : Dictionary setget , _get_vars
+	var _vars = null
+	func _get_vars() -> Dictionary:
+		return Dictionary() if not _vars is Dictionary else _vars.duplicate()
+
+	func _init(p_exception = null).(p_exception):
+		pass
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccountFacebookInstantGame:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccountFacebookInstantGame", p_dict), ApiAccountFacebookInstantGame) as ApiAccountFacebookInstantGame
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string() -> String:
+		if is_exception():
+			return get_exception()._to_string()
+		var output : String = ""
+		output += "signed_player_info: %s, " % _signed_player_info
+		var map_string : String = ""
+		if typeof(_vars) == TYPE_DICTIONARY:
+			for k in _vars:
+				map_string += "{%s=%s}, " % [k, _vars[k]]
+		output += "vars: [%s], " % map_string
+		return output
+
+# Send Apple's Game Center account credentials to the server. Used with authenticate/link/unlink.
 class ApiAccountGameCenter extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -491,57 +462,43 @@ class ApiAccountGameCenter extends NakamaAsyncResult:
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false},
 	}
 
-	### <summary>
-	### Bundle ID (generated by GameCenter).
-	### </summary>
+	# Bundle ID (generated by GameCenter).
 	var bundle_id : String setget , _get_bundle_id
 	var _bundle_id = null
 	func _get_bundle_id() -> String:
 		return "" if not _bundle_id is String else String(_bundle_id)
 
-	### <summary>
-	### Player ID (generated by GameCenter).
-	### </summary>
+	# Player ID (generated by GameCenter).
 	var player_id : String setget , _get_player_id
 	var _player_id = null
 	func _get_player_id() -> String:
 		return "" if not _player_id is String else String(_player_id)
 
-	### <summary>
-	### The URL for the public encryption key.
-	### </summary>
+	# The URL for the public encryption key.
 	var public_key_url : String setget , _get_public_key_url
 	var _public_key_url = null
 	func _get_public_key_url() -> String:
 		return "" if not _public_key_url is String else String(_public_key_url)
 
-	### <summary>
-	### A random "NSString" used to compute the hash and keep it randomized.
-	### </summary>
+	# A random `NSString` used to compute the hash and keep it randomized.
 	var salt : String setget , _get_salt
 	var _salt = null
 	func _get_salt() -> String:
 		return "" if not _salt is String else String(_salt)
 
-	### <summary>
-	### The verification signature data generated.
-	### </summary>
+	# The verification signature data generated.
 	var signature : String setget , _get_signature
 	var _signature = null
 	func _get_signature() -> String:
 		return "" if not _signature is String else String(_signature)
 
-	### <summary>
-	### Time since UNIX epoch when the signature was created.
-	### </summary>
+	# Time since UNIX epoch when the signature was created.
 	var timestamp_seconds : String setget , _get_timestamp_seconds
 	var _timestamp_seconds = null
 	func _get_timestamp_seconds() -> String:
 		return "" if not _timestamp_seconds is String else String(_timestamp_seconds)
 
-	### <summary>
-	### Extra information that will be bundled in the session token.
-	### </summary>
+	# Extra information that will be bundled in the session token.
 	var vars : Dictionary setget , _get_vars
 	var _vars = null
 	func _get_vars() -> Dictionary:
@@ -573,9 +530,7 @@ class ApiAccountGameCenter extends NakamaAsyncResult:
 		output += "vars: [%s], " % map_string
 		return output
 
-### <summary>
-### Send a Google token to the server. Used with authenticate/link/unlink.
-### </summary>
+# Send a Google token to the server. Used with authenticate/link/unlink.
 class ApiAccountGoogle extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -583,17 +538,13 @@ class ApiAccountGoogle extends NakamaAsyncResult:
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false},
 	}
 
-	### <summary>
-	### The OAuth token received from Google to access their profile API.
-	### </summary>
+	# The OAuth token received from Google to access their profile API.
 	var token : String setget , _get_token
 	var _token = null
 	func _get_token() -> String:
 		return "" if not _token is String else String(_token)
 
-	### <summary>
-	### Extra information that will be bundled in the session token.
-	### </summary>
+	# Extra information that will be bundled in the session token.
 	var vars : Dictionary setget , _get_vars
 	var _vars = null
 	func _get_vars() -> Dictionary:
@@ -620,9 +571,7 @@ class ApiAccountGoogle extends NakamaAsyncResult:
 		output += "vars: [%s], " % map_string
 		return output
 
-### <summary>
-### Send a Steam token to the server. Used with authenticate/link/unlink.
-### </summary>
+# Send a Steam token to the server. Used with authenticate/link/unlink.
 class ApiAccountSteam extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -630,17 +579,13 @@ class ApiAccountSteam extends NakamaAsyncResult:
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false},
 	}
 
-	### <summary>
-	### The account token received from Steam to access their profile API.
-	### </summary>
+	# The account token received from Steam to access their profile API.
 	var token : String setget , _get_token
 	var _token = null
 	func _get_token() -> String:
 		return "" if not _token is String else String(_token)
 
-	### <summary>
-	### Extra information that will be bundled in the session token.
-	### </summary>
+	# Extra information that will be bundled in the session token.
 	var vars : Dictionary setget , _get_vars
 	var _vars = null
 	func _get_vars() -> Dictionary:
@@ -667,9 +612,7 @@ class ApiAccountSteam extends NakamaAsyncResult:
 		output += "vars: [%s], " % map_string
 		return output
 
-### <summary>
-### A message sent on a channel.
-### </summary>
+# A message sent on a channel.
 class ApiChannelMessage extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -688,105 +631,79 @@ class ApiChannelMessage extends NakamaAsyncResult:
 		"username": {"name": "_username", "type": TYPE_STRING, "required": false},
 	}
 
-	### <summary>
-	### The channel this message belongs to.
-	### </summary>
+	# The channel this message belongs to.
 	var channel_id : String setget , _get_channel_id
 	var _channel_id = null
 	func _get_channel_id() -> String:
 		return "" if not _channel_id is String else String(_channel_id)
 
-	### <summary>
-	### The code representing a message type or category.
-	### </summary>
+	# The code representing a message type or category.
 	var code : int setget , _get_code
 	var _code = null
 	func _get_code() -> int:
 		return 0 if not _code is int else int(_code)
 
-	### <summary>
-	### The content payload.
-	### </summary>
+	# The content payload.
 	var content : String setget , _get_content
 	var _content = null
 	func _get_content() -> String:
 		return "" if not _content is String else String(_content)
 
-	### <summary>
-	### The UNIX time when the message was created.
-	### </summary>
+	# The UNIX time when the message was created.
 	var create_time : String setget , _get_create_time
 	var _create_time = null
 	func _get_create_time() -> String:
 		return "" if not _create_time is String else String(_create_time)
 
-	### <summary>
-	### The ID of the group, or an empty string if this message was not sent through a group channel.
-	### </summary>
+	# The ID of the group, or an empty string if this message was not sent through a group channel.
 	var group_id : String setget , _get_group_id
 	var _group_id = null
 	func _get_group_id() -> String:
 		return "" if not _group_id is String else String(_group_id)
 
-	### <summary>
-	### The unique ID of this message.
-	### </summary>
+	# The unique ID of this message.
 	var message_id : String setget , _get_message_id
 	var _message_id = null
 	func _get_message_id() -> String:
 		return "" if not _message_id is String else String(_message_id)
 
-	### <summary>
-	### True if the message was persisted to the channel's history, false otherwise.
-	### </summary>
+	# True if the message was persisted to the channel's history, false otherwise.
 	var persistent : bool setget , _get_persistent
 	var _persistent = null
 	func _get_persistent() -> bool:
 		return false if not _persistent is bool else bool(_persistent)
 
-	### <summary>
-	### The name of the chat room, or an empty string if this message was not sent through a chat room.
-	### </summary>
+	# The name of the chat room, or an empty string if this message was not sent through a chat room.
 	var room_name : String setget , _get_room_name
 	var _room_name = null
 	func _get_room_name() -> String:
 		return "" if not _room_name is String else String(_room_name)
 
-	### <summary>
-	### Message sender, usually a user ID.
-	### </summary>
+	# Message sender, usually a user ID.
 	var sender_id : String setget , _get_sender_id
 	var _sender_id = null
 	func _get_sender_id() -> String:
 		return "" if not _sender_id is String else String(_sender_id)
 
-	### <summary>
-	### The UNIX time when the message was last updated.
-	### </summary>
+	# The UNIX time when the message was last updated.
 	var update_time : String setget , _get_update_time
 	var _update_time = null
 	func _get_update_time() -> String:
 		return "" if not _update_time is String else String(_update_time)
 
-	### <summary>
-	### The ID of the first DM user, or an empty string if this message was not sent through a DM chat.
-	### </summary>
+	# The ID of the first DM user, or an empty string if this message was not sent through a DM chat.
 	var user_id_one : String setget , _get_user_id_one
 	var _user_id_one = null
 	func _get_user_id_one() -> String:
 		return "" if not _user_id_one is String else String(_user_id_one)
 
-	### <summary>
-	### The ID of the second DM user, or an empty string if this message was not sent through a DM chat.
-	### </summary>
+	# The ID of the second DM user, or an empty string if this message was not sent through a DM chat.
 	var user_id_two : String setget , _get_user_id_two
 	var _user_id_two = null
 	func _get_user_id_two() -> String:
 		return "" if not _user_id_two is String else String(_user_id_two)
 
-	### <summary>
-	### The username of the message sender, if any.
-	### </summary>
+	# The username of the message sender, if any.
 	var username : String setget , _get_username
 	var _username = null
 	func _get_username() -> String:
@@ -820,9 +737,7 @@ class ApiChannelMessage extends NakamaAsyncResult:
 		output += "username: %s, " % _username
 		return output
 
-### <summary>
-### A list of channel messages, usually a result of a list operation.
-### </summary>
+# A list of channel messages, usually a result of a list operation.
 class ApiChannelMessageList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -831,25 +746,19 @@ class ApiChannelMessageList extends NakamaAsyncResult:
 		"prev_cursor": {"name": "_prev_cursor", "type": TYPE_STRING, "required": false},
 	}
 
-	### <summary>
-	### A list of messages.
-	### </summary>
+	# A list of messages.
 	var messages : Array setget , _get_messages
 	var _messages = null
 	func _get_messages() -> Array:
 		return Array() if not _messages is Array else Array(_messages)
 
-	### <summary>
-	### The cursor to send when retireving the next page, if any.
-	### </summary>
+	# The cursor to send when retireving the next page, if any.
 	var next_cursor : String setget , _get_next_cursor
 	var _next_cursor = null
 	func _get_next_cursor() -> String:
 		return "" if not _next_cursor is String else String(_next_cursor)
 
-	### <summary>
-	### The cursor to send when retrieving the previous page, if any.
-	### </summary>
+	# The cursor to send when retrieving the previous page, if any.
 	var prev_cursor : String setget , _get_prev_cursor
 	var _prev_cursor = null
 	func _get_prev_cursor() -> String:
@@ -873,9 +782,7 @@ class ApiChannelMessageList extends NakamaAsyncResult:
 		output += "prev_cursor: %s, " % _prev_cursor
 		return output
 
-### <summary>
-### Create a group with the current user as owner.
-### </summary>
+# Create a group with the current user as owner.
 class ApiCreateGroupRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -887,49 +794,37 @@ class ApiCreateGroupRequest extends NakamaAsyncResult:
 		"open": {"name": "_open", "type": TYPE_BOOL, "required": false},
 	}
 
-	### <summary>
-	### A URL for an avatar image.
-	### </summary>
+	# A URL for an avatar image.
 	var avatar_url : String setget , _get_avatar_url
 	var _avatar_url = null
 	func _get_avatar_url() -> String:
 		return "" if not _avatar_url is String else String(_avatar_url)
 
-	### <summary>
-	### A description for the group.
-	### </summary>
+	# A description for the group.
 	var description : String setget , _get_description
 	var _description = null
 	func _get_description() -> String:
 		return "" if not _description is String else String(_description)
 
-	### <summary>
-	### The language expected to be a tag which follows the BCP-47 spec.
-	### </summary>
+	# The language expected to be a tag which follows the BCP-47 spec.
 	var lang_tag : String setget , _get_lang_tag
 	var _lang_tag = null
 	func _get_lang_tag() -> String:
 		return "" if not _lang_tag is String else String(_lang_tag)
 
-	### <summary>
-	### Maximum number of group members.
-	### </summary>
+	# Maximum number of group members.
 	var max_count : int setget , _get_max_count
 	var _max_count = null
 	func _get_max_count() -> int:
 		return 0 if not _max_count is int else int(_max_count)
 
-	### <summary>
-	### A unique name for the group.
-	### </summary>
+	# A unique name for the group.
 	var name : String setget , _get_name
 	var _name = null
 	func _get_name() -> String:
 		return "" if not _name is String else String(_name)
 
-	### <summary>
-	### Mark a group as open or not where only admins can accept members.
-	### </summary>
+	# Mark a group as open or not where only admins can accept members.
 	var open : bool setget , _get_open
 	var _open = null
 	func _get_open() -> bool:
@@ -956,9 +851,7 @@ class ApiCreateGroupRequest extends NakamaAsyncResult:
 		output += "open: %s, " % _open
 		return output
 
-### <summary>
-### Storage objects to delete.
-### </summary>
+# Storage objects to delete.
 class ApiDeleteStorageObjectId extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -967,25 +860,19 @@ class ApiDeleteStorageObjectId extends NakamaAsyncResult:
 		"version": {"name": "_version", "type": TYPE_STRING, "required": false},
 	}
 
-	### <summary>
-	### The collection which stores the object.
-	### </summary>
+	# The collection which stores the object.
 	var collection : String setget , _get_collection
 	var _collection = null
 	func _get_collection() -> String:
 		return "" if not _collection is String else String(_collection)
 
-	### <summary>
-	### The key of the object within the collection.
-	### </summary>
+	# The key of the object within the collection.
 	var key : String setget , _get_key
 	var _key = null
 	func _get_key() -> String:
 		return "" if not _key is String else String(_key)
 
-	### <summary>
-	### The version hash of the object.
-	### </summary>
+	# The version hash of the object.
 	var version : String setget , _get_version
 	var _version = null
 	func _get_version() -> String:
@@ -1009,18 +896,14 @@ class ApiDeleteStorageObjectId extends NakamaAsyncResult:
 		output += "version: %s, " % _version
 		return output
 
-### <summary>
-### Batch delete storage objects.
-### </summary>
+# Batch delete storage objects.
 class ApiDeleteStorageObjectsRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"object_ids": {"name": "_object_ids", "type": TYPE_ARRAY, "required": false, "content": "ApiDeleteStorageObjectId"},
 	}
 
-	### <summary>
-	### Batch of storage objects.
-	### </summary>
+	# Batch of storage objects.
 	var object_ids : Array setget , _get_object_ids
 	var _object_ids = null
 	func _get_object_ids() -> Array:
@@ -1042,9 +925,7 @@ class ApiDeleteStorageObjectsRequest extends NakamaAsyncResult:
 		output += "object_ids: %s, " % [_object_ids]
 		return output
 
-### <summary>
-### Represents an event to be passed through the server to registered event handlers.
-### </summary>
+# Represents an event to be passed through the server to registered event handlers.
 class ApiEvent extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1054,33 +935,25 @@ class ApiEvent extends NakamaAsyncResult:
 		"timestamp": {"name": "_timestamp", "type": TYPE_STRING, "required": false},
 	}
 
-	### <summary>
-	### True if the event came directly from a client call, false otherwise.
-	### </summary>
+	# True if the event came directly from a client call, false otherwise.
 	var external : bool setget , _get_external
 	var _external = null
 	func _get_external() -> bool:
 		return false if not _external is bool else bool(_external)
 
-	### <summary>
-	### An event name, type, category, or identifier.
-	### </summary>
+	# An event name, type, category, or identifier.
 	var name : String setget , _get_name
 	var _name = null
 	func _get_name() -> String:
 		return "" if not _name is String else String(_name)
 
-	### <summary>
-	### Arbitrary event property values.
-	### </summary>
+	# Arbitrary event property values.
 	var properties : Dictionary setget , _get_properties
 	var _properties = null
 	func _get_properties() -> Dictionary:
 		return Dictionary() if not _properties is Dictionary else _properties.duplicate()
 
-	### <summary>
-	### The time when the event was triggered.
-	### </summary>
+	# The time when the event was triggered.
 	var timestamp : String setget , _get_timestamp
 	var _timestamp = null
 	func _get_timestamp() -> String:
@@ -1109,9 +982,7 @@ class ApiEvent extends NakamaAsyncResult:
 		output += "timestamp: %s, " % _timestamp
 		return output
 
-### <summary>
-### A friend of a user.
-### </summary>
+# A friend of a user.
 class ApiFriend extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1119,17 +990,13 @@ class ApiFriend extends NakamaAsyncResult:
 		"user": {"name": "_user", "type": "ApiUser", "required": false},
 	}
 
-	### <summary>
-	### The friend status.
-	### </summary>
+	# The friend status.
 	var state : int setget , _get_state
 	var _state = null
 	func _get_state() -> int:
 		return 0 if not _state is int else int(_state)
 
-	### <summary>
-	### The user object.
-	### </summary>
+	# The user object.
 	var user : ApiUser setget , _get_user
 	var _user = null
 	func _get_user() -> ApiUser:
@@ -1152,9 +1019,7 @@ class ApiFriend extends NakamaAsyncResult:
 		output += "user: %s, " % _user
 		return output
 
-### <summary>
-### A collection of zero or more friends of the user.
-### </summary>
+# A collection of zero or more friends of the user.
 class ApiFriendList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1162,17 +1027,13 @@ class ApiFriendList extends NakamaAsyncResult:
 		"friends": {"name": "_friends", "type": TYPE_ARRAY, "required": false, "content": "ApiFriend"},
 	}
 
-	### <summary>
-	### Cursor for the next page of results, if any.
-	### </summary>
+	# Cursor for the next page of results, if any.
 	var cursor : String setget , _get_cursor
 	var _cursor = null
 	func _get_cursor() -> String:
 		return "" if not _cursor is String else String(_cursor)
 
-	### <summary>
-	### The Friend objects.
-	### </summary>
+	# The Friend objects.
 	var friends : Array setget , _get_friends
 	var _friends = null
 	func _get_friends() -> Array:
@@ -1195,9 +1056,7 @@ class ApiFriendList extends NakamaAsyncResult:
 		output += "friends: %s, " % [_friends]
 		return output
 
-### <summary>
-### A group in the server.
-### </summary>
+# A group in the server.
 class ApiGroup extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1215,97 +1074,73 @@ class ApiGroup extends NakamaAsyncResult:
 		"update_time": {"name": "_update_time", "type": TYPE_STRING, "required": false},
 	}
 
-	### <summary>
-	### A URL for an avatar image.
-	### </summary>
+	# A URL for an avatar image.
 	var avatar_url : String setget , _get_avatar_url
 	var _avatar_url = null
 	func _get_avatar_url() -> String:
 		return "" if not _avatar_url is String else String(_avatar_url)
 
-	### <summary>
-	### The UNIX time when the group was created.
-	### </summary>
+	# The UNIX time when the group was created.
 	var create_time : String setget , _get_create_time
 	var _create_time = null
 	func _get_create_time() -> String:
 		return "" if not _create_time is String else String(_create_time)
 
-	### <summary>
-	### The id of the user who created the group.
-	### </summary>
+	# The id of the user who created the group.
 	var creator_id : String setget , _get_creator_id
 	var _creator_id = null
 	func _get_creator_id() -> String:
 		return "" if not _creator_id is String else String(_creator_id)
 
-	### <summary>
-	### A description for the group.
-	### </summary>
+	# A description for the group.
 	var description : String setget , _get_description
 	var _description = null
 	func _get_description() -> String:
 		return "" if not _description is String else String(_description)
 
-	### <summary>
-	### The current count of all members in the group.
-	### </summary>
+	# The current count of all members in the group.
 	var edge_count : int setget , _get_edge_count
 	var _edge_count = null
 	func _get_edge_count() -> int:
 		return 0 if not _edge_count is int else int(_edge_count)
 
-	### <summary>
-	### The id of a group.
-	### </summary>
+	# The id of a group.
 	var id : String setget , _get_id
 	var _id = null
 	func _get_id() -> String:
 		return "" if not _id is String else String(_id)
 
-	### <summary>
-	### The language expected to be a tag which follows the BCP-47 spec.
-	### </summary>
+	# The language expected to be a tag which follows the BCP-47 spec.
 	var lang_tag : String setget , _get_lang_tag
 	var _lang_tag = null
 	func _get_lang_tag() -> String:
 		return "" if not _lang_tag is String else String(_lang_tag)
 
-	### <summary>
-	### The maximum number of members allowed.
-	### </summary>
+	# The maximum number of members allowed.
 	var max_count : int setget , _get_max_count
 	var _max_count = null
 	func _get_max_count() -> int:
 		return 0 if not _max_count is int else int(_max_count)
 
-	### <summary>
-	### Additional information stored as a JSON object.
-	### </summary>
+	# Additional information stored as a JSON object.
 	var metadata : String setget , _get_metadata
 	var _metadata = null
 	func _get_metadata() -> String:
 		return "" if not _metadata is String else String(_metadata)
 
-	### <summary>
-	### The unique name of the group.
-	### </summary>
+	# The unique name of the group.
 	var name : String setget , _get_name
 	var _name = null
 	func _get_name() -> String:
 		return "" if not _name is String else String(_name)
 
-	### <summary>
-	### Anyone can join open groups, otherwise only admins can accept members.
-	### </summary>
+	# Anyone can join open groups, otherwise only admins can accept members.
 	var open : bool setget , _get_open
 	var _open = null
 	func _get_open() -> bool:
 		return false if not _open is bool else bool(_open)
 
-	### <summary>
-	### The UNIX time when the group was last updated.
-	### </summary>
+	# The UNIX time when the group was last updated.
 	var update_time : String setget , _get_update_time
 	var _update_time = null
 	func _get_update_time() -> String:
@@ -1338,9 +1173,7 @@ class ApiGroup extends NakamaAsyncResult:
 		output += "update_time: %s, " % _update_time
 		return output
 
-### <summary>
-### One or more groups returned from a listing operation.
-### </summary>
+# One or more groups returned from a listing operation.
 class ApiGroupList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1348,17 +1181,13 @@ class ApiGroupList extends NakamaAsyncResult:
 		"groups": {"name": "_groups", "type": TYPE_ARRAY, "required": false, "content": "ApiGroup"},
 	}
 
-	### <summary>
-	### A cursor used to get the next page.
-	### </summary>
+	# A cursor used to get the next page.
 	var cursor : String setget , _get_cursor
 	var _cursor = null
 	func _get_cursor() -> String:
 		return "" if not _cursor is String else String(_cursor)
 
-	### <summary>
-	### One or more groups.
-	### </summary>
+	# One or more groups.
 	var groups : Array setget , _get_groups
 	var _groups = null
 	func _get_groups() -> Array:
@@ -1381,9 +1210,7 @@ class ApiGroupList extends NakamaAsyncResult:
 		output += "groups: %s, " % [_groups]
 		return output
 
-### <summary>
-### A list of users belonging to a group, along with their role.
-### </summary>
+# A list of users belonging to a group, along with their role.
 class ApiGroupUserList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1391,17 +1218,13 @@ class ApiGroupUserList extends NakamaAsyncResult:
 		"group_users": {"name": "_group_users", "type": TYPE_ARRAY, "required": false, "content": "GroupUserListGroupUser"},
 	}
 
-	### <summary>
-	### Cursor for the next page of results, if any.
-	### </summary>
+	# Cursor for the next page of results, if any.
 	var cursor : String setget , _get_cursor
 	var _cursor = null
 	func _get_cursor() -> String:
 		return "" if not _cursor is String else String(_cursor)
 
-	### <summary>
-	### User-role pairs for a group.
-	### </summary>
+	# User-role pairs for a group.
 	var group_users : Array setget , _get_group_users
 	var _group_users = null
 	func _get_group_users() -> Array:
@@ -1424,9 +1247,7 @@ class ApiGroupUserList extends NakamaAsyncResult:
 		output += "group_users: %s, " % [_group_users]
 		return output
 
-### <summary>
-### Represents a complete leaderboard record with all scores and associated metadata.
-### </summary>
+# Represents a complete leaderboard record with all scores and associated metadata.
 class ApiLeaderboardRecord extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1444,97 +1265,73 @@ class ApiLeaderboardRecord extends NakamaAsyncResult:
 		"username": {"name": "_username", "type": TYPE_STRING, "required": false},
 	}
 
-	### <summary>
-	### The UNIX time when the leaderboard record was created.
-	### </summary>
+	# The UNIX time when the leaderboard record was created.
 	var create_time : String setget , _get_create_time
 	var _create_time = null
 	func _get_create_time() -> String:
 		return "" if not _create_time is String else String(_create_time)
 
-	### <summary>
-	### The UNIX time when the leaderboard record expires.
-	### </summary>
+	# The UNIX time when the leaderboard record expires.
 	var expiry_time : String setget , _get_expiry_time
 	var _expiry_time = null
 	func _get_expiry_time() -> String:
 		return "" if not _expiry_time is String else String(_expiry_time)
 
-	### <summary>
-	### The ID of the leaderboard this score belongs to.
-	### </summary>
+	# The ID of the leaderboard this score belongs to.
 	var leaderboard_id : String setget , _get_leaderboard_id
 	var _leaderboard_id = null
 	func _get_leaderboard_id() -> String:
 		return "" if not _leaderboard_id is String else String(_leaderboard_id)
 
-	### <summary>
-	### The maximum number of score updates allowed by the owner.
-	### </summary>
+	# The maximum number of score updates allowed by the owner.
 	var max_num_score : int setget , _get_max_num_score
 	var _max_num_score = null
 	func _get_max_num_score() -> int:
 		return 0 if not _max_num_score is int else int(_max_num_score)
 
-	### <summary>
-	### Metadata.
-	### </summary>
+	# Metadata.
 	var metadata : String setget , _get_metadata
 	var _metadata = null
 	func _get_metadata() -> String:
 		return "" if not _metadata is String else String(_metadata)
 
-	### <summary>
-	### The number of submissions to this score record.
-	### </summary>
+	# The number of submissions to this score record.
 	var num_score : int setget , _get_num_score
 	var _num_score = null
 	func _get_num_score() -> int:
 		return 0 if not _num_score is int else int(_num_score)
 
-	### <summary>
-	### The ID of the score owner, usually a user or group.
-	### </summary>
+	# The ID of the score owner, usually a user or group.
 	var owner_id : String setget , _get_owner_id
 	var _owner_id = null
 	func _get_owner_id() -> String:
 		return "" if not _owner_id is String else String(_owner_id)
 
-	### <summary>
-	### The rank of this record.
-	### </summary>
+	# The rank of this record.
 	var rank : String setget , _get_rank
 	var _rank = null
 	func _get_rank() -> String:
 		return "" if not _rank is String else String(_rank)
 
-	### <summary>
-	### The score value.
-	### </summary>
+	# The score value.
 	var score : String setget , _get_score
 	var _score = null
 	func _get_score() -> String:
 		return "" if not _score is String else String(_score)
 
-	### <summary>
-	### An optional subscore value.
-	### </summary>
+	# An optional subscore value.
 	var subscore : String setget , _get_subscore
 	var _subscore = null
 	func _get_subscore() -> String:
 		return "" if not _subscore is String else String(_subscore)
 
-	### <summary>
-	### The UNIX time when the leaderboard record was updated.
-	### </summary>
+	# The UNIX time when the leaderboard record was updated.
 	var update_time : String setget , _get_update_time
 	var _update_time = null
 	func _get_update_time() -> String:
 		return "" if not _update_time is String else String(_update_time)
 
-	### <summary>
-	### The username of the score owner, if the owner is a user.
-	### </summary>
+	# The username of the score owner, if the owner is a user.
 	var username : String setget , _get_username
 	var _username = null
 	func _get_username() -> String:
@@ -1567,9 +1364,7 @@ class ApiLeaderboardRecord extends NakamaAsyncResult:
 		output += "username: %s, " % _username
 		return output
 
-### <summary>
-### A set of leaderboard records, may be part of a leaderboard records page or a batch of individual records.
-### </summary>
+# A set of leaderboard records, may be part of a leaderboard records page or a batch of individual records.
 class ApiLeaderboardRecordList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1579,33 +1374,25 @@ class ApiLeaderboardRecordList extends NakamaAsyncResult:
 		"records": {"name": "_records", "type": TYPE_ARRAY, "required": false, "content": "ApiLeaderboardRecord"},
 	}
 
-	### <summary>
-	### The cursor to send when retrieving the next page, if any.
-	### </summary>
+	# The cursor to send when retrieving the next page, if any.
 	var next_cursor : String setget , _get_next_cursor
 	var _next_cursor = null
 	func _get_next_cursor() -> String:
 		return "" if not _next_cursor is String else String(_next_cursor)
 
-	### <summary>
-	### A batched set of leaderboard records belonging to specified owners.
-	### </summary>
+	# A batched set of leaderboard records belonging to specified owners.
 	var owner_records : Array setget , _get_owner_records
 	var _owner_records = null
 	func _get_owner_records() -> Array:
 		return Array() if not _owner_records is Array else Array(_owner_records)
 
-	### <summary>
-	### The cursor to send when retrieving the previous page, if any.
-	### </summary>
+	# The cursor to send when retrieving the previous page, if any.
 	var prev_cursor : String setget , _get_prev_cursor
 	var _prev_cursor = null
 	func _get_prev_cursor() -> String:
 		return "" if not _prev_cursor is String else String(_prev_cursor)
 
-	### <summary>
-	### A list of leaderboard records.
-	### </summary>
+	# A list of leaderboard records.
 	var records : Array setget , _get_records
 	var _records = null
 	func _get_records() -> Array:
@@ -1630,9 +1417,7 @@ class ApiLeaderboardRecordList extends NakamaAsyncResult:
 		output += "records: %s, " % [_records]
 		return output
 
-### <summary>
-### Represents a realtime match.
-### </summary>
+# Represents a realtime match.
 class ApiMatch extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1642,33 +1427,25 @@ class ApiMatch extends NakamaAsyncResult:
 		"size": {"name": "_size", "type": TYPE_INT, "required": false},
 	}
 
-	### <summary>
-	### True if it's an server-managed authoritative match, false otherwise.
-	### </summary>
+	# True if it's an server-managed authoritative match, false otherwise.
 	var authoritative : bool setget , _get_authoritative
 	var _authoritative = null
 	func _get_authoritative() -> bool:
 		return false if not _authoritative is bool else bool(_authoritative)
 
-	### <summary>
-	### Match label, if any.
-	### </summary>
+	# Match label, if any.
 	var label : String setget , _get_label
 	var _label = null
 	func _get_label() -> String:
 		return "" if not _label is String else String(_label)
 
-	### <summary>
-	### The ID of the match, can be used to join.
-	### </summary>
+	# The ID of the match, can be used to join.
 	var match_id : String setget , _get_match_id
 	var _match_id = null
 	func _get_match_id() -> String:
 		return "" if not _match_id is String else String(_match_id)
 
-	### <summary>
-	### Current number of users in the match.
-	### </summary>
+	# Current number of users in the match.
 	var size : int setget , _get_size
 	var _size = null
 	func _get_size() -> int:
@@ -1693,18 +1470,14 @@ class ApiMatch extends NakamaAsyncResult:
 		output += "size: %s, " % _size
 		return output
 
-### <summary>
-### A list of realtime matches.
-### </summary>
+# A list of realtime matches.
 class ApiMatchList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"matches": {"name": "_matches", "type": TYPE_ARRAY, "required": false, "content": "ApiMatch"},
 	}
 
-	### <summary>
-	### A number of matches corresponding to a list operation.
-	### </summary>
+	# A number of matches corresponding to a list operation.
 	var matches : Array setget , _get_matches
 	var _matches = null
 	func _get_matches() -> Array:
@@ -1726,9 +1499,7 @@ class ApiMatchList extends NakamaAsyncResult:
 		output += "matches: %s, " % [_matches]
 		return output
 
-### <summary>
-### A notification in the server.
-### </summary>
+# A notification in the server.
 class ApiNotification extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1741,57 +1512,43 @@ class ApiNotification extends NakamaAsyncResult:
 		"subject": {"name": "_subject", "type": TYPE_STRING, "required": false},
 	}
 
-	### <summary>
-	### Category code for this notification.
-	### </summary>
+	# Category code for this notification.
 	var code : int setget , _get_code
 	var _code = null
 	func _get_code() -> int:
 		return 0 if not _code is int else int(_code)
 
-	### <summary>
-	### Content of the notification in JSON.
-	### </summary>
+	# Content of the notification in JSON.
 	var content : String setget , _get_content
 	var _content = null
 	func _get_content() -> String:
 		return "" if not _content is String else String(_content)
 
-	### <summary>
-	### The UNIX time when the notification was created.
-	### </summary>
+	# The UNIX time when the notification was created.
 	var create_time : String setget , _get_create_time
 	var _create_time = null
 	func _get_create_time() -> String:
 		return "" if not _create_time is String else String(_create_time)
 
-	### <summary>
-	### ID of the Notification.
-	### </summary>
+	# ID of the Notification.
 	var id : String setget , _get_id
 	var _id = null
 	func _get_id() -> String:
 		return "" if not _id is String else String(_id)
 
-	### <summary>
-	### True if this notification was persisted to the database.
-	### </summary>
+	# True if this notification was persisted to the database.
 	var persistent : bool setget , _get_persistent
 	var _persistent = null
 	func _get_persistent() -> bool:
 		return false if not _persistent is bool else bool(_persistent)
 
-	### <summary>
-	### ID of the sender, if a user. Otherwise 'null'.
-	### </summary>
+	# ID of the sender, if a user. Otherwise `null`.
 	var sender_id : String setget , _get_sender_id
 	var _sender_id = null
 	func _get_sender_id() -> String:
 		return "" if not _sender_id is String else String(_sender_id)
 
-	### <summary>
-	### Subject of the notification.
-	### </summary>
+	# Subject of the notification.
 	var subject : String setget , _get_subject
 	var _subject = null
 	func _get_subject() -> String:
@@ -1819,9 +1576,7 @@ class ApiNotification extends NakamaAsyncResult:
 		output += "subject: %s, " % _subject
 		return output
 
-### <summary>
-### A collection of zero or more notifications.
-### </summary>
+# A collection of zero or more notifications.
 class ApiNotificationList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1829,17 +1584,13 @@ class ApiNotificationList extends NakamaAsyncResult:
 		"notifications": {"name": "_notifications", "type": TYPE_ARRAY, "required": false, "content": "ApiNotification"},
 	}
 
-	### <summary>
-	### Use this cursor to paginate notifications. Cache this to catch up to new notifications.
-	### </summary>
+	# Use this cursor to paginate notifications. Cache this to catch up to new notifications.
 	var cacheable_cursor : String setget , _get_cacheable_cursor
 	var _cacheable_cursor = null
 	func _get_cacheable_cursor() -> String:
 		return "" if not _cacheable_cursor is String else String(_cacheable_cursor)
 
-	### <summary>
-	### Collection of notifications.
-	### </summary>
+	# Collection of notifications.
 	var notifications : Array setget , _get_notifications
 	var _notifications = null
 	func _get_notifications() -> Array:
@@ -1862,9 +1613,7 @@ class ApiNotificationList extends NakamaAsyncResult:
 		output += "notifications: %s, " % [_notifications]
 		return output
 
-### <summary>
-### Storage objects to get.
-### </summary>
+# Storage objects to get.
 class ApiReadStorageObjectId extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1873,25 +1622,19 @@ class ApiReadStorageObjectId extends NakamaAsyncResult:
 		"user_id": {"name": "_user_id", "type": TYPE_STRING, "required": false},
 	}
 
-	### <summary>
-	### The collection which stores the object.
-	### </summary>
+	# The collection which stores the object.
 	var collection : String setget , _get_collection
 	var _collection = null
 	func _get_collection() -> String:
 		return "" if not _collection is String else String(_collection)
 
-	### <summary>
-	### The key of the object within the collection.
-	### </summary>
+	# The key of the object within the collection.
 	var key : String setget , _get_key
 	var _key = null
 	func _get_key() -> String:
 		return "" if not _key is String else String(_key)
 
-	### <summary>
-	### The user owner of the object.
-	### </summary>
+	# The user owner of the object.
 	var user_id : String setget , _get_user_id
 	var _user_id = null
 	func _get_user_id() -> String:
@@ -1915,18 +1658,14 @@ class ApiReadStorageObjectId extends NakamaAsyncResult:
 		output += "user_id: %s, " % _user_id
 		return output
 
-### <summary>
-### Batch get storage objects.
-### </summary>
+# Batch get storage objects.
 class ApiReadStorageObjectsRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"object_ids": {"name": "_object_ids", "type": TYPE_ARRAY, "required": false, "content": "ApiReadStorageObjectId"},
 	}
 
-	### <summary>
-	### Batch of storage objects.
-	### </summary>
+	# Batch of storage objects.
 	var object_ids : Array setget , _get_object_ids
 	var _object_ids = null
 	func _get_object_ids() -> Array:
@@ -1948,9 +1687,7 @@ class ApiReadStorageObjectsRequest extends NakamaAsyncResult:
 		output += "object_ids: %s, " % [_object_ids]
 		return output
 
-### <summary>
-### Execute an Lua function on the server.
-### </summary>
+# Execute an Lua function on the server.
 class ApiRpc extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1959,25 +1696,19 @@ class ApiRpc extends NakamaAsyncResult:
 		"payload": {"name": "_payload", "type": TYPE_STRING, "required": false},
 	}
 
-	### <summary>
-	### The authentication key used when executed as a non-client HTTP request.
-	### </summary>
+	# The authentication key used when executed as a non-client HTTP request.
 	var http_key : String setget , _get_http_key
 	var _http_key = null
 	func _get_http_key() -> String:
 		return "" if not _http_key is String else String(_http_key)
 
-	### <summary>
-	### The identifier of the function.
-	### </summary>
+	# The identifier of the function.
 	var id : String setget , _get_id
 	var _id = null
 	func _get_id() -> String:
 		return "" if not _id is String else String(_id)
 
-	### <summary>
-	### The payload of the function which must be a JSON object.
-	### </summary>
+	# The payload of the function which must be a JSON object.
 	var payload : String setget , _get_payload
 	var _payload = null
 	func _get_payload() -> String:
@@ -2001,9 +1732,7 @@ class ApiRpc extends NakamaAsyncResult:
 		output += "payload: %s, " % _payload
 		return output
 
-### <summary>
-### A user's session used to authenticate messages.
-### </summary>
+# A user's session used to authenticate messages.
 class ApiSession extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2011,17 +1740,13 @@ class ApiSession extends NakamaAsyncResult:
 		"token": {"name": "_token", "type": TYPE_STRING, "required": false},
 	}
 
-	### <summary>
-	### True if the corresponding account was just created, false otherwise.
-	### </summary>
+	# True if the corresponding account was just created, false otherwise.
 	var created : bool setget , _get_created
 	var _created = null
 	func _get_created() -> bool:
 		return false if not _created is bool else bool(_created)
 
-	### <summary>
-	### Authentication credentials.
-	### </summary>
+	# Authentication credentials.
 	var token : String setget , _get_token
 	var _token = null
 	func _get_token() -> String:
@@ -2044,9 +1769,7 @@ class ApiSession extends NakamaAsyncResult:
 		output += "token: %s, " % _token
 		return output
 
-### <summary>
-### An object within the storage engine.
-### </summary>
+# An object within the storage engine.
 class ApiStorageObject extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2061,73 +1784,55 @@ class ApiStorageObject extends NakamaAsyncResult:
 		"version": {"name": "_version", "type": TYPE_STRING, "required": false},
 	}
 
-	### <summary>
-	### The collection which stores the object.
-	### </summary>
+	# The collection which stores the object.
 	var collection : String setget , _get_collection
 	var _collection = null
 	func _get_collection() -> String:
 		return "" if not _collection is String else String(_collection)
 
-	### <summary>
-	### The UNIX time when the object was created.
-	### </summary>
+	# The UNIX time when the object was created.
 	var create_time : String setget , _get_create_time
 	var _create_time = null
 	func _get_create_time() -> String:
 		return "" if not _create_time is String else String(_create_time)
 
-	### <summary>
-	### The key of the object within the collection.
-	### </summary>
+	# The key of the object within the collection.
 	var key : String setget , _get_key
 	var _key = null
 	func _get_key() -> String:
 		return "" if not _key is String else String(_key)
 
-	### <summary>
-	### The read access permissions for the object.
-	### </summary>
+	# The read access permissions for the object.
 	var permission_read : int setget , _get_permission_read
 	var _permission_read = null
 	func _get_permission_read() -> int:
 		return 0 if not _permission_read is int else int(_permission_read)
 
-	### <summary>
-	### The write access permissions for the object.
-	### </summary>
+	# The write access permissions for the object.
 	var permission_write : int setget , _get_permission_write
 	var _permission_write = null
 	func _get_permission_write() -> int:
 		return 0 if not _permission_write is int else int(_permission_write)
 
-	### <summary>
-	### The UNIX time when the object was last updated.
-	### </summary>
+	# The UNIX time when the object was last updated.
 	var update_time : String setget , _get_update_time
 	var _update_time = null
 	func _get_update_time() -> String:
 		return "" if not _update_time is String else String(_update_time)
 
-	### <summary>
-	### The user owner of the object.
-	### </summary>
+	# The user owner of the object.
 	var user_id : String setget , _get_user_id
 	var _user_id = null
 	func _get_user_id() -> String:
 		return "" if not _user_id is String else String(_user_id)
 
-	### <summary>
-	### The value of the object.
-	### </summary>
+	# The value of the object.
 	var value : String setget , _get_value
 	var _value = null
 	func _get_value() -> String:
 		return "" if not _value is String else String(_value)
 
-	### <summary>
-	### The version hash of the object.
-	### </summary>
+	# The version hash of the object.
 	var version : String setget , _get_version
 	var _version = null
 	func _get_version() -> String:
@@ -2157,9 +1862,7 @@ class ApiStorageObject extends NakamaAsyncResult:
 		output += "version: %s, " % _version
 		return output
 
-### <summary>
-### A storage acknowledgement.
-### </summary>
+# A storage acknowledgement.
 class ApiStorageObjectAck extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2169,33 +1872,25 @@ class ApiStorageObjectAck extends NakamaAsyncResult:
 		"version": {"name": "_version", "type": TYPE_STRING, "required": false},
 	}
 
-	### <summary>
-	### The collection which stores the object.
-	### </summary>
+	# The collection which stores the object.
 	var collection : String setget , _get_collection
 	var _collection = null
 	func _get_collection() -> String:
 		return "" if not _collection is String else String(_collection)
 
-	### <summary>
-	### The key of the object within the collection.
-	### </summary>
+	# The key of the object within the collection.
 	var key : String setget , _get_key
 	var _key = null
 	func _get_key() -> String:
 		return "" if not _key is String else String(_key)
 
-	### <summary>
-	### The owner of the object.
-	### </summary>
+	# The owner of the object.
 	var user_id : String setget , _get_user_id
 	var _user_id = null
 	func _get_user_id() -> String:
 		return "" if not _user_id is String else String(_user_id)
 
-	### <summary>
-	### The version hash of the object.
-	### </summary>
+	# The version hash of the object.
 	var version : String setget , _get_version
 	var _version = null
 	func _get_version() -> String:
@@ -2220,18 +1915,14 @@ class ApiStorageObjectAck extends NakamaAsyncResult:
 		output += "version: %s, " % _version
 		return output
 
-### <summary>
-### Batch of acknowledgements for the storage object write.
-### </summary>
+# Batch of acknowledgements for the storage object write.
 class ApiStorageObjectAcks extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"acks": {"name": "_acks", "type": TYPE_ARRAY, "required": false, "content": "ApiStorageObjectAck"},
 	}
 
-	### <summary>
-	### Batch of storage write acknowledgements.
-	### </summary>
+	# Batch of storage write acknowledgements.
 	var acks : Array setget , _get_acks
 	var _acks = null
 	func _get_acks() -> Array:
@@ -2253,9 +1944,7 @@ class ApiStorageObjectAcks extends NakamaAsyncResult:
 		output += "acks: %s, " % [_acks]
 		return output
 
-### <summary>
-### List of storage objects.
-### </summary>
+# List of storage objects.
 class ApiStorageObjectList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2263,17 +1952,13 @@ class ApiStorageObjectList extends NakamaAsyncResult:
 		"objects": {"name": "_objects", "type": TYPE_ARRAY, "required": false, "content": "ApiStorageObject"},
 	}
 
-	### <summary>
-	### The cursor for the next page of results, if any.
-	### </summary>
+	# The cursor for the next page of results, if any.
 	var cursor : String setget , _get_cursor
 	var _cursor = null
 	func _get_cursor() -> String:
 		return "" if not _cursor is String else String(_cursor)
 
-	### <summary>
-	### The list of storage objects.
-	### </summary>
+	# The list of storage objects.
 	var objects : Array setget , _get_objects
 	var _objects = null
 	func _get_objects() -> Array:
@@ -2296,18 +1981,14 @@ class ApiStorageObjectList extends NakamaAsyncResult:
 		output += "objects: %s, " % [_objects]
 		return output
 
-### <summary>
-### Batch of storage objects.
-### </summary>
+# Batch of storage objects.
 class ApiStorageObjects extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"objects": {"name": "_objects", "type": TYPE_ARRAY, "required": false, "content": "ApiStorageObject"},
 	}
 
-	### <summary>
-	### The batch of storage objects.
-	### </summary>
+	# The batch of storage objects.
 	var objects : Array setget , _get_objects
 	var _objects = null
 	func _get_objects() -> Array:
@@ -2329,9 +2010,7 @@ class ApiStorageObjects extends NakamaAsyncResult:
 		output += "objects: %s, " % [_objects]
 		return output
 
-### <summary>
-### A tournament on the server.
-### </summary>
+# A tournament on the server.
 class ApiTournament extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2354,137 +2033,103 @@ class ApiTournament extends NakamaAsyncResult:
 		"title": {"name": "_title", "type": TYPE_STRING, "required": false},
 	}
 
-	### <summary>
-	### True if the tournament is active and can enter. A computed value.
-	### </summary>
+	# True if the tournament is active and can enter. A computed value.
 	var can_enter : bool setget , _get_can_enter
 	var _can_enter = null
 	func _get_can_enter() -> bool:
 		return false if not _can_enter is bool else bool(_can_enter)
 
-	### <summary>
-	### The category of the tournament. e.g. "vip" could be category 1.
-	### </summary>
+	# The category of the tournament. e.g. "vip" could be category 1.
 	var category : int setget , _get_category
 	var _category = null
 	func _get_category() -> int:
 		return 0 if not _category is int else int(_category)
 
-	### <summary>
-	### The UNIX time when the tournament was created.
-	### </summary>
+	# The UNIX time when the tournament was created.
 	var create_time : String setget , _get_create_time
 	var _create_time = null
 	func _get_create_time() -> String:
 		return "" if not _create_time is String else String(_create_time)
 
-	### <summary>
-	### The description of the tournament. May be blank.
-	### </summary>
+	# The description of the tournament. May be blank.
 	var description : String setget , _get_description
 	var _description = null
 	func _get_description() -> String:
 		return "" if not _description is String else String(_description)
 
-	### <summary>
-	### Duration of the tournament in seconds.
-	### </summary>
+	# Duration of the tournament in seconds.
 	var duration : int setget , _get_duration
 	var _duration = null
 	func _get_duration() -> int:
 		return 0 if not _duration is int else int(_duration)
 
-	### <summary>
-	### The UNIX time when the tournament stops being active until next reset. A computed value.
-	### </summary>
+	# The UNIX time when the tournament stops being active until next reset. A computed value.
 	var end_active : int setget , _get_end_active
 	var _end_active = null
 	func _get_end_active() -> int:
 		return 0 if not _end_active is int else int(_end_active)
 
-	### <summary>
-	### The UNIX time when the tournament will be stopped.
-	### </summary>
+	# The UNIX time when the tournament will be stopped.
 	var end_time : String setget , _get_end_time
 	var _end_time = null
 	func _get_end_time() -> String:
 		return "" if not _end_time is String else String(_end_time)
 
-	### <summary>
-	### The ID of the tournament.
-	### </summary>
+	# The ID of the tournament.
 	var id : String setget , _get_id
 	var _id = null
 	func _get_id() -> String:
 		return "" if not _id is String else String(_id)
 
-	### <summary>
-	### The maximum score updates allowed per player for the current tournament.
-	### </summary>
+	# The maximum score updates allowed per player for the current tournament.
 	var max_num_score : int setget , _get_max_num_score
 	var _max_num_score = null
 	func _get_max_num_score() -> int:
 		return 0 if not _max_num_score is int else int(_max_num_score)
 
-	### <summary>
-	### The maximum number of players for the tournament.
-	### </summary>
+	# The maximum number of players for the tournament.
 	var max_size : int setget , _get_max_size
 	var _max_size = null
 	func _get_max_size() -> int:
 		return 0 if not _max_size is int else int(_max_size)
 
-	### <summary>
-	### Additional information stored as a JSON object.
-	### </summary>
+	# Additional information stored as a JSON object.
 	var metadata : String setget , _get_metadata
 	var _metadata = null
 	func _get_metadata() -> String:
 		return "" if not _metadata is String else String(_metadata)
 
-	### <summary>
-	### The UNIX time when the tournament is next playable. A computed value.
-	### </summary>
+	# The UNIX time when the tournament is next playable. A computed value.
 	var next_reset : int setget , _get_next_reset
 	var _next_reset = null
 	func _get_next_reset() -> int:
 		return 0 if not _next_reset is int else int(_next_reset)
 
-	### <summary>
-	### The current number of players in the tournament.
-	### </summary>
+	# The current number of players in the tournament.
 	var size : int setget , _get_size
 	var _size = null
 	func _get_size() -> int:
 		return 0 if not _size is int else int(_size)
 
-	### <summary>
-	### ASC or DESC sort mode of scores in the tournament.
-	### </summary>
+	# ASC or DESC sort mode of scores in the tournament.
 	var sort_order : int setget , _get_sort_order
 	var _sort_order = null
 	func _get_sort_order() -> int:
 		return 0 if not _sort_order is int else int(_sort_order)
 
-	### <summary>
-	### The UNIX time when the tournament start being active. A computed value.
-	### </summary>
+	# The UNIX time when the tournament start being active. A computed value.
 	var start_active : int setget , _get_start_active
 	var _start_active = null
 	func _get_start_active() -> int:
 		return 0 if not _start_active is int else int(_start_active)
 
-	### <summary>
-	### The UNIX time when the tournament will start.
-	### </summary>
+	# The UNIX time when the tournament will start.
 	var start_time : String setget , _get_start_time
 	var _start_time = null
 	func _get_start_time() -> String:
 		return "" if not _start_time is String else String(_start_time)
 
-	### <summary>
-	### The title for the tournament.
-	### </summary>
+	# The title for the tournament.
 	var title : String setget , _get_title
 	var _title = null
 	func _get_title() -> String:
@@ -2522,9 +2167,7 @@ class ApiTournament extends NakamaAsyncResult:
 		output += "title: %s, " % _title
 		return output
 
-### <summary>
-### A list of tournaments.
-### </summary>
+# A list of tournaments.
 class ApiTournamentList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2532,17 +2175,13 @@ class ApiTournamentList extends NakamaAsyncResult:
 		"tournaments": {"name": "_tournaments", "type": TYPE_ARRAY, "required": false, "content": "ApiTournament"},
 	}
 
-	### <summary>
-	### A pagination cursor (optional).
-	### </summary>
+	# A pagination cursor (optional).
 	var cursor : String setget , _get_cursor
 	var _cursor = null
 	func _get_cursor() -> String:
 		return "" if not _cursor is String else String(_cursor)
 
-	### <summary>
-	### The list of tournaments returned.
-	### </summary>
+	# The list of tournaments returned.
 	var tournaments : Array setget , _get_tournaments
 	var _tournaments = null
 	func _get_tournaments() -> Array:
@@ -2565,9 +2204,7 @@ class ApiTournamentList extends NakamaAsyncResult:
 		output += "tournaments: %s, " % [_tournaments]
 		return output
 
-### <summary>
-### A set of tournament records which may be part of a tournament records page or a batch of individual records.
-### </summary>
+# A set of tournament records which may be part of a tournament records page or a batch of individual records.
 class ApiTournamentRecordList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2577,33 +2214,25 @@ class ApiTournamentRecordList extends NakamaAsyncResult:
 		"records": {"name": "_records", "type": TYPE_ARRAY, "required": false, "content": "ApiLeaderboardRecord"},
 	}
 
-	### <summary>
-	### The cursor to send when retireving the next page (optional).
-	### </summary>
+	# The cursor to send when retireving the next page (optional).
 	var next_cursor : String setget , _get_next_cursor
 	var _next_cursor = null
 	func _get_next_cursor() -> String:
 		return "" if not _next_cursor is String else String(_next_cursor)
 
-	### <summary>
-	### A batched set of tournament records belonging to specified owners.
-	### </summary>
+	# A batched set of tournament records belonging to specified owners.
 	var owner_records : Array setget , _get_owner_records
 	var _owner_records = null
 	func _get_owner_records() -> Array:
 		return Array() if not _owner_records is Array else Array(_owner_records)
 
-	### <summary>
-	### The cursor to send when retrieving the previous page (optional).
-	### </summary>
+	# The cursor to send when retrieving the previous page (optional).
 	var prev_cursor : String setget , _get_prev_cursor
 	var _prev_cursor = null
 	func _get_prev_cursor() -> String:
 		return "" if not _prev_cursor is String else String(_prev_cursor)
 
-	### <summary>
-	### A list of tournament records.
-	### </summary>
+	# A list of tournament records.
 	var records : Array setget , _get_records
 	var _records = null
 	func _get_records() -> Array:
@@ -2628,9 +2257,7 @@ class ApiTournamentRecordList extends NakamaAsyncResult:
 		output += "records: %s, " % [_records]
 		return output
 
-### <summary>
-### Update a user's account details.
-### </summary>
+# Update a user's account details.
 class ApiUpdateAccountRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2642,49 +2269,37 @@ class ApiUpdateAccountRequest extends NakamaAsyncResult:
 		"username": {"name": "_username", "type": TYPE_STRING, "required": false},
 	}
 
-	### <summary>
-	### A URL for an avatar image.
-	### </summary>
+	# A URL for an avatar image.
 	var avatar_url : String setget , _get_avatar_url
 	var _avatar_url = null
 	func _get_avatar_url() -> String:
 		return "" if not _avatar_url is String else String(_avatar_url)
 
-	### <summary>
-	### The display name of the user.
-	### </summary>
+	# The display name of the user.
 	var display_name : String setget , _get_display_name
 	var _display_name = null
 	func _get_display_name() -> String:
 		return "" if not _display_name is String else String(_display_name)
 
-	### <summary>
-	### The language expected to be a tag which follows the BCP-47 spec.
-	### </summary>
+	# The language expected to be a tag which follows the BCP-47 spec.
 	var lang_tag : String setget , _get_lang_tag
 	var _lang_tag = null
 	func _get_lang_tag() -> String:
 		return "" if not _lang_tag is String else String(_lang_tag)
 
-	### <summary>
-	### The location set by the user.
-	### </summary>
+	# The location set by the user.
 	var location : String setget , _get_location
 	var _location = null
 	func _get_location() -> String:
 		return "" if not _location is String else String(_location)
 
-	### <summary>
-	### The timezone set by the user.
-	### </summary>
+	# The timezone set by the user.
 	var timezone : String setget , _get_timezone
 	var _timezone = null
 	func _get_timezone() -> String:
 		return "" if not _timezone is String else String(_timezone)
 
-	### <summary>
-	### The username of the user's account.
-	### </summary>
+	# The username of the user's account.
 	var username : String setget , _get_username
 	var _username = null
 	func _get_username() -> String:
@@ -2711,9 +2326,7 @@ class ApiUpdateAccountRequest extends NakamaAsyncResult:
 		output += "username: %s, " % _username
 		return output
 
-### <summary>
-### Update fields in a given group.
-### </summary>
+# Update fields in a given group.
 class ApiUpdateGroupRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2725,49 +2338,37 @@ class ApiUpdateGroupRequest extends NakamaAsyncResult:
 		"open": {"name": "_open", "type": TYPE_BOOL, "required": false},
 	}
 
-	### <summary>
-	### Avatar URL.
-	### </summary>
+	# Avatar URL.
 	var avatar_url : String setget , _get_avatar_url
 	var _avatar_url = null
 	func _get_avatar_url() -> String:
 		return "" if not _avatar_url is String else String(_avatar_url)
 
-	### <summary>
-	### Description string.
-	### </summary>
+	# Description string.
 	var description : String setget , _get_description
 	var _description = null
 	func _get_description() -> String:
 		return "" if not _description is String else String(_description)
 
-	### <summary>
-	### The ID of the group to update.
-	### </summary>
+	# The ID of the group to update.
 	var group_id : String setget , _get_group_id
 	var _group_id = null
 	func _get_group_id() -> String:
 		return "" if not _group_id is String else String(_group_id)
 
-	### <summary>
-	### Lang tag.
-	### </summary>
+	# Lang tag.
 	var lang_tag : String setget , _get_lang_tag
 	var _lang_tag = null
 	func _get_lang_tag() -> String:
 		return "" if not _lang_tag is String else String(_lang_tag)
 
-	### <summary>
-	### Name.
-	### </summary>
+	# Name.
 	var name : String setget , _get_name
 	var _name = null
 	func _get_name() -> String:
 		return "" if not _name is String else String(_name)
 
-	### <summary>
-	### Open is true if anyone should be allowed to join, or false if joins must be approved by a group admin.
-	### </summary>
+	# Open is true if anyone should be allowed to join, or false if joins must be approved by a group admin.
 	var open : bool setget , _get_open
 	var _open = null
 	func _get_open() -> bool:
@@ -2794,9 +2395,7 @@ class ApiUpdateGroupRequest extends NakamaAsyncResult:
 		output += "open: %s, " % _open
 		return output
 
-### <summary>
-### A user in the server.
-### </summary>
+# A user in the server.
 class ApiUser extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2805,6 +2404,7 @@ class ApiUser extends NakamaAsyncResult:
 		"display_name": {"name": "_display_name", "type": TYPE_STRING, "required": false},
 		"edge_count": {"name": "_edge_count", "type": TYPE_INT, "required": false},
 		"facebook_id": {"name": "_facebook_id", "type": TYPE_STRING, "required": false},
+		"facebook_instant_game_id": {"name": "_facebook_instant_game_id", "type": TYPE_STRING, "required": false},
 		"gamecenter_id": {"name": "_gamecenter_id", "type": TYPE_STRING, "required": false},
 		"google_id": {"name": "_google_id", "type": TYPE_STRING, "required": false},
 		"id": {"name": "_id", "type": TYPE_STRING, "required": false},
@@ -2818,129 +2418,103 @@ class ApiUser extends NakamaAsyncResult:
 		"username": {"name": "_username", "type": TYPE_STRING, "required": false},
 	}
 
-	### <summary>
-	### A URL for an avatar image.
-	### </summary>
+	# A URL for an avatar image.
 	var avatar_url : String setget , _get_avatar_url
 	var _avatar_url = null
 	func _get_avatar_url() -> String:
 		return "" if not _avatar_url is String else String(_avatar_url)
 
-	### <summary>
-	### The UNIX time when the user was created.
-	### </summary>
+	# The UNIX time when the user was created.
 	var create_time : String setget , _get_create_time
 	var _create_time = null
 	func _get_create_time() -> String:
 		return "" if not _create_time is String else String(_create_time)
 
-	### <summary>
-	### The display name of the user.
-	### </summary>
+	# The display name of the user.
 	var display_name : String setget , _get_display_name
 	var _display_name = null
 	func _get_display_name() -> String:
 		return "" if not _display_name is String else String(_display_name)
 
-	### <summary>
-	### Number of related edges to this user.
-	### </summary>
+	# Number of related edges to this user.
 	var edge_count : int setget , _get_edge_count
 	var _edge_count = null
 	func _get_edge_count() -> int:
 		return 0 if not _edge_count is int else int(_edge_count)
 
-	### <summary>
-	### The Facebook id in the user's account.
-	### </summary>
+	# The Facebook id in the user's account.
 	var facebook_id : String setget , _get_facebook_id
 	var _facebook_id = null
 	func _get_facebook_id() -> String:
 		return "" if not _facebook_id is String else String(_facebook_id)
 
-	### <summary>
-	### The Apple Game Center in of the user's account.
-	### </summary>
+	# The Facebook Instant Game id in the user's account.
+	var facebook_instant_game_id : String setget , _get_facebook_instant_game_id
+	var _facebook_instant_game_id = null
+	func _get_facebook_instant_game_id() -> String:
+		return "" if not _facebook_instant_game_id is String else String(_facebook_instant_game_id)
+
+	# The Apple Game Center in of the user's account.
 	var gamecenter_id : String setget , _get_gamecenter_id
 	var _gamecenter_id = null
 	func _get_gamecenter_id() -> String:
 		return "" if not _gamecenter_id is String else String(_gamecenter_id)
 
-	### <summary>
-	### The Google id in the user's account.
-	### </summary>
+	# The Google id in the user's account.
 	var google_id : String setget , _get_google_id
 	var _google_id = null
 	func _get_google_id() -> String:
 		return "" if not _google_id is String else String(_google_id)
 
-	### <summary>
-	### The id of the user's account.
-	### </summary>
+	# The id of the user's account.
 	var id : String setget , _get_id
 	var _id = null
 	func _get_id() -> String:
 		return "" if not _id is String else String(_id)
 
-	### <summary>
-	### The language expected to be a tag which follows the BCP-47 spec.
-	### </summary>
+	# The language expected to be a tag which follows the BCP-47 spec.
 	var lang_tag : String setget , _get_lang_tag
 	var _lang_tag = null
 	func _get_lang_tag() -> String:
 		return "" if not _lang_tag is String else String(_lang_tag)
 
-	### <summary>
-	### The location set by the user.
-	### </summary>
+	# The location set by the user.
 	var location : String setget , _get_location
 	var _location = null
 	func _get_location() -> String:
 		return "" if not _location is String else String(_location)
 
-	### <summary>
-	### Additional information stored as a JSON object.
-	### </summary>
+	# Additional information stored as a JSON object.
 	var metadata : String setget , _get_metadata
 	var _metadata = null
 	func _get_metadata() -> String:
 		return "" if not _metadata is String else String(_metadata)
 
-	### <summary>
-	### Indicates whether the user is currently online.
-	### </summary>
+	# Indicates whether the user is currently online.
 	var online : bool setget , _get_online
 	var _online = null
 	func _get_online() -> bool:
 		return false if not _online is bool else bool(_online)
 
-	### <summary>
-	### The Steam id in the user's account.
-	### </summary>
+	# The Steam id in the user's account.
 	var steam_id : String setget , _get_steam_id
 	var _steam_id = null
 	func _get_steam_id() -> String:
 		return "" if not _steam_id is String else String(_steam_id)
 
-	### <summary>
-	### The timezone set by the user.
-	### </summary>
+	# The timezone set by the user.
 	var timezone : String setget , _get_timezone
 	var _timezone = null
 	func _get_timezone() -> String:
 		return "" if not _timezone is String else String(_timezone)
 
-	### <summary>
-	### The UNIX time when the user was last updated.
-	### </summary>
+	# The UNIX time when the user was last updated.
 	var update_time : String setget , _get_update_time
 	var _update_time = null
 	func _get_update_time() -> String:
 		return "" if not _update_time is String else String(_update_time)
 
-	### <summary>
-	### The username of the user's account.
-	### </summary>
+	# The username of the user's account.
 	var username : String setget , _get_username
 	var _username = null
 	func _get_username() -> String:
@@ -2964,6 +2538,7 @@ class ApiUser extends NakamaAsyncResult:
 		output += "display_name: %s, " % _display_name
 		output += "edge_count: %s, " % _edge_count
 		output += "facebook_id: %s, " % _facebook_id
+		output += "facebook_instant_game_id: %s, " % _facebook_instant_game_id
 		output += "gamecenter_id: %s, " % _gamecenter_id
 		output += "google_id: %s, " % _google_id
 		output += "id: %s, " % _id
@@ -2977,9 +2552,7 @@ class ApiUser extends NakamaAsyncResult:
 		output += "username: %s, " % _username
 		return output
 
-### <summary>
-### A list of groups belonging to a user, along with the user's role in each group.
-### </summary>
+# A list of groups belonging to a user, along with the user's role in each group.
 class ApiUserGroupList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2987,17 +2560,13 @@ class ApiUserGroupList extends NakamaAsyncResult:
 		"user_groups": {"name": "_user_groups", "type": TYPE_ARRAY, "required": false, "content": "UserGroupListUserGroup"},
 	}
 
-	### <summary>
-	### Cursor for the next page of results, if any.
-	### </summary>
+	# Cursor for the next page of results, if any.
 	var cursor : String setget , _get_cursor
 	var _cursor = null
 	func _get_cursor() -> String:
 		return "" if not _cursor is String else String(_cursor)
 
-	### <summary>
-	### Group-role pairs for a user.
-	### </summary>
+	# Group-role pairs for a user.
 	var user_groups : Array setget , _get_user_groups
 	var _user_groups = null
 	func _get_user_groups() -> Array:
@@ -3020,18 +2589,14 @@ class ApiUserGroupList extends NakamaAsyncResult:
 		output += "user_groups: %s, " % [_user_groups]
 		return output
 
-### <summary>
-### A collection of zero or more users.
-### </summary>
+# A collection of zero or more users.
 class ApiUsers extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"users": {"name": "_users", "type": TYPE_ARRAY, "required": false, "content": "ApiUser"},
 	}
 
-	### <summary>
-	### The User objects.
-	### </summary>
+	# The User objects.
 	var users : Array setget , _get_users
 	var _users = null
 	func _get_users() -> Array:
@@ -3053,9 +2618,7 @@ class ApiUsers extends NakamaAsyncResult:
 		output += "users: %s, " % [_users]
 		return output
 
-### <summary>
-### The object to store.
-### </summary>
+# The object to store.
 class ApiWriteStorageObject extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -3067,49 +2630,37 @@ class ApiWriteStorageObject extends NakamaAsyncResult:
 		"version": {"name": "_version", "type": TYPE_STRING, "required": false},
 	}
 
-	### <summary>
-	### The collection to store the object.
-	### </summary>
+	# The collection to store the object.
 	var collection : String setget , _get_collection
 	var _collection = null
 	func _get_collection() -> String:
 		return "" if not _collection is String else String(_collection)
 
-	### <summary>
-	### The key for the object within the collection.
-	### </summary>
+	# The key for the object within the collection.
 	var key : String setget , _get_key
 	var _key = null
 	func _get_key() -> String:
 		return "" if not _key is String else String(_key)
 
-	### <summary>
-	### The read access permissions for the object.
-	### </summary>
+	# The read access permissions for the object.
 	var permission_read : int setget , _get_permission_read
 	var _permission_read = null
 	func _get_permission_read() -> int:
 		return 0 if not _permission_read is int else int(_permission_read)
 
-	### <summary>
-	### The write access permissions for the object.
-	### </summary>
+	# The write access permissions for the object.
 	var permission_write : int setget , _get_permission_write
 	var _permission_write = null
 	func _get_permission_write() -> int:
 		return 0 if not _permission_write is int else int(_permission_write)
 
-	### <summary>
-	### The value of the object.
-	### </summary>
+	# The value of the object.
 	var value : String setget , _get_value
 	var _value = null
 	func _get_value() -> String:
 		return "" if not _value is String else String(_value)
 
-	### <summary>
-	### The version hash of the object to check. Possible values are: ["", "*", "#hash#"].
-	### </summary>
+	# The version hash of the object to check. Possible values are: ["", "*", "#hash#"].
 	var version : String setget , _get_version
 	var _version = null
 	func _get_version() -> String:
@@ -3136,18 +2687,14 @@ class ApiWriteStorageObject extends NakamaAsyncResult:
 		output += "version: %s, " % _version
 		return output
 
-### <summary>
-### Write objects to the storage engine.
-### </summary>
+# Write objects to the storage engine.
 class ApiWriteStorageObjectsRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"objects": {"name": "_objects", "type": TYPE_ARRAY, "required": false, "content": "ApiWriteStorageObject"},
 	}
 
-	### <summary>
-	### The objects to store on the server.
-	### </summary>
+	# The objects to store on the server.
 	var objects : Array setget , _get_objects
 	var _objects = null
 	func _get_objects() -> Array:
@@ -3169,9 +2716,7 @@ class ApiWriteStorageObjectsRequest extends NakamaAsyncResult:
 		output += "objects: %s, " % [_objects]
 		return output
 
-### <summary>
-### The low level client for the Nakama API.
-### </summary>
+# The low level client for the Nakama API.
 class ApiClient extends Reference:
 
 	var _base_uri : String
@@ -3186,9 +2731,7 @@ class ApiClient extends Reference:
 		_http_adapter = p_http_adapter
 		_namespace = p_namespace
 
-	### <summary>
-	### A healthcheck which load balancers can use to check the service.
-	### </summary>
+	# A healthcheck which load balancers can use to check the service.
 	func healthcheck_async(
 		p_bearer_token : String
 	) -> NakamaAsyncResult:
@@ -3206,9 +2749,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Fetch the current user's account.
-	### </summary>
+	# Fetch the current user's account.
 	func get_account_async(
 		p_bearer_token : String
 	) -> ApiAccount:
@@ -3227,9 +2768,7 @@ class ApiClient extends Reference:
 		var out : ApiAccount = NakamaSerializer.deserialize(_namespace, "ApiAccount", result)
 		return out
 
-	### <summary>
-	### Update fields in the current user's account.
-	### </summary>
+	# Update fields in the current user's account.
 	func update_account_async(
 		p_bearer_token : String
 		, p_body : ApiUpdateAccountRequest
@@ -3249,9 +2788,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Authenticate a user with a custom id against the server.
-	### </summary>
+	# Authenticate a user with a custom id against the server.
 	func authenticate_custom_async(
 		p_basic_auth_username : String
 		, p_basic_auth_password : String
@@ -3280,9 +2817,7 @@ class ApiClient extends Reference:
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
-	### <summary>
-	### Authenticate a user with a device id against the server.
-	### </summary>
+	# Authenticate a user with a device id against the server.
 	func authenticate_device_async(
 		p_basic_auth_username : String
 		, p_basic_auth_password : String
@@ -3311,9 +2846,7 @@ class ApiClient extends Reference:
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
-	### <summary>
-	### Authenticate a user with an email+password against the server.
-	### </summary>
+	# Authenticate a user with an email+password against the server.
 	func authenticate_email_async(
 		p_basic_auth_username : String
 		, p_basic_auth_password : String
@@ -3342,9 +2875,7 @@ class ApiClient extends Reference:
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
-	### <summary>
-	### Authenticate a user with a Facebook OAuth token against the server.
-	### </summary>
+	# Authenticate a user with a Facebook OAuth token against the server.
 	func authenticate_facebook_async(
 		p_basic_auth_username : String
 		, p_basic_auth_password : String
@@ -3376,9 +2907,36 @@ class ApiClient extends Reference:
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
-	### <summary>
-	### Authenticate a user with Apple's GameCenter against the server.
-	### </summary>
+	# Authenticate a user with a Facebook Instant Game token against the server.
+	func authenticate_facebook_instant_game_async(
+		p_basic_auth_username : String
+		, p_basic_auth_password : String
+		, p_body : ApiAccountFacebookInstantGame
+		, p_create = null # : boolean
+		, p_username = null # : string
+	) -> ApiSession:
+		var urlpath : String = "/v2/account/authenticate/facebookinstantgame"
+		var query_params = ""
+		if p_create != null:
+			query_params += "create=%s&" % str(bool(p_create)).to_lower()
+		if p_username != null:
+			query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
+		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
+		var method = "POST"
+		var headers = {}
+		var credentials = Marshalls.utf8_to_base64(p_basic_auth_username + ":" + p_basic_auth_password)
+		var header = "Basic %s" % credentials
+		headers["Authorization"] = header
+
+		var content : PoolByteArray
+		content = JSON.print(p_body.serialize()).to_utf8()
+		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		if result is NakamaException:
+			return ApiSession.new(result)
+		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
+		return out
+
+	# Authenticate a user with Apple's GameCenter against the server.
 	func authenticate_game_center_async(
 		p_basic_auth_username : String
 		, p_basic_auth_password : String
@@ -3407,9 +2965,7 @@ class ApiClient extends Reference:
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
-	### <summary>
-	### Authenticate a user with Google against the server.
-	### </summary>
+	# Authenticate a user with Google against the server.
 	func authenticate_google_async(
 		p_basic_auth_username : String
 		, p_basic_auth_password : String
@@ -3438,9 +2994,7 @@ class ApiClient extends Reference:
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
-	### <summary>
-	### Authenticate a user with Steam against the server.
-	### </summary>
+	# Authenticate a user with Steam against the server.
 	func authenticate_steam_async(
 		p_basic_auth_username : String
 		, p_basic_auth_password : String
@@ -3469,9 +3023,7 @@ class ApiClient extends Reference:
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
-	### <summary>
-	### Add a custom ID to the social profiles on the current user's account.
-	### </summary>
+	# Add a custom ID to the social profiles on the current user's account.
 	func link_custom_async(
 		p_bearer_token : String
 		, p_body : ApiAccountCustom
@@ -3491,9 +3043,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Add a device ID to the social profiles on the current user's account.
-	### </summary>
+	# Add a device ID to the social profiles on the current user's account.
 	func link_device_async(
 		p_bearer_token : String
 		, p_body : ApiAccountDevice
@@ -3513,9 +3063,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Add an email+password to the social profiles on the current user's account.
-	### </summary>
+	# Add an email+password to the social profiles on the current user's account.
 	func link_email_async(
 		p_bearer_token : String
 		, p_body : ApiAccountEmail
@@ -3535,9 +3083,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Add Facebook to the social profiles on the current user's account.
-	### </summary>
+	# Add Facebook to the social profiles on the current user's account.
 	func link_facebook_async(
 		p_bearer_token : String
 		, p_body : ApiAccountFacebook
@@ -3560,9 +3106,27 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Add Apple's GameCenter to the social profiles on the current user's account.
-	### </summary>
+	# Add Facebook Instant Game to the social profiles on the current user's account.
+	func link_facebook_instant_game_async(
+		p_bearer_token : String
+		, p_body : ApiAccountFacebookInstantGame
+	) -> NakamaAsyncResult:
+		var urlpath : String = "/v2/account/link/facebookinstantgame"
+		var query_params = ""
+		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
+		var method = "POST"
+		var headers = {}
+		var header = "Bearer %s" % p_bearer_token
+		headers["Authorization"] = header
+
+		var content : PoolByteArray
+		content = JSON.print(p_body.serialize()).to_utf8()
+		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		if result is NakamaException:
+			return NakamaAsyncResult.new(result)
+		return NakamaAsyncResult.new()
+
+	# Add Apple's GameCenter to the social profiles on the current user's account.
 	func link_game_center_async(
 		p_bearer_token : String
 		, p_body : ApiAccountGameCenter
@@ -3582,9 +3146,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Add Google to the social profiles on the current user's account.
-	### </summary>
+	# Add Google to the social profiles on the current user's account.
 	func link_google_async(
 		p_bearer_token : String
 		, p_body : ApiAccountGoogle
@@ -3604,9 +3166,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Add Steam to the social profiles on the current user's account.
-	### </summary>
+	# Add Steam to the social profiles on the current user's account.
 	func link_steam_async(
 		p_bearer_token : String
 		, p_body : ApiAccountSteam
@@ -3626,9 +3186,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Remove the custom ID from the social profiles on the current user's account.
-	### </summary>
+	# Remove the custom ID from the social profiles on the current user's account.
 	func unlink_custom_async(
 		p_bearer_token : String
 		, p_body : ApiAccountCustom
@@ -3648,9 +3206,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Remove the device ID from the social profiles on the current user's account.
-	### </summary>
+	# Remove the device ID from the social profiles on the current user's account.
 	func unlink_device_async(
 		p_bearer_token : String
 		, p_body : ApiAccountDevice
@@ -3670,9 +3226,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Remove the email+password from the social profiles on the current user's account.
-	### </summary>
+	# Remove the email+password from the social profiles on the current user's account.
 	func unlink_email_async(
 		p_bearer_token : String
 		, p_body : ApiAccountEmail
@@ -3692,9 +3246,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Remove Facebook from the social profiles on the current user's account.
-	### </summary>
+	# Remove Facebook from the social profiles on the current user's account.
 	func unlink_facebook_async(
 		p_bearer_token : String
 		, p_body : ApiAccountFacebook
@@ -3714,9 +3266,27 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Remove Apple's GameCenter from the social profiles on the current user's account.
-	### </summary>
+	# Remove Facebook Instant Game profile from the social profiles on the current user's account.
+	func unlink_facebook_instant_game_async(
+		p_bearer_token : String
+		, p_body : ApiAccountFacebookInstantGame
+	) -> NakamaAsyncResult:
+		var urlpath : String = "/v2/account/unlink/facebookinstantgame"
+		var query_params = ""
+		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
+		var method = "POST"
+		var headers = {}
+		var header = "Bearer %s" % p_bearer_token
+		headers["Authorization"] = header
+
+		var content : PoolByteArray
+		content = JSON.print(p_body.serialize()).to_utf8()
+		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		if result is NakamaException:
+			return NakamaAsyncResult.new(result)
+		return NakamaAsyncResult.new()
+
+	# Remove Apple's GameCenter from the social profiles on the current user's account.
 	func unlink_game_center_async(
 		p_bearer_token : String
 		, p_body : ApiAccountGameCenter
@@ -3736,9 +3306,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Remove Google from the social profiles on the current user's account.
-	### </summary>
+	# Remove Google from the social profiles on the current user's account.
 	func unlink_google_async(
 		p_bearer_token : String
 		, p_body : ApiAccountGoogle
@@ -3758,9 +3326,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Remove Steam from the social profiles on the current user's account.
-	### </summary>
+	# Remove Steam from the social profiles on the current user's account.
 	func unlink_steam_async(
 		p_bearer_token : String
 		, p_body : ApiAccountSteam
@@ -3780,9 +3346,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### List a channel's message history.
-	### </summary>
+	# List a channel's message history.
 	func list_channel_messages_async(
 		p_bearer_token : String
 		, p_channel_id : String
@@ -3812,9 +3376,7 @@ class ApiClient extends Reference:
 		var out : ApiChannelMessageList = NakamaSerializer.deserialize(_namespace, "ApiChannelMessageList", result)
 		return out
 
-	### <summary>
-	### Submit an event for processing in the server's registered runtime custom events handler.
-	### </summary>
+	# Submit an event for processing in the server's registered runtime custom events handler.
 	func event_async(
 		p_bearer_token : String
 		, p_body : ApiEvent
@@ -3834,9 +3396,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Delete one or more users by ID or username.
-	### </summary>
+	# Delete one or more users by ID or username.
 	func delete_friends_async(
 		p_bearer_token : String
 		, p_ids = null # : array
@@ -3862,9 +3422,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### List all friends for the current user.
-	### </summary>
+	# List all friends for the current user.
 	func list_friends_async(
 		p_bearer_token : String
 		, p_limit = null # : integer
@@ -3892,9 +3450,7 @@ class ApiClient extends Reference:
 		var out : ApiFriendList = NakamaSerializer.deserialize(_namespace, "ApiFriendList", result)
 		return out
 
-	### <summary>
-	### Add friends by ID or username to a user's account.
-	### </summary>
+	# Add friends by ID or username to a user's account.
 	func add_friends_async(
 		p_bearer_token : String
 		, p_ids = null # : array
@@ -3920,9 +3476,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Block one or more users by ID or username.
-	### </summary>
+	# Block one or more users by ID or username.
 	func block_friends_async(
 		p_bearer_token : String
 		, p_ids = null # : array
@@ -3948,9 +3502,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Import Facebook friends and add them to a user's account.
-	### </summary>
+	# Import Facebook friends and add them to a user's account.
 	func import_facebook_friends_async(
 		p_bearer_token : String
 		, p_body : ApiAccountFacebook
@@ -3973,9 +3525,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### List groups based on given filters.
-	### </summary>
+	# List groups based on given filters.
 	func list_groups_async(
 		p_bearer_token : String
 		, p_name = null # : string
@@ -4003,9 +3553,7 @@ class ApiClient extends Reference:
 		var out : ApiGroupList = NakamaSerializer.deserialize(_namespace, "ApiGroupList", result)
 		return out
 
-	### <summary>
-	### Create a new group with the current user as the owner.
-	### </summary>
+	# Create a new group with the current user as the owner.
 	func create_group_async(
 		p_bearer_token : String
 		, p_body : ApiCreateGroupRequest
@@ -4026,9 +3574,7 @@ class ApiClient extends Reference:
 		var out : ApiGroup = NakamaSerializer.deserialize(_namespace, "ApiGroup", result)
 		return out
 
-	### <summary>
-	### Delete a group by ID.
-	### </summary>
+	# Delete a group by ID.
 	func delete_group_async(
 		p_bearer_token : String
 		, p_group_id : String
@@ -4048,9 +3594,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Update fields in a given group.
-	### </summary>
+	# Update fields in a given group.
 	func update_group_async(
 		p_bearer_token : String
 		, p_group_id : String
@@ -4072,9 +3616,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Add users to a group.
-	### </summary>
+	# Add users to a group.
 	func add_group_users_async(
 		p_bearer_token : String
 		, p_group_id : String
@@ -4098,9 +3640,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Ban a set of users from a group.
-	### </summary>
+	# Ban a set of users from a group.
 	func ban_group_users_async(
 		p_bearer_token : String
 		, p_group_id : String
@@ -4124,9 +3664,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Immediately join an open group, or request to join a closed one.
-	### </summary>
+	# Immediately join an open group, or request to join a closed one.
 	func join_group_async(
 		p_bearer_token : String
 		, p_group_id : String
@@ -4146,9 +3684,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Kick a set of users from a group.
-	### </summary>
+	# Kick a set of users from a group.
 	func kick_group_users_async(
 		p_bearer_token : String
 		, p_group_id : String
@@ -4172,9 +3708,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Leave a group the user is a member of.
-	### </summary>
+	# Leave a group the user is a member of.
 	func leave_group_async(
 		p_bearer_token : String
 		, p_group_id : String
@@ -4194,9 +3728,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Promote a set of users in a group to the next role up.
-	### </summary>
+	# Promote a set of users in a group to the next role up.
 	func promote_group_users_async(
 		p_bearer_token : String
 		, p_group_id : String
@@ -4220,9 +3752,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### List all users that are part of a group.
-	### </summary>
+	# List all users that are part of a group.
 	func list_group_users_async(
 		p_bearer_token : String
 		, p_group_id : String
@@ -4252,9 +3782,7 @@ class ApiClient extends Reference:
 		var out : ApiGroupUserList = NakamaSerializer.deserialize(_namespace, "ApiGroupUserList", result)
 		return out
 
-	### <summary>
-	### Delete a leaderboard record.
-	### </summary>
+	# Delete a leaderboard record.
 	func delete_leaderboard_record_async(
 		p_bearer_token : String
 		, p_leaderboard_id : String
@@ -4274,9 +3802,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### List leaderboard records.
-	### </summary>
+	# List leaderboard records.
 	func list_leaderboard_records_async(
 		p_bearer_token : String
 		, p_leaderboard_id : String
@@ -4310,9 +3836,7 @@ class ApiClient extends Reference:
 		var out : ApiLeaderboardRecordList = NakamaSerializer.deserialize(_namespace, "ApiLeaderboardRecordList", result)
 		return out
 
-	### <summary>
-	### Write a record to a leaderboard.
-	### </summary>
+	# Write a record to a leaderboard.
 	func write_leaderboard_record_async(
 		p_bearer_token : String
 		, p_leaderboard_id : String
@@ -4335,9 +3859,7 @@ class ApiClient extends Reference:
 		var out : ApiLeaderboardRecord = NakamaSerializer.deserialize(_namespace, "ApiLeaderboardRecord", result)
 		return out
 
-	### <summary>
-	### List leaderboard records that belong to a user.
-	### </summary>
+	# List leaderboard records that belong to a user.
 	func list_leaderboard_records_around_owner_async(
 		p_bearer_token : String
 		, p_leaderboard_id : String
@@ -4366,9 +3888,7 @@ class ApiClient extends Reference:
 		var out : ApiLeaderboardRecordList = NakamaSerializer.deserialize(_namespace, "ApiLeaderboardRecordList", result)
 		return out
 
-	### <summary>
-	### Fetch list of running matches.
-	### </summary>
+	# Fetch list of running matches.
 	func list_matches_async(
 		p_bearer_token : String
 		, p_limit = null # : integer
@@ -4405,9 +3925,7 @@ class ApiClient extends Reference:
 		var out : ApiMatchList = NakamaSerializer.deserialize(_namespace, "ApiMatchList", result)
 		return out
 
-	### <summary>
-	### Delete one or more notifications for the current user.
-	### </summary>
+	# Delete one or more notifications for the current user.
 	func delete_notifications_async(
 		p_bearer_token : String
 		, p_ids = null # : array
@@ -4429,9 +3947,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### Fetch list of notifications.
-	### </summary>
+	# Fetch list of notifications.
 	func list_notifications_async(
 		p_bearer_token : String
 		, p_limit = null # : integer
@@ -4456,9 +3972,7 @@ class ApiClient extends Reference:
 		var out : ApiNotificationList = NakamaSerializer.deserialize(_namespace, "ApiNotificationList", result)
 		return out
 
-	### <summary>
-	### Execute a Lua function on the server.
-	### </summary>
+	# Execute a Lua function on the server.
 	func rpc_func2_async(
 		p_bearer_token : String
 		, p_id : String
@@ -4486,9 +4000,7 @@ class ApiClient extends Reference:
 		var out : ApiRpc = NakamaSerializer.deserialize(_namespace, "ApiRpc", result)
 		return out
 
-	### <summary>
-	### Execute a Lua function on the server.
-	### </summary>
+	# Execute a Lua function on the server.
 	func rpc_func_async(
 		p_bearer_token : String
 		, p_id : String
@@ -4512,9 +4024,7 @@ class ApiClient extends Reference:
 		var out : ApiRpc = NakamaSerializer.deserialize(_namespace, "ApiRpc", result)
 		return out
 
-	### <summary>
-	### Get storage objects.
-	### </summary>
+	# Get storage objects.
 	func read_storage_objects_async(
 		p_bearer_token : String
 		, p_body : ApiReadStorageObjectsRequest
@@ -4535,9 +4045,7 @@ class ApiClient extends Reference:
 		var out : ApiStorageObjects = NakamaSerializer.deserialize(_namespace, "ApiStorageObjects", result)
 		return out
 
-	### <summary>
-	### Write objects into the storage engine.
-	### </summary>
+	# Write objects into the storage engine.
 	func write_storage_objects_async(
 		p_bearer_token : String
 		, p_body : ApiWriteStorageObjectsRequest
@@ -4558,9 +4066,7 @@ class ApiClient extends Reference:
 		var out : ApiStorageObjectAcks = NakamaSerializer.deserialize(_namespace, "ApiStorageObjectAcks", result)
 		return out
 
-	### <summary>
-	### Delete one or more objects by ID or username.
-	### </summary>
+	# Delete one or more objects by ID or username.
 	func delete_storage_objects_async(
 		p_bearer_token : String
 		, p_body : ApiDeleteStorageObjectsRequest
@@ -4580,9 +4086,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### List publicly readable storage objects in a given collection.
-	### </summary>
+	# List publicly readable storage objects in a given collection.
 	func list_storage_objects_async(
 		p_bearer_token : String
 		, p_collection : String
@@ -4612,9 +4116,7 @@ class ApiClient extends Reference:
 		var out : ApiStorageObjectList = NakamaSerializer.deserialize(_namespace, "ApiStorageObjectList", result)
 		return out
 
-	### <summary>
-	### List publicly readable storage objects in a given collection.
-	### </summary>
+	# List publicly readable storage objects in a given collection.
 	func list_storage_objects2_async(
 		p_bearer_token : String
 		, p_collection : String
@@ -4643,9 +4145,7 @@ class ApiClient extends Reference:
 		var out : ApiStorageObjectList = NakamaSerializer.deserialize(_namespace, "ApiStorageObjectList", result)
 		return out
 
-	### <summary>
-	### List current or upcoming tournaments.
-	### </summary>
+	# List current or upcoming tournaments.
 	func list_tournaments_async(
 		p_bearer_token : String
 		, p_category_start = null # : integer
@@ -4682,9 +4182,7 @@ class ApiClient extends Reference:
 		var out : ApiTournamentList = NakamaSerializer.deserialize(_namespace, "ApiTournamentList", result)
 		return out
 
-	### <summary>
-	### List tournament records.
-	### </summary>
+	# List tournament records.
 	func list_tournament_records_async(
 		p_bearer_token : String
 		, p_tournament_id : String
@@ -4718,9 +4216,7 @@ class ApiClient extends Reference:
 		var out : ApiTournamentRecordList = NakamaSerializer.deserialize(_namespace, "ApiTournamentRecordList", result)
 		return out
 
-	### <summary>
-	### Write a record to a tournament.
-	### </summary>
+	# Write a record to a tournament.
 	func write_tournament_record_async(
 		p_bearer_token : String
 		, p_tournament_id : String
@@ -4743,9 +4239,7 @@ class ApiClient extends Reference:
 		var out : ApiLeaderboardRecord = NakamaSerializer.deserialize(_namespace, "ApiLeaderboardRecord", result)
 		return out
 
-	### <summary>
-	### Attempt to join an open and running tournament.
-	### </summary>
+	# Attempt to join an open and running tournament.
 	func join_tournament_async(
 		p_bearer_token : String
 		, p_tournament_id : String
@@ -4765,9 +4259,7 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	### <summary>
-	### List tournament records for a given owner.
-	### </summary>
+	# List tournament records for a given owner.
 	func list_tournament_records_around_owner_async(
 		p_bearer_token : String
 		, p_tournament_id : String
@@ -4796,9 +4288,7 @@ class ApiClient extends Reference:
 		var out : ApiTournamentRecordList = NakamaSerializer.deserialize(_namespace, "ApiTournamentRecordList", result)
 		return out
 
-	### <summary>
-	### Fetch zero or more users by ID and/or username.
-	### </summary>
+	# Fetch zero or more users by ID and/or username.
 	func get_users_async(
 		p_bearer_token : String
 		, p_ids = null # : array
@@ -4829,9 +4319,7 @@ class ApiClient extends Reference:
 		var out : ApiUsers = NakamaSerializer.deserialize(_namespace, "ApiUsers", result)
 		return out
 
-	### <summary>
-	### List groups the current user belongs to.
-	### </summary>
+	# List groups the current user belongs to.
 	func list_user_groups_async(
 		p_bearer_token : String
 		, p_user_id : String

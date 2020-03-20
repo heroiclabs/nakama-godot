@@ -32,9 +32,7 @@ class_name NakamaAPI
 {{- range $defname, $definition := .Definitions }}
 {{- $classname := $defname | title }}
 
-### <summary>
-### {{ $definition.Description | stripNewlines }}
-### </summary>
+# {{ $definition.Description | stripNewlines }}
 class {{ $classname }} extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -59,9 +57,7 @@ class {{ $classname }} extends NakamaAsyncResult:
         {{- $gdType := godotType $property.Type $property.Ref $property.Items.Type $property.Items.Ref }}
 	{{- $gdDef := $gdType | godotDef }}
 
-	### <summary>
-	### {{ $property.Description }}
-	### </summary>
+	# {{ $property.Description }}
 	var {{ $fieldname }} : {{ $gdType }} setget , _get_{{ $fieldname }}
 	var {{ $_field }} = null
 	func _get_{{ $fieldname }}() -> {{ $gdType }}:
@@ -104,9 +100,7 @@ class {{ $classname }} extends NakamaAsyncResult:
 		return output
     {{- end }}
 
-### <summary>
-### The low level client for the Nakama API.
-### </summary>
+# The low level client for the Nakama API.
 class ApiClient extends Reference:
 
 	var _base_uri : String
@@ -124,9 +118,7 @@ class ApiClient extends Reference:
         {{- range $url, $path := .Paths }}
         {{- range $method, $operation := $path}}
 
-	### <summary>
-	### {{ $operation.Summary | stripNewlines }}
-	### </summary>
+	# {{ $operation.Summary | stripNewlines }}
         {{- if $operation.Responses.Ok.Schema.Ref }}
 	func {{ $operation.OperationId | pascalToSnake }}_async(
         {{- else }}

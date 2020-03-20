@@ -1,9 +1,7 @@
 extends Reference
 
-### <summary>
-### An exception generated during a request.
-### Usually contains at least an error message.
-### </summary>
+# An exception generated during a request.
+# Usually contains at least an error message.
 class_name NakamaException
 
 var status_code : int = -1 setget _no_set

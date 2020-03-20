@@ -1,24 +1,16 @@
 extends Reference
 class_name NakamaStorageObjectId
 
-### <summary>
-### The collection which stores the object.
-### </summary>
+# The collection which stores the object.
 var collection : String
 
-### <summary>
-### The key of the object within the collection.
-### </summary>
+# The key of the object within the collection.
 var key : String
 
-### <summary>
-### The user owner of the object.
-### </summary>
+# The user owner of the object.
 var user_id : String
 
-### <summary>
-### The version hash of the object.
-### </summary>
+# The version hash of the object.
 var version : String
 
 func _init(p_collection, p_key, p_user_id = "", p_version = ""):

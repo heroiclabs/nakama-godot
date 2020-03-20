@@ -1,9 +1,7 @@
 tool
 extends Node
 
-### <summary>
-### An adapter which implements a socket with a protocol supported by Nakama.
-### </summary>
+# An adapter which implements a socket with a protocol supported by Nakama.
 class_name NakamaSocketAdapter
 
 var _ws := WebSocketClient.new()
@@ -11,49 +9,33 @@ var _timeout : int = 30
 var _start : int = 0
 var logger = NakamaLogger.new()
 
-### <summary>
-### A signal emitted when the socket is connected.
-### </summary>
+# A signal emitted when the socket is connected.
 signal connected()
 
-### <summary>
-### A signal emitted when the socket is disconnected.
-### </summary>
+# A signal emitted when the socket is disconnected.
 signal closed()
 
-### <summary>
-### A signal emitted when the socket has an error when connected.
-### </summary>
+# A signal emitted when the socket has an error when connected.
 signal received_error(p_exception)
 
-### <summary>
-### A signal emitted when the socket receives a message.
-### </summary>
+# A signal emitted when the socket receives a message.
 signal received(p_bytes) # PoolByteArray
 
-### <summary>
-### If the socket is connected.
-### </summary>
+# If the socket is connected.
 func is_connected_to_host():
 	return _ws.get_connection_status() == WebSocketClient.CONNECTION_CONNECTED
 
-### <summary>
-### If the socket is connecting.
-### </summary>
+# If the socket is connecting.
 func is_connecting_to_host():
 	return _ws.get_connection_status() == WebSocketClient.CONNECTION_CONNECTING
 
-### <summary>
-### Close the socket with an asynchronous operation.
-### </summary>
+# Close the socket with an asynchronous operation.
 func close():
 	_ws.disconnect_from_host()
 
-### <summary>
-### Connect to the server with an asynchronous operation.
-### </summary>
-### <param name="p_uri">The URI of the server.</param>
-### <param name="p_timeout">The timeout for the connect attempt on the socket.</param>
+# Connect to the server with an asynchronous operation.
+# @param p_uri - The URI of the server.
+# @param p_timeout - The timeout for the connect attempt on the socket.
 func connect_to_host(p_uri : String, p_timeout : int):
 	_ws.disconnect_from_host()
 	_timeout = p_timeout
@@ -63,11 +45,9 @@ func connect_to_host(p_uri : String, p_timeout : int):
 		logger.debug("Error connecting to host %s" % p_uri)
 		call_deferred("emit_signal", "received_error", err)
 
-### <summary>
-### Send data to the server with an asynchronous operation.
-### </summary>
-### <param name="p_buffer">The buffer with the message to send.</param>
-### <param name="p_reliable">If the message should be sent reliably (will be ignored by some protocols).</param>
+# Send data to the server with an asynchronous operation.
+# @param p_buffer - The buffer with the message to send.
+# @param p_reliable - If the message should be sent reliably (will be ignored by some protocols).
 func send(p_buffer : PoolByteArray, p_reliable : bool = true) -> int:
 	return _ws.get_peer(1).put_packet(p_buffer)
 

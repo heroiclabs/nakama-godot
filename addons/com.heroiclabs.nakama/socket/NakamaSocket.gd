@@ -1,70 +1,44 @@
 extends Reference
 
-### <summary>
-### A socket to interact with Nakama server.
-### </summary>
+# A socket to interact with Nakama server.
 class_name NakamaSocket
 
 const ChannelType = NakamaRTMessage.ChannelJoin.ChannelType
 
-### <summary>
-### Emitted when a socket is closed.
-### </summary>
+# Emitted when a socket is closed.
 signal closed()
 
-### <summary>
-### Emitted when a socket is connected.
-### </summary>
+# Emitted when a socket is connected.
 signal connected()
 
-### <summary>
-### Emitted when a chat channel message is received
-### </summary>
+# Emitted when a chat channel message is received
 signal received_channel_message(p_channel_message) # ApiChannelMessage
 
-### <summary>
-### Emitted when receiving a presence change for joins and leaves with users in a chat channel.
-### </summary>
+# Emitted when receiving a presence change for joins and leaves with users in a chat channel.
 signal received_channel_presence(p_channel_presence) # ChannelPresenceEvent
 
-### <summary>
-### Emitted when an error occurs on the socket.
-### </summary>
+# Emitted when an error occurs on the socket.
 signal received_error(p_error)
 
-### <summary>
-### Emitted when receiving a matchmaker matched message.
-### </summary>
+# Emitted when receiving a matchmaker matched message.
 signal received_matchmaker_matched(p_matchmaker_matched) # MatchmakerMatched
 
-### <summary>
-### Emitted when receiving a message from a multiplayer match.
-### </summary>
+# Emitted when receiving a message from a multiplayer match.
 signal received_match_state(p_match_state) # MatchData
 
-### <summary>
-### Emitted when receiving a presence change for joins and leaves of users in a multiplayer match.
-### </summary>
+# Emitted when receiving a presence change for joins and leaves of users in a multiplayer match.
 signal received_match_presence(p_match_presence_event) # MatchPresenceEvent
 
-### <summary>
-### Emitted when receiving a notification for the current user.
-### </summary>
+# Emitted when receiving a notification for the current user.
 signal received_notification(p_api_notification) # ApiNotification
 
-### <summary>
-### Emitted when receiving a presence change for when a user updated their online status.
-### </summary>
+# Emitted when receiving a presence change for when a user updated their online status.
 signal received_status_presence(p_status_presence_event) # StatusPresenceEvent
 
-### <summary>
-### Emitted when receiving a presence change for joins and leaves on a realtime stream.
-### </summary>
+# Emitted when receiving a presence change for joins and leaves on a realtime stream.
 signal received_stream_presence(p_stream_presence_event) # StreamPresenceEvent
 
-### <summary>
-### Emitted when receiving a message from a realtime stream.
-### </summary>
+# Emitted when receiving a message from a realtime stream.
 signal received_stream_state(p_stream_state) # StreamState
 
 var _adapter : NakamaSocketAdapter
@@ -259,31 +233,23 @@ func _send_async(p_message, p_parse_type = NakamaAsyncResult, p_ns = NakamaRTAPI
 func _connect_function():
 	return yield() # Manually resumed
 
-### <summary>
-### If the socket is connected.
-### </summary>
+# If the socket is connected.
 func is_connected_to_host():
 	return _adapter.is_connected_to_host()
 
-### <summary>
-### If the socket is connecting.
-### </summary>
+# If the socket is connecting.
 func is_connecting_to_host():
 	return _adapter.is_connecting_to_host()
 
-### <summary>
-### Close the socket connection to the server.
-### </summary>
+# Close the socket connection to the server.
 func close():
 	_adapter.close()
 
-### <summary>
-### Connect to the server.
-### </summary>
-### <param name="p_session">The session of the user.</param>
-### <param name="p_appear_online">If the user who appear online to other users.</param>
-### <param name="p_connect_timeout">The time allowed for the socket connection to be established.</param>
-### <returns>A task to represent the asynchronous operation.</returns>
+# Connect to the server.
+# @param p_session - The session of the user.
+# @param p_appear_online - If the user who appear online to other users.
+# @param p_connect_timeout - The time allowed for the socket connection to be established.
+# Returns a task to represent the asynchronous operation.
 func connect_async(p_session : NakamaSession, p_appear_online : bool = false, p_connect_timeout : int = 3):
 	var uri = "%s/ws?lang=en&status=%s&token=%s" % [_base_uri, str(p_appear_online).to_lower(), p_session.token]
 	logger.debug("Connecting to host: %s" % uri)
@@ -291,15 +257,13 @@ func connect_async(p_session : NakamaSession, p_appear_online : bool = false, p_
 	_conn = _connect_function()
 	return _conn
 
-### <summary>
-### Join the matchmaker pool and search for opponents on the server.
-### </summary>
-### <param name="p_query">The matchmaker query to search for opponents.</param>
-### <param name="p_min_count">The minimum number of players to compete against in a match.</param>
-### <param name="p_max_count">The maximum number of players to compete against in a match.</param>
-### <param name="p_string_properties">A set of key/value properties to provide to searches.</param>
-### <param name="p_numeric_properties">A set of key/value numeric properties to provide to searches.</param>
-### <returns>A task which resolves to a matchmaker ticket object.</returns>
+# Join the matchmaker pool and search for opponents on the server.
+# @param p_query - The matchmaker query to search for opponents.
+# @param p_min_count - The minimum number of players to compete against in a match.
+# @param p_max_count - The maximum number of players to compete against in a match.
+# @param p_string_properties - A set of key/value properties to provide to searches.
+# @param p_numeric_properties - A set of key/value numeric properties to provide to searches.
+# Returns a task which resolves to a matchmaker ticket object.
 func add_matchmaker_async(p_query : String = "*", p_min_count : int = 2, p_max_count : int = 8,
 		p_string_props : Dictionary = {}, p_numeric_props : Dictionary = {}) -> NakamaRTAPI.MatchmakerTicket:
 	return _send_async(
@@ -310,38 +274,32 @@ func add_matchmaker_async(p_query : String = "*", p_min_count : int = 2, p_max_c
 ## <summary>
 ## Create a multiplayer match on the server.
 ## </summary>
-## <returns>A task to represent the asynchronous operation.</returns>
+## Returns a task to represent the asynchronous operation.
 func create_match_async():
 	return _send_async(NakamaRTMessage.MatchCreate.new(), NakamaRTAPI.Match)
 
-### <summary>
-### Subscribe to one or more users for their status updates.
-### </summary>
-### <param name="p_user_ids">The IDs of users.</param>
-### <param name="p_usernames">The usernames of the users.</param>
-### <returns>A task which resolves to the current statuses for the users.</returns>
+# Subscribe to one or more users for their status updates.
+# @param p_user_ids - The IDs of users.
+# @param p_usernames - The usernames of the users.
+# Returns a task which resolves to the current statuses for the users.
 func follow_users_async(p_ids : PoolStringArray, p_usernames : PoolStringArray = []) -> NakamaRTAPI.Status:
 	return _send_async(NakamaRTMessage.StatusFollow.new(p_ids, p_usernames), NakamaRTAPI.Status)
 
-### <summary>
-### Join a chat channel on the server.
-### </summary>
-### <param name="p_target">The target channel to join.</param>
-### <param name="p_type">The type of channel to join.</param>
-### <param name="p_persistence">If chat messages should be stored.</param>
-### <param name="p_hidden">If the current user should be hidden on the channel.</param>
-### <returns>A task which resolves to a chat channel object.</returns>
+# Join a chat channel on the server.
+# @param p_target - The target channel to join.
+# @param p_type - The type of channel to join.
+# @param p_persistence - If chat messages should be stored.
+# @param p_hidden - If the current user should be hidden on the channel.
+# Returns a task which resolves to a chat channel object.
 func join_chat_async(p_target : String, p_type : int, p_persistence : bool = false, p_hidden : bool = false) -> NakamaRTAPI.Channel:
 	return _send_async(
 		NakamaRTMessage.ChannelJoin.new(p_target, p_type, p_persistence, p_hidden),
 		NakamaRTAPI.Channel
 	)
 
-### <summary>
-### Join a multiplayer match with the matchmaker matched object.
-### </summary>
-### <param name="p_matched">A matchmaker matched object.</param>
-### <returns>A task which resolves to a multiplayer match.</returns>
+# Join a multiplayer match with the matchmaker matched object.
+# @param p_matched - A matchmaker matched object.
+# Returns a task which resolves to a multiplayer match.
 func join_matched_async(p_matched):
 	var msg := NakamaRTMessage.MatchJoin.new()
 	if p_matched.match_id:
@@ -350,59 +308,47 @@ func join_matched_async(p_matched):
 		msg.token = p_matched.token
 	return _send_async(msg, NakamaRTAPI.Match)
 
-### <summary>
-### Join a multiplayer match by ID.
-### </summary>
-### <param name="p_match_id">The ID of the match to attempt to join.</param>
-### <param name="p_metadata">An optional set of key-value metadata pairs to be passed to the match handler.</param>
-### <returns>A task which resolves to a multiplayer match.</returns>
+# Join a multiplayer match by ID.
+# @param p_match_id - The ID of the match to attempt to join.
+# @param p_metadata - An optional set of key-value metadata pairs to be passed to the match handler.
+# Returns a task which resolves to a multiplayer match.
 func join_match_async(p_match_id : String, p_metadata = null):
 	var msg := NakamaRTMessage.MatchJoin.new()
 	msg.match_id = p_match_id
 	return _send_async(msg, NakamaRTAPI.Match)
 
-### <summary>
-### Leave a chat channel on the server.
-### </summary>
-#### <param name="p_channel_id">The ID of the chat channel to leave.</param>
-### <returns>A task which represents the asynchronous operation.</returns>
+# Leave a chat channel on the server.
+## @param p_channel_id - The ID of the chat channel to leave.
+# Returns a task which represents the asynchronous operation.
 func leave_chat_async(p_channel_id : String) -> NakamaAsyncResult:
 	return _send_async(NakamaRTMessage.ChannelLeave.new(p_channel_id))
 
-### <summary>
-### Leave a multiplayer match on the server.
-### </summary>
-### <param name="p_match_id">The multiplayer match to leave.</param>
-### <returns>A task which represents the asynchronous operation.</returns>
+# Leave a multiplayer match on the server.
+# @param p_match_id - The multiplayer match to leave.
+# Returns a task which represents the asynchronous operation.
 func leave_match_async(p_match_id : String) -> NakamaAsyncResult:
 	return _send_async(NakamaRTMessage.MatchLeave.new(p_match_id))
 
-### <summary>
-### Remove a chat message from a chat channel on the server.
-### </summary>
-### <param name="p_channel">The chat channel with the message to remove.</param>
-### <param name="p_message_id">The ID of the chat message to remove.</param>
-### <returns>A task which resolves to an acknowledgement of the removed message.</returns>
+# Remove a chat message from a chat channel on the server.
+# @param p_channel - The chat channel with the message to remove.
+# @param p_message_id - The ID of the chat message to remove.
+# Returns a task which resolves to an acknowledgement of the removed message.
 func remove_chat_message_async(p_channel_id : String, p_message_id : String):
 	return _send_async(
 		NakamaRTMessage.ChannelMessageRemove.new(p_channel_id, p_message_id),
 		NakamaRTAPI.ChannelMessageAck
 	)
 
-### <summary>
-### Leave the matchmaker pool with the ticket.
-### </summary>
-### <param name="p_ticket">The ticket returned by the matchmaker on join.</param>
-### <returns>A task which represents the asynchronous operation.</returns>
+# Leave the matchmaker pool with the ticket.
+# @param p_ticket - The ticket returned by the matchmaker on join.
+# Returns a task which represents the asynchronous operation.
 func remove_matchmaker_async(p_ticket : String) -> NakamaAsyncResult:
 	return _send_async(NakamaRTMessage.MatchmakerRemove.new(p_ticket))
 
-### <summary>
-### Execute an RPC function to the server.
-### </summary>
-### <param name="p_func_id">The ID of the function to execute.</param>
-### <param name="p_payload">An (optional) String payload to send to the server.</param>
-### <returns>A task which resolves to the RPC function response object.</returns>
+# Execute an RPC function to the server.
+# @param p_func_id - The ID of the function to execute.
+# @param p_payload - An (optional) String payload to send to the server.
+# Returns a task which resolves to the RPC function response object.
 func rpc_async(p_func_id : String, p_payload = null) -> NakamaAPI.ApiRpc:
 	var payload = p_payload
 	match typeof(p_payload):
@@ -415,17 +361,13 @@ func rpc_async(p_func_id : String, p_payload = null) -> NakamaAPI.ApiRpc:
 		"payload": payload
 	}), NakamaAPI.ApiRpc, NakamaAPI, "rpc", "rpc")
 
-### <summary>
-### Send input to a multiplayer match on the server.
-### </summary>
-### ### <remarks>
-### When no presences are supplied the new match state will be sent to all presences.
-### </remarks>
-### <param name="p_match_id">The ID of the match.</param>
-### <param name="p_op_code">An operation code for the input.</param>
-### <param name="p_data">The input data to send.</param>
-### <param name="p_presences">The presences in the match who should receive the input.</param>
-### <returns>A task which represents the asynchronous operation.</returns>
+# Send input to a multiplayer match on the server.
+# When no presences are supplied the new match state will be sent to all presences.
+# @param p_match_id - The ID of the match.
+# @param p_op_code - An operation code for the input.
+# @param p_data - The input data to send.
+# @param p_presences - The presences in the match who should receive the input.
+# Returns a task which represents the asynchronous operation.
 func send_match_state_async(p_match_id, p_op_code : int, p_data : String, p_presences = null):
 	var req = _send_async(NakamaRTMessage.MatchDataSend.new(
 		p_match_id,
@@ -438,17 +380,13 @@ func send_match_state_async(p_match_id, p_op_code : int, p_data : String, p_pres
 	call_deferred("_survive", req)
 	return req
 
-### <summary>
-### Send input to a multiplayer match on the server.
-### </summary>
-### ### <remarks>
-### When no presences are supplied the new match state will be sent to all presences.
-### </remarks>
-### <param name="p_match_id">The ID of the match.</param>
-### <param name="p_op_code">An operation code for the input.</param>
-### <param name="p_data">The input data to send.</param>
-### <param name="p_presences">The presences in the match who should receive the input.</param>
-### <returns>A task which represents the asynchronous operation.</returns>
+# Send input to a multiplayer match on the server.
+# When no presences are supplied the new match state will be sent to all presences.
+# @param p_match_id - The ID of the match.
+# @param p_op_code - An operation code for the input.
+# @param p_data - The input data to send.
+# @param p_presences - The presences in the match who should receive the input.
+# Returns a task which represents the asynchronous operation.
 func send_match_state_raw_async(p_match_id, p_op_code : int, p_data : PoolByteArray, p_presences = null):
 	var req = _send_async(NakamaRTMessage.MatchDataSend.new(
 		p_match_id,
@@ -461,41 +399,33 @@ func send_match_state_raw_async(p_match_id, p_op_code : int, p_data : PoolByteAr
 	call_deferred("_survive", req)
 	return req
 
-### <summary>
-### Unfollow one or more users from their status updates.
-### </summary>
-### <param name="p_user_ids">An array of user ids to unfollow.</param>
-### <returns>A task which represents the asynchronous operation.</returns>
+# Unfollow one or more users from their status updates.
+# @param p_user_ids - An array of user ids to unfollow.
+# Returns a task which represents the asynchronous operation.
 func unfollow_users_async(p_ids : PoolStringArray):
 	return _send_async(NakamaRTMessage.StatusUnfollow.new(p_ids))
 
-### <summary>
-### Update a chat message on a chat channel in the server.
-### </summary>
-### <param name="p_channel_id">The ID of the chat channel with the message to update.</param>
-### <param name="p_message_id">The ID of the message to update.</param>
-### <param name="p_content">The new contents of the chat message.</param>
-### <returns>A task which resolves to an acknowledgement of the updated message.</returns>
+# Update a chat message on a chat channel in the server.
+# @param p_channel_id - The ID of the chat channel with the message to update.
+# @param p_message_id - The ID of the message to update.
+# @param p_content - The new contents of the chat message.
+# Returns a task which resolves to an acknowledgement of the updated message.
 func update_chat_message_async(p_channel_id : String, p_message_id : String, p_content : Dictionary):
 	return _send_async(
 		NakamaRTMessage.ChannelMessageUpdate.new(p_channel_id, p_message_id, JSON.print(p_content)),
 		NakamaRTAPI.ChannelMessageAck
 	)
 
-### <summary>
-### Update the status for the current user online.
-### </summary>
-### <param name="p_status">The new status for the user.</param>
-### <returns>A task which represents the asynchronous operation.</returns>
+# Update the status for the current user online.
+# @param p_status - The new status for the user.
+# Returns a task which represents the asynchronous operation.
 func update_status_async(p_status : String):
 	return _send_async(NakamaRTMessage.StatusUpdate.new(p_status))
 
-### <summary>
-### Send a chat message to a chat channel on the server.
-### </summary>
-### <param name="p_channel_id">The ID of the chat channel to send onto.</param>
-### <param name="p_content">The contents of the message to send.</param>
-### <returns>A task which resolves to the acknowledgement of the chat message write.</returns>
+# Send a chat message to a chat channel on the server.
+# @param p_channel_id - The ID of the chat channel to send onto.
+# @param p_content - The contents of the message to send.
+# Returns a task which resolves to the acknowledgement of the chat message write.
 func write_chat_message_async(p_channel_id : String, p_content : Dictionary):
 	return _send_async(
 		NakamaRTMessage.ChannelMessageSend.new(p_channel_id, JSON.print(p_content)),
