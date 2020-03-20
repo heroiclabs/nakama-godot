@@ -119,7 +119,7 @@ static func deserialize(p_ns : GDScript, p_cls_name : String, p_dict : Dictionar
 
 
 ###
-### Compatibility with Godot 3.1 which does not expose String.http_escape
+# Compatibility with Godot 3.1 which does not expose String.http_escape
 ###
 const HEX = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"]
 

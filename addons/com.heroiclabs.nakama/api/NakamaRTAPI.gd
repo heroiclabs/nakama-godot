@@ -2,9 +2,7 @@ extends NakamaAsyncResult
 
 class_name NakamaRTAPI
 
-### <summary>
-### A chat channel on the server.
-### </summary>
+# A chat channel on the server.
 class Channel extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -17,39 +15,25 @@ class Channel extends NakamaAsyncResult:
 		"user_id_two": {"name": "user_id_two", "type": TYPE_STRING, "required": false}
 	}
 
-	### <summary>
-	### The server-assigned channel ID.
-	### </summary>
+	# The server-assigned channel ID.
 	var id : String
 
-	### <summary>
-	### The presences visible on the chat channel.
-	### </summary>
+	# The presences visible on the chat channel.
 	var presences : Array # of objects NakamaUserPresence
 
-	### <summary>
-	### The presence of the current user. i.e. Your self.
-	### </summary>
+	# The presence of the current user. i.e. Your self.
 	var self_presence : NakamaRTAPI.UserPresence
 
-	### <summary>
-	### The name of the chat room, or an empty string if this message was not sent through a chat room.
-	### </summary>
+	# The name of the chat room, or an empty string if this message was not sent through a chat room.
 	var room_name : String
 
-	### <summary>
-	### The ID of the group, or an empty string if this message was not sent through a group channel.
-	### </summary>
+	# The ID of the group, or an empty string if this message was not sent through a group channel.
 	var group_id : String
 
-	### <summary>
-	### The ID of the first DM user, or an empty string if this message was not sent through a DM chat.
-	### </summary>
+	# The ID of the first DM user, or an empty string if this message was not sent through a DM chat.
 	var user_id_one : String
 
-	### <summary>
-	### The ID of the second DM user, or an empty string if this message was not sent through a DM chat.
-	### </summary>
+	# The ID of the second DM user, or an empty string if this message was not sent through a DM chat.
 	var user_id_two : String
 
 	func _init(p_ex = null).(p_ex):
@@ -84,59 +68,37 @@ class ChannelMessageAck extends NakamaAsyncResult:
 		"user_id_two": {"name": "user_id_two", "type": TYPE_STRING, "required": false}
 	}
 
-	### <summary>
-	### The server-assigned channel ID.
-	### </summary>
+	# The server-assigned channel ID.
 	var channel_id : String
 
-	### <summary>
-	### A user-defined code for the chat message.
-	### </summary>
+	# A user-defined code for the chat message.
 	var code : int
 
-	### <summary>
-	### The UNIX time when the message was created.
-	### </summary>
+	# The UNIX time when the message was created.
 	var create_time : String
 
-	### <summary>
-	### A unique ID for the chat message.
-	### </summary>
+	# A unique ID for the chat message.
 	var message_id : String
 
-	### <summary>
-	### True if the chat message has been stored in history.
-	### </summary>
+	# True if the chat message has been stored in history.
 	var persistent : bool
 
-	### <summary>
-	### The UNIX time when the message was updated.
-	### </summary>
+	# The UNIX time when the message was updated.
 	var update_time : String
 
-	### <summary>
-	### The username of the sender of the message.
-	### </summary>
+	# The username of the sender of the message.
 	var username : String
 
-	### <summary>
-	### The name of the chat room, or an empty string if this message was not sent through a chat room.
-	### </summary>
+	# The name of the chat room, or an empty string if this message was not sent through a chat room.
 	var room_name : String
 
-	### <summary>
-	### The ID of the group, or an empty string if this message was not sent through a group channel.
-	### </summary>
+	# The ID of the group, or an empty string if this message was not sent through a group channel.
 	var group_id : String
 
-	### <summary>
-	### The ID of the first DM user, or an empty string if this message was not sent through a DM chat.
-	### </summary>
+	# The ID of the first DM user, or an empty string if this message was not sent through a DM chat.
 	var user_id_one : String
 
-	### <summary>
-	### The ID of the second DM user, or an empty string if this message was not sent through a DM chat.
-	### </summary>
+	# The ID of the second DM user, or an empty string if this message was not sent through a DM chat.
 	var user_id_two : String
 
 	func _init(p_ex = null).(p_ex):
@@ -155,9 +117,7 @@ class ChannelMessageAck extends NakamaAsyncResult:
 		return "channel_message_ack"
 
 
-### <summary>
-### A batch of join and leave presences on a chat channel.
-### </summary>
+# A batch of join and leave presences on a chat channel.
 class ChannelPresenceEvent extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -170,39 +130,25 @@ class ChannelPresenceEvent extends NakamaAsyncResult:
 		"user_id_two": {"name": "user_id_two", "type": TYPE_STRING, "required": false}
 	}
 
-	### <summary>
-	### The unique identifier of the chat channel.
-	### </summary>
+	# The unique identifier of the chat channel.
 	var channel_id : String
 
-	### <summary>
-	### Presences of the users who joined the channel.
-	### </summary>
+	# Presences of the users who joined the channel.
 	var joins : Array # UserPresence
 
-	### <summary>
-	### Presences of users who left the channel.
-	### </summary>
+	# Presences of users who left the channel.
 	var leaves : Array # UserPresence
 
-	### <summary>
-	### The name of the chat room, or an empty string if this message was not sent through a chat room.
-	### </summary>
+	# The name of the chat room, or an empty string if this message was not sent through a chat room.
 	var room_name : String
 
-	### <summary>
-	### The ID of the group, or an empty string if this message was not sent through a group channel.
-	### </summary>
+	# The ID of the group, or an empty string if this message was not sent through a group channel.
 	var group_id : String
 
-	### <summary>
-	### The ID of the first DM user, or an empty string if this message was not sent through a DM chat.
-	### </summary>
+	# The ID of the first DM user, or an empty string if this message was not sent through a DM chat.
 	var user_id_one : String
 
-	### <summary>
-	### The ID of the second DM user, or an empty string if this message was not sent through a DM chat.
-	### </summary>
+	# The ID of the second DM user, or an empty string if this message was not sent through a DM chat.
 	var user_id_two : String
 
 	func _init(p_ex = null).(p_ex):
@@ -220,9 +166,7 @@ class ChannelPresenceEvent extends NakamaAsyncResult:
 	static func get_result_key() -> String:
 		return "channel_presence_event"
 
-### <summary>
-### A multiplayer match.
-### </summary>
+# A multiplayer match.
 class Match extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -234,34 +178,22 @@ class Match extends NakamaAsyncResult:
 		"self": {"name": "self_user", "type": "UserPresence", "required": true}
 	}
 
-	### <summary>
-	### If this match has an authoritative handler on the server.
-	### </summary>
+	# If this match has an authoritative handler on the server.
 	var authoritative : bool
 
-	### <summary>
-	### The unique match identifier.
-	### </summary>
+	# The unique match identifier.
 	var match_id : String
 
-	### <summary>
-	### A label for the match which can be filtered on.
-	### </summary>
+	# A label for the match which can be filtered on.
 	var label : String
 
-	### <summary>
-	### The presences already in the match.
-	### </summary>
+	# The presences already in the match.
 	var presences : Array # UserPresence
 
-	### <summary>
-	### The number of users currently in the match.
-	### </summary>
+	# The number of users currently in the match.
 	var size : int
 
-	### <summary>
-	### The current user in this match. i.e. Yourself.
-	### </summary>
+	# The current user in this match. i.e. Yourself.
 	var self_user : UserPresence
 
 	func _init(p_ex = null).(p_ex):
@@ -278,9 +210,7 @@ class Match extends NakamaAsyncResult:
 		return "match"
 
 
-### <summary>
-### Some game state update in a match.
-### </summary>
+# Some game state update in a match.
 class MatchData extends NakamaAsyncResult:
 	const _SCHEMA = {
 		"match_id": {"name": "match_id", "type": TYPE_STRING, "required": true},
@@ -289,22 +219,14 @@ class MatchData extends NakamaAsyncResult:
 		"data": {"name": "data", "type": TYPE_STRING, "required": false}
 	}
 
-	### <summary>
-	### The unique match identifier.
-	### </summary>
+	# The unique match identifier.
 	var match_id : String
 
-	### <summary>
-	### The operation code for the state change.
-	### </summary>
-	### <remarks>
-	### This value can be used to mark the type of the contents of the state.
-	### </remarks>
+	# The operation code for the state change.
+	# This value can be used to mark the type of the contents of the state.
 	var op_code : int = 0
 
-	### <summary>
-	### The byte contents of the state change.
-	### </summary>
+	# The byte contents of the state change.
 	var data : String
 
 	func _init(p_ex = null).(p_ex):
@@ -324,9 +246,7 @@ class MatchData extends NakamaAsyncResult:
 		return "match_data"
 
 
-### <summary>
-### A batch of join and leave presences for a match.
-### </summary>
+# A batch of join and leave presences for a match.
 class MatchPresenceEvent extends NakamaAsyncResult:
 	const _SCHEMA = {
 		"match_id": {"name": "match_id", "type": TYPE_STRING, "required": true},
@@ -334,19 +254,13 @@ class MatchPresenceEvent extends NakamaAsyncResult:
 		"leaves": {"name": "leaves", "type": TYPE_ARRAY, "required": false, "content" : "UserPresence"},
 	}
 
-	### <summary>
-	### Presences of users who joined the match.
-	### </summary>
+	# Presences of users who joined the match.
 	var joins : Array
 
-	### <summary>
-	### Presences of users who left the match.
-	### </summary>
+	# Presences of users who left the match.
 	var leaves : Array
 
-	### <summary>
-	### The unique match identifier.
-	### </summary>
+	# The unique match identifier.
 	var match_id : String
 
 	func _init(p_ex = null).(p_ex):
@@ -362,9 +276,7 @@ class MatchPresenceEvent extends NakamaAsyncResult:
 	static func get_result_key() -> String:
 		return "match_presence_event"
 
-### <summary>
-### The result of a successful matchmaker operation sent to the server.
-### </summary>
+# The result of a successful matchmaker operation sent to the server.
 class MatchmakerMatched extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -375,32 +287,20 @@ class MatchmakerMatched extends NakamaAsyncResult:
 		"self": {"name": "self_user", "type": "MatchmakerUser", "required": true}
 	}
 
-	### <summary>
-	### The id used to join the match.
-	### </summary>
-	### <remarks>
-	### A match ID used to join the match.
-	### </remarks>
+	# The id used to join the match.
+	# A match ID used to join the match.
 	var match_id : String
 
-	### <summary>
-	### The ticket sent by the server when the user requested to matchmake for other players.
-	### </summary>
+	# The ticket sent by the server when the user requested to matchmake for other players.
 	var ticket : String
 
-	### <summary>
-	### The token used to join a match.
-	### </summary>
+	# The token used to join a match.
 	var token : String
 
-	### <summary>
-	### The other users matched with this user and the parameters they sent.
-	### </summary>
+	# The other users matched with this user and the parameters they sent.
 	var users : Array # MatchmakerUser
 	
-	### <summary>
-	### The current user who matched with opponents.
-	### </summary>
+	# The current user who matched with opponents.
 	var self_user : MatchmakerUser
 
 	func _init(p_ex = null).(p_ex):
@@ -419,18 +319,14 @@ class MatchmakerMatched extends NakamaAsyncResult:
 		return "matchmaker_matched"
 
 
-### <summary>
-### The matchmaker ticket received from the server.
-### </summary>
+# The matchmaker ticket received from the server.
 class MatchmakerTicket extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"ticket": {"name": "ticket", "type": TYPE_STRING, "required": true}
 	}
 
-	### <summary>
-	### The ticket generated by the matchmaker.
-	### </summary>
+	# The ticket generated by the matchmaker.
 	var ticket : String
 
 	func _init(p_ex = null).(p_ex):
@@ -447,9 +343,7 @@ class MatchmakerTicket extends NakamaAsyncResult:
 		return "matchmaker_ticket"
 
 
-### <summary>
-### The user with the parameters they sent to the server when asking for opponents.
-### </summary>
+# The user with the parameters they sent to the server when asking for opponents.
 class MatchmakerUser extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -458,19 +352,13 @@ class MatchmakerUser extends NakamaAsyncResult:
 		"presence": {"name": "presence", "type": "UserPresence", "required": true}
 	}
 
-	### <summary>
-	### The numeric properties which this user asked to matchmake with.
-	### </summary>
+	# The numeric properties which this user asked to matchmake with.
 	var numeric_properties : Dictionary
 
-	### <summary>
-	### The presence of the user.
-	### </summary>
+	# The presence of the user.
 	var presence : UserPresence
 
-	### <summary>
-	### The string properties which this user asked to matchmake with.
-	### </summary>
+	# The string properties which this user asked to matchmake with.
 	var string_properties : Dictionary
 
 	func _init(p_ex = null).(p_ex):
@@ -488,18 +376,14 @@ class MatchmakerUser extends NakamaAsyncResult:
 		return "matchmaker_user"
 
 
-### <summary>
-### Receive status updates for users.
-### </summary>
+# Receive status updates for users.
 class Status extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"users": {"name": "users", "type": TYPE_ARRAY, "required": false, "content": "UserPresence"},
 	}
 
-	### <summary>
-	### The status events for the users followed.
-	### </summary>
+	# The status events for the users followed.
 	var presences := Array()
 
 	func _init(p_ex = null).(p_ex):
@@ -516,29 +400,19 @@ class Status extends NakamaAsyncResult:
 		return "status"
 
 
-### <summary>
-### A status update event about other users who've come online or gone offline.
-### </summary>
+# A status update event about other users who've come online or gone offline.
 class StatusPresenceEvent extends NakamaAsyncResult:
 	const _SCHEMA = {
 		"joins": {"name": "joins", "type": TYPE_ARRAY, "required": false, "content" : "UserPresence"},
 		"leaves": {"name": "leaves", "type": TYPE_ARRAY, "required": false, "content" : "UserPresence"},
 	}
 
-	### <summary>
-	### Presences of users who joined the server.
-	### </summary>
-	### <remarks>
-	### This join information is in response to a subscription made to be notified when a user comes online.
-	### </remarks>
+	# Presences of users who joined the server.
+	# This join information is in response to a subscription made to be notified when a user comes online.
 	var joins : Array
 
-	### <summary>
-	### Presences of users who left the server.
-	### </summary>
-	### <remarks>
-	### This leave information is in response to a subscription made to be notified when a user goes offline.
-	### </remarks>
+	# Presences of users who left the server.
+	# This leave information is in response to a subscription made to be notified when a user goes offline.
 	var leaves : Array
 
 	func _init(p_ex = null).(p_ex):
@@ -555,9 +429,7 @@ class StatusPresenceEvent extends NakamaAsyncResult:
 		return "status_presence_event"
 
 
-### <summary>
-### A realtime socket stream on the server.
-### </summary>
+# A realtime socket stream on the server.
 class Stream extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -567,24 +439,16 @@ class Stream extends NakamaAsyncResult:
 		"subject": {"name": "subject", "type": TYPE_STRING, "required": false},
 	}
 
-	### <summary>
-	### The descriptor of the stream. Used with direct chat messages and contains a second user id.
-	### </summary>
+	# The descriptor of the stream. Used with direct chat messages and contains a second user id.
 	var descriptor : String
 
-	### <summary>
-	### Identifies streams which have a context across users like a chat channel room.
-	### </summary>
+	# Identifies streams which have a context across users like a chat channel room.
 	var label : String
 
-	### <summary>
-	### The mode of the stream.
-	### </summary>
+	# The mode of the stream.
 	var mode : int
 
-	### <summary>
-	### The subject of the stream. This is usually a user id.
-	### </summary>
+	# The subject of the stream. This is usually a user id.
 	var subject : String
 
 	func _init(p_ex = null).(p_ex):
@@ -601,13 +465,9 @@ class Stream extends NakamaAsyncResult:
 		return "stream"
 
 
-### <summary>
-### A batch of joins and leaves on the low level stream.
-### </summary>
-### <remarks>
-### Streams are built on to provide abstractions for matches, chat channels, etc. In most cases you'll never need to
-### interact with the low level stream itself.
-### </remarks>
+# A batch of joins and leaves on the low level stream.
+# Streams are built on to provide abstractions for matches, chat channels, etc. In most cases you'll never need to
+# interact with the low level stream itself.
 class StreamPresenceEvent extends NakamaAsyncResult:
 	const _SCHEMA = {
 		"stream": {"name": "stream", "type": "Stream", "required": true},
@@ -615,19 +475,13 @@ class StreamPresenceEvent extends NakamaAsyncResult:
 		"leaves": {"name": "leaves", "type": TYPE_ARRAY, "required": false, "content" : "UserPresence"},
 	}
 
-	### <summary>
-	### Presences of users who left the stream.
-	### </summary>
+	# Presences of users who left the stream.
 	var joins : Array
 
-	### <summary>
-	### Presences of users who joined the stream.
-	### </summary>
+	# Presences of users who joined the stream.
 	var leaves : Array
 
-	### <summary>
-	### The identifier for the stream.
-	### </summary>
+	# The identifier for the stream.
 	var stream : Stream = null
 
 	func _to_string():
@@ -641,9 +495,7 @@ class StreamPresenceEvent extends NakamaAsyncResult:
 		return "stream_presence_event"
 
 
-### <summary>
-### A state change received from a stream.
-### </summary>
+# A state change received from a stream.
 class StreamData extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -653,24 +505,16 @@ class StreamData extends NakamaAsyncResult:
 		"reliable": {"name": "reliable", "type": TYPE_BOOL, "required": false},
 	}
 
-	### <summary>
-	### The user who sent the state change. May be <c>null</c>.
-	### </summary>
+	# The user who sent the state change. May be `null`.
 	var sender : UserPresence = null
 
-	### <summary>
-	### The contents of the state change.
-	### </summary>
+	# The contents of the state change.
 	var state : String
 
-	### <summary>
-	### The identifier for the stream.
-	### </summary>
+	# The identifier for the stream.
 	var stream : Stream
 
-	### <summary>
-	### True if this data was delivered reliably, false otherwise.
-	### </summary>
+	# True if this data was delivered reliably, false otherwise.
 	var reliable : bool
 
 	func _to_string():
@@ -683,13 +527,9 @@ class StreamData extends NakamaAsyncResult:
 	static func get_result_key() -> String:
 		return "stream_data"
 
-### <summary>
-### An object which represents a connected user in the server.
-### </summary>
-### <remarks>
-### The server allows the same user to be connected with multiple sessions. To uniquely identify them a tuple of
-### <c>{ node_id, user_id, session_id }</c> is used which is exposed as this object.
-### </remarks>
+# An object which represents a connected user in the server.
+# The server allows the same user to be connected with multiple sessions. To uniquely identify them a tuple of
+# `{ node_id, user_id, session_id }` is used which is exposed as this object.
 class UserPresence extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -700,29 +540,19 @@ class UserPresence extends NakamaAsyncResult:
 		"user_id": {"name": "user_id", "type": TYPE_STRING, "required": true},
 	}
 
-	### <summary>
-	### If this presence generates stored events like persistent chat messages or notifications.
-	### </summary>
+	# If this presence generates stored events like persistent chat messages or notifications.
 	var persistence : bool
 
-	### <summary>
-	### The session id of the user.
-	### </summary>
+	# The session id of the user.
 	var session_id : String
 
-	### <summary>
-	### The status of the user with the presence on the server.
-	### </summary>
+	# The status of the user with the presence on the server.
 	var status : String
 
-	### <summary>
-	### The username for the user.
-	### </summary>
+	# The username for the user.
 	var username : String
 
-	### <summary>
-	### The id of the user.
-	### </summary>
+	# The id of the user.
 	var user_id : String
 
 	func _init(p_ex = null).(p_ex):

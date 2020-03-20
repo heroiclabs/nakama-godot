@@ -1,9 +1,7 @@
 extends Reference
 class_name NakamaRTMessage
 
-### <summary>
-### Send a channel join message to the server.
-### </summary>
+# Send a channel join message to the server.
 class ChannelJoin:
 
 	const _SCHEMA = {
@@ -14,17 +12,11 @@ class ChannelJoin:
 	}
 
 	enum ChannelType {
-		### <summary>
-		### A chat room which can be created dynamically with a name.
-		### </summary>
+		# A chat room which can be created dynamically with a name.
 		Room = 1,
-		### <summary>
-		### A private chat between two users.
-		### </summary>
+		# A private chat between two users.
 		DirectMessage = 2,
-		### <summary>
-		### A chat within a group on the server.
-		### </summary>
+		# A chat within a group on the server.
 		Group = 3
 	}
 
@@ -49,9 +41,7 @@ class ChannelJoin:
 		return "ChannelJoin<persistence=%s, hidden=%s, target=%s, type=%d>" % [persistence, hidden, target, type]
 
 
-### <summary>
-### A leave message for a match on the server.
-### </summary>
+# A leave message for a match on the server.
 class ChannelLeave extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -96,9 +86,7 @@ class ChannelMessageRemove extends NakamaAsyncResult:
 		return "ChannelMessageRemove<channel_id=%s, message_id=%s>" % [channel_id, message_id]
 
 
-### <summary>
-### Send a chat message to a channel on the server.
-### </summary>
+# Send a chat message to a channel on the server.
 class ChannelMessageSend extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -149,9 +137,7 @@ class ChannelMessageUpdate extends NakamaAsyncResult:
 	func _to_string():
 		return "ChannelMessageUpdate<channel_id=%s, message_id=%s, content=%s>" % [channel_id, message_id, content]
 
-### <summary>
-### A create message for a match on the server.
-### </summary>
+# A create message for a match on the server.
 class MatchCreate extends NakamaAsyncResult:
 
 	const _SCHEMA = {}
@@ -169,9 +155,7 @@ class MatchCreate extends NakamaAsyncResult:
 		return "MatchCreate<>"
 
 
-### <summary>
-### A join message for a match on the server.
-### </summary>
+# A join message for a match on the server.
 class MatchJoin extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -198,9 +182,7 @@ class MatchJoin extends NakamaAsyncResult:
 		return "MatchJoin<match_id=%s, token=%s, metadata=%s>" % [match_id, token, metadata]
 
 
-### <summary>
-### A leave message for a match on the server.
-### </summary>
+# A leave message for a match on the server.
 class MatchLeave extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -221,9 +203,7 @@ class MatchLeave extends NakamaAsyncResult:
 		return "MatchLeave<match_id=%s>" % [match_id]
 
 
-### <summary>
-### Send new state to a match on the server.
-### </summary>
+# Send new state to a match on the server.
 class MatchDataSend extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -254,9 +234,7 @@ class MatchDataSend extends NakamaAsyncResult:
 		return "MatchDataSend<match_id=%s, op_code=%s, presences=%s, data=%s>" % [match_id, op_code, presences, data]
 
 
-### <summary>
-### Add the user to the matchmaker pool with properties.
-### </summary>
+# Add the user to the matchmaker pool with properties.
 class MatchmakerAdd extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -293,9 +271,7 @@ class MatchmakerAdd extends NakamaAsyncResult:
 		return "MatchmakerAdd<query=%s, max_count=%d, min_count=%d, numeric_properties=%s, string_properties=%s>" % [query, max_count, min_count, numeric_properties, string_properties]
 
 
-### <summary>
-### Remove the user from the matchmaker pool by ticket.
-### </summary>
+# Remove the user from the matchmaker pool by ticket.
 class MatchmakerRemove extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -317,9 +293,7 @@ class MatchmakerRemove extends NakamaAsyncResult:
 		return "MatchmakerRemove<ticket=%s>" % [ticket]
 
 
-### <summary>
-### Follow one or more other users for status updates.
-### </summary>
+# Follow one or more other users for status updates.
 class StatusFollow extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -344,9 +318,7 @@ class StatusFollow extends NakamaAsyncResult:
 		return "StatusFollow<user_ids=%s, usernames=%s>" % [user_ids, usernames]
 
 
-### <summary>
-### Unfollow one or more users on the server.
-### </summary>
+# Unfollow one or more users on the server.
 class StatusUnfollow extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -368,9 +340,7 @@ class StatusUnfollow extends NakamaAsyncResult:
 		return "StatusUnfollow<user_ids=%s>" % [user_ids]
 
 
-### <summary>
-### Unfollow one or more users on the server.
-### </summary>
+# Unfollow one or more users on the server.
 class StatusUpdate extends NakamaAsyncResult:
 
 	const _SCHEMA = {

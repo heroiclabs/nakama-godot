@@ -1,28 +1,22 @@
 tool
 extends Node
 
-### <summary>
-### An adapter which implements the HTTP protocol.
-### </summary>
+# An adapter which implements the HTTP protocol.
 class_name NakamaHTTPAdapter
 
-### <summary>
-### The logger to use with the adapter.
-### </summary>
+# The logger to use with the adapter.
 var logger : Reference = NakamaLogger.new()
 
 var _pending = {}
 var id : int = 0
 
-### <summary>
-### Send a HTTP request.
-### </summary>
-### <param name="method">HTTP method to use for this request.</param>
-### <param name="uri">The fully qualified URI to use.</param>
-### <param name="headers">Request headers to set.</param>
-### <param name="body">Request content body to set.</param>
-### <param name="timeoutSec">Request timeout.</param>
-### <returns>A task which resolves to the contents of the response.</returns>
+# Send a HTTP request.
+# @param method - HTTP method to use for this request.
+# @param uri - The fully qualified URI to use.
+# @param headers - Request headers to set.
+# @param body - Request content body to set.
+# @param timeoutSec - Request timeout.
+# Returns a task which resolves to the contents of the response.
 func send_async(p_method : String, p_uri : String, p_headers : Dictionary, p_body : PoolByteArray, p_timeout : int = 3):
 	var req = HTTPRequest.new()
 	if OS.get_name() != 'HTML5':
