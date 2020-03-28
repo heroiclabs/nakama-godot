@@ -480,11 +480,13 @@ func list_notifications_async(p_session : NakamaSession, p_limit : int = 1, p_ca
 # List storage objects in a collection which have public read access.
 # @param p_session - The session of the user.
 # @param p_collection - The collection to list over.
+# @param p_user_id - The id of the user that owns the objects.
 # @param p_limit - The number of objects to list.
 # @param p_cursor - A cursor to paginate over the collection.
 # Returns a task which resolves to the storage object list.
-func list_storage_objects_async(p_session : NakamaSession, p_collection : String, p_limit : int = 1, p_cursor = null): # -> NakamaAPI.ApiStorageObjectList:
-	return _api_client.list_storage_objects_async(p_session.token, p_collection, "", p_limit, p_cursor)
+func list_storage_objects_async(p_session : NakamaSession, p_collection : String, p_user_id : String = "", p_limit : int = 1, p_cursor = null): # -> NakamaAPI.ApiStorageObjectList:
+# List tournament records around the owner.
+	return _api_client.list_storage_objects_async(p_session.token, p_collection, p_user_id, p_limit, p_cursor)
 
 # List tournament records around the owner.
 # @param p_session - The session of the user.
@@ -556,7 +558,7 @@ func promote_group_users_async(p_session : NakamaSession, p_group_id : String, p
 # @param p_session - The session of the user.
 # @param p_ids - The objects to read.
 # Returns a task which resolves to the storage batch object.
-func read_storage_objects_async(p_session : NakamaSession, p_ids : Array): # -> NakamaAPI.ApiStorageObjectList:
+func read_storage_objects_async(p_session : NakamaSession, p_ids : Array): # -> NakamaAPI.ApiStorageObjects:
 	var ids = []
 	for id in p_ids:
 		if not id is NakamaStorageObjectId:
@@ -671,7 +673,7 @@ func unlink_steam_async(p_session : NakamaSession, p_token : String) -> NakamaAs
 # @param p_location - A new location for the user.
 # @param p_timezone - New timezone information for the user.
 # Returns a task which represents the asynchronous operation.
-func update_account_async(p_session : NakamaSession, p_username : String, p_display_name = null,
+func update_account_async(p_session : NakamaSession, p_username : String = null, p_display_name = null,
 		p_avatar_url = null, p_lang_tag = null, p_location = null, p_timezone = null) -> NakamaAsyncResult:
 	return _api_client.update_account_async(p_session.token,
 		NakamaAPI.ApiUpdateAccountRequest.create(NakamaAPI, {
