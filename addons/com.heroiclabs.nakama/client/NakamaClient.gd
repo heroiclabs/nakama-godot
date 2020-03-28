@@ -711,7 +711,7 @@ func unlink_steam_async(p_session : NakamaSession, p_token : String) -> NakamaAs
 # @param p_location - A new location for the user.
 # @param p_timezone - New timezone information for the user.
 # Returns a task which represents the asynchronous operation.
-func update_account_async(p_session : NakamaSession, p_username : String = null, p_display_name = null,
+func update_account_async(p_session : NakamaSession, p_username = null, p_display_name = null,
 		p_avatar_url = null, p_lang_tag = null, p_location = null, p_timezone = null) -> NakamaAsyncResult:
 	return _api_client.update_account_async(p_session.token,
 		NakamaAPI.ApiUpdateAccountRequest.create(NakamaAPI, {
