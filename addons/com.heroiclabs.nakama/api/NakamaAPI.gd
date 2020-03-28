@@ -3108,8 +3108,8 @@ class ApiClient extends Reference:
 
 	# Add Facebook Instant Game to the social profiles on the current user's account.
 	func link_facebook_instant_game_async(
-		p_bearer_token : String
-		, p_body : ApiAccountFacebookInstantGame
+		p_bearer_token : String,
+		p_body : ApiAccountFacebookInstantGame
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/account/link/facebookinstantgame"
 		var query_params = ""
