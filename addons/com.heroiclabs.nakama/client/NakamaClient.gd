@@ -310,7 +310,7 @@ func join_group_async(p_session : NakamaSession, p_group_id : String) -> NakamaA
 # @param p_session - The session of the user.
 # @param p_tournament_id - The ID of the tournament to join.
 # Returns a task which represents the asynchronous operation.
-func JoinTournamentAsync(p_session : NakamaSession, p_tournament_id : String) -> NakamaAsyncResult:
+func join_tournament_async(p_session : NakamaSession, p_tournament_id : String) -> NakamaAsyncResult:
 	return _api_client.join_tournament_async(p_session.token, p_tournament_id)
 
 # Kick one or more users from the group.
@@ -456,7 +456,7 @@ func list_group_users_async(p_session : NakamaSession, p_group_id : String, p_st
 # @param p_limit - The number of groups to list.
 # @param p_cursor - A cursor for the current position in the groups to list.
 # Returns a task to resolve group objects.
-func list_groups_async(p_session : NakamaSession, p_name = null, p_limit : int = 1, p_cursor = null): # -> NakamaAPI.ApiGroupList:
+func list_groups_async(p_session : NakamaSession, p_name = null, p_limit : int = 10, p_cursor = null): # -> NakamaAPI.ApiGroupList:
 	return _api_client.list_groups_async(p_session.token, p_name, p_cursor, p_limit)
 
 # List records from a leaderboard.
@@ -468,7 +468,7 @@ func list_groups_async(p_session : NakamaSession, p_name = null, p_limit : int =
 # @param p_cursor - A cursor for the current position in the leaderboard records to list.
 # Returns a task which resolves to the leaderboard record objects.
 func list_leaderboard_records_async(p_session : NakamaSession,
-		p_leaderboard_id : String, p_owner_ids = null, p_expiry = null, p_limit : int = 1, p_cursor = null): # -> NakamaAPI.ApiLeaderboardRecordList:
+		p_leaderboard_id : String, p_owner_ids = null, p_expiry = null, p_limit : int = 10, p_cursor = null): # -> NakamaAPI.ApiLeaderboardRecordList:
 	return _api_client.list_leaderboard_records_async(p_session.token,
 		p_leaderboard_id, p_owner_ids, p_limit, p_cursor, p_expiry)
 
@@ -480,7 +480,7 @@ func list_leaderboard_records_async(p_session : NakamaSession,
 # @param p_limit - The limit of the listings.
 # Returns a task which resolves to the leaderboard record objects.
 func list_leaderboard_records_around_owner_async(p_session : NakamaSession,
-		p_leaderboar_id : String, p_owner_id : String, p_expiry = null, p_limit : int = 1): # -> NakamaAPI.ApiLeaderboardRecordList:
+		p_leaderboar_id : String, p_owner_id : String, p_expiry = null, p_limit : int = 10): # -> NakamaAPI.ApiLeaderboardRecordList:
 	return _api_client.list_leaderboard_records_around_owner_async(p_session.token,
 		p_leaderboar_id, p_owner_id, p_limit, p_expiry)
 
@@ -502,7 +502,7 @@ func list_matches_async(p_session : NakamaSession, p_min : int, p_max : int, p_l
 # @param p_limit - The number of notifications to list.
 # @param p_cacheable_cursor - A cursor for the current position in notifications to list.
 # Returns a task to resolve notifications objects.
-func list_notifications_async(p_session : NakamaSession, p_limit : int = 1, p_cacheable_cursor = null): # -> NakamaAPI.ApiNotificationList:
+func list_notifications_async(p_session : NakamaSession, p_limit : int = 10, p_cacheable_cursor = null): # -> NakamaAPI.ApiNotificationList:
 	return _api_client.list_notifications_async(p_session.token, p_limit, p_cacheable_cursor)
 
 # List storage objects in a collection which have public read access.
@@ -512,7 +512,7 @@ func list_notifications_async(p_session : NakamaSession, p_limit : int = 1, p_ca
 # @param p_limit - The number of objects to list.
 # @param p_cursor - A cursor to paginate over the collection.
 # Returns a task which resolves to the storage object list.
-func list_storage_objects_async(p_session : NakamaSession, p_collection : String, p_user_id : String = "", p_limit : int = 1, p_cursor = null): # -> NakamaAPI.ApiStorageObjectList:
+func list_storage_objects_async(p_session : NakamaSession, p_collection : String, p_user_id : String = "", p_limit : int = 10, p_cursor = null): # -> NakamaAPI.ApiStorageObjectList:
 # List tournament records around the owner.
 	return _api_client.list_storage_objects_async(p_session.token, p_collection, p_user_id, p_limit, p_cursor)
 
@@ -524,7 +524,7 @@ func list_storage_objects_async(p_session : NakamaSession, p_collection : String
 # @param p_limit - The number of records to list.
 # Returns a task which resolves to the tournament record list object.
 func list_tournament_records_around_owner_async(p_session : NakamaSession,
-		p_tournament_id : String, p_owner_id : String, p_expiry = null, p_limit : int = 1): # -> NakamaAPI.ApiTournamentRecordList:
+		p_tournament_id : String, p_owner_id : String, p_limit : int = 10, p_expiry = null): # -> NakamaAPI.ApiTournamentRecordList:
 	return _api_client.list_tournament_records_around_owner_async(p_session.token, p_tournament_id, p_owner_id, p_limit, p_expiry)
 
 # List records from a tournament.
@@ -536,7 +536,7 @@ func list_tournament_records_around_owner_async(p_session : NakamaSession,
 # @param p_cursor - An optional cursor for the next page of tournament records.
 # Returns a task which resolves to the list of tournament records.
 func list_tournament_records_async(p_session : NakamaSession, p_tournament_id : String,
-		p_owner_ids = null, p_expiry = null, p_limit : int = 1, p_cursor = null): # -> NakamaAPI.ApiTournamentRecordList:
+		p_owner_ids = null, p_limit : int = 10, p_cursor = null, p_expiry = null): # -> NakamaAPI.ApiTournamentRecordList:
 	return _api_client.list_tournament_records_async(p_session.token, p_tournament_id, p_owner_ids, p_limit, p_cursor, p_expiry)
 
 # List current or upcoming tournaments.
@@ -549,7 +549,7 @@ func list_tournament_records_async(p_session : NakamaSession, p_tournament_id : 
 # @param p_cursor - An optional cursor for the next page of tournaments.
 # Returns a task which resolves to the list of tournament objects.
 func list_tournaments_async(p_session : NakamaSession, p_category_start : int, p_category_end : int,
-		p_start_time : int, p_end_time : int, p_limit : int = 1, p_cursor = null): # -> NakamaAPI.ApiTournamentList:
+		p_start_time : int, p_end_time : int, p_limit : int = 10, p_cursor = null): # -> NakamaAPI.ApiTournamentList:
 	return _api_client.list_tournaments_async(p_session.token,
 		p_category_start, p_category_end, p_start_time, p_end_time, p_limit, p_cursor)
 
@@ -603,7 +603,7 @@ func read_storage_objects_async(p_session : NakamaSession, p_ids : Array): # -> 
 # @param p_id - The ID of the function to execute on the server.
 # @param p_payload - The payload to send with the function call.
 # Returns a task which resolves to the RPC response.
-func rpc_async(p_session : NakamaSession, p_id : String, p_payload = null): # -> NakamaAPI.ApiRpc:
+func rpc_async(p_session : NakamaSession, p_id : String, p_payload : String = ""): # -> NakamaAPI.ApiRpc:
 	return _api_client.rpc_func_async(p_session.token, p_id, p_payload)
 
 # Execute a function on the server without a session.
@@ -736,7 +736,7 @@ func update_account_async(p_session : NakamaSession, p_username = null, p_displa
 # @param p_lang_tag - A new language tag in BCP-47 format for the group.
 # Returns a task which represents the asynchronous operation.
 func update_group_async(p_session : NakamaSession,
-		p_group_id : String, p_name : String, p_open : bool, p_description = null, p_avatar_url = null, p_lang_tag = null) -> NakamaAsyncResult:
+		p_group_id : String, p_name = null, p_description = null, p_avatar_url = null, p_lang_tag = null, p_open = null) -> NakamaAsyncResult:
 	return  _api_client.update_group_async(p_session.token, p_group_id,
 		NakamaAPI.ApiUpdateGroupRequest.create(NakamaAPI, {
 			"name": p_name,
