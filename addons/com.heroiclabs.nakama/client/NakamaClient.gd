@@ -140,12 +140,12 @@ func authenticate_facebook_async(p_token : String, p_username = null, p_create :
 # @param p_import - If the Facebook friends should be imported.
 # @param p_vars - Extra information that will be bundled in the session token.
 # Returns a task which resolves to a session object.
-func authenticate_facebook_instant_game_async(p_signed_player_info : String, p_username = null, p_create : bool = true, p_import : bool = true, p_vars = null) -> NakamaSession:
+func authenticate_facebook_instant_game_async(p_signed_player_info : String, p_username = null, p_create : bool = true, p_vars = null) -> NakamaSession:
 		return _parse_auth(yield(_api_client.authenticate_facebook_instant_game_async(server_key, "",
 				NakamaAPI.ApiAccountFacebookInstantGame.create(NakamaAPI, {
 						"signed_player_info": p_signed_player_info,
 						"vars": p_vars
-				}), p_create, p_username, p_import), "completed"))
+				}), p_create, p_username), "completed"))
 
 # Authenticate a user with Apple Game Center.
 # @param p_bundle_id - The bundle id of the Game Center application.
@@ -372,12 +372,12 @@ func link_facebook_async(p_session : NakamaSession, p_token : String) -> NakamaA
 # @param p_token - An OAuth access token from the Facebook SDK.
 # @param p_import - If the Facebook friends should be imported.
 # Returns a task which represents the asynchronous operation.
-func link_facebook_instant_game_async(p_session : NakamaSession, p_token : String) -> NakamaAsyncResult:
+func link_facebook_instant_game_async(p_session : NakamaSession, p_signed_player_info : String) -> NakamaAsyncResult:
 	return _api_client.link_facebook_instant_game_async(
 		p_session.token,
-		NakamaAPI.ApiAccountFacebook.create(
+		NakamaAPI.ApiAccountFacebookInstantGame.create(
 			NakamaAPI, {
-			"token": p_token
+				"signed_player_info": p_signed_player_info
 			})
 		)
 
@@ -657,11 +657,13 @@ func unlink_facebook_async(p_session : NakamaSession, p_token : String) -> Nakam
 # @param p_session - The session of the user.
 # @param p_token - An OAuth access token from the Facebook SDK.
 # Returns a task which represents the asynchronous operation.
-func unlink_facebook_instant_game_async(p_session : NakamaSession, p_token : String) -> NakamaAsyncResult:
+func unlink_facebook_instant_game_async(p_session : NakamaSession, p_signed_player_info : String) -> NakamaAsyncResult:
 	return _api_client.unlink_facebook_instant_game_async(
 		p_session.token,
-		NakamaAPI.ApiAccountFacebook.create(
-			NakamaAPI, {"token": p_token}))
+		NakamaAPI.ApiAccountFacebookInstantGame.create(NakamaAPI, {
+			"signed_player_info": p_signed_player_info
+		})
+	)
 
 # Unlink a Game Center profile from the user account owned by the session.
 # @param p_session - The session of the user.
