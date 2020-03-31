@@ -99,9 +99,18 @@ static func _send_async(request : HTTPRequest, p_uri : String, p_headers : PoolS
 		return NakamaException.new("Failed to decode JSON response", response_code)
 
 	if response_code != HTTPClient.RESPONSE_OK:
-		logger.debug("Request %d returned response code: %d, RPC code: %d" % [
-			p_id, response_code, json.result["code"]
+		var error = ""
+		var code = -1
+		if typeof(json.result) == TYPE_DICTIONARY:
+			error = json.result["error"] if "error" in json.result else str(json.result)
+			code = json.result["code"] if "code" in json.result else -1
+		else:
+			error = str(json.result)
+		if typeof(error) == TYPE_DICTIONARY:
+			error = JSON.print(error)
+		logger.debug("Request %d returned response code: %d, RPC code: %d, error: %s" % [
+			p_id, response_code, code, error
 		])
-		return NakamaException.new(json.result["error"], response_code, json.result["code"])
+		return NakamaException.new(error, response_code, code)
 
 	return json.result
