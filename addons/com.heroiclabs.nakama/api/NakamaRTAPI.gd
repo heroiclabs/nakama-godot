@@ -433,17 +433,11 @@ class StatusPresenceEvent extends NakamaAsyncResult:
 class Stream extends NakamaAsyncResult:
 
 	const _SCHEMA = {
-		"descriptor": {"name": "descriptor", "type": TYPE_STRING, "required": false},
-		"label": {"name": "label", "type": TYPE_STRING, "required": false},
 		"mode": {"name": "mode", "type": TYPE_INT, "required": true},
 		"subject": {"name": "subject", "type": TYPE_STRING, "required": false},
+		"subcontext": {"name": "subcontext", "type": TYPE_STRING, "required": false},
+		"label": {"name": "label", "type": TYPE_STRING, "required": false},
 	}
-
-	# The descriptor of the stream. Used with direct chat messages and contains a second user id.
-	var descriptor : String
-
-	# Identifies streams which have a context across users like a chat channel room.
-	var label : String
 
 	# The mode of the stream.
 	var mode : int
@@ -451,12 +445,18 @@ class Stream extends NakamaAsyncResult:
 	# The subject of the stream. This is usually a user id.
 	var subject : String
 
+	# The descriptor of the stream. Used with direct chat messages and contains a second user id.
+	var subcontext : String
+
+	# Identifies streams which have a context across users like a chat channel room.
+	var label : String
+
 	func _init(p_ex = null).(p_ex):
 		pass
 
 	func _to_string():
 		if is_exception(): return get_exception()._to_string()
-		return "Stream<descriptor=%s, label=%s, mode=%s, subject=%s>" % [descriptor, label, mode, subject]
+		return "Stream<mode=%s, subject=%s, subcontext=%s, label=%s>" % [mode, subject, subcontext, label]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> Stream:
 		return _safe_ret(NakamaSerializer.deserialize(p_ns, "Stream", p_dict), Stream) as Stream
