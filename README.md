@@ -140,6 +140,16 @@ cd nakama-godot
 sh test_suite/run_tests.sh
 ```
 
+### Make a new release
+
+To make a new release ready for distribution, simply zip the addons folder recursively (possibly adding `CHANGELOG`, `LICENSE`, and `README.md` too).
+
+On unix systems, you can run the following command (replacing `$VERSION` with the desired version number). Remember to update the `CHANGELOG` file first.
+
+```shell
+zip -r nakama-$VERSION.zip addons/ LICENSE CHANGELOG.md README.md
+```
+
 ### License
 
 This project is licensed under the [Apache-2 License](https://github.com/heroiclabs/nakama-godot/blob/master/LICENSE).

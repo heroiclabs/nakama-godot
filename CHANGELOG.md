@@ -6,7 +6,17 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 ## [Unreleased]
 
 ### Added
+
+### Fixed
+
+## [2.0.0] - 2020-04-02
+
+### Added
+
 - Decode base64 data in `MatchData`. (breaks compat)
+- Add `FacebookInstantGame` endpoints (link/unlink/authenticate).
+- GDScript-style comments (removing all XML tags).
+- Add `list_storage_objects_async` `p_user_id` parameter to allow listing user(s) objects.
 
 ### Fixed
 
@@ -14,6 +24,15 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 - Fix parsing of `MatchmakerMatched` messages when no token is specified.
 - Disable `HTTPRequest.use_threads` in HTML5 exports.
 - `NakamaSession.is_expired` returned reversed result.
+- Fix `NakamaClient.update_account_async` to allow updating account without username change.
+- Fix `NakamaClient.update_group_async` to allow updating group without name change.
+- Fix `HTTPAdapter._send_async` error catching for some edge cases.
+- Fix `NakamaClient.send_rpc_async` with empty payload (will send empty string now).
+- Fix `NakamaRTAPI.Status` parsing.
+- Fix `NakamaClient` `list_leaderboard_records_around_owner_async` and `list_leaderboard_records_async` parameter order. (breaks compat)
+- Rename `NakamaClient.JoinTournamentAsync` to `join_tournament_async` for consistent naming.
+- Update all `p_limit` parameters default in `NakamaClient` to `10`.
+- Fix `NakamaRTAPI.Stream` parsing.
 
 ## [1.0.0] - 2020-01-28
 ### Added
