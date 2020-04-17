@@ -9,6 +9,8 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 
 ### Fixed
 
+- Fix `add_matchmaker_async` and `MatchmakerAdd` parameter assignment.
+
 ## [2.0.0] - 2020-04-02
 
 ### Added
