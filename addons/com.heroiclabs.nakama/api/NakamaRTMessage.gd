@@ -257,6 +257,7 @@ class MatchmakerAdd extends NakamaAsyncResult:
 	func _init(p_query : String = "*", p_min_count : int = 2, p_max_count : int = 8,
 			p_string_props : Dictionary = Dictionary(), p_numeric_props : Dictionary = Dictionary()):
 		query = p_query
+		min_count = p_min_count
 		max_count = p_max_count
 		string_properties = p_string_props
 		numeric_properties = p_numeric_props

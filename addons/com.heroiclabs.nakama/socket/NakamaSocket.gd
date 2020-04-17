@@ -267,7 +267,7 @@ func connect_async(p_session : NakamaSession, p_appear_online : bool = false, p_
 func add_matchmaker_async(p_query : String = "*", p_min_count : int = 2, p_max_count : int = 8,
 		p_string_props : Dictionary = {}, p_numeric_props : Dictionary = {}) -> NakamaRTAPI.MatchmakerTicket:
 	return _send_async(
-		NakamaRTMessage.MatchmakerAdd.new(p_query, p_max_count, p_min_count, p_string_props, p_numeric_props),
+		NakamaRTMessage.MatchmakerAdd.new(p_query, p_min_count, p_max_count, p_string_props, p_numeric_props),
 		NakamaRTAPI.MatchmakerTicket
 	)
 
