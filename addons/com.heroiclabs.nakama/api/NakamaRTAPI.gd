@@ -225,6 +225,9 @@ class MatchData extends NakamaAsyncResult:
 	# The operation code for the state change.
 	# This value can be used to mark the type of the contents of the state.
 	var op_code : int = 0
+	
+	# The user that sent this game state update.
+	var presence : UserPresence
 
 	# The byte contents of the state change.
 	var data : String
@@ -234,7 +237,7 @@ class MatchData extends NakamaAsyncResult:
 
 	func _to_string():
 		if is_exception(): return get_exception()._to_string()
-		return "MatchData<match_id=%s, op_code=%s, data=%s>" % [match_id, op_code, data]
+		return "MatchData<match_id=%s, op_code=%s, presence=%s, data=%s>" % [match_id, op_code, presence, data]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> MatchData:
 		var out := _safe_ret(NakamaSerializer.deserialize(p_ns, "MatchData", p_dict), MatchData) as MatchData
