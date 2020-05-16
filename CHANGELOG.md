@@ -10,6 +10,8 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 ### Fixed
 
 - Fix `add_matchmaker_async` and `MatchmakerAdd` parameter assignment.
+- Fix missing `presence` property in NakamaRTAPI.MatchData.
+- Fix NakamaSocket not emitting `received_error` correctly.
 
 ## [2.0.0] - 2020-04-02
 
