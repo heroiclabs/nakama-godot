@@ -225,7 +225,7 @@ class MatchData extends NakamaAsyncResult:
 	# The operation code for the state change.
 	# This value can be used to mark the type of the contents of the state.
 	var op_code : int = 0
-	
+
 	# The user that sent this game state update.
 	var presence : UserPresence
 
