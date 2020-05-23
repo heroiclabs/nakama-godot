@@ -7,11 +7,13 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 
 ### Added
 
-- Added a log level parameter to `Nakama.create_client`.
+- Added an optional log level parameter to `Nakama.create_client`.
 
 ### Fixed
 
 - Fix `add_matchmaker_async` and `MatchmakerAdd` parameter assignment.
+- Fix missing `presence` property in NakamaRTAPI.MatchData.
+- Fix NakamaSocket not emitting `received_error` correctly.
 - Fix `DEFAULT_LOG_LEVEL` in Nakama.gd not doing anything.
 
 ## [2.0.0] - 2020-04-02

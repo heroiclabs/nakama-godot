@@ -76,7 +76,7 @@ func _init(p_adapter : NakamaSocketAdapter,
 	_free_adapter = p_free_adapter
 	_adapter.connect("closed", self, "_closed")
 	_adapter.connect("connected", self, "_connected")
-	_adapter.connect("received_error", self, "_closed")
+	_adapter.connect("received_error", self, "_error")
 	_adapter.connect("received", self, "_received")
 
 func _notification(what):
