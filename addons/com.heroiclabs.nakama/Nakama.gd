@@ -42,7 +42,7 @@ func create_client(p_server_key : String,
 		p_port : int = DEFAULT_PORT,
 		p_scheme : String = DEFAULT_CLIENT_SCHEME,
 		p_timeout : int = DEFAULT_TIMEOUT,
-		p_log_level: int = DEFAULT_LOG_LEVEL) -> NakamaClient:
+		p_log_level : int = DEFAULT_LOG_LEVEL) -> NakamaClient:
 	logger._level = p_log_level
 	return NakamaClient.new(get_client_adapter(), p_server_key, p_scheme, p_host, p_port, p_timeout)
 
