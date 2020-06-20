@@ -67,7 +67,7 @@ func _parse_auth(p_session) -> NakamaSession:
 # @param p_ids - The ids of the users to add or invite as friends.
 # @param p_usernames - The usernames of the users to add as friends.
 # Returns a task which represents the asynchronous operation.
-func add_friends_async(p_session : NakamaSession, p_ids : PoolStringArray, p_usernames = null) -> NakamaAsyncResult:
+func add_friends_async(p_session : NakamaSession, p_ids = null, p_usernames = null) -> NakamaAsyncResult:
 	return _api_client.add_friends_async(p_session.token, p_ids, p_usernames)
 
 # Add one or more users to the group.
