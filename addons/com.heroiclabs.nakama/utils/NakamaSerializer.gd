@@ -39,14 +39,15 @@ static func serialize(p_obj : Object) -> Dictionary:
 				var dict = {}
 				if content == TYPE_OBJECT: # Map of objects
 					for l in val:
-						if val_type != TYPE_OBJECT:
+						if typeof(val[l]) != TYPE_OBJECT:
 							continue
-						dict[l] = serialize(val)
+						dict[l] = serialize(val[l])
 				else: # Map of simple types
 					for l in val:
-						if val_type != content:
+						if typeof(val[l]) != content:
 							continue
-						dict[l] = val
+						dict[l] = val[l]
+				out[k] = dict
 			_:
 				out[k] = val
 	return out
