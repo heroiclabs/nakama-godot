@@ -315,6 +315,7 @@ func join_matched_async(p_matched):
 func join_match_async(p_match_id : String, p_metadata = null):
 	var msg := NakamaRTMessage.MatchJoin.new()
 	msg.match_id = p_match_id
+	msg.metadata = p_metadata
 	return _send_async(msg, NakamaRTAPI.Match)
 
 # Leave a chat channel on the server.

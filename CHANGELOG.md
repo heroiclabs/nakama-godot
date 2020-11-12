@@ -5,7 +5,9 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+### Fixed
 - Fix Dictionary serialization (e.g. "NakamaSocket.add_matchmaker_async" "p_string_props").
+- Pass join metadata onwards into match join message.
 
 ## [2.1.0] - 2020-08-01
 
