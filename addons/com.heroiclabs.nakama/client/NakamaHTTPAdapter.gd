@@ -102,7 +102,7 @@ static func _send_async(request : HTTPRequest, p_uri : String, p_headers : PoolS
 		var error = ""
 		var code = -1
 		if typeof(json.result) == TYPE_DICTIONARY:
-			error = json.result["error"] if "error" in json.result else str(json.result)
+			error = json.result["message"] if "message" in json.result else str(json.result)
 			code = json.result["code"] if "code" in json.result else -1
 		else:
 			error = str(json.result)
