@@ -3982,18 +3982,15 @@ class ApiClient extends Reference:
 		var urlpath : String = "/v2/rpc/{id}"
 		urlpath = urlpath.replace("{id}", NakamaSerializer.escape_http(p_id))
 		var query_params = ""
-		if p_payload != null:
-			query_params += "payload=%s&" % NakamaSerializer.escape_http(p_payload)
 		if p_http_key != null:
 			query_params += "http_key=%s&" % NakamaSerializer.escape_http(p_http_key)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
-		var method = "GET"
+		var method = "POST"
 		var headers = {}
 		if (p_bearer_token):
 			var header = "Bearer %s" % p_bearer_token
 			headers["Authorization"] = header
-
-		var content : PoolByteArray
+		var content : PoolByteArray = JSON.print(p_payload).to_utf8()
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiRpc.new(result)
