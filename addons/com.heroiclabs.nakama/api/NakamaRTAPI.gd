@@ -7,7 +7,7 @@ class Channel extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"id": {"name": "id", "type": TYPE_STRING, "required": true},
-		"presences": {"name": "presences", "type": TYPE_ARRAY, "required": true, "content": "UserPresence"},
+		"presences": {"name": "presences", "type": TYPE_ARRAY, "required": false, "content": "UserPresence"},
 		"self": {"name": "self_presence", "type": "UserPresence", "required": true},
 		"room_name": {"name": "room_name", "type": TYPE_STRING, "required": false},
 		"group_id": {"name": "group_id", "type": TYPE_STRING, "required": false},
@@ -166,6 +166,7 @@ class ChannelPresenceEvent extends NakamaAsyncResult:
 	static func get_result_key() -> String:
 		return "channel_presence_event"
 
+
 # A multiplayer match.
 class Match extends NakamaAsyncResult:
 
@@ -279,6 +280,7 @@ class MatchPresenceEvent extends NakamaAsyncResult:
 	static func get_result_key() -> String:
 		return "match_presence_event"
 
+
 # The result of a successful matchmaker operation sent to the server.
 class MatchmakerMatched extends NakamaAsyncResult:
 
@@ -350,16 +352,20 @@ class MatchmakerTicket extends NakamaAsyncResult:
 class MatchmakerUser extends NakamaAsyncResult:
 
 	const _SCHEMA = {
-		"numeric_properties": {"name": "numeric_properties", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_REAL},
+		"presence": {"name": "presence", "type": "UserPresence", "required": true},
+		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": false},
 		"string_properties": {"name": "string_properties", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
-		"presence": {"name": "presence", "type": "UserPresence", "required": true}
+		"numeric_properties": {"name": "numeric_properties", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_REAL},
 	}
-
-	# The numeric properties which this user asked to matchmake with.
-	var numeric_properties : Dictionary
 
 	# The presence of the user.
 	var presence : UserPresence
+
+	# Party identifier, if this user was matched as a party member.
+	var party_id : String
+
+	# The numeric properties which this user asked to matchmake with.
+	var numeric_properties : Dictionary
 
 	# The string properties which this user asked to matchmake with.
 	var string_properties : Dictionary
@@ -530,6 +536,7 @@ class StreamData extends NakamaAsyncResult:
 	static func get_result_key() -> String:
 		return "stream_data"
 
+
 # An object which represents a connected user in the server.
 # The server allows the same user to be connected with multiple sessions. To uniquely identify them a tuple of
 # `{ node_id, user_id, session_id }` is used which is exposed as this object.
@@ -574,3 +581,226 @@ class UserPresence extends NakamaAsyncResult:
 
 	static func get_result_key() -> String:
 		return "user_presence"
+
+
+class Party extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
+		"open": {"name": "open", "type": TYPE_BOOL, "required": false},
+		"max_size": {"name": "max_size", "type": TYPE_INT, "required": true},
+		"self": {"name": "self_presence", "type": "UserPresence", "required": true},
+		"leader": {"name": "leader", "type": "UserPresence", "required": true},
+		"presences": {"name": "presences", "type": TYPE_ARRAY, "required": false, "content": "UserPresence"},
+	}
+
+	# Unique party identifier.
+	var party_id : String
+
+	# Open flag.
+	var open : bool = false
+
+	# Maximum number of party members.
+	var max_size : int
+
+	# The presence of the current user. i.e. Your self.
+	var self_presence : NakamaRTAPI.UserPresence
+
+	# Leader.
+	var leader : NakamaRTAPI.UserPresence
+
+	# All current party members.
+	var presences : Array # of objects NakamaUserPresence
+
+	func _init(p_ex = null).(p_ex):
+		pass
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string():
+		if is_exception(): return get_exception()._to_string()
+		return "Party<party_id=%s, open=%s, max_size=%d, self=%s, leader=%s, presences=%s>" % [
+			party_id, open, max_size, self_presence, leader, presences]
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> Party:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "Party", p_dict), Party) as Party
+
+	static func get_result_key() -> String:
+		return "party"
+
+
+# Presence update for a particular party.
+class PartyPresenceEvent extends NakamaAsyncResult:
+	const _SCHEMA = {
+		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
+		"joins": {"name": "joins", "type": TYPE_ARRAY, "required": false, "content": "UserPresence"},
+		"leaves": {"name": "leaves", "type": TYPE_ARRAY, "required": false, "content": "UserPresence"},
+	}
+	# The party ID.
+	var party_id : String
+	# User presences that have just joined the party.
+	var joins : Array
+	# User presences that have just left the party.
+	var leaves : Array
+
+	func _init(p_ex = null).(p_ex):
+		pass
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string():
+		if is_exception(): return get_exception()._to_string()
+		return "PartyPresenceEvent<party_id=%s, joins=%s, leaves=%s>" % [party_id, joins, leaves]
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> PartyPresenceEvent:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyPresenceEvent", p_dict), PartyPresenceEvent) as PartyPresenceEvent
+
+	static func get_result_key() -> String:
+		return "party_presence_event"
+
+
+# Announcement of a new party leader.
+class PartyLeader extends NakamaAsyncResult:
+	const _SCHEMA = {
+		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
+		"presence": {"name": "presence", "type": "UserPresence", "required": true},
+	}
+	# Party ID to promote a new leader for.
+	var party_id : String
+	# The presence of an existing party member to promote as the new leader.
+	var presence : NakamaRTAPI.UserPresence
+
+	func _init(p_ex = null).(p_ex):
+		pass
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string():
+		if is_exception(): return get_exception()._to_string()
+		return "PartyLeader<party_id=%s, presence=%s>" % [party_id, presence]
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> PartyLeader:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyLeader", p_dict), PartyLeader) as PartyLeader
+
+	static func get_result_key() -> String:
+		return "party_leader"
+
+
+# Incoming notification for one or more new presences attempting to join the party.
+class PartyJoinRequest extends NakamaAsyncResult:
+	const _SCHEMA = {
+		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
+		"presences": {"name": "presences", "type": TYPE_ARRAY, "required": false, "content": "UserPresence"},
+	}
+	# Party ID these presences are attempting to join.
+	var party_id : String
+	# Presences attempting to join.
+	var presences : Array
+
+	func _init(p_ex = null).(p_ex):
+		pass
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string():
+		if is_exception(): return get_exception()._to_string()
+		return "PartyJoinRequest<party_id=%s, presences=%s>" % [party_id, presences]
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> PartyJoinRequest:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyJoinRequest", p_dict), PartyJoinRequest) as PartyJoinRequest
+
+	static func get_result_key() -> String:
+		return "party_join_request"
+
+
+# A response from starting a new party matchmaking process.
+class PartyMatchmakerTicket extends NakamaAsyncResult:
+	const _SCHEMA = {
+		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
+		"ticket": {"name": "ticket", "type": TYPE_STRING, "required": true},
+	}
+	# Party ID.
+	var party_id : String
+	# The ticket that can be used to cancel matchmaking.
+	var ticket : String
+
+	func _init(p_ex = null).(p_ex):
+		pass
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string():
+		if is_exception(): return get_exception()._to_string()
+		return "PartyMatchmakerTicket<party_id=%s, ticket=%s>" % [party_id, ticket]
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> PartyMatchmakerTicket:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyMatchmakerTicket", p_dict), PartyMatchmakerTicket) as PartyMatchmakerTicket
+
+	static func get_result_key() -> String:
+		return "party_matchmaker_ticket"
+
+
+# Incoming party data delivered from the server.
+class PartyData extends NakamaAsyncResult:
+	const _SCHEMA = {
+		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
+		"presence": {"name": "presence", "type": "UserPresence", "required": false},
+		"op_code": {"name": "op_code", "type": TYPE_INT, "required": true},
+		"data": {"name": "data", "type": TYPE_STRING, "required": false}
+	}
+	# The party ID.
+	var party_id : String
+	# A reference to the user presence that sent this data, if any.
+	var presence : NakamaRTAPI.UserPresence
+	# Op code value.
+	var op_code : int
+	# Data payload, if any.
+	var data : String
+
+	func _init(p_ex = null).(p_ex):
+		pass
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string():
+		if is_exception(): return get_exception()._to_string()
+		return "PartyData<party_id=%s, presence=%s, op_code=%d, data%s>" % [party_id, presence, op_code, data]
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> PartyData:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyData", p_dict), PartyData) as PartyData
+
+	static func get_result_key() -> String:
+		return "party_data"
+
+# End a party, kicking all party members and closing it. (this is both a message and a result)
+class PartyClose extends NakamaAsyncResult:
+	const _SCHEMA = {
+		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
+	}
+	# Party ID to close.
+	var party_id : String
+
+	func _init(p_id : String):
+		party_id = p_id
+
+	func serialize():
+		return NakamaSerializer.serialize(self)
+
+	func get_msg_key() -> String:
+		return "party_close"
+
+	func _to_string():
+		if is_exception(): return get_exception()._to_string()
+		return "PartyClose<party_id=%s>" % [party_id]
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> PartyClose:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyClose", p_dict), PartyClose) as PartyClose
+
+	static func get_result_key() -> String:
+		return "party_close"

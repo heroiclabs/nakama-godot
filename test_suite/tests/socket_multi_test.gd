@@ -4,6 +4,8 @@ var content = {"My": "message"}
 var match_props = {"region": "europe"}
 var got_msg = false
 var got_match = false
+var socket1 = null
+var socket2 = null
 
 func setup():
 	var client = Nakama.create_client(Config.SERVER_KEY, Config.HOST, Config.PORT, Config.SCHEME)
@@ -16,7 +18,7 @@ func setup():
 	if assert_cond(session1.is_valid()):
 		return
 
-	var socket1 = Nakama.create_socket_from(client)
+	socket1 = Nakama.create_socket_from(client)
 	socket1.connect("received_channel_message", self, "_on_socket1_message")
 	socket1.connect("received_matchmaker_matched", self, "_on_socket1_matchmaker_matched")
 	var done = yield(socket1.connect_async(session1), "completed")
@@ -24,7 +26,7 @@ func setup():
 	if assert_false(done.is_exception()):
 		return
 
-	var socket2 = Nakama.create_socket_from(client)
+	socket2 = Nakama.create_socket_from(client)
 	done = yield(socket2.connect_async(session2), "completed")
 	# Check that connection succeded
 	if assert_false(done.is_exception()):
@@ -57,15 +59,15 @@ func _on_socket1_message(msg):
 	check_end()
 
 func _on_socket1_matchmaker_matched(p_matchmaker_matched):
-	if assert_equal(p_matchmaker_matched.users[0].string_properties, JSON.print(match_props)):
+	if assert_equal(JSON.print(p_matchmaker_matched.users[0].string_properties), JSON.print(match_props)):
 		return
-	if assert_equal(p_matchmaker_matched.users[1].string_properties, JSON.print(match_props)):
+	if assert_equal(JSON.print(p_matchmaker_matched.users[1].string_properties), JSON.print(match_props)):
 		return
 	got_match = true
 	check_end()
 
 func _process(_delta):
-	assert_time(3)
+	assert_time(60)
 
 func check_end():
 	if got_match and got_msg:

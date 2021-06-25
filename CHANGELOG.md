@@ -5,7 +5,15 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+### Added
+
+- Add realtime party support.
+- Add purchase validation functions.
+- Add Apple authentication functions.
+- Add "demote_group_users_async" function.
+
 ### Fixed
+
 - Fix Dictionary serialization (e.g. "NakamaSocket.add_matchmaker_async" "p_string_props").
 - Pass join metadata onwards into match join message.
 - Don't stop processing messages when the game is paused.
