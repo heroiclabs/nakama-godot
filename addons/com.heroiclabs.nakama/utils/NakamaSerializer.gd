@@ -77,8 +77,9 @@ static func deserialize(p_ns : GDScript, p_cls_name : String, p_dict : Dictionar
 		var val = p_dict.get(k, null)
 
 		# Ints might and up being recognized as floats. Change that if needed
-		if typeof(val) == TYPE_REAL and type_cmp == TYPE_INT:
-			val = int(val)
+		if type_cmp == TYPE_INT:
+			if typeof(val) == TYPE_REAL or (typeof(val) == TYPE_STRING and val.is_valid_integer()):
+				val = int(val)
 
 		if typeof(val) == type_cmp:
 			if typeof(type) == TYPE_STRING:

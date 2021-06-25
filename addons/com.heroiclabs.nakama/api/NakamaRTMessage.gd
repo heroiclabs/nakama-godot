@@ -209,7 +209,7 @@ class MatchDataSend extends NakamaAsyncResult:
 	const _SCHEMA = {
 		"match_id": {"name": "match_id", "type": TYPE_STRING, "required": true},
 		"op_code": {"name": "op_code", "type": TYPE_INT, "required": true},
-		"presences": {"name": "presences", "type": TYPE_ARRAY, "required": false, "content": "UserPresences"},
+		"presences": {"name": "presences", "type": TYPE_ARRAY, "required": false, "content": "UserPresence"},
 		"data": {"name": "data", "type": TYPE_STRING, "required": true},
 	}
 
@@ -361,3 +361,266 @@ class StatusUpdate extends NakamaAsyncResult:
 
 	func _to_string():
 		return "StatusUpdate<status=%s>" % [status]
+
+# Create a party.
+class PartyCreate extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"open": {"name": "open", "type": TYPE_BOOL, "required": true},
+		"max_size": {"name": "max_size", "type": TYPE_INT, "required": true},
+	}
+	# Whether or not the party will require join requests to be approved by the party leader.
+	var open : bool
+	# Maximum number of party members.
+	var max_size : int
+
+	func _init(p_open : bool, p_max_size : int):
+		open = p_open
+		max_size = p_max_size
+
+	func serialize():
+		return NakamaSerializer.serialize(self)
+
+	func get_msg_key() -> String:
+		return "party_create"
+
+	func _to_string():
+		return "PartyCreate<open=%s, max_size=%d>" % [open, max_size]
+
+
+# Join a party, or request to join if the party is not open.
+class PartyJoin extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
+	}
+	# Party ID to join.
+	var party_id : String
+
+	func _init(p_id : String):
+		party_id = p_id
+
+	func serialize():
+		return NakamaSerializer.serialize(self)
+
+	func get_msg_key() -> String:
+		return "party_join"
+
+	func _to_string():
+		return "PartyJoin<party_id=%s>" % [party_id]
+
+
+# Leave a party.
+class PartyLeave extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
+	}
+	# Party ID to leave.
+	var party_id : String
+
+	func _init(p_id : String):
+		party_id = p_id
+
+	func serialize():
+		return NakamaSerializer.serialize(self)
+
+	func get_msg_key() -> String:
+		return "party_leave"
+
+	func _to_string():
+		return "PartyLeave<party_id=%s>" % [party_id]
+
+
+# Promote a new party leader.
+class PartyPromote extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
+		"presence": {"name": "presence", "type": "UserPresence", "required": true},
+	}
+	# Party ID to promote a new leader for.
+	var party_id : String
+	# The presence of an existing party member to promote as the new leader.
+	var presence : NakamaRTAPI.UserPresence
+
+	func _init(p_id : String, p_presence : NakamaRTAPI.UserPresence):
+		party_id = p_id
+		presence = p_presence
+
+	func serialize():
+		return NakamaSerializer.serialize(self)
+
+	func get_msg_key() -> String:
+		return "party_promote"
+
+	func _to_string():
+		return "PartyPromote<party_id=%s, presence=%s>" % [party_id, presence]
+
+
+# Accept a request to join.
+class PartyAccept extends NakamaAsyncResult:
+	const _SCHEMA = {
+		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
+		"presence": {"name": "presence", "type": "UserPresence", "required": true},
+	}
+	# Party ID to accept a join request for.
+	var party_id : String
+	# The presence to accept as a party member.
+	var presence : NakamaRTAPI.UserPresence
+
+	func _init(p_id : String, p_presence : NakamaRTAPI.UserPresence):
+		party_id = p_id
+		presence = p_presence
+
+	func serialize():
+		return NakamaSerializer.serialize(self)
+
+	func get_msg_key() -> String:
+		return "party_accept"
+
+	func _to_string():
+		return "PartyAccept<party_id=%s, presence=%s>" % [party_id, presence]
+
+
+# Kick a party member, or decline a request to join.
+class PartyRemove extends NakamaAsyncResult:
+	const _SCHEMA = {
+		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
+		"presence": {"name": "presence", "type": "UserPresence", "required": true},
+	}
+	# Party ID to remove/reject from.
+	var party_id : String
+	# The presence to remove or reject.
+	var presence : NakamaRTAPI.UserPresence
+
+	func _init(p_id : String, p_presence : NakamaRTAPI.UserPresence):
+		party_id = p_id
+		presence = p_presence
+
+	func serialize():
+		return NakamaSerializer.serialize(self)
+
+	func get_msg_key() -> String:
+		return "party_remove"
+
+	func _to_string():
+		return "PartyRemove<party_id=%s, presence=%s>" % [party_id, presence]
+
+
+# Request a list of pending join requests for a party.
+class PartyJoinRequestList extends NakamaAsyncResult:
+	const _SCHEMA = {
+		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
+	}
+	# Party ID to get a list of join requests for.
+	var party_id : String
+
+	func _init(p_id : String):
+		party_id = p_id
+
+	func serialize():
+		return NakamaSerializer.serialize(self)
+
+	func get_msg_key() -> String:
+		return "party_join_request_list"
+
+	func _to_string():
+		return "PartyJoinRequestList<party_id=%s>" % [party_id]
+
+
+# Begin matchmaking as a party.
+class PartyMatchmakerAdd extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
+		"min_count": {"name": "min_count", "type": TYPE_INT, "required": true},
+		"max_count": {"name": "max_count", "type": TYPE_INT, "required": true},
+		"query": {"name": "query", "type": TYPE_STRING, "required": false},
+		"string_properties": {"name": "string_properties", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
+		"numeric_properties": {"name": "numeric_properties", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_REAL},
+	}
+
+	# Party ID.
+	var party_id : String
+	# Minimum total user count to match together.
+	var min_count : int
+	# Maximum total user count to match together.
+	var max_count : int
+	# Filter query used to identify suitable users.
+	var query : String
+	# String properties.
+	var string_properties : Dictionary
+	# Numeric properties.
+	var numeric_properties : Dictionary
+
+	func _init(p_id : String, p_min_count : int, p_max_count : int, p_query : String, p_string_properties = null, p_numeric_properties = null):
+		party_id = p_id
+		min_count = p_min_count
+		max_count = p_max_count
+		query = p_query
+		string_properties = p_string_properties
+		numeric_properties = p_numeric_properties
+
+	func serialize():
+		return NakamaSerializer.serialize(self)
+
+	func get_msg_key() -> String:
+		return "party_matchmaker_add"
+
+	func _to_string():
+		return "PartyMatchmakerAdd<party_id=%s, min_count=%d, max_count=%d, query=%s, string_properties=%s, numeric_properties=%s>" % [party_id, min_count, max_count, query, string_properties, numeric_properties]
+
+
+# Cancel a party matchmaking process using a ticket.
+class PartyMatchmakerRemove extends NakamaAsyncResult:
+	const _SCHEMA = {
+		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
+		"ticket": {"name": "ticket", "type": TYPE_STRING, "required": true},
+	}
+	# Party ID.
+	var party_id : String
+	# The ticket to cancel.
+	var ticket : String
+
+	func _init(p_id : String, p_ticket : String):
+		party_id = p_id
+		ticket = p_ticket
+
+	func serialize():
+		return NakamaSerializer.serialize(self)
+
+	func get_msg_key() -> String:
+		return "party_matchmaker_remove"
+
+	func _to_string():
+		return "PartyMatchmakerRemove<party_id=%s, ticket=%s>" % [party_id, ticket]
+
+
+# Send data to a party.
+class PartyDataSend extends NakamaAsyncResult:
+	const _SCHEMA = {
+		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
+		"op_code": {"name": "op_code", "type": TYPE_INT, "required": true},
+		"data": {"name": "data", "type": TYPE_STRING, "required": false}
+	}
+	# Party ID to send to.
+	var party_id : String
+	# Op code value.
+	var op_code : int
+	# Data payload, if any.
+	var data = null
+
+	func _init(p_id : String, p_op_code : int, p_data = null):
+		party_id = p_id
+		op_code = p_op_code
+		data = p_data
+
+	func serialize():
+		return NakamaSerializer.serialize(self)
+
+	func get_msg_key() -> String:
+		return "party_data_send"
+
+	func _to_string():
+		return "PartyDataSend<party_id=%s, op_code=%d, data=%s>" % [party_id, op_code, data]

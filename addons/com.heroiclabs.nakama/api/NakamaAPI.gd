@@ -77,11 +77,24 @@ class UserGroupListUserGroup extends NakamaAsyncResult:
 		output += "state: %s, " % _state
 		return output
 
+# Environment where the purchase took place
+# - UNKNOWN: Unknown environment.
+#  - SANDBOX: Sandbox/test environment.
+#  - PRODUCTION: Production environment.# [- UNKNOWN: Unknown environment.  - SANDBOX: Sandbox/test environment.  - PRODUCTION: Production environment.]
+enum ValidatedPurchaseEnvironment {UNKNOWN = 0,SANDBOX = 1,PRODUCTION = 2,}
+
+# Validation Provider
+# - APPLE_APP_STORE: Apple App Store
+#  - GOOGLE_PLAY_STORE: Google Play Store
+#  - HUAWEI_APP_GALLERY: Huawei App Gallery# [- APPLE_APP_STORE: Apple App Store  - GOOGLE_PLAY_STORE: Google Play Store  - HUAWEI_APP_GALLERY: Huawei App Gallery]
+enum ValidatedPurchaseStore {APPLE_APP_STORE = 0,GOOGLE_PLAY_STORE = 1,HUAWEI_APP_GALLERY = 2,}
+
 # Record values to write.
 class WriteLeaderboardRecordRequestLeaderboardRecordWrite extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"metadata": {"name": "_metadata", "type": TYPE_STRING, "required": false},
+		"operator": {"name": "_operator", "type": TYPE_INT, "required": false},
 		"score": {"name": "_score", "type": TYPE_STRING, "required": false},
 		"subscore": {"name": "_subscore", "type": TYPE_STRING, "required": false},
 	}
@@ -91,6 +104,12 @@ class WriteLeaderboardRecordRequestLeaderboardRecordWrite extends NakamaAsyncRes
 	var _metadata = null
 	func _get_metadata() -> String:
 		return "" if not _metadata is String else String(_metadata)
+
+	# Operator override.
+	var operator : int setget , _get_operator
+	var _operator = null
+	func _get_operator() -> int:
+		return ApiOperator.values()[0] if not ApiOperator.values().has(_operator) else _operator
 
 	# The score value to submit.
 	var score : String setget , _get_score
@@ -118,6 +137,7 @@ class WriteLeaderboardRecordRequestLeaderboardRecordWrite extends NakamaAsyncRes
 			return get_exception()._to_string()
 		var output : String = ""
 		output += "metadata: %s, " % _metadata
+		output += "operator: %s, " % _operator
 		output += "score: %s, " % _score
 		output += "subscore: %s, " % _subscore
 		return output
@@ -127,6 +147,7 @@ class WriteTournamentRecordRequestTournamentRecordWrite extends NakamaAsyncResul
 
 	const _SCHEMA = {
 		"metadata": {"name": "_metadata", "type": TYPE_STRING, "required": false},
+		"operator": {"name": "_operator", "type": TYPE_INT, "required": false},
 		"score": {"name": "_score", "type": TYPE_STRING, "required": false},
 		"subscore": {"name": "_subscore", "type": TYPE_STRING, "required": false},
 	}
@@ -136,6 +157,12 @@ class WriteTournamentRecordRequestTournamentRecordWrite extends NakamaAsyncResul
 	var _metadata = null
 	func _get_metadata() -> String:
 		return "" if not _metadata is String else String(_metadata)
+
+	# Operator override.
+	var operator : int setget , _get_operator
+	var _operator = null
+	func _get_operator() -> int:
+		return ApiOperator.values()[0] if not ApiOperator.values().has(_operator) else _operator
 
 	# The score value to submit.
 	var score : String setget , _get_score
@@ -163,6 +190,7 @@ class WriteTournamentRecordRequestTournamentRecordWrite extends NakamaAsyncResul
 			return get_exception()._to_string()
 		var output : String = ""
 		output += "metadata: %s, " % _metadata
+		output += "operator: %s, " % _operator
 		output += "score: %s, " % _score
 		output += "subscore: %s, " % _subscore
 		return output
@@ -173,6 +201,7 @@ class ApiAccount extends NakamaAsyncResult:
 	const _SCHEMA = {
 		"custom_id": {"name": "_custom_id", "type": TYPE_STRING, "required": false},
 		"devices": {"name": "_devices", "type": TYPE_ARRAY, "required": false, "content": "ApiAccountDevice"},
+		"disable_time": {"name": "_disable_time", "type": TYPE_STRING, "required": false},
 		"email": {"name": "_email", "type": TYPE_STRING, "required": false},
 		"user": {"name": "_user", "type": "ApiUser", "required": false},
 		"verify_time": {"name": "_verify_time", "type": TYPE_STRING, "required": false},
@@ -190,6 +219,12 @@ class ApiAccount extends NakamaAsyncResult:
 	var _devices = null
 	func _get_devices() -> Array:
 		return Array() if not _devices is Array else Array(_devices)
+
+	# The UNIX time when the user's account was disabled/banned.
+	var disable_time : String setget , _get_disable_time
+	var _disable_time = null
+	func _get_disable_time() -> String:
+		return "" if not _disable_time is String else String(_disable_time)
 
 	# The email address of the user.
 	var email : String setget , _get_email
@@ -230,10 +265,52 @@ class ApiAccount extends NakamaAsyncResult:
 		var output : String = ""
 		output += "custom_id: %s, " % _custom_id
 		output += "devices: %s, " % [_devices]
+		output += "disable_time: %s, " % _disable_time
 		output += "email: %s, " % _email
 		output += "user: %s, " % _user
 		output += "verify_time: %s, " % _verify_time
 		output += "wallet: %s, " % _wallet
+		return output
+
+# Send a Apple Sign In token to the server. Used with authenticate/link/unlink.
+class ApiAccountApple extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"token": {"name": "_token", "type": TYPE_STRING, "required": false},
+		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
+	}
+
+	# The ID token received from Apple to validate.
+	var token : String setget , _get_token
+	var _token = null
+	func _get_token() -> String:
+		return "" if not _token is String else String(_token)
+
+	# Extra information that will be bundled in the session token.
+	var vars : Dictionary setget , _get_vars
+	var _vars = null
+	func _get_vars() -> Dictionary:
+		return Dictionary() if not _vars is Dictionary else _vars.duplicate()
+
+	func _init(p_exception = null).(p_exception):
+		pass
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccountApple:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccountApple", p_dict), ApiAccountApple) as ApiAccountApple
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string() -> String:
+		if is_exception():
+			return get_exception()._to_string()
+		var output : String = ""
+		output += "token: %s, " % _token
+		var map_string : String = ""
+		if typeof(_vars) == TYPE_DICTIONARY:
+			for k in _vars:
+				map_string += "{%s=%s}, " % [k, _vars[k]]
+		output += "vars: [%s], " % map_string
 		return output
 
 # Send a custom ID to the server. Used with authenticate/link/unlink.
@@ -480,7 +557,7 @@ class ApiAccountGameCenter extends NakamaAsyncResult:
 	func _get_public_key_url() -> String:
 		return "" if not _public_key_url is String else String(_public_key_url)
 
-	# A random `NSString` used to compute the hash and keep it randomized.
+	# A random "NSString" used to compute the hash and keep it randomized.
 	var salt : String setget , _get_salt
 	var _salt = null
 	func _get_salt() -> String:
@@ -741,10 +818,17 @@ class ApiChannelMessage extends NakamaAsyncResult:
 class ApiChannelMessageList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
+		"cacheable_cursor": {"name": "_cacheable_cursor", "type": TYPE_STRING, "required": false},
 		"messages": {"name": "_messages", "type": TYPE_ARRAY, "required": false, "content": "ApiChannelMessage"},
 		"next_cursor": {"name": "_next_cursor", "type": TYPE_STRING, "required": false},
 		"prev_cursor": {"name": "_prev_cursor", "type": TYPE_STRING, "required": false},
 	}
+
+	# Cacheable cursor to list newer messages. Durable and designed to be stored, unlike next/prev cursors.
+	var cacheable_cursor : String setget , _get_cacheable_cursor
+	var _cacheable_cursor = null
+	func _get_cacheable_cursor() -> String:
+		return "" if not _cacheable_cursor is String else String(_cacheable_cursor)
 
 	# A list of messages.
 	var messages : Array setget , _get_messages
@@ -752,7 +836,7 @@ class ApiChannelMessageList extends NakamaAsyncResult:
 	func _get_messages() -> Array:
 		return Array() if not _messages is Array else Array(_messages)
 
-	# The cursor to send when retireving the next page, if any.
+	# The cursor to send when retrieving the next page, if any.
 	var next_cursor : String setget , _get_next_cursor
 	var _next_cursor = null
 	func _get_next_cursor() -> String:
@@ -777,6 +861,7 @@ class ApiChannelMessageList extends NakamaAsyncResult:
 		if is_exception():
 			return get_exception()._to_string()
 		var output : String = ""
+		output += "cacheable_cursor: %s, " % _cacheable_cursor
 		output += "messages: %s, " % [_messages]
 		output += "next_cursor: %s, " % _next_cursor
 		output += "prev_cursor: %s, " % _prev_cursor
@@ -987,6 +1072,7 @@ class ApiFriend extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"state": {"name": "_state", "type": TYPE_INT, "required": false},
+		"update_time": {"name": "_update_time", "type": TYPE_STRING, "required": false},
 		"user": {"name": "_user", "type": "ApiUser", "required": false},
 	}
 
@@ -995,6 +1081,12 @@ class ApiFriend extends NakamaAsyncResult:
 	var _state = null
 	func _get_state() -> int:
 		return 0 if not _state is int else int(_state)
+
+	# Time of the latest relationship update.
+	var update_time : String setget , _get_update_time
+	var _update_time = null
+	func _get_update_time() -> String:
+		return "" if not _update_time is String else String(_update_time)
 
 	# The user object.
 	var user : ApiUser setget , _get_user
@@ -1016,6 +1108,7 @@ class ApiFriend extends NakamaAsyncResult:
 			return get_exception()._to_string()
 		var output : String = ""
 		output += "state: %s, " % _state
+		output += "update_time: %s, " % _update_time
 		output += "user: %s, " % _user
 		return output
 
@@ -1417,14 +1510,53 @@ class ApiLeaderboardRecordList extends NakamaAsyncResult:
 		output += "records: %s, " % [_records]
 		return output
 
+# Link Steam to the current user's account.
+class ApiLinkSteamRequest extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"account": {"name": "_account", "type": "ApiAccountSteam", "required": false},
+		"sync": {"name": "_sync", "type": TYPE_BOOL, "required": false},
+	}
+
+	# The Facebook account details.
+	var account : ApiAccountSteam setget , _get_account
+	var _account = null
+	func _get_account() -> ApiAccountSteam:
+		return _account as ApiAccountSteam
+
+	# Import Steam friends for the user.
+	var sync : bool setget , _get_sync
+	var _sync = null
+	func _get_sync() -> bool:
+		return false if not _sync is bool else bool(_sync)
+
+	func _init(p_exception = null).(p_exception):
+		pass
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiLinkSteamRequest:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiLinkSteamRequest", p_dict), ApiLinkSteamRequest) as ApiLinkSteamRequest
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string() -> String:
+		if is_exception():
+			return get_exception()._to_string()
+		var output : String = ""
+		output += "account: %s, " % _account
+		output += "sync: %s, " % _sync
+		return output
+
 # Represents a realtime match.
 class ApiMatch extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"authoritative": {"name": "_authoritative", "type": TYPE_BOOL, "required": false},
+		"handler_name": {"name": "_handler_name", "type": TYPE_STRING, "required": false},
 		"label": {"name": "_label", "type": TYPE_STRING, "required": false},
 		"match_id": {"name": "_match_id", "type": TYPE_STRING, "required": false},
 		"size": {"name": "_size", "type": TYPE_INT, "required": false},
+		"tick_rate": {"name": "_tick_rate", "type": TYPE_INT, "required": false},
 	}
 
 	# True if it's an server-managed authoritative match, false otherwise.
@@ -1432,6 +1564,12 @@ class ApiMatch extends NakamaAsyncResult:
 	var _authoritative = null
 	func _get_authoritative() -> bool:
 		return false if not _authoritative is bool else bool(_authoritative)
+
+	# 
+	var handler_name : String setget , _get_handler_name
+	var _handler_name = null
+	func _get_handler_name() -> String:
+		return "" if not _handler_name is String else String(_handler_name)
 
 	# Match label, if any.
 	var label : String setget , _get_label
@@ -1451,6 +1589,12 @@ class ApiMatch extends NakamaAsyncResult:
 	func _get_size() -> int:
 		return 0 if not _size is int else int(_size)
 
+	# 
+	var tick_rate : int setget , _get_tick_rate
+	var _tick_rate = null
+	func _get_tick_rate() -> int:
+		return 0 if not _tick_rate is int else int(_tick_rate)
+
 	func _init(p_exception = null).(p_exception):
 		pass
 
@@ -1465,9 +1609,11 @@ class ApiMatch extends NakamaAsyncResult:
 			return get_exception()._to_string()
 		var output : String = ""
 		output += "authoritative: %s, " % _authoritative
+		output += "handler_name: %s, " % _handler_name
 		output += "label: %s, " % _label
 		output += "match_id: %s, " % _match_id
 		output += "size: %s, " % _size
+		output += "tick_rate: %s, " % _tick_rate
 		return output
 
 # A list of realtime matches.
@@ -1542,7 +1688,7 @@ class ApiNotification extends NakamaAsyncResult:
 	func _get_persistent() -> bool:
 		return false if not _persistent is bool else bool(_persistent)
 
-	# ID of the sender, if a user. Otherwise `null`.
+	# ID of the sender, if a user. Otherwise 'null'.
 	var sender_id : String setget , _get_sender_id
 	var _sender_id = null
 	func _get_sender_id() -> String:
@@ -1612,6 +1758,14 @@ class ApiNotificationList extends NakamaAsyncResult:
 		output += "cacheable_cursor: %s, " % _cacheable_cursor
 		output += "notifications: %s, " % [_notifications]
 		return output
+
+# Operator that can be used to override the one set in the leaderboard.
+#  - NO_OVERRIDE: Do not override the leaderboard operator.
+#  - BEST: Override the leaderboard operator with BEST.
+#  - SET: Override the leaderboard operator with SET.
+#  - INCREMENT: Override the leaderboard operator with INCREMENT.
+#  - DECREMENT: Override the leaderboard operator with DECREMENT.# [ - NO_OVERRIDE: Do not override the leaderboard operator.  - BEST: Override the leaderboard operator with BEST.  - SET: Override the leaderboard operator with SET.  - INCREMENT: Override the leaderboard operator with INCREMENT.  - DECREMENT: Override the leaderboard operator with DECREMENT.]
+enum ApiOperator {NO_OVERRIDE = 0,BEST = 1,SET = 2,INCREMENT = 3,DECREMENT = 4,}
 
 # Storage objects to get.
 class ApiReadStorageObjectId extends NakamaAsyncResult:
@@ -1737,6 +1891,7 @@ class ApiSession extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"created": {"name": "_created", "type": TYPE_BOOL, "required": false},
+		"refresh_token": {"name": "_refresh_token", "type": TYPE_STRING, "required": false},
 		"token": {"name": "_token", "type": TYPE_STRING, "required": false},
 	}
 
@@ -1745,6 +1900,12 @@ class ApiSession extends NakamaAsyncResult:
 	var _created = null
 	func _get_created() -> bool:
 		return false if not _created is bool else bool(_created)
+
+	# Refresh token that can be used for session token renewal.
+	var refresh_token : String setget , _get_refresh_token
+	var _refresh_token = null
+	func _get_refresh_token() -> String:
+		return "" if not _refresh_token is String else String(_refresh_token)
 
 	# Authentication credentials.
 	var token : String setget , _get_token
@@ -1766,7 +1927,86 @@ class ApiSession extends NakamaAsyncResult:
 			return get_exception()._to_string()
 		var output : String = ""
 		output += "created: %s, " % _created
+		output += "refresh_token: %s, " % _refresh_token
 		output += "token: %s, " % _token
+		return output
+
+# Log out a session, invalidate a refresh token, or log out all sessions/refresh tokens for a user.
+class ApiSessionLogoutRequest extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"refresh_token": {"name": "_refresh_token", "type": TYPE_STRING, "required": false},
+		"token": {"name": "_token", "type": TYPE_STRING, "required": false},
+	}
+
+	# Refresh token to invalidate.
+	var refresh_token : String setget , _get_refresh_token
+	var _refresh_token = null
+	func _get_refresh_token() -> String:
+		return "" if not _refresh_token is String else String(_refresh_token)
+
+	# Session token to log out.
+	var token : String setget , _get_token
+	var _token = null
+	func _get_token() -> String:
+		return "" if not _token is String else String(_token)
+
+	func _init(p_exception = null).(p_exception):
+		pass
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiSessionLogoutRequest:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiSessionLogoutRequest", p_dict), ApiSessionLogoutRequest) as ApiSessionLogoutRequest
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string() -> String:
+		if is_exception():
+			return get_exception()._to_string()
+		var output : String = ""
+		output += "refresh_token: %s, " % _refresh_token
+		output += "token: %s, " % _token
+		return output
+
+# Authenticate against the server with a refresh token.
+class ApiSessionRefreshRequest extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"token": {"name": "_token", "type": TYPE_STRING, "required": false},
+		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
+	}
+
+	# Refresh token.
+	var token : String setget , _get_token
+	var _token = null
+	func _get_token() -> String:
+		return "" if not _token is String else String(_token)
+
+	# Extra information that will be bundled in the session token.
+	var vars : Dictionary setget , _get_vars
+	var _vars = null
+	func _get_vars() -> Dictionary:
+		return Dictionary() if not _vars is Dictionary else _vars.duplicate()
+
+	func _init(p_exception = null).(p_exception):
+		pass
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiSessionRefreshRequest:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiSessionRefreshRequest", p_dict), ApiSessionRefreshRequest) as ApiSessionRefreshRequest
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string() -> String:
+		if is_exception():
+			return get_exception()._to_string()
+		var output : String = ""
+		output += "token: %s, " % _token
+		var map_string : String = ""
+		if typeof(_vars) == TYPE_DICTIONARY:
+			for k in _vars:
+				map_string += "{%s=%s}, " % [k, _vars[k]]
+		output += "vars: [%s], " % map_string
 		return output
 
 # An object within the storage engine.
@@ -2026,6 +2266,8 @@ class ApiTournament extends NakamaAsyncResult:
 		"max_size": {"name": "_max_size", "type": TYPE_INT, "required": false},
 		"metadata": {"name": "_metadata", "type": TYPE_STRING, "required": false},
 		"next_reset": {"name": "_next_reset", "type": TYPE_INT, "required": false},
+		"operator": {"name": "_operator", "type": TYPE_INT, "required": false},
+		"prev_reset": {"name": "_prev_reset", "type": TYPE_INT, "required": false},
 		"size": {"name": "_size", "type": TYPE_INT, "required": false},
 		"sort_order": {"name": "_sort_order", "type": TYPE_INT, "required": false},
 		"start_active": {"name": "_start_active", "type": TYPE_INT, "required": false},
@@ -2105,13 +2347,25 @@ class ApiTournament extends NakamaAsyncResult:
 	func _get_next_reset() -> int:
 		return 0 if not _next_reset is int else int(_next_reset)
 
+	# Operator.
+	var operator : int setget , _get_operator
+	var _operator = null
+	func _get_operator() -> int:
+		return ApiOperator.values()[0] if not ApiOperator.values().has(_operator) else _operator
+
+	# The UNIX time when the tournament was last reset. A computed value.
+	var prev_reset : int setget , _get_prev_reset
+	var _prev_reset = null
+	func _get_prev_reset() -> int:
+		return 0 if not _prev_reset is int else int(_prev_reset)
+
 	# The current number of players in the tournament.
 	var size : int setget , _get_size
 	var _size = null
 	func _get_size() -> int:
 		return 0 if not _size is int else int(_size)
 
-	# ASC or DESC sort mode of scores in the tournament.
+	# ASC (0) or DESC (1) sort mode of scores in the tournament.
 	var sort_order : int setget , _get_sort_order
 	var _sort_order = null
 	func _get_sort_order() -> int:
@@ -2160,6 +2414,8 @@ class ApiTournament extends NakamaAsyncResult:
 		output += "max_size: %s, " % _max_size
 		output += "metadata: %s, " % _metadata
 		output += "next_reset: %s, " % _next_reset
+		output += "operator: %s, " % _operator
+		output += "prev_reset: %s, " % _prev_reset
 		output += "size: %s, " % _size
 		output += "sort_order: %s, " % _sort_order
 		output += "start_active: %s, " % _start_active
@@ -2399,6 +2655,7 @@ class ApiUpdateGroupRequest extends NakamaAsyncResult:
 class ApiUser extends NakamaAsyncResult:
 
 	const _SCHEMA = {
+		"apple_id": {"name": "_apple_id", "type": TYPE_STRING, "required": false},
 		"avatar_url": {"name": "_avatar_url", "type": TYPE_STRING, "required": false},
 		"create_time": {"name": "_create_time", "type": TYPE_STRING, "required": false},
 		"display_name": {"name": "_display_name", "type": TYPE_STRING, "required": false},
@@ -2417,6 +2674,12 @@ class ApiUser extends NakamaAsyncResult:
 		"update_time": {"name": "_update_time", "type": TYPE_STRING, "required": false},
 		"username": {"name": "_username", "type": TYPE_STRING, "required": false},
 	}
+
+	# The Apple Sign In ID in the user's account.
+	var apple_id : String setget , _get_apple_id
+	var _apple_id = null
+	func _get_apple_id() -> String:
+		return "" if not _apple_id is String else String(_apple_id)
 
 	# A URL for an avatar image.
 	var avatar_url : String setget , _get_avatar_url
@@ -2448,7 +2711,7 @@ class ApiUser extends NakamaAsyncResult:
 	func _get_facebook_id() -> String:
 		return "" if not _facebook_id is String else String(_facebook_id)
 
-	# The Facebook Instant Game id in the user's account.
+	# The Facebook Instant Game ID in the user's account.
 	var facebook_instant_game_id : String setget , _get_facebook_instant_game_id
 	var _facebook_instant_game_id = null
 	func _get_facebook_instant_game_id() -> String:
@@ -2533,6 +2796,7 @@ class ApiUser extends NakamaAsyncResult:
 		if is_exception():
 			return get_exception()._to_string()
 		var output : String = ""
+		output += "apple_id: %s, " % _apple_id
 		output += "avatar_url: %s, " % _avatar_url
 		output += "create_time: %s, " % _create_time
 		output += "display_name: %s, " % _display_name
@@ -2616,6 +2880,215 @@ class ApiUsers extends NakamaAsyncResult:
 			return get_exception()._to_string()
 		var output : String = ""
 		output += "users: %s, " % [_users]
+		return output
+
+# 
+class ApiValidatePurchaseAppleRequest extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"receipt": {"name": "_receipt", "type": TYPE_STRING, "required": false},
+	}
+
+	# Base64 encoded Apple receipt data payload.
+	var receipt : String setget , _get_receipt
+	var _receipt = null
+	func _get_receipt() -> String:
+		return "" if not _receipt is String else String(_receipt)
+
+	func _init(p_exception = null).(p_exception):
+		pass
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidatePurchaseAppleRequest:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidatePurchaseAppleRequest", p_dict), ApiValidatePurchaseAppleRequest) as ApiValidatePurchaseAppleRequest
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string() -> String:
+		if is_exception():
+			return get_exception()._to_string()
+		var output : String = ""
+		output += "receipt: %s, " % _receipt
+		return output
+
+# 
+class ApiValidatePurchaseGoogleRequest extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"purchase": {"name": "_purchase", "type": TYPE_STRING, "required": false},
+	}
+
+	# JSON encoded Google purchase payload.
+	var purchase : String setget , _get_purchase
+	var _purchase = null
+	func _get_purchase() -> String:
+		return "" if not _purchase is String else String(_purchase)
+
+	func _init(p_exception = null).(p_exception):
+		pass
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidatePurchaseGoogleRequest:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidatePurchaseGoogleRequest", p_dict), ApiValidatePurchaseGoogleRequest) as ApiValidatePurchaseGoogleRequest
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string() -> String:
+		if is_exception():
+			return get_exception()._to_string()
+		var output : String = ""
+		output += "purchase: %s, " % _purchase
+		return output
+
+# 
+class ApiValidatePurchaseHuaweiRequest extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"purchase": {"name": "_purchase", "type": TYPE_STRING, "required": false},
+		"signature": {"name": "_signature", "type": TYPE_STRING, "required": false},
+	}
+
+	# JSON encoded Huawei InAppPurchaseData.
+	var purchase : String setget , _get_purchase
+	var _purchase = null
+	func _get_purchase() -> String:
+		return "" if not _purchase is String else String(_purchase)
+
+	# InAppPurchaseData signature.
+	var signature : String setget , _get_signature
+	var _signature = null
+	func _get_signature() -> String:
+		return "" if not _signature is String else String(_signature)
+
+	func _init(p_exception = null).(p_exception):
+		pass
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidatePurchaseHuaweiRequest:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidatePurchaseHuaweiRequest", p_dict), ApiValidatePurchaseHuaweiRequest) as ApiValidatePurchaseHuaweiRequest
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string() -> String:
+		if is_exception():
+			return get_exception()._to_string()
+		var output : String = ""
+		output += "purchase: %s, " % _purchase
+		output += "signature: %s, " % _signature
+		return output
+
+# 
+class ApiValidatePurchaseResponse extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"validated_purchases": {"name": "_validated_purchases", "type": TYPE_ARRAY, "required": false, "content": "ApiValidatedPurchase"},
+	}
+
+	# Newly seen validated purchases.
+	var validated_purchases : Array setget , _get_validated_purchases
+	var _validated_purchases = null
+	func _get_validated_purchases() -> Array:
+		return Array() if not _validated_purchases is Array else Array(_validated_purchases)
+
+	func _init(p_exception = null).(p_exception):
+		pass
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidatePurchaseResponse:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidatePurchaseResponse", p_dict), ApiValidatePurchaseResponse) as ApiValidatePurchaseResponse
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string() -> String:
+		if is_exception():
+			return get_exception()._to_string()
+		var output : String = ""
+		output += "validated_purchases: %s, " % [_validated_purchases]
+		return output
+
+# Validated Purchase stored by Nakama.
+class ApiValidatedPurchase extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"create_time": {"name": "_create_time", "type": TYPE_STRING, "required": false},
+		"environment": {"name": "_environment", "type": TYPE_INT, "required": false},
+		"product_id": {"name": "_product_id", "type": TYPE_STRING, "required": false},
+		"provider_response": {"name": "_provider_response", "type": TYPE_STRING, "required": false},
+		"purchase_time": {"name": "_purchase_time", "type": TYPE_STRING, "required": false},
+		"store": {"name": "_store", "type": TYPE_INT, "required": false},
+		"transaction_id": {"name": "_transaction_id", "type": TYPE_STRING, "required": false},
+		"update_time": {"name": "_update_time", "type": TYPE_STRING, "required": false},
+	}
+
+	# UNIX Timestamp when the receipt validation was stored in DB.
+	var create_time : String setget , _get_create_time
+	var _create_time = null
+	func _get_create_time() -> String:
+		return "" if not _create_time is String else String(_create_time)
+
+	# Whether the purchase was done in production or sandbox environment.
+	var environment : int setget , _get_environment
+	var _environment = null
+	func _get_environment() -> int:
+		return ValidatedPurchaseEnvironment.values()[0] if not ValidatedPurchaseEnvironment.values().has(_environment) else _environment
+
+	# Purchase Product ID.
+	var product_id : String setget , _get_product_id
+	var _product_id = null
+	func _get_product_id() -> String:
+		return "" if not _product_id is String else String(_product_id)
+
+	# Raw provider validation response.
+	var provider_response : String setget , _get_provider_response
+	var _provider_response = null
+	func _get_provider_response() -> String:
+		return "" if not _provider_response is String else String(_provider_response)
+
+	# UNIX Timestamp when the purchase was done.
+	var purchase_time : String setget , _get_purchase_time
+	var _purchase_time = null
+	func _get_purchase_time() -> String:
+		return "" if not _purchase_time is String else String(_purchase_time)
+
+	# 
+	var store : int setget , _get_store
+	var _store = null
+	func _get_store() -> int:
+		return ValidatedPurchaseStore.values()[0] if not ValidatedPurchaseStore.values().has(_store) else _store
+
+	# Purchase Transaction ID.
+	var transaction_id : String setget , _get_transaction_id
+	var _transaction_id = null
+	func _get_transaction_id() -> String:
+		return "" if not _transaction_id is String else String(_transaction_id)
+
+	# UNIX Timestamp when the receipt validation was updated in DB.
+	var update_time : String setget , _get_update_time
+	var _update_time = null
+	func _get_update_time() -> String:
+		return "" if not _update_time is String else String(_update_time)
+
+	func _init(p_exception = null).(p_exception):
+		pass
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidatedPurchase:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidatedPurchase", p_dict), ApiValidatedPurchase) as ApiValidatedPurchase
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string() -> String:
+		if is_exception():
+			return get_exception()._to_string()
+		var output : String = ""
+		output += "create_time: %s, " % _create_time
+		output += "environment: %s, " % _environment
+		output += "product_id: %s, " % _product_id
+		output += "provider_response: %s, " % _provider_response
+		output += "purchase_time: %s, " % _purchase_time
+		output += "store: %s, " % _store
+		output += "transaction_id: %s, " % _transaction_id
+		output += "update_time: %s, " % _update_time
 		return output
 
 # The object to store.
@@ -2716,6 +3189,88 @@ class ApiWriteStorageObjectsRequest extends NakamaAsyncResult:
 		output += "objects: %s, " % [_objects]
 		return output
 
+# 
+class ProtobufAny extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"type_url": {"name": "_type_url", "type": TYPE_STRING, "required": false},
+		"value": {"name": "_value", "type": TYPE_STRING, "required": false},
+	}
+
+	# 
+	var type_url : String setget , _get_type_url
+	var _type_url = null
+	func _get_type_url() -> String:
+		return "" if not _type_url is String else String(_type_url)
+
+	# 
+	var value : String setget , _get_value
+	var _value = null
+	func _get_value() -> String:
+		return "" if not _value is String else String(_value)
+
+	func _init(p_exception = null).(p_exception):
+		pass
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> ProtobufAny:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ProtobufAny", p_dict), ProtobufAny) as ProtobufAny
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string() -> String:
+		if is_exception():
+			return get_exception()._to_string()
+		var output : String = ""
+		output += "type_url: %s, " % _type_url
+		output += "value: %s, " % _value
+		return output
+
+# 
+class RpcStatus extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"code": {"name": "_code", "type": TYPE_INT, "required": false},
+		"details": {"name": "_details", "type": TYPE_ARRAY, "required": false, "content": "ProtobufAny"},
+		"message": {"name": "_message", "type": TYPE_STRING, "required": false},
+	}
+
+	# 
+	var code : int setget , _get_code
+	var _code = null
+	func _get_code() -> int:
+		return 0 if not _code is int else int(_code)
+
+	# 
+	var details : Array setget , _get_details
+	var _details = null
+	func _get_details() -> Array:
+		return Array() if not _details is Array else Array(_details)
+
+	# 
+	var message : String setget , _get_message
+	var _message = null
+	func _get_message() -> String:
+		return "" if not _message is String else String(_message)
+
+	func _init(p_exception = null).(p_exception):
+		pass
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> RpcStatus:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "RpcStatus", p_dict), RpcStatus) as RpcStatus
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string() -> String:
+		if is_exception():
+			return get_exception()._to_string()
+		var output : String = ""
+		output += "code: %s, " % _code
+		output += "details: %s, " % [_details]
+		output += "message: %s, " % _message
+		return output
+
 # The low level client for the Nakama API.
 class ApiClient extends Reference:
 
@@ -2787,6 +3342,35 @@ class ApiClient extends Reference:
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
+
+	# Authenticate a user with an Apple ID against the server.
+	func authenticate_apple_async(
+		p_basic_auth_username : String
+		, p_basic_auth_password : String
+		, p_body : ApiAccountApple
+		, p_create = null # : boolean
+		, p_username = null # : string
+	) -> ApiSession:
+		var urlpath : String = "/v2/account/authenticate/apple"
+		var query_params = ""
+		if p_create != null:
+			query_params += "create=%s&" % str(bool(p_create)).to_lower()
+		if p_username != null:
+			query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
+		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
+		var method = "POST"
+		var headers = {}
+		var credentials = Marshalls.utf8_to_base64(p_basic_auth_username + ":" + p_basic_auth_password)
+		var header = "Basic %s" % credentials
+		headers["Authorization"] = header
+
+		var content : PoolByteArray
+		content = JSON.print(p_body.serialize()).to_utf8()
+		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		if result is NakamaException:
+			return ApiSession.new(result)
+		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
+		return out
 
 	# Authenticate a user with a custom id against the server.
 	func authenticate_custom_async(
@@ -3001,6 +3585,7 @@ class ApiClient extends Reference:
 		, p_body : ApiAccountSteam
 		, p_create = null # : boolean
 		, p_username = null # : string
+		, p_sync = null # : boolean
 	) -> ApiSession:
 		var urlpath : String = "/v2/account/authenticate/steam"
 		var query_params = ""
@@ -3008,6 +3593,8 @@ class ApiClient extends Reference:
 			query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
 			query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
+		if p_sync != null:
+			query_params += "sync=%s&" % str(bool(p_sync)).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3022,6 +3609,26 @@ class ApiClient extends Reference:
 			return ApiSession.new(result)
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
+
+	# Add an Apple ID to the social profiles on the current user's account.
+	func link_apple_async(
+		p_bearer_token : String
+		, p_body : ApiAccountApple
+	) -> NakamaAsyncResult:
+		var urlpath : String = "/v2/account/link/apple"
+		var query_params = ""
+		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
+		var method = "POST"
+		var headers = {}
+		var header = "Bearer %s" % p_bearer_token
+		headers["Authorization"] = header
+
+		var content : PoolByteArray
+		content = JSON.print(p_body.serialize()).to_utf8()
+		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		if result is NakamaException:
+			return NakamaAsyncResult.new(result)
+		return NakamaAsyncResult.new()
 
 	# Add a custom ID to the social profiles on the current user's account.
 	func link_custom_async(
@@ -3108,8 +3715,8 @@ class ApiClient extends Reference:
 
 	# Add Facebook Instant Game to the social profiles on the current user's account.
 	func link_facebook_instant_game_async(
-		p_bearer_token : String,
-		p_body : ApiAccountFacebookInstantGame
+		p_bearer_token : String
+		, p_body : ApiAccountFacebookInstantGame
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/account/link/facebookinstantgame"
 		var query_params = ""
@@ -3169,9 +3776,52 @@ class ApiClient extends Reference:
 	# Add Steam to the social profiles on the current user's account.
 	func link_steam_async(
 		p_bearer_token : String
-		, p_body : ApiAccountSteam
+		, p_body : ApiLinkSteamRequest
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/account/link/steam"
+		var query_params = ""
+		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
+		var method = "POST"
+		var headers = {}
+		var header = "Bearer %s" % p_bearer_token
+		headers["Authorization"] = header
+
+		var content : PoolByteArray
+		content = JSON.print(p_body.serialize()).to_utf8()
+		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		if result is NakamaException:
+			return NakamaAsyncResult.new(result)
+		return NakamaAsyncResult.new()
+
+	# Refresh a user's session using a refresh token retrieved from a previous authentication request.
+	func session_refresh_async(
+		p_basic_auth_username : String
+		, p_basic_auth_password : String
+		, p_body : ApiSessionRefreshRequest
+	) -> ApiSession:
+		var urlpath : String = "/v2/account/session/refresh"
+		var query_params = ""
+		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
+		var method = "POST"
+		var headers = {}
+		var credentials = Marshalls.utf8_to_base64(p_basic_auth_username + ":" + p_basic_auth_password)
+		var header = "Basic %s" % credentials
+		headers["Authorization"] = header
+
+		var content : PoolByteArray
+		content = JSON.print(p_body.serialize()).to_utf8()
+		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		if result is NakamaException:
+			return ApiSession.new(result)
+		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
+		return out
+
+	# Remove the Apple ID from the social profiles on the current user's account.
+	func unlink_apple_async(
+		p_bearer_token : String
+		, p_body : ApiAccountApple
+	) -> NakamaAsyncResult:
+		var urlpath : String = "/v2/account/unlink/apple"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
@@ -3354,8 +4004,8 @@ class ApiClient extends Reference:
 		, p_forward = null # : boolean
 		, p_cursor = null # : string
 	) -> ApiChannelMessageList:
-		var urlpath : String = "/v2/channel/{channel_id}"
-		urlpath = urlpath.replace("{channel_id}", NakamaSerializer.escape_http(p_channel_id))
+		var urlpath : String = "/v2/channel/{channelId}"
+		urlpath = urlpath.replace("{channelId}", NakamaSerializer.escape_http(p_channel_id))
 		var query_params = ""
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
@@ -3525,12 +4175,38 @@ class ApiClient extends Reference:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
+	# Import Steam friends and add them to a user's account.
+	func import_steam_friends_async(
+		p_bearer_token : String
+		, p_body : ApiAccountSteam
+		, p_reset = null # : boolean
+	) -> NakamaAsyncResult:
+		var urlpath : String = "/v2/friend/steam"
+		var query_params = ""
+		if p_reset != null:
+			query_params += "reset=%s&" % str(bool(p_reset)).to_lower()
+		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
+		var method = "POST"
+		var headers = {}
+		var header = "Bearer %s" % p_bearer_token
+		headers["Authorization"] = header
+
+		var content : PoolByteArray
+		content = JSON.print(p_body.serialize()).to_utf8()
+		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		if result is NakamaException:
+			return NakamaAsyncResult.new(result)
+		return NakamaAsyncResult.new()
+
 	# List groups based on given filters.
 	func list_groups_async(
 		p_bearer_token : String
 		, p_name = null # : string
 		, p_cursor = null # : string
 		, p_limit = null # : integer
+		, p_lang_tag = null # : string
+		, p_members = null # : integer
+		, p_open = null # : boolean
 	) -> ApiGroupList:
 		var urlpath : String = "/v2/group"
 		var query_params = ""
@@ -3540,6 +4216,12 @@ class ApiClient extends Reference:
 			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
+		if p_lang_tag != null:
+			query_params += "langTag=%s&" % NakamaSerializer.escape_http(p_lang_tag)
+		if p_members != null:
+			query_params += "members=%d&" % p_members
+		if p_open != null:
+			query_params += "open=%s&" % str(bool(p_open)).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -3579,8 +4261,8 @@ class ApiClient extends Reference:
 		p_bearer_token : String
 		, p_group_id : String
 	) -> NakamaAsyncResult:
-		var urlpath : String = "/v2/group/{group_id}"
-		urlpath = urlpath.replace("{group_id}", NakamaSerializer.escape_http(p_group_id))
+		var urlpath : String = "/v2/group/{groupId}"
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "DELETE"
@@ -3600,8 +4282,8 @@ class ApiClient extends Reference:
 		, p_group_id : String
 		, p_body : ApiUpdateGroupRequest
 	) -> NakamaAsyncResult:
-		var urlpath : String = "/v2/group/{group_id}"
-		urlpath = urlpath.replace("{group_id}", NakamaSerializer.escape_http(p_group_id))
+		var urlpath : String = "/v2/group/{groupId}"
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "PUT"
@@ -3622,8 +4304,8 @@ class ApiClient extends Reference:
 		, p_group_id : String
 		, p_user_ids = null # : array
 	) -> NakamaAsyncResult:
-		var urlpath : String = "/v2/group/{group_id}/add"
-		urlpath = urlpath.replace("{group_id}", NakamaSerializer.escape_http(p_group_id))
+		var urlpath : String = "/v2/group/{groupId}/add"
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
 		if p_user_ids != null:
 			for elem in p_user_ids:
@@ -3646,10 +4328,34 @@ class ApiClient extends Reference:
 		, p_group_id : String
 		, p_user_ids = null # : array
 	) -> NakamaAsyncResult:
-		var urlpath : String = "/v2/group/{group_id}/ban"
-		urlpath = urlpath.replace("{group_id}", NakamaSerializer.escape_http(p_group_id))
+		var urlpath : String = "/v2/group/{groupId}/ban"
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
 		if p_user_ids != null:
+			for elem in p_user_ids:
+				query_params += "user_ids=%s&" % elem
+		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
+		var method = "POST"
+		var headers = {}
+		var header = "Bearer %s" % p_bearer_token
+		headers["Authorization"] = header
+
+		var content : PoolByteArray
+		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		if result is NakamaException:
+			return NakamaAsyncResult.new(result)
+		return NakamaAsyncResult.new()
+
+	# Demote a set of users in a group to the next role down.
+	func demote_group_users_async(
+		p_bearer_token : String
+		, p_group_id : String
+		, p_user_ids : PoolStringArray
+	) -> NakamaAsyncResult:
+		var urlpath : String = "/v2/group/{groupId}/demote"
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
+		var query_params = ""
+		if true: # Hack for static checks
 			for elem in p_user_ids:
 				query_params += "user_ids=%s&" % elem
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3669,8 +4375,8 @@ class ApiClient extends Reference:
 		p_bearer_token : String
 		, p_group_id : String
 	) -> NakamaAsyncResult:
-		var urlpath : String = "/v2/group/{group_id}/join"
-		urlpath = urlpath.replace("{group_id}", NakamaSerializer.escape_http(p_group_id))
+		var urlpath : String = "/v2/group/{groupId}/join"
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
@@ -3690,8 +4396,8 @@ class ApiClient extends Reference:
 		, p_group_id : String
 		, p_user_ids = null # : array
 	) -> NakamaAsyncResult:
-		var urlpath : String = "/v2/group/{group_id}/kick"
-		urlpath = urlpath.replace("{group_id}", NakamaSerializer.escape_http(p_group_id))
+		var urlpath : String = "/v2/group/{groupId}/kick"
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
 		if p_user_ids != null:
 			for elem in p_user_ids:
@@ -3713,8 +4419,8 @@ class ApiClient extends Reference:
 		p_bearer_token : String
 		, p_group_id : String
 	) -> NakamaAsyncResult:
-		var urlpath : String = "/v2/group/{group_id}/leave"
-		urlpath = urlpath.replace("{group_id}", NakamaSerializer.escape_http(p_group_id))
+		var urlpath : String = "/v2/group/{groupId}/leave"
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
@@ -3734,8 +4440,8 @@ class ApiClient extends Reference:
 		, p_group_id : String
 		, p_user_ids = null # : array
 	) -> NakamaAsyncResult:
-		var urlpath : String = "/v2/group/{group_id}/promote"
-		urlpath = urlpath.replace("{group_id}", NakamaSerializer.escape_http(p_group_id))
+		var urlpath : String = "/v2/group/{groupId}/promote"
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
 		if p_user_ids != null:
 			for elem in p_user_ids:
@@ -3760,8 +4466,8 @@ class ApiClient extends Reference:
 		, p_state = null # : integer
 		, p_cursor = null # : string
 	) -> ApiGroupUserList:
-		var urlpath : String = "/v2/group/{group_id}/user"
-		urlpath = urlpath.replace("{group_id}", NakamaSerializer.escape_http(p_group_id))
+		var urlpath : String = "/v2/group/{groupId}/user"
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
@@ -3782,13 +4488,76 @@ class ApiClient extends Reference:
 		var out : ApiGroupUserList = NakamaSerializer.deserialize(_namespace, "ApiGroupUserList", result)
 		return out
 
+	# Validate Apple IAP Receipt
+	func validate_purchase_apple_async(
+		p_bearer_token : String
+		, p_body : ApiValidatePurchaseAppleRequest
+	) -> ApiValidatePurchaseResponse:
+		var urlpath : String = "/v2/iap/purchase/apple"
+		var query_params = ""
+		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
+		var method = "POST"
+		var headers = {}
+		var header = "Bearer %s" % p_bearer_token
+		headers["Authorization"] = header
+
+		var content : PoolByteArray
+		content = JSON.print(p_body.serialize()).to_utf8()
+		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		if result is NakamaException:
+			return ApiValidatePurchaseResponse.new(result)
+		var out : ApiValidatePurchaseResponse = NakamaSerializer.deserialize(_namespace, "ApiValidatePurchaseResponse", result)
+		return out
+
+	# Validate Google IAP Receipt
+	func validate_purchase_google_async(
+		p_bearer_token : String
+		, p_body : ApiValidatePurchaseGoogleRequest
+	) -> ApiValidatePurchaseResponse:
+		var urlpath : String = "/v2/iap/purchase/google"
+		var query_params = ""
+		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
+		var method = "POST"
+		var headers = {}
+		var header = "Bearer %s" % p_bearer_token
+		headers["Authorization"] = header
+
+		var content : PoolByteArray
+		content = JSON.print(p_body.serialize()).to_utf8()
+		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		if result is NakamaException:
+			return ApiValidatePurchaseResponse.new(result)
+		var out : ApiValidatePurchaseResponse = NakamaSerializer.deserialize(_namespace, "ApiValidatePurchaseResponse", result)
+		return out
+
+	# Validate Huawei IAP Receipt
+	func validate_purchase_huawei_async(
+		p_bearer_token : String
+		, p_body : ApiValidatePurchaseHuaweiRequest
+	) -> ApiValidatePurchaseResponse:
+		var urlpath : String = "/v2/iap/purchase/huawei"
+		var query_params = ""
+		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
+		var method = "POST"
+		var headers = {}
+		var header = "Bearer %s" % p_bearer_token
+		headers["Authorization"] = header
+
+		var content : PoolByteArray
+		content = JSON.print(p_body.serialize()).to_utf8()
+		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		if result is NakamaException:
+			return ApiValidatePurchaseResponse.new(result)
+		var out : ApiValidatePurchaseResponse = NakamaSerializer.deserialize(_namespace, "ApiValidatePurchaseResponse", result)
+		return out
+
 	# Delete a leaderboard record.
 	func delete_leaderboard_record_async(
 		p_bearer_token : String
 		, p_leaderboard_id : String
 	) -> NakamaAsyncResult:
-		var urlpath : String = "/v2/leaderboard/{leaderboard_id}"
-		urlpath = urlpath.replace("{leaderboard_id}", NakamaSerializer.escape_http(p_leaderboard_id))
+		var urlpath : String = "/v2/leaderboard/{leaderboardId}"
+		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(p_leaderboard_id))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "DELETE"
@@ -3811,12 +4580,12 @@ class ApiClient extends Reference:
 		, p_cursor = null # : string
 		, p_expiry = null # : string
 	) -> ApiLeaderboardRecordList:
-		var urlpath : String = "/v2/leaderboard/{leaderboard_id}"
-		urlpath = urlpath.replace("{leaderboard_id}", NakamaSerializer.escape_http(p_leaderboard_id))
+		var urlpath : String = "/v2/leaderboard/{leaderboardId}"
+		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(p_leaderboard_id))
 		var query_params = ""
 		if p_owner_ids != null:
 			for elem in p_owner_ids:
-				query_params += "owner_ids=%s&" % elem
+				query_params += "ownerIds=%s&" % elem
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cursor != null:
@@ -3842,8 +4611,8 @@ class ApiClient extends Reference:
 		, p_leaderboard_id : String
 		, p_body : WriteLeaderboardRecordRequestLeaderboardRecordWrite
 	) -> ApiLeaderboardRecord:
-		var urlpath : String = "/v2/leaderboard/{leaderboard_id}"
-		urlpath = urlpath.replace("{leaderboard_id}", NakamaSerializer.escape_http(p_leaderboard_id))
+		var urlpath : String = "/v2/leaderboard/{leaderboardId}"
+		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(p_leaderboard_id))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
@@ -3867,9 +4636,9 @@ class ApiClient extends Reference:
 		, p_limit = null # : integer
 		, p_expiry = null # : string
 	) -> ApiLeaderboardRecordList:
-		var urlpath : String = "/v2/leaderboard/{leaderboard_id}/owner/{owner_id}"
-		urlpath = urlpath.replace("{leaderboard_id}", NakamaSerializer.escape_http(p_leaderboard_id))
-		urlpath = urlpath.replace("{owner_id}", NakamaSerializer.escape_http(p_owner_id))
+		var urlpath : String = "/v2/leaderboard/{leaderboardId}/owner/{ownerId}"
+		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(p_leaderboard_id))
+		urlpath = urlpath.replace("{ownerId}", NakamaSerializer.escape_http(p_owner_id))
 		var query_params = ""
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
@@ -3907,9 +4676,9 @@ class ApiClient extends Reference:
 		if p_label != null:
 			query_params += "label=%s&" % NakamaSerializer.escape_http(p_label)
 		if p_min_size != null:
-			query_params += "min_size=%d&" % p_min_size
+			query_params += "minSize=%d&" % p_min_size
 		if p_max_size != null:
-			query_params += "max_size=%d&" % p_max_size
+			query_params += "maxSize=%d&" % p_max_size
 		if p_query != null:
 			query_params += "query=%s&" % NakamaSerializer.escape_http(p_query)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3958,7 +4727,7 @@ class ApiClient extends Reference:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cacheable_cursor != null:
-			query_params += "cacheable_cursor=%s&" % NakamaSerializer.escape_http(p_cacheable_cursor)
+			query_params += "cacheableCursor=%s&" % NakamaSerializer.escape_http(p_cacheable_cursor)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -3985,7 +4754,7 @@ class ApiClient extends Reference:
 		if p_payload != null:
 			query_params += "payload=%s&" % NakamaSerializer.escape_http(p_payload)
 		if p_http_key != null:
-			query_params += "http_key=%s&" % NakamaSerializer.escape_http(p_http_key)
+			query_params += "httpKey=%s&" % NakamaSerializer.escape_http(p_http_key)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -4005,10 +4774,13 @@ class ApiClient extends Reference:
 		p_bearer_token : String
 		, p_id : String
 		, p_body : String
+		, p_http_key = null # : string
 	) -> ApiRpc:
 		var urlpath : String = "/v2/rpc/{id}"
 		urlpath = urlpath.replace("{id}", NakamaSerializer.escape_http(p_id))
 		var query_params = ""
+		if p_http_key != null:
+			query_params += "httpKey=%s&" % NakamaSerializer.escape_http(p_http_key)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -4023,6 +4795,26 @@ class ApiClient extends Reference:
 			return ApiRpc.new(result)
 		var out : ApiRpc = NakamaSerializer.deserialize(_namespace, "ApiRpc", result)
 		return out
+
+	# Log out a session, invalidate a refresh token, or log out all sessions/refresh tokens for a user.
+	func session_logout_async(
+		p_bearer_token : String
+		, p_body : ApiSessionLogoutRequest
+	) -> NakamaAsyncResult:
+		var urlpath : String = "/v2/session/logout"
+		var query_params = ""
+		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
+		var method = "POST"
+		var headers = {}
+		var header = "Bearer %s" % p_bearer_token
+		headers["Authorization"] = header
+
+		var content : PoolByteArray
+		content = JSON.print(p_body.serialize()).to_utf8()
+		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		if result is NakamaException:
+			return NakamaAsyncResult.new(result)
+		return NakamaAsyncResult.new()
 
 	# Get storage objects.
 	func read_storage_objects_async(
@@ -4098,7 +4890,7 @@ class ApiClient extends Reference:
 		urlpath = urlpath.replace("{collection}", NakamaSerializer.escape_http(p_collection))
 		var query_params = ""
 		if p_user_id != null:
-			query_params += "user_id=%s&" % NakamaSerializer.escape_http(p_user_id)
+			query_params += "userId=%s&" % NakamaSerializer.escape_http(p_user_id)
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cursor != null:
@@ -4124,9 +4916,9 @@ class ApiClient extends Reference:
 		, p_limit = null # : integer
 		, p_cursor = null # : string
 	) -> ApiStorageObjectList:
-		var urlpath : String = "/v2/storage/{collection}/{user_id}"
+		var urlpath : String = "/v2/storage/{collection}/{userId}"
 		urlpath = urlpath.replace("{collection}", NakamaSerializer.escape_http(p_collection))
-		urlpath = urlpath.replace("{user_id}", NakamaSerializer.escape_http(p_user_id))
+		urlpath = urlpath.replace("{userId}", NakamaSerializer.escape_http(p_user_id))
 		var query_params = ""
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
@@ -4158,13 +4950,13 @@ class ApiClient extends Reference:
 		var urlpath : String = "/v2/tournament"
 		var query_params = ""
 		if p_category_start != null:
-			query_params += "category_start=%d&" % p_category_start
+			query_params += "categoryStart=%d&" % p_category_start
 		if p_category_end != null:
-			query_params += "category_end=%d&" % p_category_end
+			query_params += "categoryEnd=%d&" % p_category_end
 		if p_start_time != null:
-			query_params += "start_time=%d&" % p_start_time
+			query_params += "startTime=%d&" % p_start_time
 		if p_end_time != null:
-			query_params += "end_time=%d&" % p_end_time
+			query_params += "endTime=%d&" % p_end_time
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cursor != null:
@@ -4191,12 +4983,12 @@ class ApiClient extends Reference:
 		, p_cursor = null # : string
 		, p_expiry = null # : string
 	) -> ApiTournamentRecordList:
-		var urlpath : String = "/v2/tournament/{tournament_id}"
-		urlpath = urlpath.replace("{tournament_id}", NakamaSerializer.escape_http(p_tournament_id))
+		var urlpath : String = "/v2/tournament/{tournamentId}"
+		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(p_tournament_id))
 		var query_params = ""
 		if p_owner_ids != null:
 			for elem in p_owner_ids:
-				query_params += "owner_ids=%s&" % elem
+				query_params += "ownerIds=%s&" % elem
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cursor != null:
@@ -4217,13 +5009,36 @@ class ApiClient extends Reference:
 		return out
 
 	# Write a record to a tournament.
+	func write_tournament_record2_async(
+		p_bearer_token : String
+		, p_tournament_id : String
+		, p_body : WriteTournamentRecordRequestTournamentRecordWrite
+	) -> ApiLeaderboardRecord:
+		var urlpath : String = "/v2/tournament/{tournamentId}"
+		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(p_tournament_id))
+		var query_params = ""
+		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
+		var method = "POST"
+		var headers = {}
+		var header = "Bearer %s" % p_bearer_token
+		headers["Authorization"] = header
+
+		var content : PoolByteArray
+		content = JSON.print(p_body.serialize()).to_utf8()
+		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		if result is NakamaException:
+			return ApiLeaderboardRecord.new(result)
+		var out : ApiLeaderboardRecord = NakamaSerializer.deserialize(_namespace, "ApiLeaderboardRecord", result)
+		return out
+
+	# Write a record to a tournament.
 	func write_tournament_record_async(
 		p_bearer_token : String
 		, p_tournament_id : String
 		, p_body : WriteTournamentRecordRequestTournamentRecordWrite
 	) -> ApiLeaderboardRecord:
-		var urlpath : String = "/v2/tournament/{tournament_id}"
-		urlpath = urlpath.replace("{tournament_id}", NakamaSerializer.escape_http(p_tournament_id))
+		var urlpath : String = "/v2/tournament/{tournamentId}"
+		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(p_tournament_id))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "PUT"
@@ -4244,8 +5059,8 @@ class ApiClient extends Reference:
 		p_bearer_token : String
 		, p_tournament_id : String
 	) -> NakamaAsyncResult:
-		var urlpath : String = "/v2/tournament/{tournament_id}/join"
-		urlpath = urlpath.replace("{tournament_id}", NakamaSerializer.escape_http(p_tournament_id))
+		var urlpath : String = "/v2/tournament/{tournamentId}/join"
+		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(p_tournament_id))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
@@ -4267,9 +5082,9 @@ class ApiClient extends Reference:
 		, p_limit = null # : integer
 		, p_expiry = null # : string
 	) -> ApiTournamentRecordList:
-		var urlpath : String = "/v2/tournament/{tournament_id}/owner/{owner_id}"
-		urlpath = urlpath.replace("{tournament_id}", NakamaSerializer.escape_http(p_tournament_id))
-		urlpath = urlpath.replace("{owner_id}", NakamaSerializer.escape_http(p_owner_id))
+		var urlpath : String = "/v2/tournament/{tournamentId}/owner/{ownerId}"
+		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(p_tournament_id))
+		urlpath = urlpath.replace("{ownerId}", NakamaSerializer.escape_http(p_owner_id))
 		var query_params = ""
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
@@ -4305,7 +5120,7 @@ class ApiClient extends Reference:
 				query_params += "usernames=%s&" % elem
 		if p_facebook_ids != null:
 			for elem in p_facebook_ids:
-				query_params += "facebook_ids=%s&" % elem
+				query_params += "facebookIds=%s&" % elem
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -4327,8 +5142,8 @@ class ApiClient extends Reference:
 		, p_state = null # : integer
 		, p_cursor = null # : string
 	) -> ApiUserGroupList:
-		var urlpath : String = "/v2/user/{user_id}/group"
-		urlpath = urlpath.replace("{user_id}", NakamaSerializer.escape_http(p_user_id))
+		var urlpath : String = "/v2/user/{userId}/group"
+		urlpath = urlpath.replace("{userId}", NakamaSerializer.escape_http(p_user_id))
 		var query_params = ""
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit

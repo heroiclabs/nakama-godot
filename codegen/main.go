@@ -31,38 +31,50 @@ extends Reference
 class_name NakamaAPI
 {{- range $defname, $definition := .Definitions }}
 {{- $classname := $defname | title }}
+{{- if isRefToEnum $classname }}
+
+# {{ enumSummary $definition | stripNewlines }}
+{{- range $idx, $val := ($definition | enumDescriptions) }}
+# {{ $val }}
+{{- end -}}
+# {{ $definition | enumDescriptions }}
+enum {{ $classname | title }} { {{- range $idx, $enum := $definition.Enum }}{{ $enum }} = {{ $idx }},{{- end -}} }
+{{- else }}
 
 # {{ $definition.Description | stripNewlines }}
 class {{ $classname }} extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		{{- range $propname, $property := $definition.Properties }}
-		{{- $fieldname := $propname }}
+		{{- $fieldname := $propname | pascalToSnake }}
 		{{- $_field := printf "_%s" $fieldname }}
-		{{- $gdType := godotType $property.Type $property.Ref $property.Items.Type $property.Items.Ref }}
-		"{{ $propname }}": {"name": "{{ $_field }}", "type": {{ $gdType | godotSchemaType }}, "required": false
+		{{- $gdType := godotType $property.Type $property.Ref $property.Items.Type $property.Items.Ref (isRefToEnum (cleanRef $property.Ref)) }}
+		"{{ $fieldname }}": {"name": "{{ $_field }}", "type": {{ $gdType | godotSchemaType }}, "required": false
 		{{- if eq $property.Type "array" -}}
-			, "content": {{ (godotType $property.Items.Type $property.Items.Ref "" "") | godotSchemaType }}
+			, "content": {{ (godotType $property.Items.Type $property.Items.Ref "" "" false) | godotSchemaType }}
 		{{- else if eq $property.Type "object" -}}
-		            {{- else if eq $property.Type "object"}}{{/* Only base types here. */}}
-			, "content": {{ (godotType $property.AdditionalProperties.Type "" "" "") | godotSchemaType  }}
+			, "content": {{ (godotType $property.AdditionalProperties.Type "" "" "" false) | godotSchemaType  }}
 		{{- end -}}
 		},
 		{{- end }}
 	}
 
         {{- range $propname, $property := $definition.Properties }}
-        {{- $fieldname := $propname }}
+        {{- $fieldname := $propname | pascalToSnake }}
         {{- $_field := printf "_%s" $fieldname }}
-        {{- $gdType := godotType $property.Type $property.Ref $property.Items.Type $property.Items.Ref }}
+        {{- $gdType := godotType $property.Type $property.Ref $property.Items.Type $property.Items.Ref (isRefToEnum (cleanRef $property.Ref)) }}
 	{{- $gdDef := $gdType | godotDef }}
 
 	# {{ $property.Description }}
 	var {{ $fieldname }} : {{ $gdType }} setget , _get_{{ $fieldname }}
 	var {{ $_field }} = null
 	func _get_{{ $fieldname }}() -> {{ $gdType }}:
-        {{- if $property.Ref }}{{/* Object reference */}}
+        {{- if $property.Ref }}
+		{{- if isRefToEnum (cleanRef $property.Ref) }}{{/* Enums */}}
+		return {{ cleanRef $property.Ref }}.values()[0] if not {{ cleanRef $property.Ref }}.values().has({{ $_field }}) else {{ $_field }}
+		{{- else }}{{/* Object reference */}}
 		return _{{ $fieldname }} as {{ $gdType }}
+		{{- end }}
         {{- else if eq $property.Type "object"}}{{/* Dictionaries */}}
 		return Dictionary() if not {{ $_field }} is Dictionary else {{ $_field }}.duplicate()
         {{- else }}{{/* Simple type */}}
@@ -83,7 +95,8 @@ class {{ $classname }} extends NakamaAsyncResult:
 		if is_exception():
 			return get_exception()._to_string()
 		var output : String = ""
-            {{- range $fieldname, $property := $definition.Properties }}
+            {{- range $propname, $property := $definition.Properties }}
+            {{- $fieldname := $propname | pascalToSnake }}
             {{- $_field := printf "_%s" $fieldname }}
             {{- if eq $property.Type "array" }}
 		output += "{{ $fieldname }}: %s, " % [{{ $_field }}]
@@ -99,6 +112,7 @@ class {{ $classname }} extends NakamaAsyncResult:
             {{- end }}
 		return output
     {{- end }}
+{{- end }}
 
 # The low level client for the Nakama API.
 class ApiClient extends Reference:
@@ -120,9 +134,9 @@ class ApiClient extends Reference:
 
 	# {{ $operation.Summary | stripNewlines }}
         {{- if $operation.Responses.Ok.Schema.Ref }}
-	func {{ $operation.OperationId | pascalToSnake }}_async(
+	func {{ $operation.OperationId | apiFuncName }}_async(
         {{- else }}
-	func {{ $operation.OperationId | pascalToSnake }}_async(
+	func {{ $operation.OperationId | apiFuncName }}_async(
         {{- end}}
 
         {{- if $operation.Security }}
@@ -151,7 +165,7 @@ class ApiClient extends Reference:
 		, {{ $camelcase }} : {{ $parameter.Schema.Ref | cleanRef }}
             {{- end }}
         {{- else }}
-		, {{ $camelcase }} : {{ godotType $parameter.Type $parameter.Schema.Ref $parameter.Items.Type "" }}
+		, {{ $camelcase }} : {{ godotType $parameter.Type $parameter.Schema.Ref $parameter.Items.Type "" (isRefToEnum (cleanRef $parameter.Schema.Ref)) }}
         {{- end }}
 	{{- end }}
 	)
@@ -251,7 +265,7 @@ func stripNewlines(input string) (output string) {
 }
 
 func prependParameter(input string) (output string) {
-	output = "p_" + input
+	output = "p_" + pascalToSnake(input)
 	return
 }
 
@@ -270,7 +284,12 @@ func pascalToSnake(input string) (output string) {
 	return
 }
 
-func godotType(p_type string, p_ref string, p_item_type string, p_extra string) (out string) {
+func apiFuncName(input string) (output string) {
+	output = pascalToSnake(input[7:])
+	return
+}
+
+func godotType(p_type string, p_ref string, p_item_type string, p_extra string, p_is_enum bool) (out string) {
 
 	is_array := false
 	is_dict := false
@@ -286,7 +305,11 @@ func godotType(p_type string, p_ref string, p_item_type string, p_extra string) 
 		case "object":
 			is_dict = true
 		default:
-			out = convertRefToClassName(p_ref)
+			if p_is_enum {
+				out = "int"
+			} else {
+				out = convertRefToClassName(p_ref)
+			}
 	}
 
 	if is_array {
@@ -348,6 +371,80 @@ func godotSchemaType(p_type string) (out string) {
 	return
 }
 
+func pascalToCamel(input string) (camelCase string) {
+	if input == "" {
+		return ""
+	}
+
+	camelCase = strings.ToLower(string(input[0]))
+	camelCase += string(input[1:])
+	return camelCase
+}
+
+func camelToPascal(camelCase string) (pascalCase string) {
+
+	if len(camelCase) <= 0 {
+		return ""
+	}
+
+	pascalCase = strings.ToUpper(string(camelCase[0])) + camelCase[1:]
+	return
+}
+
+func enumSummary(def Definition) string {
+	// quirk of swagger generation: if enum doesn't have a title
+	// then the title can be found as the first entry in the split description.
+	if def.Title != "" {
+		return def.Title
+	}
+
+	split := strings.Split(def.Description, "\n")
+
+	if len(split) <= 0 {
+		panic("No newlines in enum description found.")
+	}
+
+	return split[0]
+}
+
+func enumDescriptions(def Definition) (output []string) {
+
+	split := strings.Split(def.Description, "\n")
+
+	if len(split) <= 0 {
+		panic("No newlines in enum description found.")
+	}
+
+	if def.Title != "" {
+		return split
+	}
+
+	// quirk of swagger generation: if enum doesn't have a title
+	// then the title can be found as the first entry in the split description.
+	// so ignore for individual enum descriptions.
+	return split[2:]
+}
+
+type Definition struct {
+	Properties map[string]struct {
+		Type  string
+		Ref   string   `json:"$ref"` // used with object
+		Items struct { // used with type "array"
+			Type string
+			Ref  string `json:"$ref"`
+		}
+		AdditionalProperties struct {
+			Type string // used with type "map"
+		}
+		Format      string // used with type "boolean"
+		Description string
+	}
+	Enum        []string
+	Description string
+	// used only by enums
+	Title string
+}
+
 func main() {
 	// Argument flags
 	var output = flag.String("output", "", "The output for generated code.")
@@ -396,22 +493,7 @@ func main() {
 			Security []map[string][]struct {
 			}
 		}
-		Definitions map[string]struct {
-			Properties map[string]struct {
-				Type  string
-				Ref   string   `json:"$ref"` // used with object
-				Items struct { // used with type "array"
-					Type string
-					Ref  string `json:"$ref"`
-				}
-				AdditionalProperties struct {
-					Type string // used with type "map"
-				}
-				Format      string // used with type "boolean"
-				Description string
-			}
-			Description string
-		}
+		Definitions map[string]Definition
 	}
 
 	if err := json.Unmarshal(content, &schema); err != nil {
@@ -426,10 +508,39 @@ func main() {
 		"uppercase": strings.ToUpper,
 		"prependParameter": prependParameter,
 		"pascalToSnake": pascalToSnake,
+		"apiFuncName": apiFuncName,
 		"godotType": godotType,
 		"godotLooseType": godotLooseType,
 		"godotSchemaType": godotSchemaType,
 		"godotDef": godotDef,
+		"isRefToEnum": func(ref string) bool {
+			if len(ref) == 0 {
+				return false
+			}
+			// swagger schema definition keys have inconsistent casing
+			var camelOk bool
+			var pascalOk bool
+			var enums []string
+
+			asCamel := pascalToCamel(ref)
+			if _, camelOk = schema.Definitions[asCamel]; camelOk {
+				enums = schema.Definitions[asCamel].Enum
+			}
+
+			asPascal := camelToPascal(ref)
+			if _, pascalOk = schema.Definitions[asPascal]; pascalOk {
+				enums = schema.Definitions[asPascal].Enum
+			}
+
+			if !pascalOk && !camelOk {
+				fmt.Printf("no definition found: %v", ref)
+				return false
+			}
+
+			return len(enums) > 0
+		},
+		"enumDescriptions": enumDescriptions,
+		"enumSummary":      enumSummary,
 	}
 	tmpl, err := template.New(input).Funcs(fmap).Parse(codeTemplate)
 	if err != nil {

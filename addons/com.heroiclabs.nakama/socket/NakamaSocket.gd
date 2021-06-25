@@ -41,6 +41,28 @@ signal received_stream_presence(p_stream_presence_event) # StreamPresenceEvent
 # Emitted when receiving a message from a realtime stream.
 signal received_stream_state(p_stream_state) # StreamState
 
+# Received a party event. This will occur when the current user's invitation request is accepted
+# the party leader of a closed party.
+signal received_party(p_party) # Party
+
+# Received a party close event.
+signal received_party_close(p_party_close) # PartyClose
+
+# Received custom party data.
+signal received_party_data(p_party_data) # PartyData
+
+# Received a request to join the party.
+signal received_party_join_request(p_party_join_request) # PartyJoinRequest
+
+# Received a change in the party leader.
+signal received_party_leader(p_party_leader) # PartyLeader
+
+# Received a new matchmaker ticket for the party.
+signal received_party_matchmaker_ticket(p_party_matchmaker_ticket) # PartyMatchmakerTicket
+
+# Received a new presence event in the party.
+signal received_party_presence(p_party_presence_event) # PartyPresenceEvent
+
 var _adapter : NakamaSocketAdapter
 var _free_adapter : bool = false
 var _weak_ref : WeakRef
@@ -153,6 +175,27 @@ func _received(p_bytes : PoolByteArray):
 		elif dict.has("stream_data"):
 			var res = NakamaRTAPI.StreamData.create(NakamaRTAPI, dict["stream_data"])
 			emit_signal("received_stream_state", res)
+		elif dict.has("party"):
+			var res = NakamaRTAPI.Party.create(NakamaRTAPI, dict["party"])
+			emit_signal("received_party", res)
+		elif dict.has("party_close"):
+			var res = NakamaRTAPI.PartyClose.create(NakamaRTAPI, dict["party_close"])
+			emit_signal("received_party_close", res)
+		elif dict.has("party_data"):
+			var res = NakamaRTAPI.PartyData.create(NakamaRTAPI, dict["party_data"])
+			emit_signal("received_party_data", res)
+		elif dict.has("party_join_request"):
+			var res = NakamaRTAPI.PartyJoinRequest.create(NakamaRTAPI, dict["party_join_request"])
+			emit_signal("received_party_join_request", res)
+		elif dict.has("party_leader"):
+			var res = NakamaRTAPI.PartyLeader.create(NakamaRTAPI, dict["party_leader"])
+			emit_signal("received_party_leader", res)
+		elif dict.has("party_matchmaker_ticket"):
+			var res = NakamaRTAPI.PartyMatchmakerTicket.create(NakamaRTAPI, dict["party_matchmaker_ticket"])
+			emit_signal("received_party_matchmaker_ticket", res)
+		elif dict.has("party_presence_event"):
+			var res = NakamaRTAPI.PartyPresenceEvent.create(NakamaRTAPI, dict["party_presence_event"])
+			emit_signal("received_party_presence", res)
 		else:
 			logger.warning("Unhandled response: %s" % dict)
 
@@ -432,3 +475,89 @@ func write_chat_message_async(p_channel_id : String, p_content : Dictionary):
 		NakamaRTMessage.ChannelMessageSend.new(p_channel_id, JSON.print(p_content)),
 		NakamaRTAPI.ChannelMessageAck
 	)
+
+# Accept a party member's request to join the party.
+# @param p_party_id - The party ID to accept the join request for.
+# @param p_presence - The presence to accept as a party member.
+# Returns a task to represent the asynchronous operation.
+func accept_party_member_async(p_party_id : String, p_presence : NakamaRTAPI.UserPresence):
+	return _send_async(NakamaRTMessage.PartyAccept.new(p_party_id, p_presence))
+
+# Begin matchmaking as a party.
+# @param p_party_id - Party ID.
+# @param p_query - Filter query used to identify suitable users.
+# @param p_min_count - Minimum total user count to match together.
+# @param p_max_count - Maximum total user count to match together.
+# @param p_string_properties - String properties.
+# @param p_numeric_properties - Numeric properties.
+# Returns a task to represent the asynchronous operation.
+func add_matchmaker_party_async(p_party_id : String, p_query : String = "*", p_min_count : int = 2,
+	p_max_count : int = 8, p_string_properties = {}, p_numeric_properties = {}):
+	return _send_async(
+		NakamaRTMessage.PartyMatchmakerAdd.new(p_party_id, p_min_count,
+			p_max_count, p_query, p_string_properties, p_numeric_properties))
+
+# End a party, kicking all party members and closing it.
+# @param p_party_id - The ID of the party.
+# Returns a task to represent the asynchronous operation.
+func close_party_async(p_party_id : String):
+	return _send_async(NakamaRTAPI.PartyClose.new(p_party_id))
+
+# Create a party.
+# @param p_open - Whether or not the party will require join requests to be approved by the party leader.
+# @param p_max_size - Maximum number of party members. This maximum does not include the party leader.
+# Returns a task to represent the asynchronous operation.
+func create_party_async(p_open : bool, p_max_size : int) -> NakamaRTAPI.Party:
+	return _send_async(
+		NakamaRTMessage.PartyCreate.new(p_open, p_max_size),
+		NakamaRTAPI.Party
+	)
+
+# Join a party.
+# @param p_party_id - Party ID.
+# Returns a task to represent the asynchronous operation.
+func join_party_async(p_party_id : String):
+	return _send_async(NakamaRTMessage.PartyJoin.new(p_party_id))
+
+# Leave the party.
+# @param p_party_id - Party ID.
+# Returns a task to represent the asynchronous operation.
+func leave_party_async(p_party_id : String):
+	return _send_async(NakamaRTMessage.PartyLeave.new(p_party_id))
+
+# Request a list of pending join requests for a party.
+# @param p_party_id - Party ID.
+# Returns a task which resolves to a list of all party join requests.
+func list_party_join_requests_async(p_party_id : String) -> NakamaRTAPI.PartyJoinRequest:
+	return _send_async(
+		NakamaRTMessage.PartyJoinRequestList.new(p_party_id),
+		NakamaRTAPI.PartyJoinRequest)
+
+# Promote a new party leader.
+# @param p_party_id - Party ID.
+# @param p_party_member - The presence of an existing party member to promote as the new leader.
+# Returns a which represents the asynchronous operation.
+func promote_party_member(p_party_id : String, p_party_member : NakamaRTAPI.UserPresence):
+	return _send_async(NakamaRTMessage.PartyPromote.new(p_party_id, p_party_member))
+
+# Cancel a party matchmaking process using a ticket.
+# @param p_party_id - Party ID.
+# @param p_ticket - The ticket to cancel.
+# Returns a task which represents the asynchronous operation.
+func remove_matchmaker_party_async(p_party_id : String, p_ticket : String):
+	return _send_async(NakamaRTMessage.PartyMatchmakerRemove.new(p_party_id, p_ticket))
+
+# Kick a party member, or decline a request to join.
+# @param p_party_id - Party ID to remove/reject from.
+# @param p_presence - The presence to remove or reject.
+# Returns a task which represents the asynchronous operation.
+func remove_party_member_async(p_party_id : String, p_presence : NakamaRTAPI.UserPresence):
+	return _send_async(NakamaRTMessage.PartyRemove.new(p_party_id, p_presence))
+
+# Send data to a party.
+# @param p_party_id - Party ID to send to.
+# @param p_op_code - Op code value.
+# @param data - Data payload, if any.
+# Returns a task which represents the asynchronous operation.
+func send_party_data_async(p_party_id : String, p_op_code : int, p_data = null):
+	return _send_async(NakamaRTMessage.PartyDataSend.new(p_party_id, p_op_code, p_data))

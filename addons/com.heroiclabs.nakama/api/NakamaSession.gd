@@ -10,6 +10,8 @@ var expired : bool = true setget _no_set, is_expired
 var vars : Dictionary = {} setget _no_set
 var username : String = "" setget _no_set
 var user_id : String = "" setget _no_set
+var refresh_token : String = "" setget _no_set
+var refresh_expire_time : int = 0 setget _no_set
 var valid : bool = false setget _no_set, is_valid
 
 func _no_set(v):
@@ -18,10 +20,13 @@ func _no_set(v):
 func is_expired() -> bool:
 	return expire_time < OS.get_unix_time()
 
+func is_refresh_expired() -> bool:
+	return refresh_expire_time < OS.get_unix_time()
+
 func is_valid():
 	return valid
 
-func _init(p_token = null, p_created : bool = false, p_exception = null).(p_exception):
+func _init(p_token = null, p_created : bool = false, p_refresh_token = null, p_exception = null).(p_exception):
 	if p_token:
 		var unpacked = _jwt_unpack(p_token)
 		var decoded = {}
@@ -44,12 +49,21 @@ func _init(p_token = null, p_created : bool = false, p_exception = null).(p_exce
 		if decoded.has("vrs") and typeof(decoded["vrs"]) == TYPE_DICTIONARY:
 			for k in decoded["vrs"]:
 				vars[k] = decoded["vrs"][k]
+	if p_refresh_token:
+		var unpacked = _jwt_unpack(p_refresh_token)
+		var decoded = {}
+		if not validate_json(unpacked):
+			decoded = parse_json(unpacked)
+		if typeof(decoded) != TYPE_DICTIONARY:
+			decoded = {}
+		refresh_expire_time = int(decoded.get("exp", 0))
+		refresh_token = p_refresh_token
 
 func _to_string():
 	if is_exception():
 		return get_exception()._to_string()
-	return "Session<created=%s, token=%s, create_time=%d, username=%s, user_id=%s, vars=%s>" % [
-		created, token, create_time, username, user_id, str(vars)]
+	return "Session<created=%s, token=%s, create_time=%d, username=%s, user_id=%s, vars=%s, expire_time=%d, refresh_expire_time=%d>" % [
+		created, token, create_time, username, user_id, str(vars), expire_time, refresh_expire_time]
 
 func _jwt_unpack(p_token : String) -> String:
 	# Hack decode JSON payload from JWT.
