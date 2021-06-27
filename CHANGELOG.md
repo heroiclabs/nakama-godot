@@ -9,6 +9,7 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 - Fix Dictionary serialization (e.g. "NakamaSocket.add_matchmaker_async" "p_string_props").
 - Pass join metadata onwards into match join message.
 - Don't stop processing messages when the game is paused.
+- Fix "rpc_async", "rpc_async_with_key". Now uses GET request only if no payload is passed.
 
 ## [2.1.0] - 2020-08-01
 

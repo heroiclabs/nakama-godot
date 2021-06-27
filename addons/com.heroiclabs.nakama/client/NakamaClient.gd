@@ -603,7 +603,9 @@ func read_storage_objects_async(p_session : NakamaSession, p_ids : Array): # -> 
 # @param p_id - The ID of the function to execute on the server.
 # @param p_payload - The payload to send with the function call.
 # Returns a task which resolves to the RPC response.
-func rpc_async(p_session : NakamaSession, p_id : String, p_payload : String = ""): # -> NakamaAPI.ApiRpc:
+func rpc_async(p_session : NakamaSession, p_id : String, p_payload = null): # -> NakamaAPI.ApiRpc:
+	if p_payload == null:
+		return _api_client.rpc_func2_async(p_session.token, p_id)
 	return _api_client.rpc_func_async(p_session.token, p_id, p_payload)
 
 # Execute a function on the server without a session.
@@ -613,7 +615,9 @@ func rpc_async(p_session : NakamaSession, p_id : String, p_payload : String = ""
 # @param p_payload - A payload to send with the function call.
 # Returns a task to resolve an RPC response.
 func rpc_async_with_key(p_http_key : String, p_id : String, p_payload = null): # -> NakamaAPI.ApiRpc:
-	return _api_client.rpc_func2_async("", p_id, p_payload, p_http_key)
+	if p_payload == null:
+		return _api_client.rpc_func2_async("", p_id, null, p_http_key)
+	return _api_client.rpc_func_async("", p_id, p_payload, p_http_key)
 
 # Unlink a custom ID from the user account owned by the session.
 # @param p_session - The session of the user.
