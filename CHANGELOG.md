@@ -10,6 +10,7 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 - Pass join metadata onwards into match join message.
 - Don't stop processing messages when the game is paused.
 - Fix "rpc_async", "rpc_async_with_key". Now uses GET request only if no payload is passed.
+- Fix client errors parsing in Nakama 3.x
 
 ## [2.1.0] - 2020-08-01
 
