@@ -3298,14 +3298,14 @@ class ApiClient extends Reference:
 
 	# A healthcheck which load balancers can use to check the service.
 	func healthcheck_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/healthcheck"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -3316,14 +3316,14 @@ class ApiClient extends Reference:
 
 	# Fetch the current user's account.
 	func get_account_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 	) -> ApiAccount:
 		var urlpath : String = "/v2/account"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -3335,7 +3335,7 @@ class ApiClient extends Reference:
 
 	# Update fields in the current user's account.
 	func update_account_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiUpdateAccountRequest
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/account"
@@ -3343,7 +3343,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "PUT"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -3622,7 +3622,7 @@ class ApiClient extends Reference:
 
 	# Add an Apple ID to the social profiles on the current user's account.
 	func link_apple_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiAccountApple
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/account/link/apple"
@@ -3630,7 +3630,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -3642,7 +3642,7 @@ class ApiClient extends Reference:
 
 	# Add a custom ID to the social profiles on the current user's account.
 	func link_custom_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiAccountCustom
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/account/link/custom"
@@ -3650,7 +3650,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -3662,7 +3662,7 @@ class ApiClient extends Reference:
 
 	# Add a device ID to the social profiles on the current user's account.
 	func link_device_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiAccountDevice
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/account/link/device"
@@ -3670,7 +3670,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -3682,7 +3682,7 @@ class ApiClient extends Reference:
 
 	# Add an email+password to the social profiles on the current user's account.
 	func link_email_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiAccountEmail
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/account/link/email"
@@ -3690,7 +3690,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -3702,7 +3702,7 @@ class ApiClient extends Reference:
 
 	# Add Facebook to the social profiles on the current user's account.
 	func link_facebook_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiAccountFacebook
 		, p_sync = null # : boolean
 	) -> NakamaAsyncResult:
@@ -3713,7 +3713,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -3725,7 +3725,7 @@ class ApiClient extends Reference:
 
 	# Add Facebook Instant Game to the social profiles on the current user's account.
 	func link_facebook_instant_game_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiAccountFacebookInstantGame
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/account/link/facebookinstantgame"
@@ -3733,7 +3733,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -3745,7 +3745,7 @@ class ApiClient extends Reference:
 
 	# Add Apple's GameCenter to the social profiles on the current user's account.
 	func link_game_center_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiAccountGameCenter
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/account/link/gamecenter"
@@ -3753,7 +3753,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -3765,7 +3765,7 @@ class ApiClient extends Reference:
 
 	# Add Google to the social profiles on the current user's account.
 	func link_google_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiAccountGoogle
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/account/link/google"
@@ -3773,7 +3773,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -3785,7 +3785,7 @@ class ApiClient extends Reference:
 
 	# Add Steam to the social profiles on the current user's account.
 	func link_steam_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiLinkSteamRequest
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/account/link/steam"
@@ -3793,7 +3793,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -3828,7 +3828,7 @@ class ApiClient extends Reference:
 
 	# Remove the Apple ID from the social profiles on the current user's account.
 	func unlink_apple_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiAccountApple
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/account/unlink/apple"
@@ -3836,7 +3836,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -3848,7 +3848,7 @@ class ApiClient extends Reference:
 
 	# Remove the custom ID from the social profiles on the current user's account.
 	func unlink_custom_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiAccountCustom
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/account/unlink/custom"
@@ -3856,7 +3856,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -3868,7 +3868,7 @@ class ApiClient extends Reference:
 
 	# Remove the device ID from the social profiles on the current user's account.
 	func unlink_device_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiAccountDevice
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/account/unlink/device"
@@ -3876,7 +3876,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -3888,7 +3888,7 @@ class ApiClient extends Reference:
 
 	# Remove the email+password from the social profiles on the current user's account.
 	func unlink_email_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiAccountEmail
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/account/unlink/email"
@@ -3896,7 +3896,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -3908,7 +3908,7 @@ class ApiClient extends Reference:
 
 	# Remove Facebook from the social profiles on the current user's account.
 	func unlink_facebook_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiAccountFacebook
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/account/unlink/facebook"
@@ -3916,7 +3916,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -3928,7 +3928,7 @@ class ApiClient extends Reference:
 
 	# Remove Facebook Instant Game profile from the social profiles on the current user's account.
 	func unlink_facebook_instant_game_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiAccountFacebookInstantGame
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/account/unlink/facebookinstantgame"
@@ -3936,7 +3936,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -3948,7 +3948,7 @@ class ApiClient extends Reference:
 
 	# Remove Apple's GameCenter from the social profiles on the current user's account.
 	func unlink_game_center_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiAccountGameCenter
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/account/unlink/gamecenter"
@@ -3956,7 +3956,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -3968,7 +3968,7 @@ class ApiClient extends Reference:
 
 	# Remove Google from the social profiles on the current user's account.
 	func unlink_google_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiAccountGoogle
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/account/unlink/google"
@@ -3976,7 +3976,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -3988,7 +3988,7 @@ class ApiClient extends Reference:
 
 	# Remove Steam from the social profiles on the current user's account.
 	func unlink_steam_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiAccountSteam
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/account/unlink/steam"
@@ -3996,7 +3996,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4008,7 +4008,7 @@ class ApiClient extends Reference:
 
 	# List a channel's message history.
 	func list_channel_messages_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_channel_id : String
 		, p_limit = null # : integer
 		, p_forward = null # : boolean
@@ -4026,7 +4026,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4038,7 +4038,7 @@ class ApiClient extends Reference:
 
 	# Submit an event for processing in the server's registered runtime custom events handler.
 	func event_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiEvent
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/event"
@@ -4046,7 +4046,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4058,7 +4058,7 @@ class ApiClient extends Reference:
 
 	# Delete one or more users by ID or username.
 	func delete_friends_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_ids = null # : array
 		, p_usernames = null # : array
 	) -> NakamaAsyncResult:
@@ -4073,7 +4073,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "DELETE"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4084,7 +4084,7 @@ class ApiClient extends Reference:
 
 	# List all friends for the current user.
 	func list_friends_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_limit = null # : integer
 		, p_state = null # : integer
 		, p_cursor = null # : string
@@ -4100,7 +4100,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4112,7 +4112,7 @@ class ApiClient extends Reference:
 
 	# Add friends by ID or username to a user's account.
 	func add_friends_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_ids = null # : array
 		, p_usernames = null # : array
 	) -> NakamaAsyncResult:
@@ -4127,7 +4127,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4138,7 +4138,7 @@ class ApiClient extends Reference:
 
 	# Block one or more users by ID or username.
 	func block_friends_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_ids = null # : array
 		, p_usernames = null # : array
 	) -> NakamaAsyncResult:
@@ -4153,7 +4153,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4164,7 +4164,7 @@ class ApiClient extends Reference:
 
 	# Import Facebook friends and add them to a user's account.
 	func import_facebook_friends_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiAccountFacebook
 		, p_reset = null # : boolean
 	) -> NakamaAsyncResult:
@@ -4175,7 +4175,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4187,7 +4187,7 @@ class ApiClient extends Reference:
 
 	# Import Steam friends and add them to a user's account.
 	func import_steam_friends_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiAccountSteam
 		, p_reset = null # : boolean
 	) -> NakamaAsyncResult:
@@ -4198,7 +4198,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4210,7 +4210,7 @@ class ApiClient extends Reference:
 
 	# List groups based on given filters.
 	func list_groups_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_name = null # : string
 		, p_cursor = null # : string
 		, p_limit = null # : integer
@@ -4235,7 +4235,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4247,7 +4247,7 @@ class ApiClient extends Reference:
 
 	# Create a new group with the current user as the owner.
 	func create_group_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiCreateGroupRequest
 	) -> ApiGroup:
 		var urlpath : String = "/v2/group"
@@ -4255,7 +4255,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4268,7 +4268,7 @@ class ApiClient extends Reference:
 
 	# Delete a group by ID.
 	func delete_group_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_group_id : String
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/group/{groupId}"
@@ -4277,7 +4277,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "DELETE"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4288,7 +4288,7 @@ class ApiClient extends Reference:
 
 	# Update fields in a given group.
 	func update_group_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_group_id : String
 		, p_body : ApiUpdateGroupRequest
 	) -> NakamaAsyncResult:
@@ -4298,7 +4298,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "PUT"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4310,7 +4310,7 @@ class ApiClient extends Reference:
 
 	# Add users to a group.
 	func add_group_users_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_group_id : String
 		, p_user_ids = null # : array
 	) -> NakamaAsyncResult:
@@ -4323,7 +4323,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4334,7 +4334,7 @@ class ApiClient extends Reference:
 
 	# Ban a set of users from a group.
 	func ban_group_users_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_group_id : String
 		, p_user_ids = null # : array
 	) -> NakamaAsyncResult:
@@ -4347,7 +4347,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4358,7 +4358,7 @@ class ApiClient extends Reference:
 
 	# Demote a set of users in a group to the next role down.
 	func demote_group_users_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_group_id : String
 		, p_user_ids : PoolStringArray
 	) -> NakamaAsyncResult:
@@ -4371,7 +4371,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4382,7 +4382,7 @@ class ApiClient extends Reference:
 
 	# Immediately join an open group, or request to join a closed one.
 	func join_group_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_group_id : String
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/group/{groupId}/join"
@@ -4391,7 +4391,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4402,7 +4402,7 @@ class ApiClient extends Reference:
 
 	# Kick a set of users from a group.
 	func kick_group_users_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_group_id : String
 		, p_user_ids = null # : array
 	) -> NakamaAsyncResult:
@@ -4415,7 +4415,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4426,7 +4426,7 @@ class ApiClient extends Reference:
 
 	# Leave a group the user is a member of.
 	func leave_group_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_group_id : String
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/group/{groupId}/leave"
@@ -4435,7 +4435,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4446,7 +4446,7 @@ class ApiClient extends Reference:
 
 	# Promote a set of users in a group to the next role up.
 	func promote_group_users_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_group_id : String
 		, p_user_ids = null # : array
 	) -> NakamaAsyncResult:
@@ -4459,7 +4459,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4470,7 +4470,7 @@ class ApiClient extends Reference:
 
 	# List all users that are part of a group.
 	func list_group_users_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_group_id : String
 		, p_limit = null # : integer
 		, p_state = null # : integer
@@ -4488,7 +4488,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4500,7 +4500,7 @@ class ApiClient extends Reference:
 
 	# Validate Apple IAP Receipt
 	func validate_purchase_apple_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiValidatePurchaseAppleRequest
 	) -> ApiValidatePurchaseResponse:
 		var urlpath : String = "/v2/iap/purchase/apple"
@@ -4508,7 +4508,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4521,7 +4521,7 @@ class ApiClient extends Reference:
 
 	# Validate Google IAP Receipt
 	func validate_purchase_google_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiValidatePurchaseGoogleRequest
 	) -> ApiValidatePurchaseResponse:
 		var urlpath : String = "/v2/iap/purchase/google"
@@ -4529,7 +4529,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4542,7 +4542,7 @@ class ApiClient extends Reference:
 
 	# Validate Huawei IAP Receipt
 	func validate_purchase_huawei_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiValidatePurchaseHuaweiRequest
 	) -> ApiValidatePurchaseResponse:
 		var urlpath : String = "/v2/iap/purchase/huawei"
@@ -4550,7 +4550,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4563,7 +4563,7 @@ class ApiClient extends Reference:
 
 	# Delete a leaderboard record.
 	func delete_leaderboard_record_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_leaderboard_id : String
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/leaderboard/{leaderboardId}"
@@ -4572,7 +4572,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "DELETE"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4583,7 +4583,7 @@ class ApiClient extends Reference:
 
 	# List leaderboard records.
 	func list_leaderboard_records_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_leaderboard_id : String
 		, p_owner_ids = null # : array
 		, p_limit = null # : integer
@@ -4605,7 +4605,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4617,7 +4617,7 @@ class ApiClient extends Reference:
 
 	# Write a record to a leaderboard.
 	func write_leaderboard_record_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_leaderboard_id : String
 		, p_body : WriteLeaderboardRecordRequestLeaderboardRecordWrite
 	) -> ApiLeaderboardRecord:
@@ -4627,7 +4627,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4640,7 +4640,7 @@ class ApiClient extends Reference:
 
 	# List leaderboard records that belong to a user.
 	func list_leaderboard_records_around_owner_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_leaderboard_id : String
 		, p_owner_id : String
 		, p_limit = null # : integer
@@ -4657,7 +4657,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4669,7 +4669,7 @@ class ApiClient extends Reference:
 
 	# Fetch list of running matches.
 	func list_matches_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_limit = null # : integer
 		, p_authoritative = null # : boolean
 		, p_label = null # : string
@@ -4694,7 +4694,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4706,7 +4706,7 @@ class ApiClient extends Reference:
 
 	# Delete one or more notifications for the current user.
 	func delete_notifications_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_ids = null # : array
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/notification"
@@ -4717,7 +4717,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "DELETE"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4728,7 +4728,7 @@ class ApiClient extends Reference:
 
 	# Fetch list of notifications.
 	func list_notifications_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_limit = null # : integer
 		, p_cacheable_cursor = null # : string
 	) -> ApiNotificationList:
@@ -4741,7 +4741,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4808,7 +4808,7 @@ class ApiClient extends Reference:
 
 	# Log out a session, invalidate a refresh token, or log out all sessions/refresh tokens for a user.
 	func session_logout_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiSessionLogoutRequest
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/session/logout"
@@ -4816,7 +4816,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4828,7 +4828,7 @@ class ApiClient extends Reference:
 
 	# Get storage objects.
 	func read_storage_objects_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiReadStorageObjectsRequest
 	) -> ApiStorageObjects:
 		var urlpath : String = "/v2/storage"
@@ -4836,7 +4836,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4849,7 +4849,7 @@ class ApiClient extends Reference:
 
 	# Write objects into the storage engine.
 	func write_storage_objects_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiWriteStorageObjectsRequest
 	) -> ApiStorageObjectAcks:
 		var urlpath : String = "/v2/storage"
@@ -4857,7 +4857,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "PUT"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4870,7 +4870,7 @@ class ApiClient extends Reference:
 
 	# Delete one or more objects by ID or username.
 	func delete_storage_objects_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_body : ApiDeleteStorageObjectsRequest
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/storage/delete"
@@ -4878,7 +4878,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "PUT"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4890,7 +4890,7 @@ class ApiClient extends Reference:
 
 	# List publicly readable storage objects in a given collection.
 	func list_storage_objects_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_collection : String
 		, p_user_id = null # : string
 		, p_limit = null # : integer
@@ -4908,7 +4908,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4920,7 +4920,7 @@ class ApiClient extends Reference:
 
 	# List publicly readable storage objects in a given collection.
 	func list_storage_objects2_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_collection : String
 		, p_user_id : String
 		, p_limit = null # : integer
@@ -4937,7 +4937,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4949,7 +4949,7 @@ class ApiClient extends Reference:
 
 	# List current or upcoming tournaments.
 	func list_tournaments_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_category_start = null # : integer
 		, p_category_end = null # : integer
 		, p_start_time = null # : integer
@@ -4974,7 +4974,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -4986,7 +4986,7 @@ class ApiClient extends Reference:
 
 	# List tournament records.
 	func list_tournament_records_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_tournament_id : String
 		, p_owner_ids = null # : array
 		, p_limit = null # : integer
@@ -5008,7 +5008,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -5020,7 +5020,7 @@ class ApiClient extends Reference:
 
 	# Write a record to a tournament.
 	func write_tournament_record2_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_tournament_id : String
 		, p_body : WriteTournamentRecordRequestTournamentRecordWrite
 	) -> ApiLeaderboardRecord:
@@ -5030,7 +5030,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -5043,7 +5043,7 @@ class ApiClient extends Reference:
 
 	# Write a record to a tournament.
 	func write_tournament_record_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_tournament_id : String
 		, p_body : WriteTournamentRecordRequestTournamentRecordWrite
 	) -> ApiLeaderboardRecord:
@@ -5053,7 +5053,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "PUT"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -5066,7 +5066,7 @@ class ApiClient extends Reference:
 
 	# Attempt to join an open and running tournament.
 	func join_tournament_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_tournament_id : String
 	) -> NakamaAsyncResult:
 		var urlpath : String = "/v2/tournament/{tournamentId}/join"
@@ -5075,7 +5075,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -5086,7 +5086,7 @@ class ApiClient extends Reference:
 
 	# List tournament records for a given owner.
 	func list_tournament_records_around_owner_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_tournament_id : String
 		, p_owner_id : String
 		, p_limit = null # : integer
@@ -5103,7 +5103,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -5115,7 +5115,7 @@ class ApiClient extends Reference:
 
 	# Fetch zero or more users by ID and/or username.
 	func get_users_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_ids = null # : array
 		, p_usernames = null # : array
 		, p_facebook_ids = null # : array
@@ -5134,7 +5134,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
@@ -5146,7 +5146,7 @@ class ApiClient extends Reference:
 
 	# List groups the current user belongs to.
 	func list_user_groups_async(
-		p_bearer_token : String
+		p_session : NakamaSession
 		, p_user_id : String
 		, p_limit = null # : integer
 		, p_state = null # : integer
@@ -5164,7 +5164,7 @@ class ApiClient extends Reference:
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
 		var content : PoolByteArray

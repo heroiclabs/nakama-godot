@@ -68,7 +68,7 @@ func _parse_auth(p_session) -> NakamaSession:
 # @param p_usernames - The usernames of the users to add as friends.
 # Returns a task which represents the asynchronous operation.
 func add_friends_async(p_session : NakamaSession, p_ids = null, p_usernames = null) -> NakamaAsyncResult:
-	return _api_client.add_friends_async(p_session.token, p_ids, p_usernames)
+	return _api_client.add_friends_async(p_session, p_ids, p_usernames)
 
 # Add one or more users to the group.
 # @param p_session - The session of the user.
@@ -76,7 +76,7 @@ func add_friends_async(p_session : NakamaSession, p_ids = null, p_usernames = nu
 # @param p_ids - The ids of the users to add or invite to the group.
 # Returns a task which represents the asynchronous operation.
 func add_group_users_async(p_session : NakamaSession, p_group_id : String, p_ids : PoolStringArray) -> NakamaAsyncResult:
-	return _api_client.add_group_users_async(p_session.token, p_group_id, p_ids);
+	return _api_client.add_group_users_async(p_session, p_group_id, p_ids);
 
 # Authenticate a user with an Apple ID against the server.
 # @param p_username - A username used to create the user.</param>
@@ -215,7 +215,7 @@ func authenticate_steam_async(p_token : String, p_username = null, p_create : bo
 # @param p_usernames - The usernames of the users to block.
 # Returns a task which represents the asynchronous operation.
 func block_friends_async(p_session : NakamaSession, p_ids : PoolStringArray, p_usernames = null) -> NakamaAsyncResult:
-	return _api_client.block_friends_async(p_session.token, p_ids, p_usernames);
+	return _api_client.block_friends_async(p_session, p_ids, p_usernames);
 
 # Create a group.
 # @param p_session - The session of the user.
@@ -228,7 +228,7 @@ func block_friends_async(p_session : NakamaSession, p_ids : PoolStringArray, p_u
 # Returns a task which resolves to a new group object.
 func create_group_async(p_session : NakamaSession, p_name : String, p_description : String = "",
 		p_avatar_url = null, p_lang_tag = null, p_open : bool = true, p_max_count : int = 100): # -> NakamaAPI.ApiGroup:
-	return _api_client.create_group_async(p_session.token,
+	return _api_client.create_group_async(p_session,
 		NakamaAPI.ApiCreateGroupRequest.create(NakamaAPI, {
 			"avatar_url": p_avatar_url,
 			"description": p_description,
@@ -244,28 +244,28 @@ func create_group_async(p_session : NakamaSession, p_name : String, p_descriptio
 # @param p_usernames - The usernames to remove as friends.
 # Returns a task which represents the asynchronous operation.
 func delete_friends_async(p_session : NakamaSession, p_ids : PoolStringArray, p_usernames = null) -> NakamaAsyncResult:
-	return _api_client.delete_friends_async(p_session.token, p_ids, p_usernames)
+	return _api_client.delete_friends_async(p_session, p_ids, p_usernames)
 
 # Delete a group by id.
 # @param p_session - The session of the user.
 # @param p_group_id - The group id to to remove.
 # Returns a task which represents the asynchronous operation.
 func delete_group_async(p_session : NakamaSession, p_group_id : String) -> NakamaAsyncResult:
-	return _api_client.delete_group_async(p_session.token, p_group_id)
+	return _api_client.delete_group_async(p_session, p_group_id)
 
 # Delete a leaderboard record.
 # @param p_session - The session of the user.
 # @param p_leaderboard_id - The id of the leaderboard with the record to be deleted.
 # Returns a task which represents the asynchronous operation.
 func delete_leaderboard_record_async(p_session : NakamaSession, p_leaderboard_id : String) -> NakamaAsyncResult:
-	return _api_client.delete_leaderboard_record_async(p_session.token, p_leaderboard_id)
+	return _api_client.delete_leaderboard_record_async(p_session, p_leaderboard_id)
 
 # Delete one or more notifications by id.
 # @param p_session - The session of the user.
 # @param p_ids - The notification ids to remove.
 # Returns a task which represents the asynchronous operation.
 func delete_notifications_async(p_session : NakamaSession, p_ids : PoolStringArray) -> NakamaAsyncResult:
-	return _api_client.delete_notifications_async(p_session.token, p_ids)
+	return _api_client.delete_notifications_async(p_session, p_ids)
 
 # Delete one or more storage objects.
 # @param p_session - The session of the user.
@@ -278,7 +278,7 @@ func delete_storage_objects_async(p_session : NakamaSession, p_ids : Array) -> N
 			continue # TODO Exceptions
 		var obj_id : NakamaStorageObjectId = id
 		ids.append(obj_id.as_delete().serialize())
-	return _api_client.delete_storage_objects_async(p_session.token,
+	return _api_client.delete_storage_objects_async(p_session,
 		NakamaAPI.ApiDeleteStorageObjectsRequest.create(NakamaAPI, {
 			"object_ids": ids
 		}))
@@ -289,13 +289,13 @@ func delete_storage_objects_async(p_session : NakamaSession, p_ids : Array) -> N
 # @param p_ids - The IDs of the users to demote.
 # Returns a task which represents the asynchronous operation.
 func demote_group_users_async(p_session : NakamaSession, p_group_id : String, p_user_ids : Array):
-		return _api_client.demote_group_users_async(p_session.token, p_group_id, p_user_ids)
+		return _api_client.demote_group_users_async(p_session, p_group_id, p_user_ids)
 
 # Fetch the user account owned by the session.
 # @param p_session - The session of the user.
 # Returns a task which resolves to the account object.
 func get_account_async(p_session : NakamaSession): # -> NakamaAPI.ApiAccount:
-	return _api_client.get_account_async(p_session.token)
+	return _api_client.get_account_async(p_session)
 
 # Fetch one or more users by id, usernames, and Facebook ids.
 # @param p_session - The session of the user.
@@ -304,7 +304,7 @@ func get_account_async(p_session : NakamaSession): # -> NakamaAPI.ApiAccount:
 # @param p_facebook_ids - The facebook IDs of the users to retrieve.
 # Returns a task which resolves to a collection of user objects.
 func get_users_async(p_session : NakamaSession, p_ids : PoolStringArray, p_usernames = null, p_facebook_ids = null): # -> NakamaAPI.ApiUsers:
-	return _api_client.get_users_async(p_session.token, p_ids, p_usernames, p_facebook_ids)
+	return _api_client.get_users_async(p_session, p_ids, p_usernames, p_facebook_ids)
 
 # Import Facebook friends and add them to the user's account.
 # The server will import friends when the user authenticates with Facebook. This function can be used to be
@@ -314,7 +314,7 @@ func get_users_async(p_session : NakamaSession, p_ids : PoolStringArray, p_usern
 # @param p_reset - If the Facebook friend import for the user should be reset.
 # Returns a task which represents the asynchronous operation.
 func import_facebook_friends_async(p_session : NakamaSession, p_token : String, p_reset = null) -> NakamaAsyncResult:
-	return _api_client.import_facebook_friends_async(p_session.token,
+	return _api_client.import_facebook_friends_async(p_session,
 		NakamaAPI.ApiAccountFacebook.create(NakamaAPI, {
 			"token": p_token
 		}), p_reset)
@@ -327,7 +327,7 @@ func import_facebook_friends_async(p_session : NakamaSession, p_token : String, 
 # @param p_reset - If the Steam friend import for the user should be reset.
 # Returns a task which represents the asynchronous operation.
 func import_steam_friends_async(p_session : NakamaSession, p_token : String, p_reset = null):
-	return _api_client.import_steam_friends_async(p_session.token,
+	return _api_client.import_steam_friends_async(p_session,
 		NakamaAPI.ApiAccountSteam.create(NakamaAPI, {
 			"token": p_token
 		}), p_reset)
@@ -337,14 +337,14 @@ func import_steam_friends_async(p_session : NakamaSession, p_token : String, p_r
 # @param p_group_id - The ID of the group to join.
 # Returns a task which represents the asynchronous operation.
 func join_group_async(p_session : NakamaSession, p_group_id : String) -> NakamaAsyncResult:
-	return _api_client.join_group_async(p_session.token, p_group_id)
+	return _api_client.join_group_async(p_session, p_group_id)
 
 # Join a tournament by ID.
 # @param p_session - The session of the user.
 # @param p_tournament_id - The ID of the tournament to join.
 # Returns a task which represents the asynchronous operation.
 func join_tournament_async(p_session : NakamaSession, p_tournament_id : String) -> NakamaAsyncResult:
-	return _api_client.join_tournament_async(p_session.token, p_tournament_id)
+	return _api_client.join_tournament_async(p_session, p_tournament_id)
 
 # Kick one or more users from the group.
 # @param p_session - The session of the user.
@@ -352,21 +352,21 @@ func join_tournament_async(p_session : NakamaSession, p_tournament_id : String) 
 # @param p_ids - The IDs of the users to kick.
 # Returns a task which represents the asynchronous operation.
 func kick_group_users_async(p_session : NakamaSession, p_group_id : String, p_ids : PoolStringArray) -> NakamaAsyncResult:
-	return _api_client.kick_group_users_async(p_session.token, p_group_id, p_ids)
+	return _api_client.kick_group_users_async(p_session, p_group_id, p_ids)
 
 # Leave a group by ID.
 # @param p_session - The session of the user.
 # @param p_group_id - The ID of the group to leave.
 # Returns a task which represents the asynchronous operation.
 func leave_group_async(p_session : NakamaSession, p_group_id : String) -> NakamaAsyncResult:
-	return _api_client.leave_group_async(p_session.token, p_group_id)
+	return _api_client.leave_group_async(p_session, p_group_id)
 
 # Link an Apple ID to the social profiles on the current user's account.
 # @param p_session - The session of the user.
 # @param p_token - The ID token received from Apple to validate.
 # Returns a task which represents the asynchronous operation.
 func link_apple_async(p_session : NakamaSession, p_token : String) -> NakamaAsyncResult:
-	return _api_client.link_apple_async(p_session.token, NakamaAPI.ApiAccountApple.create(NakamaAPI, {
+	return _api_client.link_apple_async(p_session, NakamaAPI.ApiAccountApple.create(NakamaAPI, {
 		"token": p_token
 	}))
 
@@ -375,7 +375,7 @@ func link_apple_async(p_session : NakamaSession, p_token : String) -> NakamaAsyn
 # @param p_id - A custom identifier usually obtained from an external authentication service.
 # Returns a task which represents the asynchronous operation.
 func link_custom_async(p_session : NakamaSession, p_id : String) -> NakamaAsyncResult:
-	return _api_client.link_custom_async(p_session.token, NakamaAPI.ApiAccountCustom.create(NakamaAPI, {
+	return _api_client.link_custom_async(p_session, NakamaAPI.ApiAccountCustom.create(NakamaAPI, {
 		"id": p_id
 	}))
 
@@ -384,7 +384,7 @@ func link_custom_async(p_session : NakamaSession, p_id : String) -> NakamaAsyncR
 # @param p_id - A device identifier usually obtained from a platform API.
 # Returns a task which represents the asynchronous operation.
 func link_device_async(p_session : NakamaSession, p_id : String) -> NakamaAsyncResult:
-	return _api_client.link_device_async(p_session.token, NakamaAPI.ApiAccountDevice.create(NakamaAPI, {
+	return _api_client.link_device_async(p_session, NakamaAPI.ApiAccountDevice.create(NakamaAPI, {
 		"id": p_id
 	}))
 
@@ -394,7 +394,7 @@ func link_device_async(p_session : NakamaSession, p_id : String) -> NakamaAsyncR
 # @param p_password - The password for the user.
 # Returns a task which represents the asynchronous operation.
 func link_email_async(p_session : NakamaSession, p_email : String, p_password : String) -> NakamaAsyncResult:
-	return _api_client.link_email_async(p_session.token, NakamaAPI.ApiAccountEmail.create(NakamaAPI, {
+	return _api_client.link_email_async(p_session, NakamaAPI.ApiAccountEmail.create(NakamaAPI, {
 		"email": p_email,
 		"password": p_password
 	}))
@@ -405,7 +405,7 @@ func link_email_async(p_session : NakamaSession, p_email : String, p_password : 
 # @param p_import - If the Facebook friends should be imported.
 # Returns a task which represents the asynchronous operation.
 func link_facebook_async(p_session : NakamaSession, p_token : String) -> NakamaAsyncResult:
-	return _api_client.link_facebook_async(p_session.token, NakamaAPI.ApiAccountFacebook.create(NakamaAPI, {
+	return _api_client.link_facebook_async(p_session, NakamaAPI.ApiAccountFacebook.create(NakamaAPI, {
 		"token": p_token
 	}))
 
@@ -416,7 +416,7 @@ func link_facebook_async(p_session : NakamaSession, p_token : String) -> NakamaA
 # Returns a task which represents the asynchronous operation.
 func link_facebook_instant_game_async(p_session : NakamaSession, p_signed_player_info : String) -> NakamaAsyncResult:
 	return _api_client.link_facebook_instant_game_async(
-		p_session.token,
+		p_session,
 		NakamaAPI.ApiAccountFacebookInstantGame.create(
 			NakamaAPI, {
 				"signed_player_info": p_signed_player_info
@@ -434,7 +434,7 @@ func link_facebook_instant_game_async(p_session : NakamaSession, p_signed_player
 # Returns a task which represents the asynchronous operation.
 func link_game_center_async(p_session : NakamaSession,
 		p_bundle_id : String, p_player_id : String, p_public_key_url : String, p_salt : String, p_signature : String, p_timestamp_seconds) -> NakamaAsyncResult:
-	return _api_client.link_game_center_async(p_session.token,
+	return _api_client.link_game_center_async(p_session,
 		NakamaAPI.ApiAccountGameCenter.create(NakamaAPI, {
 			"bundle_id": p_bundle_id,
 			"player_id": p_player_id,
@@ -449,7 +449,7 @@ func link_game_center_async(p_session : NakamaSession,
 # @param p_token - An OAuth access token from the Google SDK.
 # Returns a task which represents the asynchronous operation.
 func link_google_async(p_session : NakamaSession, p_token : String) -> NakamaAsyncResult:
-	return _api_client.link_google_async(p_session.token, NakamaAPI.ApiAccountGoogle.create(NakamaAPI, {
+	return _api_client.link_google_async(p_session, NakamaAPI.ApiAccountGoogle.create(NakamaAPI, {
 		"token": p_token
 	}))
 
@@ -458,7 +458,7 @@ func link_google_async(p_session : NakamaSession, p_token : String) -> NakamaAsy
 # @param p_token - An authentication token from the Steam network.
 # Returns a task which represents the asynchronous operation.
 func link_steam_async(p_session : NakamaSession, p_token : String, p_sync : bool = false) -> NakamaAsyncResult:
-	return _api_client.link_steam_async(p_session.token, NakamaAPI.ApiLinkSteamRequest.create(
+	return _api_client.link_steam_async(p_session, NakamaAPI.ApiLinkSteamRequest.create(
 		NakamaAPI,
 		{
 			"account": NakamaAPI.ApiAccountSteam.create(NakamaAPI, {
@@ -478,7 +478,7 @@ func link_steam_async(p_session : NakamaSession, p_token : String, p_sync : bool
 # Returns a task which resolves to the channel message list object.
 func list_channel_messages_async(p_session : NakamaSession, p_channel_id : String, limit : int = 1,
 		forward : bool = true, cursor = null): # -> NakamaAPI.ApiChannelMessageList:
-	return _api_client.list_channel_messages_async(p_session.token, p_channel_id, limit, forward, cursor)
+	return _api_client.list_channel_messages_async(p_session, p_channel_id, limit, forward, cursor)
 
 # List of friends of the current user.
 # @param p_session - The session of the user.
@@ -487,7 +487,7 @@ func list_channel_messages_async(p_session : NakamaSession, p_channel_id : Strin
 # @param p_cursor - A cursor for the current position in the friends list.
 # Returns a task which resolves to the friend objects.
 func list_friends_async(p_session : NakamaSession, p_state = null, p_limit = null, p_cursor = null): # -> NakamaAPI.ApiFriendList:
-	return _api_client.list_friends_async(p_session.token, p_limit, p_state, p_cursor)
+	return _api_client.list_friends_async(p_session, p_limit, p_state, p_cursor)
 
 # List all users part of the group.
 # @param p_session - The session of the user.
@@ -497,7 +497,7 @@ func list_friends_async(p_session : NakamaSession, p_state = null, p_limit = nul
 # @param p_cursor - A cursor for the current position in the group listing.
 # Returns a task which resolves to the group user objects.
 func list_group_users_async(p_session : NakamaSession, p_group_id : String, p_state = null, p_limit = null, p_cursor = null): # -> NakamaAPI.ApiGroupUserList:
-	return _api_client.list_group_users_async(p_session.token, p_group_id, p_limit, p_state, p_cursor)
+	return _api_client.list_group_users_async(p_session, p_group_id, p_limit, p_state, p_cursor)
 
 # List groups on the server.
 # @param p_session - The session of the user.
@@ -509,7 +509,7 @@ func list_group_users_async(p_session : NakamaSession, p_group_id : String, p_st
 # @param p_open - Optional open/closed filter.
 # Returns a task to resolve group objects.
 func list_groups_async(p_session : NakamaSession, p_name = null, p_limit : int = 10, p_cursor = null, p_lang_tag = null, p_members = null, p_open = null): # -> NakamaAPI.ApiGroupList:
-	return _api_client.list_groups_async(p_session.token, p_name, p_cursor, p_limit, p_lang_tag, p_members, p_open)
+	return _api_client.list_groups_async(p_session, p_name, p_cursor, p_limit, p_lang_tag, p_members, p_open)
 
 # List records from a leaderboard.
 # @param p_session - The session of the user.
@@ -521,7 +521,7 @@ func list_groups_async(p_session : NakamaSession, p_name = null, p_limit : int =
 # Returns a task which resolves to the leaderboard record objects.
 func list_leaderboard_records_async(p_session : NakamaSession,
 		p_leaderboard_id : String, p_owner_ids = null, p_expiry = null, p_limit : int = 10, p_cursor = null): # -> NakamaAPI.ApiLeaderboardRecordList:
-	return _api_client.list_leaderboard_records_async(p_session.token,
+	return _api_client.list_leaderboard_records_async(p_session,
 		p_leaderboard_id, p_owner_ids, p_limit, p_cursor, p_expiry)
 
 # List leaderboard records that belong to a user.
@@ -533,7 +533,7 @@ func list_leaderboard_records_async(p_session : NakamaSession,
 # Returns a task which resolves to the leaderboard record objects.
 func list_leaderboard_records_around_owner_async(p_session : NakamaSession,
 		p_leaderboar_id : String, p_owner_id : String, p_expiry = null, p_limit : int = 10): # -> NakamaAPI.ApiLeaderboardRecordList:
-	return _api_client.list_leaderboard_records_around_owner_async(p_session.token,
+	return _api_client.list_leaderboard_records_around_owner_async(p_session,
 		p_leaderboar_id, p_owner_id, p_limit, p_expiry)
 
 # Fetch a list of matches active on the server.
@@ -547,7 +547,7 @@ func list_leaderboard_records_around_owner_async(p_session : NakamaSession,
 # Returns a task which resolves to the match list object.
 func list_matches_async(p_session : NakamaSession, p_min : int, p_max : int, p_limit : int, p_authoritative : bool,
 		p_label : String, p_query : String): # -> NakamaAPI.ApiMatchList:
-	return _api_client.list_matches_async(p_session.token, p_limit, p_authoritative, p_label, p_min, p_max, p_query)
+	return _api_client.list_matches_async(p_session, p_limit, p_authoritative, p_label, p_min, p_max, p_query)
 
 # List notifications for the user with an optional cursor.
 # @param p_session - The session of the user.
@@ -555,7 +555,7 @@ func list_matches_async(p_session : NakamaSession, p_min : int, p_max : int, p_l
 # @param p_cacheable_cursor - A cursor for the current position in notifications to list.
 # Returns a task to resolve notifications objects.
 func list_notifications_async(p_session : NakamaSession, p_limit : int = 10, p_cacheable_cursor = null): # -> NakamaAPI.ApiNotificationList:
-	return _api_client.list_notifications_async(p_session.token, p_limit, p_cacheable_cursor)
+	return _api_client.list_notifications_async(p_session, p_limit, p_cacheable_cursor)
 
 # List storage objects in a collection which have public read access.
 # @param p_session - The session of the user.
@@ -566,7 +566,7 @@ func list_notifications_async(p_session : NakamaSession, p_limit : int = 10, p_c
 # Returns a task which resolves to the storage object list.
 func list_storage_objects_async(p_session : NakamaSession, p_collection : String, p_user_id : String = "", p_limit : int = 10, p_cursor = null): # -> NakamaAPI.ApiStorageObjectList:
 # List tournament records around the owner.
-	return _api_client.list_storage_objects_async(p_session.token, p_collection, p_user_id, p_limit, p_cursor)
+	return _api_client.list_storage_objects_async(p_session, p_collection, p_user_id, p_limit, p_cursor)
 
 # List tournament records around the owner.
 # @param p_session - The session of the user.
@@ -577,7 +577,7 @@ func list_storage_objects_async(p_session : NakamaSession, p_collection : String
 # Returns a task which resolves to the tournament record list object.
 func list_tournament_records_around_owner_async(p_session : NakamaSession,
 		p_tournament_id : String, p_owner_id : String, p_limit : int = 10, p_expiry = null): # -> NakamaAPI.ApiTournamentRecordList:
-	return _api_client.list_tournament_records_around_owner_async(p_session.token, p_tournament_id, p_owner_id, p_limit, p_expiry)
+	return _api_client.list_tournament_records_around_owner_async(p_session, p_tournament_id, p_owner_id, p_limit, p_expiry)
 
 # List records from a tournament.
 # @param p_session - The session of the user.
@@ -589,7 +589,7 @@ func list_tournament_records_around_owner_async(p_session : NakamaSession,
 # Returns a task which resolves to the list of tournament records.
 func list_tournament_records_async(p_session : NakamaSession, p_tournament_id : String,
 		p_owner_ids = null, p_limit : int = 10, p_cursor = null, p_expiry = null): # -> NakamaAPI.ApiTournamentRecordList:
-	return _api_client.list_tournament_records_async(p_session.token, p_tournament_id, p_owner_ids, p_limit, p_cursor, p_expiry)
+	return _api_client.list_tournament_records_async(p_session, p_tournament_id, p_owner_ids, p_limit, p_cursor, p_expiry)
 
 # List current or upcoming tournaments.
 # @param p_session - The session of the user.
@@ -602,7 +602,7 @@ func list_tournament_records_async(p_session : NakamaSession, p_tournament_id : 
 # Returns a task which resolves to the list of tournament objects.
 func list_tournaments_async(p_session : NakamaSession, p_category_start : int, p_category_end : int,
 		p_start_time : int, p_end_time : int, p_limit : int = 10, p_cursor = null): # -> NakamaAPI.ApiTournamentList:
-	return _api_client.list_tournaments_async(p_session.token,
+	return _api_client.list_tournaments_async(p_session,
 		p_category_start, p_category_end, p_start_time, p_end_time, p_limit, p_cursor)
 
 # List of groups the current user is a member of.
@@ -613,7 +613,7 @@ func list_tournaments_async(p_session : NakamaSession, p_category_start : int, p
 # @param p_cursor - A cursor for the current position in the listing.
 # Returns a task which resolves to the group list object.
 func list_user_groups_async(p_session : NakamaSession, p_user_id : String, p_state = null, p_limit = null, p_cursor = null): # -> NakamaAPI.ApiUserGroupList:
-	return _api_client.list_user_groups_async(p_session.token, p_user_id, p_limit, p_state, p_cursor)
+	return _api_client.list_user_groups_async(p_session, p_user_id, p_limit, p_state, p_cursor)
 
 # List storage objects in a collection which belong to a specific user and have public read access.
 # @param p_session - The session of the user.
@@ -624,7 +624,7 @@ func list_user_groups_async(p_session : NakamaSession, p_user_id : String, p_sta
 # Returns a task which resolves to the storage object list.
 func list_users_storage_objects_async(p_session : NakamaSession,
 		p_collection : String, p_user_id : String, p_limit : int, p_cursor : String): # -> NakamaAPI.ApiStorageObjectList:
-	return _api_client.list_storage_objects2_async(p_session.token, p_collection, p_user_id, p_limit, p_cursor)
+	return _api_client.list_storage_objects2_async(p_session, p_collection, p_user_id, p_limit, p_cursor)
 
 # Promote one or more users in the group.
 # @param p_session - The session of the user.
@@ -632,7 +632,7 @@ func list_users_storage_objects_async(p_session : NakamaSession,
 # @param p_ids - The IDs of the users to promote.
 # Returns a task which represents the asynchronous operation.
 func promote_group_users_async(p_session : NakamaSession, p_group_id : String, p_ids : PoolStringArray) -> NakamaAsyncResult:
-	return _api_client.promote_group_users_async(p_session.token, p_group_id, p_ids)
+	return _api_client.promote_group_users_async(p_session, p_group_id, p_ids)
 
 # Read one or more objects from the storage engine.
 # @param p_session - The session of the user.
@@ -645,7 +645,7 @@ func read_storage_objects_async(p_session : NakamaSession, p_ids : Array): # -> 
 			continue # TODO Exceptions
 		var obj_id : NakamaStorageObjectId = id
 		ids.append(obj_id.as_read().serialize())
-	return _api_client.read_storage_objects_async(p_session.token,
+	return _api_client.read_storage_objects_async(p_session,
 		NakamaAPI.ApiReadStorageObjectsRequest.create(NakamaAPI, {
 			"object_ids": ids
 		}))
@@ -698,7 +698,7 @@ func session_refresh_async(p_sesison : NakamaSession, p_vars = null) -> NakamaSe
 # @param p_token - The ID token received from Apple.
 # Returns a task which represents the asynchronous operation.
 func unlink_apple_async(p_session : NakamaSession, p_token : String) -> NakamaAsyncResult:
-	return _api_client.unlink_apple_async(p_session.token, NakamaAPI.ApiAccountApple.create(NakamaAPI, {
+	return _api_client.unlink_apple_async(p_session, NakamaAPI.ApiAccountApple.create(NakamaAPI, {
 		"token": p_token
 	}))
 
@@ -707,7 +707,7 @@ func unlink_apple_async(p_session : NakamaSession, p_token : String) -> NakamaAs
 # @param p_id - A custom identifier usually obtained from an external authentication service.
 # Returns a task which represents the asynchronous operation.
 func unlink_custom_async(p_session : NakamaSession, p_id : String) -> NakamaAsyncResult:
-	return _api_client.unlink_custom_async(p_session.token, NakamaAPI.ApiAccountCustom.create(NakamaAPI, {
+	return _api_client.unlink_custom_async(p_session, NakamaAPI.ApiAccountCustom.create(NakamaAPI, {
 		"id": p_id
 	}))
 
@@ -716,7 +716,7 @@ func unlink_custom_async(p_session : NakamaSession, p_id : String) -> NakamaAsyn
 # @param p_id - A device identifier usually obtained from a platform API.
 # Returns a task which represents the asynchronous operation.
 func unlink_device_async(p_session : NakamaSession, p_id : String) -> NakamaAsyncResult:
-	return _api_client.unlink_device_async(p_session.token, NakamaAPI.ApiAccountDevice.create(NakamaAPI, {
+	return _api_client.unlink_device_async(p_session, NakamaAPI.ApiAccountDevice.create(NakamaAPI, {
 		"id": p_id
 	}))
 
@@ -726,7 +726,7 @@ func unlink_device_async(p_session : NakamaSession, p_id : String) -> NakamaAsyn
 # @param p_password - The password for the user.
 # Returns a task which represents the asynchronous operation.
 func unlink_email_async(p_session : NakamaSession, p_email : String, p_password : String) -> NakamaAsyncResult:
-	return _api_client.unlink_email_async(p_session.token, NakamaAPI.ApiAccountEmail.create(NakamaAPI, {
+	return _api_client.unlink_email_async(p_session, NakamaAPI.ApiAccountEmail.create(NakamaAPI, {
 		"email": p_email,
 		"password": p_password
 	}))
@@ -736,7 +736,7 @@ func unlink_email_async(p_session : NakamaSession, p_email : String, p_password 
 # @param p_token - An OAuth access token from the Facebook SDK.
 # Returns a task which represents the asynchronous operation.
 func unlink_facebook_async(p_session : NakamaSession, p_token : String) -> NakamaAsyncResult:
-	return _api_client.unlink_facebook_async(p_session.token, NakamaAPI.ApiAccountFacebook.create(NakamaAPI, {
+	return _api_client.unlink_facebook_async(p_session, NakamaAPI.ApiAccountFacebook.create(NakamaAPI, {
 		"token": p_token
 	}))
 
@@ -746,7 +746,7 @@ func unlink_facebook_async(p_session : NakamaSession, p_token : String) -> Nakam
 # Returns a task which represents the asynchronous operation.
 func unlink_facebook_instant_game_async(p_session : NakamaSession, p_signed_player_info : String) -> NakamaAsyncResult:
 	return _api_client.unlink_facebook_instant_game_async(
-		p_session.token,
+		p_session,
 		NakamaAPI.ApiAccountFacebookInstantGame.create(NakamaAPI, {
 			"signed_player_info": p_signed_player_info
 		})
@@ -763,7 +763,7 @@ func unlink_facebook_instant_game_async(p_session : NakamaSession, p_signed_play
 # Returns a task which represents the asynchronous operation.
 func unlink_game_center_async(p_session : NakamaSession,
 		p_bundle_id : String, p_player_id : String, p_public_key_url : String, p_salt : String, p_signature : String, p_timestamp_seconds) -> NakamaAsyncResult:
-	return _api_client.unlink_game_center_async(p_session.token,
+	return _api_client.unlink_game_center_async(p_session,
 		NakamaAPI.ApiAccountGameCenter.create(NakamaAPI, {
 			"bundle_id": p_bundle_id,
 			"player_id": p_player_id,
@@ -778,7 +778,7 @@ func unlink_game_center_async(p_session : NakamaSession,
 # @param p_token - An OAuth access token from the Google SDK.
 # Returns a task which represents the asynchronous operation.
 func unlink_google_async(p_session : NakamaSession, p_token : String) -> NakamaAsyncResult:
-	return _api_client.unlink_google_async(p_session.token, NakamaAPI.ApiAccountGoogle.create(NakamaAPI, {
+	return _api_client.unlink_google_async(p_session, NakamaAPI.ApiAccountGoogle.create(NakamaAPI, {
 		"token": p_token
 	}))
 
@@ -787,7 +787,7 @@ func unlink_google_async(p_session : NakamaSession, p_token : String) -> NakamaA
 # @param p_token - An authentication token from the Steam network.
 # Returns a task which represents the asynchronous operation.
 func unlink_steam_async(p_session : NakamaSession, p_token : String) -> NakamaAsyncResult:
-	return _api_client.unlink_steam_async(p_session.token, NakamaAPI.ApiAccountSteam.create(NakamaAPI, {
+	return _api_client.unlink_steam_async(p_session, NakamaAPI.ApiAccountSteam.create(NakamaAPI, {
 		"token": p_token
 	}))
 
@@ -802,7 +802,7 @@ func unlink_steam_async(p_session : NakamaSession, p_token : String) -> NakamaAs
 # Returns a task which represents the asynchronous operation.
 func update_account_async(p_session : NakamaSession, p_username = null, p_display_name = null,
 		p_avatar_url = null, p_lang_tag = null, p_location = null, p_timezone = null) -> NakamaAsyncResult:
-	return _api_client.update_account_async(p_session.token,
+	return _api_client.update_account_async(p_session,
 		NakamaAPI.ApiUpdateAccountRequest.create(NakamaAPI, {
 			"avatar_url": p_avatar_url,
 			"display_name": p_display_name,
@@ -824,7 +824,7 @@ func update_account_async(p_session : NakamaSession, p_username = null, p_displa
 # Returns a task which represents the asynchronous operation.
 func update_group_async(p_session : NakamaSession,
 		p_group_id : String, p_name = null, p_description = null, p_avatar_url = null, p_lang_tag = null, p_open = null) -> NakamaAsyncResult:
-	return  _api_client.update_group_async(p_session.token, p_group_id,
+	return  _api_client.update_group_async(p_session, p_group_id,
 		NakamaAPI.ApiUpdateGroupRequest.create(NakamaAPI, {
 			"name": p_name,
 			"open": p_open,
@@ -838,7 +838,7 @@ func update_group_async(p_session : NakamaSession,
 # @param p_receipt - The purchase receipt to be validated.
 # Returns a task which resolves to the validated list of purchase receipts.
 func validate_purchase_apple_async(p_session : NakamaSession, p_receipt : String): # -> NakamaAPI.ApiValidatePurchaseResponse
-	return _api_client.validate_purchase_apple_async(p_session.token,
+	return _api_client.validate_purchase_apple_async(p_session,
 		NakamaAPI.ApiValidatePurchaseAppleRequest.create(NakamaAPI, {
 			"receipt": p_receipt
 		}))
@@ -848,7 +848,7 @@ func validate_purchase_apple_async(p_session : NakamaSession, p_receipt : String
 # @param p_receipt - The purchase receipt to be validated.
 # Returns a task which resolves to the validated list of purchase receipts.
 func validate_purchase_google_async(p_session : NakamaSession, p_receipt : String): # -> NakamaAPI.ApiValidatePurchaseResponse
-	return _api_client.validate_purchase_google_async(p_session.token,
+	return _api_client.validate_purchase_google_async(p_session,
 		NakamaAPI.ApiValidatePurchaseGoogleRequest.create(NakamaAPI, {
 			"purchase": p_receipt
 		}))
@@ -859,7 +859,7 @@ func validate_purchase_google_async(p_session : NakamaSession, p_receipt : Strin
 # @param p_signature - The signature of the purchase receipt.
 # Returns a task which resolves to the validated list of purchase receipts.
 func validate_purchase_huawei_async(p_session : NakamaSession, p_receipt : String, p_signature : String): # -> NakamaAPI.ApiValidatePurchaseResponse
-	return _api_client.validate_purchase_huawei_async(p_session.token,
+	return _api_client.validate_purchase_huawei_async(p_session,
 		NakamaAPI.ApiValidatePurchaseHuaweiRequest.create(NakamaAPI, {
 			"purchase": p_receipt,
 			"signature": p_signature
@@ -874,7 +874,7 @@ func validate_purchase_huawei_async(p_session : NakamaSession, p_receipt : Strin
 # Returns a task which resolves to the leaderboard record object written.
 func write_leaderboard_record_async(p_session : NakamaSession,
 		p_leaderboard_id : String, p_score : int, p_subscore : int = 0, p_metadata = null): # -> NakamaAPI.ApiLeaderboardRecord:
-	return _api_client.write_leaderboard_record_async(p_session.token, p_leaderboard_id,
+	return _api_client.write_leaderboard_record_async(p_session, p_leaderboard_id,
 		NakamaAPI.WriteLeaderboardRecordRequestLeaderboardRecordWrite.create(NakamaAPI, {
 			"metadata": p_metadata,
 			"score": str(p_score),
@@ -892,7 +892,7 @@ func write_storage_objects_async(p_session : NakamaSession, p_objects : Array): 
 			continue # TODO Exceptions
 		var write_obj : NakamaWriteStorageObject = obj
 		writes.append(write_obj.as_write().serialize())
-	return _api_client.write_storage_objects_async(p_session.token,
+	return _api_client.write_storage_objects_async(p_session,
 		NakamaAPI.ApiWriteStorageObjectsRequest.create(NakamaAPI, {
 			"objects": writes
 		}))
@@ -906,7 +906,7 @@ func write_storage_objects_async(p_session : NakamaSession, p_objects : Array): 
 # Returns a task which resolves to the tournament record object written.
 func write_tournament_record_async(p_session : NakamaSession,
 		p_tournament_id : String, p_score : int, p_subscore : int = 0, p_metadata = null): # -> NakamaAPI.ApiLeaderboardRecord:
-	return _api_client.write_tournament_record_async(p_session.token, p_tournament_id,
+	return _api_client.write_tournament_record_async(p_session, p_tournament_id,
 		NakamaAPI.WriteTournamentRecordRequestTournamentRecordWrite.create(NakamaAPI, {
 			"metadata": p_metadata,
 			"score": str(p_score),
@@ -922,7 +922,7 @@ func write_tournament_record_async(p_session : NakamaSession,
 # Returns a task which resolves to the tournament record object written.
 func write_tournament_record2_async(p_session : NakamaSession,
 		p_tournament_id : String, p_score : int, p_subscore : int = 0, p_metadata = null): # -> NakamaAPI.ApiLeaderboardRecord:
-	return _api_client.write_tournament_record2_async(p_session.token, p_tournament_id,
+	return _api_client.write_tournament_record2_async(p_session, p_tournament_id,
 		NakamaAPI.WriteTournamentRecordRequestTournamentRecordWrite.create(NakamaAPI, {
 			"metadata": p_metadata,
 			"score": str(p_score),

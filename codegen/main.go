@@ -168,7 +168,7 @@ class ApiClient extends Reference:
             {{- end }}
         {{- end }}
         {{- else }}
-		p_bearer_token : String
+		p_session : NakamaSession
         {{- end }}
 
         {{- range $parameter := $operation.Parameters }}
@@ -237,7 +237,7 @@ class ApiClient extends Reference:
                 {{- end }}
             {{- end }}
             {{- else }}
-		var header = "Bearer %s" % p_bearer_token
+		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
             {{- end }}
 
