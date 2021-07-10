@@ -3288,18 +3288,35 @@ class ApiClient extends Reference:
 	var _timeout : int
 
 	var _http_adapter
-	var _namespace
+	var _namespace : GDScript
+	var _server_key : String
+	var auto_refresh := true
+	var auto_refresh_time := 300
 
-	func _init(p_base_uri : String, p_http_adapter, p_namespace : GDScript, p_timeout : int = 10):
+	func _init(p_base_uri : String, p_http_adapter, p_namespace : GDScript, p_server_key : String, p_timeout : int = 10):
 		_base_uri = p_base_uri
 		_timeout = p_timeout
 		_http_adapter = p_http_adapter
 		_namespace = p_namespace
+		_server_key = p_server_key
+
+	func _refresh_session(p_session : NakamaSession):
+		if auto_refresh and p_session.is_valid() and p_session.refresh_token and not p_session.is_refresh_expired() and p_session.would_expire_in(auto_refresh_time):
+			var request = ApiSessionRefreshRequest.new()
+			request._token = p_session.refresh_token
+			return yield(session_refresh_async(_server_key, "", request), "completed")
+		return null
 
 	# A healthcheck which load balancers can use to check the service.
 	func healthcheck_async(
 		p_session : NakamaSession
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/healthcheck"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3309,6 +3326,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -3318,6 +3336,12 @@ class ApiClient extends Reference:
 	func get_account_async(
 		p_session : NakamaSession
 	) -> ApiAccount:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiAccount.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/account"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3327,6 +3351,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiAccount.new(result)
@@ -3338,6 +3363,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiUpdateAccountRequest
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/account"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3348,6 +3379,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -3376,6 +3408,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiSession.new(result)
@@ -3405,6 +3438,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiSession.new(result)
@@ -3434,6 +3468,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiSession.new(result)
@@ -3463,6 +3498,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiSession.new(result)
@@ -3495,6 +3531,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiSession.new(result)
@@ -3524,6 +3561,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiSession.new(result)
@@ -3553,6 +3591,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiSession.new(result)
@@ -3582,6 +3621,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiSession.new(result)
@@ -3614,6 +3654,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiSession.new(result)
@@ -3625,6 +3666,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiAccountApple
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/account/link/apple"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3635,6 +3682,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -3645,6 +3693,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiAccountCustom
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/account/link/custom"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3655,6 +3709,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -3665,6 +3720,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiAccountDevice
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/account/link/device"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3675,6 +3736,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -3685,6 +3747,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiAccountEmail
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/account/link/email"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3695,6 +3763,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -3706,6 +3775,12 @@ class ApiClient extends Reference:
 		, p_body : ApiAccountFacebook
 		, p_sync = null # : boolean
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/account/link/facebook"
 		var query_params = ""
 		if p_sync != null:
@@ -3718,6 +3793,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -3728,6 +3804,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiAccountFacebookInstantGame
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/account/link/facebookinstantgame"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3738,6 +3820,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -3748,6 +3831,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiAccountGameCenter
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/account/link/gamecenter"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3758,6 +3847,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -3768,6 +3858,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiAccountGoogle
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/account/link/google"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3778,6 +3874,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -3788,6 +3885,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiLinkSteamRequest
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/account/link/steam"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3798,6 +3901,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -3820,6 +3924,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiSession.new(result)
@@ -3831,6 +3936,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiAccountApple
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/account/unlink/apple"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3841,6 +3952,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -3851,6 +3963,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiAccountCustom
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/account/unlink/custom"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3861,6 +3979,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -3871,6 +3990,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiAccountDevice
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/account/unlink/device"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3881,6 +4006,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -3891,6 +4017,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiAccountEmail
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/account/unlink/email"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3901,6 +4033,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -3911,6 +4044,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiAccountFacebook
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/account/unlink/facebook"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3921,6 +4060,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -3931,6 +4071,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiAccountFacebookInstantGame
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/account/unlink/facebookinstantgame"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3941,6 +4087,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -3951,6 +4098,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiAccountGameCenter
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/account/unlink/gamecenter"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3961,6 +4114,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -3971,6 +4125,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiAccountGoogle
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/account/unlink/google"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3981,6 +4141,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -3991,6 +4152,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiAccountSteam
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/account/unlink/steam"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -4001,6 +4168,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -4014,6 +4182,12 @@ class ApiClient extends Reference:
 		, p_forward = null # : boolean
 		, p_cursor = null # : string
 	) -> ApiChannelMessageList:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiChannelMessageList.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/channel/{channelId}"
 		urlpath = urlpath.replace("{channelId}", NakamaSerializer.escape_http(p_channel_id))
 		var query_params = ""
@@ -4030,6 +4204,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiChannelMessageList.new(result)
@@ -4041,6 +4216,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiEvent
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/event"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -4051,6 +4232,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -4062,6 +4244,12 @@ class ApiClient extends Reference:
 		, p_ids = null # : array
 		, p_usernames = null # : array
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/friend"
 		var query_params = ""
 		if p_ids != null:
@@ -4077,6 +4265,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -4089,6 +4278,12 @@ class ApiClient extends Reference:
 		, p_state = null # : integer
 		, p_cursor = null # : string
 	) -> ApiFriendList:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiFriendList.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/friend"
 		var query_params = ""
 		if p_limit != null:
@@ -4104,6 +4299,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiFriendList.new(result)
@@ -4116,6 +4312,12 @@ class ApiClient extends Reference:
 		, p_ids = null # : array
 		, p_usernames = null # : array
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/friend"
 		var query_params = ""
 		if p_ids != null:
@@ -4131,6 +4333,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -4142,6 +4345,12 @@ class ApiClient extends Reference:
 		, p_ids = null # : array
 		, p_usernames = null # : array
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/friend/block"
 		var query_params = ""
 		if p_ids != null:
@@ -4157,6 +4366,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -4168,6 +4378,12 @@ class ApiClient extends Reference:
 		, p_body : ApiAccountFacebook
 		, p_reset = null # : boolean
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/friend/facebook"
 		var query_params = ""
 		if p_reset != null:
@@ -4180,6 +4396,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -4191,6 +4408,12 @@ class ApiClient extends Reference:
 		, p_body : ApiAccountSteam
 		, p_reset = null # : boolean
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/friend/steam"
 		var query_params = ""
 		if p_reset != null:
@@ -4203,6 +4426,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -4218,6 +4442,12 @@ class ApiClient extends Reference:
 		, p_members = null # : integer
 		, p_open = null # : boolean
 	) -> ApiGroupList:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiGroupList.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/group"
 		var query_params = ""
 		if p_name != null:
@@ -4239,6 +4469,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiGroupList.new(result)
@@ -4250,6 +4481,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiCreateGroupRequest
 	) -> ApiGroup:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiGroup.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/group"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -4260,6 +4497,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiGroup.new(result)
@@ -4271,6 +4509,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_group_id : String
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}"
 		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
@@ -4281,6 +4525,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -4292,6 +4537,12 @@ class ApiClient extends Reference:
 		, p_group_id : String
 		, p_body : ApiUpdateGroupRequest
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}"
 		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
@@ -4303,6 +4554,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -4314,6 +4566,12 @@ class ApiClient extends Reference:
 		, p_group_id : String
 		, p_user_ids = null # : array
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/add"
 		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
@@ -4327,6 +4585,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -4338,6 +4597,12 @@ class ApiClient extends Reference:
 		, p_group_id : String
 		, p_user_ids = null # : array
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/ban"
 		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
@@ -4351,6 +4616,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -4362,6 +4628,12 @@ class ApiClient extends Reference:
 		, p_group_id : String
 		, p_user_ids : PoolStringArray
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/demote"
 		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
@@ -4375,6 +4647,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -4385,6 +4658,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_group_id : String
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/join"
 		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
@@ -4395,6 +4674,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -4406,6 +4686,12 @@ class ApiClient extends Reference:
 		, p_group_id : String
 		, p_user_ids = null # : array
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/kick"
 		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
@@ -4419,6 +4705,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -4429,6 +4716,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_group_id : String
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/leave"
 		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
@@ -4439,6 +4732,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -4450,6 +4744,12 @@ class ApiClient extends Reference:
 		, p_group_id : String
 		, p_user_ids = null # : array
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/promote"
 		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
@@ -4463,6 +4763,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -4476,6 +4777,12 @@ class ApiClient extends Reference:
 		, p_state = null # : integer
 		, p_cursor = null # : string
 	) -> ApiGroupUserList:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiGroupUserList.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/user"
 		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
@@ -4492,6 +4799,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiGroupUserList.new(result)
@@ -4503,6 +4811,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiValidatePurchaseAppleRequest
 	) -> ApiValidatePurchaseResponse:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiValidatePurchaseResponse.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/iap/purchase/apple"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -4513,6 +4827,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiValidatePurchaseResponse.new(result)
@@ -4524,6 +4839,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiValidatePurchaseGoogleRequest
 	) -> ApiValidatePurchaseResponse:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiValidatePurchaseResponse.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/iap/purchase/google"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -4534,6 +4855,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiValidatePurchaseResponse.new(result)
@@ -4545,6 +4867,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiValidatePurchaseHuaweiRequest
 	) -> ApiValidatePurchaseResponse:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiValidatePurchaseResponse.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/iap/purchase/huawei"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -4555,6 +4883,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiValidatePurchaseResponse.new(result)
@@ -4566,6 +4895,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_leaderboard_id : String
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/leaderboard/{leaderboardId}"
 		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(p_leaderboard_id))
 		var query_params = ""
@@ -4576,6 +4911,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -4590,6 +4926,12 @@ class ApiClient extends Reference:
 		, p_cursor = null # : string
 		, p_expiry = null # : string
 	) -> ApiLeaderboardRecordList:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiLeaderboardRecordList.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/leaderboard/{leaderboardId}"
 		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(p_leaderboard_id))
 		var query_params = ""
@@ -4609,6 +4951,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiLeaderboardRecordList.new(result)
@@ -4621,6 +4964,12 @@ class ApiClient extends Reference:
 		, p_leaderboard_id : String
 		, p_body : WriteLeaderboardRecordRequestLeaderboardRecordWrite
 	) -> ApiLeaderboardRecord:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiLeaderboardRecord.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/leaderboard/{leaderboardId}"
 		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(p_leaderboard_id))
 		var query_params = ""
@@ -4632,6 +4981,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiLeaderboardRecord.new(result)
@@ -4646,6 +4996,12 @@ class ApiClient extends Reference:
 		, p_limit = null # : integer
 		, p_expiry = null # : string
 	) -> ApiLeaderboardRecordList:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiLeaderboardRecordList.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/leaderboard/{leaderboardId}/owner/{ownerId}"
 		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(p_leaderboard_id))
 		urlpath = urlpath.replace("{ownerId}", NakamaSerializer.escape_http(p_owner_id))
@@ -4661,6 +5017,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiLeaderboardRecordList.new(result)
@@ -4677,6 +5034,12 @@ class ApiClient extends Reference:
 		, p_max_size = null # : integer
 		, p_query = null # : string
 	) -> ApiMatchList:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiMatchList.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/match"
 		var query_params = ""
 		if p_limit != null:
@@ -4698,6 +5061,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiMatchList.new(result)
@@ -4709,6 +5073,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_ids = null # : array
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/notification"
 		var query_params = ""
 		if p_ids != null:
@@ -4721,6 +5091,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -4732,6 +5103,12 @@ class ApiClient extends Reference:
 		, p_limit = null # : integer
 		, p_cacheable_cursor = null # : string
 	) -> ApiNotificationList:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiNotificationList.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/notification"
 		var query_params = ""
 		if p_limit != null:
@@ -4745,6 +5122,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiNotificationList.new(result)
@@ -4773,6 +5151,7 @@ class ApiClient extends Reference:
 			headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiRpc.new(result)
@@ -4800,6 +5179,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiRpc.new(result)
@@ -4811,6 +5191,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiSessionLogoutRequest
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/session/logout"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -4821,6 +5207,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -4831,6 +5218,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiReadStorageObjectsRequest
 	) -> ApiStorageObjects:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiStorageObjects.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/storage"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -4841,6 +5234,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiStorageObjects.new(result)
@@ -4852,6 +5246,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiWriteStorageObjectsRequest
 	) -> ApiStorageObjectAcks:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiStorageObjectAcks.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/storage"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -4862,6 +5262,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiStorageObjectAcks.new(result)
@@ -4873,6 +5274,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_body : ApiDeleteStorageObjectsRequest
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/storage/delete"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -4883,6 +5290,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -4896,6 +5304,12 @@ class ApiClient extends Reference:
 		, p_limit = null # : integer
 		, p_cursor = null # : string
 	) -> ApiStorageObjectList:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiStorageObjectList.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/storage/{collection}"
 		urlpath = urlpath.replace("{collection}", NakamaSerializer.escape_http(p_collection))
 		var query_params = ""
@@ -4912,6 +5326,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiStorageObjectList.new(result)
@@ -4926,6 +5341,12 @@ class ApiClient extends Reference:
 		, p_limit = null # : integer
 		, p_cursor = null # : string
 	) -> ApiStorageObjectList:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiStorageObjectList.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/storage/{collection}/{userId}"
 		urlpath = urlpath.replace("{collection}", NakamaSerializer.escape_http(p_collection))
 		urlpath = urlpath.replace("{userId}", NakamaSerializer.escape_http(p_user_id))
@@ -4941,6 +5362,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiStorageObjectList.new(result)
@@ -4957,6 +5379,12 @@ class ApiClient extends Reference:
 		, p_limit = null # : integer
 		, p_cursor = null # : string
 	) -> ApiTournamentList:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiTournamentList.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/tournament"
 		var query_params = ""
 		if p_category_start != null:
@@ -4978,6 +5406,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiTournamentList.new(result)
@@ -4993,6 +5422,12 @@ class ApiClient extends Reference:
 		, p_cursor = null # : string
 		, p_expiry = null # : string
 	) -> ApiTournamentRecordList:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiTournamentRecordList.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/tournament/{tournamentId}"
 		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(p_tournament_id))
 		var query_params = ""
@@ -5012,6 +5447,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiTournamentRecordList.new(result)
@@ -5024,6 +5460,12 @@ class ApiClient extends Reference:
 		, p_tournament_id : String
 		, p_body : WriteTournamentRecordRequestTournamentRecordWrite
 	) -> ApiLeaderboardRecord:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiLeaderboardRecord.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/tournament/{tournamentId}"
 		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(p_tournament_id))
 		var query_params = ""
@@ -5035,6 +5477,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiLeaderboardRecord.new(result)
@@ -5047,6 +5490,12 @@ class ApiClient extends Reference:
 		, p_tournament_id : String
 		, p_body : WriteTournamentRecordRequestTournamentRecordWrite
 	) -> ApiLeaderboardRecord:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiLeaderboardRecord.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/tournament/{tournamentId}"
 		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(p_tournament_id))
 		var query_params = ""
@@ -5058,6 +5507,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiLeaderboardRecord.new(result)
@@ -5069,6 +5519,12 @@ class ApiClient extends Reference:
 		p_session : NakamaSession
 		, p_tournament_id : String
 	) -> NakamaAsyncResult:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return NakamaAsyncResult.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/tournament/{tournamentId}/join"
 		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(p_tournament_id))
 		var query_params = ""
@@ -5079,6 +5535,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
@@ -5092,6 +5549,12 @@ class ApiClient extends Reference:
 		, p_limit = null # : integer
 		, p_expiry = null # : string
 	) -> ApiTournamentRecordList:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiTournamentRecordList.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/tournament/{tournamentId}/owner/{ownerId}"
 		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(p_tournament_id))
 		urlpath = urlpath.replace("{ownerId}", NakamaSerializer.escape_http(p_owner_id))
@@ -5107,6 +5570,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiTournamentRecordList.new(result)
@@ -5120,6 +5584,12 @@ class ApiClient extends Reference:
 		, p_usernames = null # : array
 		, p_facebook_ids = null # : array
 	) -> ApiUsers:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiUsers.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/user"
 		var query_params = ""
 		if p_ids != null:
@@ -5138,6 +5608,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiUsers.new(result)
@@ -5152,6 +5623,12 @@ class ApiClient extends Reference:
 		, p_state = null # : integer
 		, p_cursor = null # : string
 	) -> ApiUserGroupList:
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return ApiUserGroupList.new(session.get_exception())
+			p_session.refresh(session)
 		var urlpath : String = "/v2/user/{userId}/group"
 		urlpath = urlpath.replace("{userId}", NakamaSerializer.escape_http(p_user_id))
 		var query_params = ""
@@ -5168,6 +5645,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return ApiUserGroupList.new(result)

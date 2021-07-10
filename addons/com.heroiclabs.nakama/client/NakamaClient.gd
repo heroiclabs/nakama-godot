@@ -28,7 +28,22 @@ var timeout : int
 
 var logger : NakamaLogger = null
 
-var _api_client := NakamaAPI.ApiClient.new("", NakamaAPI, null) setget _no_set, _no_get
+var _api_client : NakamaAPI.ApiClient setget _no_set, _no_get
+
+var auto_refresh : bool = true setget set_auto_refresh, get_auto_refresh
+var auto_refresh_seconds : int = true setget set_auto_refresh_seconds, get_auto_refresh_seconds
+
+func get_auto_refresh():
+	return _api_client.auto_refresh
+
+func set_auto_refresh(p_value):
+	_api_client.auto_refresh = p_value
+
+func get_auto_refresh_seconds():
+	return _api_client.auto_refresh_time
+
+func set_auto_refresh_seconds(p_value):
+	_api_client.auto_refresh_time = p_value
 
 func _init(p_adapter : NakamaHTTPAdapter,
 		p_server_key : String,
@@ -43,7 +58,7 @@ func _init(p_adapter : NakamaHTTPAdapter,
 	port = p_port
 	timeout = p_timeout
 	logger = p_adapter.logger
-	_api_client = NakamaAPI.ApiClient.new(scheme + "://" + host + ":" + str(port), p_adapter, NakamaAPI, p_timeout)
+	_api_client = NakamaAPI.ApiClient.new(scheme + "://" + host + ":" + str(port), p_adapter, NakamaAPI, server_key, p_timeout)
 
 # Restore a session from the auth token.
 # A `null` or empty authentication token will return `null`.

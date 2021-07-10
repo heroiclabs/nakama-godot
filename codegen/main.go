@@ -138,13 +138,25 @@ class ApiClient extends Reference:
 	var _timeout : int
 
 	var _http_adapter
-	var _namespace
+	var _namespace : GDScript
+	var _server_key : String
+	var auto_refresh := true
+	var auto_refresh_time := 300
 
-	func _init(p_base_uri : String, p_http_adapter, p_namespace : GDScript, p_timeout : int = 10):
+	func _init(p_base_uri : String, p_http_adapter, p_namespace : GDScript, p_server_key : String, p_timeout : int = 10):
 		_base_uri = p_base_uri
 		_timeout = p_timeout
 		_http_adapter = p_http_adapter
 		_namespace = p_namespace
+		_server_key = p_server_key
+
+	func _refresh_session(p_session : NakamaSession):
+		if auto_refresh and p_session.is_valid() and p_session.refresh_token and not p_session.is_refresh_expired() and p_session.would_expire_in(auto_refresh_time):
+			var request = ApiSessionRefreshRequest.new()
+			request._token = p_session.refresh_token
+			return yield(session_refresh_async(_server_key, "", request), "completed")
+		return null
+
 
         {{- range $url, $path := .Paths }}
         {{- range $method, $operation := $path}}
@@ -189,6 +201,18 @@ class ApiClient extends Reference:
 	{{- if $operation.Responses.Ok.Schema.Ref }} -> {{ $operation.Responses.Ok.Schema.Ref | cleanRef }}
 	{{- else }} -> NakamaAsyncResult
 	{{- end }}:
+        {{- $classname := "NakamaAsyncResult" }}
+        {{- if $operation.Responses.Ok.Schema.Ref }}
+          {{- $classname = $operation.Responses.Ok.Schema.Ref | cleanRef }}
+        {{- end }}
+        {{- if not $operation.Security }}
+		var should_refresh = _refresh_session(p_session)
+		if should_refresh != null:
+			var session = yield(should_refresh, "completed")
+			if session.is_exception():
+				return {{ $classname }}.new(session.get_exception())
+			p_session.refresh(session)
+        {{- end }}
 		var urlpath : String = "{{- $url }}"
             {{- range $parameter := $operation.Parameters }}
             {{- $camelcase := $parameter.Name | prependParameter }}
@@ -253,17 +277,14 @@ class ApiClient extends Reference:
             {{- end }}
             {{- end }}
 
-            {{- if $operation.Responses.Ok.Schema.Ref }}
-                {{- $classname := $operation.Responses.Ok.Schema.Ref | cleanRef }}
 		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
 		if result is NakamaException:
 			return {{ $classname }}.new(result)
+
+            {{- if $operation.Responses.Ok.Schema.Ref }}
 		var out : {{ $classname }} = NakamaSerializer.deserialize(_namespace, "{{ $classname }}", result)
 		return out
             {{- else }}
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
-		if result is NakamaException:
-			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
             {{- end}}
 {{- end }}
