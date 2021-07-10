@@ -62,8 +62,8 @@ func _init(p_token = null, p_created : bool = false, p_refresh_token = null, p_e
 func _to_string():
 	if is_exception():
 		return get_exception()._to_string()
-	return "Session<created=%s, token=%s, create_time=%d, username=%s, user_id=%s, vars=%s, expire_time=%d, refresh_expire_time=%d>" % [
-		created, token, create_time, username, user_id, str(vars), expire_time, refresh_expire_time]
+	return "Session<created=%s, token=%s, create_time=%d, username=%s, user_id=%s, vars=%s, expire_time=%d, refresh_token=%s refresh_expire_time=%d>" % [
+		created, token, create_time, username, user_id, str(vars), expire_time, refresh_token, refresh_expire_time]
 
 func _jwt_unpack(p_token : String) -> String:
 	# Hack decode JSON payload from JWT.
