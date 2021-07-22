@@ -250,6 +250,16 @@ class ApiAccount extends NakamaAsyncResult:
 	func _get_wallet() -> String:
 		return "" if not _wallet is String else String(_wallet)
 
+	var _wallet_dict = null
+	var wallet_dict : Dictionary setget , _get_wallet_dict
+	func _get_wallet_dict() -> Dictionary:
+		if _wallet_dict == null:
+			if _wallet == null or validate_json(_wallet):
+				return {}
+			_wallet_dict = parse_json(_wallet)
+		return _wallet_dict as Dictionary
+
+
 	func _init(p_exception = null).(p_exception):
 		pass
 
