@@ -135,18 +135,42 @@ class {{ $classname }} extends NakamaAsyncResult:
 class ApiClient extends Reference:
 
 	var _base_uri : String
-	var _timeout : int
 
 	var _http_adapter
 	var _namespace : GDScript
 	var _server_key : String
 	var auto_refresh := true
 	var auto_refresh_time := 300
+	var auto_retry : bool setget _set_retry, _get_retry
+	var auto_retry_count : int setget _set_retry_count, _get_retry_count
+	var auto_retry_backoff_base : int setget _set_retry_backoff, _get_retry_backoff
+	var last_cancel_token setget , _get_last_token
+
+	func _set_retry(p_value):
+		_http_adapter.auto_retry = p_value
+
+	func _get_retry():
+		return _http_adapter.auto_retry
+
+	func _set_retry_count(p_value):
+		_http_adapter.auto_retry_count = p_value
+
+	func _get_retry_count():
+		return _http_adapter.auto_retry_count
+
+	func _set_retry_backoff(p_value):
+		_http_adapter.auto_retry_backoff_base = p_value
+
+	func _get_retry_backoff():
+		return _http_adapter.auto_retry_backoff_base
+
+	func _get_last_token():
+		return _http_adapter.get_last_token()
 
 	func _init(p_base_uri : String, p_http_adapter, p_namespace : GDScript, p_server_key : String, p_timeout : int = 10):
 		_base_uri = p_base_uri
-		_timeout = p_timeout
 		_http_adapter = p_http_adapter
+		_http_adapter.timeout = p_timeout
 		_namespace = p_namespace
 		_server_key = p_server_key
 
@@ -157,6 +181,9 @@ class ApiClient extends Reference:
 			return yield(session_refresh_async(_server_key, "", request), "completed")
 		return null
 
+	func cancel_request(p_token):
+		if p_token:
+			_http_adapter.cancel_request(p_token)
 
         {{- range $url, $path := .Paths }}
         {{- range $method, $operation := $path}}
@@ -277,7 +304,7 @@ class ApiClient extends Reference:
             {{- end }}
             {{- end }}
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return {{ $classname }}.new(result)
 
