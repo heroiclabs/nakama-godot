@@ -12,7 +12,7 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 - Add Apple authentication functions.
 - Add "demote_group_users_async" function.
 - A session can be refreshed on demand with "session_refresh_async" method.
-- Session and/or refresh tokens can now be disabled with a client logout.
+- Session and/or refresh tokens can now be invalidated with a client logout.
 - The client now supports session auto-refresh using refresh tokens. This is enabled by default.
 
 ### Fixed

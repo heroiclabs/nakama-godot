@@ -690,7 +690,7 @@ func rpc_async_with_key(p_http_key : String, p_id : String, p_payload = null): #
 # @param p_session - The session of the user.
 # Returns a task which represents the asynchronous operation.
 func session_logout_async(p_session : NakamaSession) -> NakamaAsyncResult:
-	return _api_client.session_logout_async(p_session.token,
+	return _api_client.session_logout_async(p_session,
 		NakamaAPI.ApiSessionLogoutRequest.create(NakamaAPI, {
 			"refresh_token": p_session.refresh_token,
 			"token": p_session.token
