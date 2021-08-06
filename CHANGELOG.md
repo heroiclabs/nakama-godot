@@ -14,6 +14,8 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 - A session can be refreshed on demand with "session_refresh_async" method.
 - Session and/or refresh tokens can now be invalidated with a client logout.
 - The client now supports session auto-refresh using refresh tokens. This is enabled by default.
+- The client now supports auto-retrying failed request due to network error. This is enabled by defulut.
+- The client now support cancelling requests in-flight via "client.cancel_request".
 
 ### Fixed
 

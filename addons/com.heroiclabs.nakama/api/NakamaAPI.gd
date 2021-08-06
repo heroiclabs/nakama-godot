@@ -3285,18 +3285,42 @@ class RpcStatus extends NakamaAsyncResult:
 class ApiClient extends Reference:
 
 	var _base_uri : String
-	var _timeout : int
 
 	var _http_adapter
 	var _namespace : GDScript
 	var _server_key : String
 	var auto_refresh := true
 	var auto_refresh_time := 300
+	var auto_retry : bool setget _set_retry, _get_retry
+	var auto_retry_count : int setget _set_retry_count, _get_retry_count
+	var auto_retry_backoff_base : int setget _set_retry_backoff, _get_retry_backoff
+	var last_cancel_token setget , _get_last_token
+
+	func _set_retry(p_value):
+		_http_adapter.auto_retry = p_value
+
+	func _get_retry():
+		return _http_adapter.auto_retry
+
+	func _set_retry_count(p_value):
+		_http_adapter.auto_retry_count = p_value
+
+	func _get_retry_count():
+		return _http_adapter.auto_retry_count
+
+	func _set_retry_backoff(p_value):
+		_http_adapter.auto_retry_backoff_base = p_value
+
+	func _get_retry_backoff():
+		return _http_adapter.auto_retry_backoff_base
+
+	func _get_last_token():
+		return _http_adapter.get_last_token()
 
 	func _init(p_base_uri : String, p_http_adapter, p_namespace : GDScript, p_server_key : String, p_timeout : int = 10):
 		_base_uri = p_base_uri
-		_timeout = p_timeout
 		_http_adapter = p_http_adapter
+		_http_adapter.timeout = p_timeout
 		_namespace = p_namespace
 		_server_key = p_server_key
 
@@ -3306,6 +3330,10 @@ class ApiClient extends Reference:
 			request._token = p_session.refresh_token
 			return yield(session_refresh_async(_server_key, "", request), "completed")
 		return null
+
+	func cancel_request(p_token):
+		if p_token:
+			_http_adapter.cancel_request(p_token)
 
 	# A healthcheck which load balancers can use to check the service.
 	func healthcheck_async(
@@ -3327,7 +3355,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3352,7 +3380,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiAccount.new(result)
 		var out : ApiAccount = NakamaSerializer.deserialize(_namespace, "ApiAccount", result)
@@ -3380,7 +3408,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3409,7 +3437,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiSession.new(result)
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
@@ -3439,7 +3467,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiSession.new(result)
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
@@ -3469,7 +3497,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiSession.new(result)
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
@@ -3499,7 +3527,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiSession.new(result)
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
@@ -3532,7 +3560,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiSession.new(result)
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
@@ -3562,7 +3590,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiSession.new(result)
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
@@ -3592,7 +3620,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiSession.new(result)
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
@@ -3622,7 +3650,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiSession.new(result)
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
@@ -3655,7 +3683,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiSession.new(result)
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
@@ -3683,7 +3711,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3710,7 +3738,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3737,7 +3765,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3764,7 +3792,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3794,7 +3822,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3821,7 +3849,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3848,7 +3876,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3875,7 +3903,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3902,7 +3930,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3925,7 +3953,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiSession.new(result)
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
@@ -3953,7 +3981,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3980,7 +4008,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4007,7 +4035,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4034,7 +4062,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4061,7 +4089,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4088,7 +4116,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4115,7 +4143,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4142,7 +4170,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4169,7 +4197,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4205,7 +4233,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiChannelMessageList.new(result)
 		var out : ApiChannelMessageList = NakamaSerializer.deserialize(_namespace, "ApiChannelMessageList", result)
@@ -4233,7 +4261,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4266,7 +4294,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4300,7 +4328,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiFriendList.new(result)
 		var out : ApiFriendList = NakamaSerializer.deserialize(_namespace, "ApiFriendList", result)
@@ -4334,7 +4362,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4367,7 +4395,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4397,7 +4425,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4427,7 +4455,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4470,7 +4498,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiGroupList.new(result)
 		var out : ApiGroupList = NakamaSerializer.deserialize(_namespace, "ApiGroupList", result)
@@ -4498,7 +4526,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiGroup.new(result)
 		var out : ApiGroup = NakamaSerializer.deserialize(_namespace, "ApiGroup", result)
@@ -4526,7 +4554,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4555,7 +4583,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4586,7 +4614,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4617,7 +4645,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4648,7 +4676,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4675,7 +4703,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4706,7 +4734,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4733,7 +4761,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4764,7 +4792,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4800,7 +4828,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiGroupUserList.new(result)
 		var out : ApiGroupUserList = NakamaSerializer.deserialize(_namespace, "ApiGroupUserList", result)
@@ -4828,7 +4856,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiValidatePurchaseResponse.new(result)
 		var out : ApiValidatePurchaseResponse = NakamaSerializer.deserialize(_namespace, "ApiValidatePurchaseResponse", result)
@@ -4856,7 +4884,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiValidatePurchaseResponse.new(result)
 		var out : ApiValidatePurchaseResponse = NakamaSerializer.deserialize(_namespace, "ApiValidatePurchaseResponse", result)
@@ -4884,7 +4912,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiValidatePurchaseResponse.new(result)
 		var out : ApiValidatePurchaseResponse = NakamaSerializer.deserialize(_namespace, "ApiValidatePurchaseResponse", result)
@@ -4912,7 +4940,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4952,7 +4980,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiLeaderboardRecordList.new(result)
 		var out : ApiLeaderboardRecordList = NakamaSerializer.deserialize(_namespace, "ApiLeaderboardRecordList", result)
@@ -4982,7 +5010,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiLeaderboardRecord.new(result)
 		var out : ApiLeaderboardRecord = NakamaSerializer.deserialize(_namespace, "ApiLeaderboardRecord", result)
@@ -5018,7 +5046,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiLeaderboardRecordList.new(result)
 		var out : ApiLeaderboardRecordList = NakamaSerializer.deserialize(_namespace, "ApiLeaderboardRecordList", result)
@@ -5062,7 +5090,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiMatchList.new(result)
 		var out : ApiMatchList = NakamaSerializer.deserialize(_namespace, "ApiMatchList", result)
@@ -5092,7 +5120,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -5123,7 +5151,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiNotificationList.new(result)
 		var out : ApiNotificationList = NakamaSerializer.deserialize(_namespace, "ApiNotificationList", result)
@@ -5152,7 +5180,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiRpc.new(result)
 		var out : ApiRpc = NakamaSerializer.deserialize(_namespace, "ApiRpc", result)
@@ -5180,7 +5208,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiRpc.new(result)
 		var out : ApiRpc = NakamaSerializer.deserialize(_namespace, "ApiRpc", result)
@@ -5208,7 +5236,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -5235,7 +5263,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiStorageObjects.new(result)
 		var out : ApiStorageObjects = NakamaSerializer.deserialize(_namespace, "ApiStorageObjects", result)
@@ -5263,7 +5291,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiStorageObjectAcks.new(result)
 		var out : ApiStorageObjectAcks = NakamaSerializer.deserialize(_namespace, "ApiStorageObjectAcks", result)
@@ -5291,7 +5319,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -5327,7 +5355,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiStorageObjectList.new(result)
 		var out : ApiStorageObjectList = NakamaSerializer.deserialize(_namespace, "ApiStorageObjectList", result)
@@ -5363,7 +5391,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiStorageObjectList.new(result)
 		var out : ApiStorageObjectList = NakamaSerializer.deserialize(_namespace, "ApiStorageObjectList", result)
@@ -5407,7 +5435,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiTournamentList.new(result)
 		var out : ApiTournamentList = NakamaSerializer.deserialize(_namespace, "ApiTournamentList", result)
@@ -5448,7 +5476,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiTournamentRecordList.new(result)
 		var out : ApiTournamentRecordList = NakamaSerializer.deserialize(_namespace, "ApiTournamentRecordList", result)
@@ -5478,7 +5506,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiLeaderboardRecord.new(result)
 		var out : ApiLeaderboardRecord = NakamaSerializer.deserialize(_namespace, "ApiLeaderboardRecord", result)
@@ -5508,7 +5536,7 @@ class ApiClient extends Reference:
 		var content : PoolByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiLeaderboardRecord.new(result)
 		var out : ApiLeaderboardRecord = NakamaSerializer.deserialize(_namespace, "ApiLeaderboardRecord", result)
@@ -5536,7 +5564,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -5571,7 +5599,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiTournamentRecordList.new(result)
 		var out : ApiTournamentRecordList = NakamaSerializer.deserialize(_namespace, "ApiTournamentRecordList", result)
@@ -5609,7 +5637,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiUsers.new(result)
 		var out : ApiUsers = NakamaSerializer.deserialize(_namespace, "ApiUsers", result)
@@ -5646,7 +5674,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
 
-		var result = yield(_http_adapter.send_async(method, uri, headers, content, _timeout), "completed")
+		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return ApiUserGroupList.new(result)
 		var out : ApiUserGroupList = NakamaSerializer.deserialize(_namespace, "ApiUserGroupList", result)

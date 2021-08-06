@@ -32,6 +32,10 @@ var _api_client : NakamaAPI.ApiClient setget _no_set, _no_get
 
 var auto_refresh : bool = true setget set_auto_refresh, get_auto_refresh
 var auto_refresh_seconds : int = true setget set_auto_refresh_seconds, get_auto_refresh_seconds
+var auto_retry : bool = true setget set_auto_retry, get_auto_retry
+var auto_retry_count setget set_auto_retry_count, get_auto_retry_count
+var auto_retry_backoff_base setget set_auto_retry_backoff_base, get_auto_retry_backoff_base
+var last_cancel_token setget _no_set, get_last_cancel_token
 
 func get_auto_refresh():
 	return _api_client.auto_refresh
@@ -44,6 +48,30 @@ func get_auto_refresh_seconds():
 
 func set_auto_refresh_seconds(p_value):
 	_api_client.auto_refresh_time = p_value
+
+func get_last_cancel_token():
+	return _api_client.last_cancel_token
+
+func get_auto_retry():
+	return _api_client.auto_retry
+
+func set_auto_retry(p_value):
+	_api_client.auto_retry = p_value
+
+func get_auto_retry_count():
+	return _api_client.auto_retry_count
+
+func set_auto_retry_count(p_value):
+	_api_client.auto_retry_count = p_value
+
+func get_auto_retry_backoff_base():
+	return _api_client.auto_retry_backoff_base
+
+func set_auto_retry_backoff_base(p_value):
+	_api_client.auto_retry_backoff_base = p_value
+
+func cancel_request(p_token):
+	_api_client.cancel_request(p_token)
 
 func _init(p_adapter : NakamaHTTPAdapter,
 		p_server_key : String,
