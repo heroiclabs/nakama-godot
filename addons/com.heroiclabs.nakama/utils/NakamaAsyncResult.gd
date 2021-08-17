@@ -13,6 +13,9 @@ func _init(p_ex = null):
 func is_exception():
 	return get_exception() != null
 
+func was_cancelled():
+	return is_exception() and get_exception().cancelled
+
 func get_exception() -> NakamaException:
 	return _ex as NakamaException
 

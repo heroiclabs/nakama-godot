@@ -93,7 +93,7 @@ class AsyncRequest:
 
 	func parse_result():
 		if cancelled:
-			return NakamaException.new("Request cancelled")
+			return NakamaException.new("Request cancelled", -1, -1, true)
 		elif result != HTTPRequest.RESULT_SUCCESS:
 			return NakamaException.new("HTTPRequest failed!", result)
 
