@@ -211,17 +211,17 @@ class ApiClient extends Reference:
         {{- end }}
 
         {{- range $parameter := $operation.Parameters }}
-        {{- $camelcase := $parameter.Name | prependParameter }}
+        {{- $argument := $parameter.Name | prependParameter }}
 	{{- if not $parameter.Required }}{{/* Godot does not support typed optional parameters yet. */}}
-		, {{ $camelcase }} = null # : {{ $parameter.Type }}
+		, {{ $argument }} = null # : {{ $parameter.Type }}
         {{- else if eq $parameter.In "body" }}
             {{- if eq $parameter.Schema.Type "string" }}
-		, {{ $camelcase }} : String
+		, {{ $argument }} : String
             {{- else }}
-		, {{ $camelcase }} : {{ $parameter.Schema.Ref | cleanRef }}
+		, {{ $argument }} : {{ $parameter.Schema.Ref | cleanRef }}
             {{- end }}
         {{- else }}
-		, {{ $camelcase }} : {{ godotType $parameter.Type $parameter.Schema.Ref $parameter.Items.Type "" (isRefToEnum (cleanRef $parameter.Schema.Ref)) }}
+		, {{ $argument }} : {{ godotType $parameter.Type $parameter.Schema.Ref $parameter.Items.Type "" (isRefToEnum (cleanRef $parameter.Schema.Ref)) }}
         {{- end }}
 	{{- end }}
 	)
@@ -242,29 +242,30 @@ class ApiClient extends Reference:
         {{- end }}
 		var urlpath : String = "{{- $url }}"
             {{- range $parameter := $operation.Parameters }}
-            {{- $camelcase := $parameter.Name | prependParameter }}
+            {{- $argument := $parameter.Name | prependParameter }}
             {{- if eq $parameter.In "path" }}
-		urlpath = urlpath.replace("{{- print "{" $parameter.Name "}"}}", NakamaSerializer.escape_http({{ $camelcase }}))
+		urlpath = urlpath.replace("{{- print "{" $parameter.Name "}"}}", NakamaSerializer.escape_http({{ $argument }}))
             {{- end }}
             {{- end }}
 		var query_params = ""
             {{- range $parameter := $operation.Parameters }}
-            {{- $camelcase := $parameter.Name | prependParameter}}
+            {{- $argument := $parameter.Name | prependParameter }}
+            {{- $snakecase := $parameter.Name | pascalToSnake }}
             {{- if eq $parameter.In "query"}}
             {{- if $parameter.Required }}
 		if true: # Hack for static checks
             {{- else }}
-		if {{ $camelcase }} != null:
+		if {{ $argument }} != null:
             {{- end }}
                 {{- if eq $parameter.Type "integer" }}
-			query_params += "{{- $parameter.Name }}=%d&" % {{ $camelcase }}
+			query_params += "{{- $snakecase }}=%d&" % {{ $argument }}
                 {{- else if eq $parameter.Type "string" }}
-			query_params += "{{- $parameter.Name }}=%s&" % NakamaSerializer.escape_http({{ $camelcase }})
+			query_params += "{{- $snakecase }}=%s&" % NakamaSerializer.escape_http({{ $argument }})
                 {{- else if eq $parameter.Type "boolean" }}
-			query_params += "{{- $parameter.Name }}=%s&" % str(bool({{ $camelcase }})).to_lower()
+			query_params += "{{- $snakecase }}=%s&" % str(bool({{ $argument }})).to_lower()
                 {{- else if eq $parameter.Type "array" }}
-			for elem in {{ $camelcase }}:
-				query_params += "{{- $parameter.Name }}=%s&" % elem
+			for elem in {{ $argument }}:
+				query_params += "{{- $snakecase }}=%s&" % elem
                 {{- else }}
 		{{ $parameter }} // ERROR
                 {{- end }}
@@ -294,7 +295,7 @@ class ApiClient extends Reference:
 
 		var content : PoolByteArray
             {{- range $parameter := $operation.Parameters }}
-            {{- $camelcase := $parameter.Name | prependParameter }}
+            {{- $argument := $parameter.Name | prependParameter }}
             {{- if eq $parameter.In "body" }}
                 {{- if eq $parameter.Schema.Type "string" }}
 		content = JSON.print(p_body).to_utf8()
