@@ -44,9 +44,16 @@ static func serialize(p_obj : Object) -> Dictionary:
 						dict[l] = serialize(val[l])
 				else: # Map of simple types
 					for l in val:
-						if typeof(val[l]) != content:
+						var e = val[l]
+						if content == TYPE_REAL:
+							e = float(e)
+						elif content == TYPE_INT:
+							e = int(e)
+						elif content == TYPE_BOOL:
+							e = bool(e)
+						if typeof(e) != content:
 							continue
-						dict[l] = val[l]
+						dict[l] = e
 				out[k] = dict
 			_:
 				out[k] = val
@@ -89,6 +96,8 @@ static func deserialize(p_ns : GDScript, p_cls_name : String, p_dict : Dictionar
 				for l in val:
 					if typeof(content) == TYPE_STRING:
 						v[l] = deserialize(p_ns, content, val[l])
+					elif content == TYPE_REAL:
+						v[l] = float(val[l])
 					elif content == TYPE_INT:
 						v[l] = int(val[l])
 					elif content == TYPE_BOOL:
@@ -105,6 +114,8 @@ static func deserialize(p_ns : GDScript, p_cls_name : String, p_dict : Dictionar
 				for e in val:
 					if typeof(content) == TYPE_STRING:
 						v.append(deserialize(p_ns, content, e))
+					elif content == TYPE_REAL:
+						v.append(float(e))
 					elif content == TYPE_INT:
 						v.append(int(e))
 					elif content == TYPE_BOOL:

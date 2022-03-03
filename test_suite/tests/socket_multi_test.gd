@@ -1,7 +1,8 @@
 extends "res://base_test.gd"
 
 var content = {"My": "message"}
-var match_props = {"region": "europe"}
+var match_string_props = {"region": "europe"}
+var match_numeric_props = {"rank": 8}
 var got_msg = false
 var got_match = false
 var socket1 = null
@@ -45,10 +46,10 @@ func setup():
 	if assert_false(msg_ack.is_exception()):
 		return
 
-	var ticket1 = yield(socket1.add_matchmaker_async("+properties.region:europe", 2, 8, match_props), "completed")
+	var ticket1 = yield(socket1.add_matchmaker_async("+properties.region:europe +properties.rank:>=7 +properties.rank:<=9", 2, 8, match_string_props, match_numeric_props), "completed")
 	if assert_false(ticket1.is_exception()):
 		return
-	var ticket2 = yield(socket2.add_matchmaker_async("+properties.region:europe", 2, 8, match_props), "completed")
+	var ticket2 = yield(socket2.add_matchmaker_async("+properties.region:europe +properties.rank:>=7 +properties.rank:<=9", 2, 8, match_string_props, match_numeric_props), "completed")
 	if assert_false(ticket2.is_exception()):
 		return
 
@@ -59,9 +60,13 @@ func _on_socket1_message(msg):
 	check_end()
 
 func _on_socket1_matchmaker_matched(p_matchmaker_matched):
-	if assert_equal(JSON.print(p_matchmaker_matched.users[0].string_properties), JSON.print(match_props)):
+	if assert_equal(JSON.print(p_matchmaker_matched.users[0].string_properties), JSON.print(match_string_props)):
 		return
-	if assert_equal(JSON.print(p_matchmaker_matched.users[1].string_properties), JSON.print(match_props)):
+	if assert_equal(JSON.print(p_matchmaker_matched.users[0].numeric_properties), JSON.print(match_numeric_props)):
+		return
+	if assert_equal(JSON.print(p_matchmaker_matched.users[1].string_properties), JSON.print(match_string_props)):
+		return
+	if assert_equal(JSON.print(p_matchmaker_matched.users[1].numeric_properties), JSON.print(match_numeric_props)):
 		return
 	got_match = true
 	check_end()
