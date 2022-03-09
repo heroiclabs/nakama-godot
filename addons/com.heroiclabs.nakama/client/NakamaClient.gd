@@ -590,7 +590,7 @@ func list_leaderboard_records_around_owner_async(p_session : NakamaSession,
 # Returns a task which resolves to the match list object.
 func list_matches_async(p_session : NakamaSession, p_min : int, p_max : int, p_limit : int, p_authoritative : bool,
 		p_label : String, p_query : String): # -> NakamaAPI.ApiMatchList:
-	return _api_client.list_matches_async(p_session, p_limit, p_authoritative, p_label, p_min, p_max, p_query)
+	return _api_client.list_matches_async(p_session, p_limit, p_authoritative, p_label if p_label else null, p_min, p_max, p_query if p_query else null)
 
 # List notifications for the user with an optional cursor.
 # @param p_session - The session of the user.
