@@ -15,7 +15,7 @@ signal connected()
 # A signal emitted when the socket is disconnected.
 signal closed()
 
-# A signal emitted when the socket has an error when connected.
+# A signal emitted when the socket has an error when connecting.
 signal received_error(p_exception)
 
 # A signal emitted when the socket receives a message.

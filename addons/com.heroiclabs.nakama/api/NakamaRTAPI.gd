@@ -167,6 +167,58 @@ class ChannelPresenceEvent extends NakamaAsyncResult:
 		return "channel_presence_event"
 
 
+# Describes an error which occurred on the server.
+class Error extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"code": {"name": "code", "type": TYPE_INT, "required": true},
+		"message": {"name": "message", "type": TYPE_STRING, "required": true},
+		"context": {"name": "context", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
+	}
+
+	# The selection of possible error codes.
+	enum Code {
+		# An unexpected result from the server.
+		RUNTIME_EXCEPTION = 0,
+		# The server received a message which is not recognised.
+		UNRECOGNIZED_PAYLOAD = 1,
+		# A message was expected but contains no content.
+		MISSING_PAYLOAD = 2,
+		# Fields in the message have an invalid format.
+		BAD_INPUT = 3,
+		# The match id was not found.
+		MATCH_NOT_FOUND = 4,
+		# The match join was rejected.
+		MATCH_JOIN_REJECTED = 5,
+		# The runtime function does not exist on the server.
+		RUNTIME_FUNCTION_NOT_FOUND = 6,
+		#The runtime function executed with an error.
+		RUNTIME_FUNCTION_EXCEPTION = 7,
+	}
+
+	# The error code which should be one of "Error.Code" enums.
+	var code : int
+
+	# A message in English to help developers debug the response.
+	var message : String
+
+	# Additional error details which may be different for each response.
+	var context : Dictionary
+
+	func _init(p_ex = null).(p_ex):
+		pass
+
+	func _to_string():
+		if is_exception(): return get_exception()._to_string()
+		return "Error<code=%s, messages=%s, context=%s>" % [code, message, context]
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> Error:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "Error", p_dict), Error) as Error
+
+	static func get_result_key() -> String:
+		return "error"
+
+
 # A multiplayer match.
 class Match extends NakamaAsyncResult:
 
