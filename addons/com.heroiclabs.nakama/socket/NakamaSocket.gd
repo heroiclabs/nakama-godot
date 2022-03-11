@@ -11,14 +11,17 @@ signal closed()
 # Emitted when a socket is connected.
 signal connected()
 
+# Emitted when an error occurs while connecting.
+signal connection_error(p_error)
+
 # Emitted when a chat channel message is received
 signal received_channel_message(p_channel_message) # ApiChannelMessage
 
 # Emitted when receiving a presence change for joins and leaves with users in a chat channel.
 signal received_channel_presence(p_channel_presence) # ChannelPresenceEvent
 
-# Emitted when an error occurs on the socket.
-signal received_error(p_error)
+# Emitted when an error is received from the server.
+signal received_error(p_error) # Error
 
 # Emitted when receiving a matchmaker matched message.
 signal received_matchmaker_matched(p_matchmaker_matched) # MatchmakerMatched
@@ -98,7 +101,7 @@ func _init(p_adapter : NakamaSocketAdapter,
 	_free_adapter = p_free_adapter
 	_adapter.connect("closed", self, "_closed")
 	_adapter.connect("connected", self, "_connected")
-	_adapter.connect("received_error", self, "_error")
+	_adapter.connect("received_error", self, "_connection_error")
 	_adapter.connect("received", self, "_received")
 
 func _notification(what):
@@ -124,8 +127,8 @@ func _closed(p_error = null):
 	_resume_conn(ERR_CANT_CONNECT)
 	_clear_responses()
 
-func _error(p_error):
-	emit_signal("received_error", p_error)
+func _connection_error(p_error):
+	emit_signal("connection_error", p_error)
 	_resume_conn(p_error)
 	_clear_responses()
 
@@ -147,7 +150,10 @@ func _received(p_bytes : PoolByteArray):
 		else:
 			logger.error("Invalid call id received %s" % dict)
 	else:
-		if dict.has("channel_message"):
+		if dict.has("error"):
+			var res = NakamaRTAPI.Error.create(NakamaRTAPI, dict["error"])
+			emit_signal("received_error", res)
+		elif dict.has("channel_message"):
 			var res = NakamaAPI.ApiChannelMessage.create(NakamaAPI, dict["channel_message"])
 			emit_signal("received_channel_message", res)
 		elif dict.has("channel_presence_event"):

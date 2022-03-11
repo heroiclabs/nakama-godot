@@ -26,6 +26,12 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 - Fix client errors parsing in Nakama 3.x
 - Make it possible to omit the label and query on NakamaClient.list_matches_async().
 
+### Backwards incompatible changes
+
+- The "received_error" signal on "NakamaSocket" is now emited with an "NakamaRTAPI.Error" object received from the server.
+  Previously, it was emitted with an integer error code when the socket failed to connect.
+  If you have old code using the "received_error" signal, you can switch to the new "connection_error" signal, which was added to replace it.
+
 ## [2.1.0] - 2020-08-01
 
 ### Added
