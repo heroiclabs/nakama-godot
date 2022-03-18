@@ -97,26 +97,30 @@ class AsyncRequest:
 		elif result != HTTPRequest.RESULT_SUCCESS:
 			return NakamaException.new("HTTPRequest failed!", result)
 
-		var json : JSONParseResult = JSON.parse(response_body.get_string_from_utf8())
-		if json.error != OK:
+		var json = JSON.new()
+
+		var error : JSONParseResult = json.parse(response_body.get_string_from_utf8())
+		if error != OK:
 			logger.debug("Unable to parse request %d response. JSON error: %d, response code: %d" % [
 				id, json.error, response_code
 			])
 			return NakamaException.new("Failed to decode JSON response", response_code)
 
+		var result = json.get_data()
+
 		if response_code != HTTPClient.RESPONSE_OK:
 			var error = ""
 			var code = -1
-			if typeof(json.result) == TYPE_DICTIONARY:
-				if "message" in json.result:
-					error = json.result["message"]
-				elif "error" in json.result:
-					error = json.result["error"]
+			if typeof(result) == TYPE_DICTIONARY:
+				if "message" in result:
+					error = result["message"]
+				elif "error" in result:
+					error = result["error"]
 				else:
-					error = str(json.result)
-				code = json.result["code"] if "code" in json.result else -1
+					error = str(result)
+				code = result["code"] if "code" in result else -1
 			else:
-				error = str(json.result)
+				error = str(result)
 			if typeof(error) == TYPE_DICTIONARY:
 				error = JSON.print(error)
 			logger.debug("Request %d returned response code: %d, RPC code: %d, error: %s" % [
@@ -124,7 +128,7 @@ class AsyncRequest:
 			])
 			return NakamaException.new(error, response_code, code)
 
-		return json.result
+		return result
 
 
 # Send a HTTP request.
