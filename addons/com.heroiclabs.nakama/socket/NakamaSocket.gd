@@ -3,7 +3,7 @@ extends RefCounted
 # A socket to interact with Nakama server.
 class_name NakamaSocket
 
-const ChannelType = NakamaRTMessage.ChannelJoin.ChannelType
+var ChannelType = NakamaRTMessage.ChannelJoin.ChannelType
 
 # Emitted when a socket is closed.
 signal closed()
@@ -72,7 +72,7 @@ var _weak_ref : WeakRef
 var _base_uri : String
 var _responses : Dictionary
 var _last_id : int = 1
-var _conn : GDScriptFunctionState = null
+var _conn = null
 var logger : NakamaLogger = null
 
 func _resume_conn(p_err : int):
@@ -99,10 +99,10 @@ func _init(p_adapter : NakamaSocketAdapter,
 		port = ":%d" % p_port
 	_base_uri = "%s://%s%s" % [p_scheme, p_host, port]
 	_free_adapter = p_free_adapter
-	_adapter.connect("closed", self, "_closed")
-	_adapter.connect("connected", self, "_connected")
-	_adapter.connect("received_error", self, "_connection_error")
-	_adapter.connect("received", self, "_received")
+	_adapter.connect("closed", _closed)
+	_adapter.connect("connected", _connected)
+	_adapter.connect("received_error", _connection_error)
+	_adapter.connect("received", _received)
 
 func _notification(what):
 	if what == NOTIFICATION_PREDELETE:
@@ -137,12 +137,14 @@ func _connected():
 	_resume_conn(OK)
 
 func _received(p_bytes : PackedByteArray):
+	var json = JSON.new()
+
 	var json_str = p_bytes.get_string_from_utf8()
-	var json := JSON.parse(json_str)
-	if json.error != OK or typeof(json.result) != TYPE_DICTIONARY:
+	var json_error := json.parse(json_str)
+	if json_error != OK or typeof(json.get_data()) != TYPE_DICTIONARY:
 		logger.error("Unable to parse response: %s" % json_str)
 		return
-	var dict : Dictionary = json.result
+	var dict : Dictionary = json.get_data()
 	var cid = dict.get("cid")
 	if cid:
 		if _responses.has(cid):
@@ -232,7 +234,7 @@ func _parse_result(p_responses : Dictionary, p_id : String, p_type, p_ns : GDScr
 		result_key = p_type.get_result_key()
 
 	# Here we yield and wait
-	var data = yield() # Manually resumed
+	var data = await # Manually resumed
 	call_deferred("_survive", p_responses[p_id])
 	p_responses.erase(p_id) # Remove this request from the list of responses
 
@@ -270,18 +272,18 @@ func _send_async(p_message, p_parse_type = NakamaAsyncResult, p_ns = NakamaRTAPI
 	var id = str(_last_id)
 	_last_id += 1
 	_responses[id] = _parse_result(_responses, id, p_parse_type, p_ns, p_result_key)
-	var json := JSON.print({
+	
+	var json_obj = JSON.new()
+
+	var json := json_obj.stringify({
 		"cid": id,
 		msg: p_message.serialize()
 	})
-	var err = _adapter.send(json.to_utf8())
+	var err = _adapter.send(json)
 	if err != OK:
 		call_deferred("_cancel_response", id)
 	return _responses[id]
-
-func _connect_function():
-	return yield() # Manually resumed
-
+ 
 # If the socket is connected.
 func is_connected_to_host():
 	return _adapter.is_connected_to_host()
@@ -302,9 +304,7 @@ func close():
 func connect_async(p_session : NakamaSession, p_appear_online : bool = false, p_connect_timeout : int = 3):
 	var uri = "%s/ws?lang=en&status=%s&token=%s" % [_base_uri, str(p_appear_online).to_lower(), p_session.token]
 	logger.debug("Connecting to host: %s" % uri)
-	_adapter.connect_to_host(uri, p_connect_timeout)
-	_conn = _connect_function()
-	return _conn
+	return await _adapter.connect_to_host(uri, p_connect_timeout)
 
 # Join the matchmaker pool and search for opponents on the server.
 # @param p_query - The matchmaker query to search for opponents.
@@ -331,7 +331,7 @@ func create_match_async():
 # @param p_user_ids - The IDs of users.
 # @param p_usernames - The usernames of the users.
 # Returns a task which resolves to the current statuses for the users.
-func follow_users_async(p_ids : PackedStringArray, p_usernames : PackedStringArray = []) -> NakamaRTAPI.Status:
+func follow_users_async(p_ids : PackedStringArray, p_usernames : PackedStringArray) -> NakamaRTAPI.Status:
 	return _send_async(NakamaRTMessage.StatusFollow.new(p_ids, p_usernames), NakamaRTAPI.Status)
 
 # Join a chat channel on the server.
