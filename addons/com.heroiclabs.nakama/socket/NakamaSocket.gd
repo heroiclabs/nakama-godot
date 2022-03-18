@@ -234,7 +234,7 @@ func _parse_result(p_responses : Dictionary, p_id : String, p_type, p_ns : GDScr
 		result_key = p_type.get_result_key()
 
 	# Here we yield and wait
-	var data = await # Manually resumed
+	var data = yield() # Manually resumed
 	call_deferred("_survive", p_responses[p_id])
 	p_responses.erase(p_id) # Remove this request from the list of responses
 
