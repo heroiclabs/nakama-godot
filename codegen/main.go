@@ -99,8 +99,8 @@ class {{ $classname }} extends NakamaAsyncResult:
 
 	{{- godotClassUtils $classname }}
 
-	func _init(p_exception = null).(p_exception):
-		pass
+	func _init(p_exception = null):
+		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> {{ $classname }}:
 		return _safe_ret(NakamaSerializer.deserialize(p_ns, "{{ $classname }}", p_dict), {{ $classname }}) as {{ $classname }}
