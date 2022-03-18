@@ -3353,7 +3353,7 @@ class ApiClient extends RefCounted:
 		if auto_refresh and p_session.is_valid() and p_session.refresh_token and not p_session.is_refresh_expired() and p_session.would_expire_in(auto_refresh_time):
 			var request = ApiSessionRefreshRequest.new()
 			request._token = p_session.refresh_token
-			return await session_refresh_async(_server_key, "", request).complted
+			return await session_refresh_async.call(_server_key, "", request).complted
 		return null
 
 	func cancel_request(p_token):
@@ -3364,7 +3364,7 @@ class ApiClient extends RefCounted:
 	func healthcheck_async(
 		p_session : NakamaSession
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
