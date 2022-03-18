@@ -2,17 +2,53 @@ extends NakamaAsyncResult
 class_name NakamaSession
 
 
-var created : bool = false setget _no_set
-var token : String = "" setget _no_set
-var create_time : int = 0 setget _no_set
-var expire_time : int = 0 setget _no_set
-var expired : bool = true setget _no_set, is_expired
-var vars : Dictionary = {} setget _no_set
-var username : String = "" setget _no_set
-var user_id : String = "" setget _no_set
-var refresh_token : String = "" setget _no_set
-var refresh_expire_time : int = 0 setget _no_set
-var valid : bool = false setget _no_set, is_valid
+var created : bool = false:
+	set(v):
+		_no_set(v)
+
+var token : String = "":
+	set(v):
+		_no_set(v)
+
+var create_time : int = 0:
+	set(v):
+		_no_set(v)
+
+var expire_time : int = 0:
+	set(v):
+		_no_set(v)
+
+var expired : bool = true:
+	set(v):
+		_no_set(v)
+	get:
+		return is_expired()
+		
+var vars : Dictionary = {}:
+	set(v):
+		_no_set(v)
+
+var username : String = "":
+	set(v):
+		_no_set(v)
+
+var user_id : String = "":
+	set(v):
+		_no_set(v)
+
+var refresh_token : String = "":
+	set(v):
+		_no_set(v)
+
+var refresh_expire_time : int = 0:
+	set(v):
+		_no_set(v)
+
+var valid : bool = false: 
+	set(v):
+		_no_set(v)
+	get:
+		return is_valid()
 
 func _no_set(v):
 	return
