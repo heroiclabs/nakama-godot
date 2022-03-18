@@ -3451,7 +3451,7 @@ class ApiClient extends RefCounted:
 		if p_create != null:
 			query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
-			query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
+			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3481,7 +3481,7 @@ class ApiClient extends RefCounted:
 		if p_create != null:
 			query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
-			query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
+			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3511,7 +3511,7 @@ class ApiClient extends RefCounted:
 		if p_create != null:
 			query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
-			query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
+			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3541,7 +3541,7 @@ class ApiClient extends RefCounted:
 		if p_create != null:
 			query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
-			query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
+			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3572,7 +3572,7 @@ class ApiClient extends RefCounted:
 		if p_create != null:
 			query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
-			query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
+			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
 		if p_sync != null:
 			query_params += "sync=%s&" % str(bool(p_sync)).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3604,7 +3604,7 @@ class ApiClient extends RefCounted:
 		if p_create != null:
 			query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
-			query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
+			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3634,7 +3634,7 @@ class ApiClient extends RefCounted:
 		if p_create != null:
 			query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
-			query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
+			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3664,7 +3664,7 @@ class ApiClient extends RefCounted:
 		if p_create != null:
 			query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
-			query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
+			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3695,7 +3695,7 @@ class ApiClient extends RefCounted:
 		if p_create != null:
 			query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
-			query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
+			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
 		if p_sync != null:
 			query_params += "sync=%s&" % str(bool(p_sync)).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -4242,14 +4242,14 @@ class ApiClient extends RefCounted:
 				return ApiChannelMessageList.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/channel/{channelId}"
-		urlpath = urlpath.replace("{channelId}", NakamaSerializer.escape_http(p_channel_id))
+		urlpath = urlpath.replace("{channelId}", NakamaSerializer.escape_http(str(p_channel_id)))
 		var query_params = ""
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_forward != null:
 			query_params += "forward=%s&" % str(bool(p_forward)).to_lower()
 		if p_cursor != null:
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(str(p_cursor))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -4344,7 +4344,7 @@ class ApiClient extends RefCounted:
 		if p_state != null:
 			query_params += "state=%d&" % p_state
 		if p_cursor != null:
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(str(p_cursor))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -4504,13 +4504,13 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/group"
 		var query_params = ""
 		if p_name != null:
-			query_params += "name=%s&" % NakamaSerializer.escape_http(p_name)
+			query_params += "name=%s&" % NakamaSerializer.escape_http(str(p_name))
 		if p_cursor != null:
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(str(p_cursor))
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_lang_tag != null:
-			query_params += "lang_tag=%s&" % NakamaSerializer.escape_http(p_lang_tag)
+			query_params += "lang_tag=%s&" % NakamaSerializer.escape_http(str(p_lang_tag))
 		if p_members != null:
 			query_params += "members=%d&" % p_members
 		if p_open != null:
@@ -4569,7 +4569,7 @@ class ApiClient extends RefCounted:
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}"
-		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(str(p_group_id)))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "DELETE"
@@ -4597,7 +4597,7 @@ class ApiClient extends RefCounted:
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}"
-		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(str(p_group_id)))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "PUT"
@@ -4626,7 +4626,7 @@ class ApiClient extends RefCounted:
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/add"
-		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(str(p_group_id)))
 		var query_params = ""
 		if p_user_ids != null:
 			for elem in p_user_ids:
@@ -4657,7 +4657,7 @@ class ApiClient extends RefCounted:
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/ban"
-		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(str(p_group_id)))
 		var query_params = ""
 		if p_user_ids != null:
 			for elem in p_user_ids:
@@ -4688,7 +4688,7 @@ class ApiClient extends RefCounted:
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/demote"
-		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(str(p_group_id)))
 		var query_params = ""
 		if true: # Hack for static checks
 			for elem in p_user_ids:
@@ -4718,7 +4718,7 @@ class ApiClient extends RefCounted:
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/join"
-		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(str(p_group_id)))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
@@ -4746,7 +4746,7 @@ class ApiClient extends RefCounted:
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/kick"
-		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(str(p_group_id)))
 		var query_params = ""
 		if p_user_ids != null:
 			for elem in p_user_ids:
@@ -4776,7 +4776,7 @@ class ApiClient extends RefCounted:
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/leave"
-		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(str(p_group_id)))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
@@ -4804,7 +4804,7 @@ class ApiClient extends RefCounted:
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/promote"
-		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(str(p_group_id)))
 		var query_params = ""
 		if p_user_ids != null:
 			for elem in p_user_ids:
@@ -4837,14 +4837,14 @@ class ApiClient extends RefCounted:
 				return ApiGroupUserList.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/user"
-		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(str(p_group_id)))
 		var query_params = ""
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_state != null:
 			query_params += "state=%d&" % p_state
 		if p_cursor != null:
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(str(p_cursor))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -4955,7 +4955,7 @@ class ApiClient extends RefCounted:
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/leaderboard/{leaderboardId}"
-		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(p_leaderboard_id))
+		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(str(p_leaderboard_id)))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "DELETE"
@@ -4986,7 +4986,7 @@ class ApiClient extends RefCounted:
 				return ApiLeaderboardRecordList.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/leaderboard/{leaderboardId}"
-		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(p_leaderboard_id))
+		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(str(p_leaderboard_id)))
 		var query_params = ""
 		if p_owner_ids != null:
 			for elem in p_owner_ids:
@@ -4994,9 +4994,9 @@ class ApiClient extends RefCounted:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cursor != null:
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(str(p_cursor))
 		if p_expiry != null:
-			query_params += "expiry=%s&" % NakamaSerializer.escape_http(p_expiry)
+			query_params += "expiry=%s&" % NakamaSerializer.escape_http(str(p_expiry))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5024,7 +5024,7 @@ class ApiClient extends RefCounted:
 				return ApiLeaderboardRecord.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/leaderboard/{leaderboardId}"
-		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(p_leaderboard_id))
+		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(str(p_leaderboard_id)))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
@@ -5056,13 +5056,13 @@ class ApiClient extends RefCounted:
 				return ApiLeaderboardRecordList.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/leaderboard/{leaderboardId}/owner/{ownerId}"
-		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(p_leaderboard_id))
-		urlpath = urlpath.replace("{ownerId}", NakamaSerializer.escape_http(p_owner_id))
+		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(str(p_leaderboard_id)))
+		urlpath = urlpath.replace("{ownerId}", NakamaSerializer.escape_http(str(p_owner_id)))
 		var query_params = ""
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_expiry != null:
-			query_params += "expiry=%s&" % NakamaSerializer.escape_http(p_expiry)
+			query_params += "expiry=%s&" % NakamaSerializer.escape_http(str(p_expiry))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5100,13 +5100,13 @@ class ApiClient extends RefCounted:
 		if p_authoritative != null:
 			query_params += "authoritative=%s&" % str(bool(p_authoritative)).to_lower()
 		if p_label != null:
-			query_params += "label=%s&" % NakamaSerializer.escape_http(p_label)
+			query_params += "label=%s&" % NakamaSerializer.escape_http(str(p_label))
 		if p_min_size != null:
 			query_params += "min_size=%d&" % p_min_size
 		if p_max_size != null:
 			query_params += "max_size=%d&" % p_max_size
 		if p_query != null:
-			query_params += "query=%s&" % NakamaSerializer.escape_http(p_query)
+			query_params += "query=%s&" % NakamaSerializer.escape_http(str(p_query))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5167,7 +5167,7 @@ class ApiClient extends RefCounted:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cacheable_cursor != null:
-			query_params += "cacheable_cursor=%s&" % NakamaSerializer.escape_http(p_cacheable_cursor)
+			query_params += "cacheable_cursor=%s&" % NakamaSerializer.escape_http(str(p_cacheable_cursor))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5190,12 +5190,12 @@ class ApiClient extends RefCounted:
 		, p_http_key = null # : string
 	) -> ApiRpc:
 		var urlpath : String = "/v2/rpc/{id}"
-		urlpath = urlpath.replace("{id}", NakamaSerializer.escape_http(p_id))
+		urlpath = urlpath.replace("{id}", NakamaSerializer.escape_http(str(p_id)))
 		var query_params = ""
 		if p_payload != null:
-			query_params += "payload=%s&" % NakamaSerializer.escape_http(p_payload)
+			query_params += "payload=%s&" % NakamaSerializer.escape_http(str(p_payload))
 		if p_http_key != null:
-			query_params += "http_key=%s&" % NakamaSerializer.escape_http(p_http_key)
+			query_params += "http_key=%s&" % NakamaSerializer.escape_http(str(p_http_key))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5219,10 +5219,10 @@ class ApiClient extends RefCounted:
 		, p_http_key = null # : string
 	) -> ApiRpc:
 		var urlpath : String = "/v2/rpc/{id}"
-		urlpath = urlpath.replace("{id}", NakamaSerializer.escape_http(p_id))
+		urlpath = urlpath.replace("{id}", NakamaSerializer.escape_http(str(p_id)))
 		var query_params = ""
 		if p_http_key != null:
-			query_params += "http_key=%s&" % NakamaSerializer.escape_http(p_http_key)
+			query_params += "http_key=%s&" % NakamaSerializer.escape_http(str(p_http_key))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -5364,14 +5364,14 @@ class ApiClient extends RefCounted:
 				return ApiStorageObjectList.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/storage/{collection}"
-		urlpath = urlpath.replace("{collection}", NakamaSerializer.escape_http(p_collection))
+		urlpath = urlpath.replace("{collection}", NakamaSerializer.escape_http(str(p_collection)))
 		var query_params = ""
 		if p_user_id != null:
-			query_params += "user_id=%s&" % NakamaSerializer.escape_http(p_user_id)
+			query_params += "user_id=%s&" % NakamaSerializer.escape_http(str(p_user_id))
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cursor != null:
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(str(p_cursor))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5401,13 +5401,13 @@ class ApiClient extends RefCounted:
 				return ApiStorageObjectList.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/storage/{collection}/{userId}"
-		urlpath = urlpath.replace("{collection}", NakamaSerializer.escape_http(p_collection))
-		urlpath = urlpath.replace("{userId}", NakamaSerializer.escape_http(p_user_id))
+		urlpath = urlpath.replace("{collection}", NakamaSerializer.escape_http(str(p_collection)))
+		urlpath = urlpath.replace("{userId}", NakamaSerializer.escape_http(str(p_user_id)))
 		var query_params = ""
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cursor != null:
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(str(p_cursor))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5451,7 +5451,7 @@ class ApiClient extends RefCounted:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cursor != null:
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(str(p_cursor))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5482,7 +5482,7 @@ class ApiClient extends RefCounted:
 				return ApiTournamentRecordList.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/tournament/{tournamentId}"
-		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(p_tournament_id))
+		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(str(p_tournament_id)))
 		var query_params = ""
 		if p_owner_ids != null:
 			for elem in p_owner_ids:
@@ -5490,9 +5490,9 @@ class ApiClient extends RefCounted:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cursor != null:
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(str(p_cursor))
 		if p_expiry != null:
-			query_params += "expiry=%s&" % NakamaSerializer.escape_http(p_expiry)
+			query_params += "expiry=%s&" % NakamaSerializer.escape_http(str(p_expiry))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5520,7 +5520,7 @@ class ApiClient extends RefCounted:
 				return ApiLeaderboardRecord.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/tournament/{tournamentId}"
-		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(p_tournament_id))
+		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(str(p_tournament_id)))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
@@ -5550,7 +5550,7 @@ class ApiClient extends RefCounted:
 				return ApiLeaderboardRecord.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/tournament/{tournamentId}"
-		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(p_tournament_id))
+		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(str(p_tournament_id)))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "PUT"
@@ -5579,7 +5579,7 @@ class ApiClient extends RefCounted:
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/tournament/{tournamentId}/join"
-		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(p_tournament_id))
+		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(str(p_tournament_id)))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
@@ -5609,13 +5609,13 @@ class ApiClient extends RefCounted:
 				return ApiTournamentRecordList.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/tournament/{tournamentId}/owner/{ownerId}"
-		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(p_tournament_id))
-		urlpath = urlpath.replace("{ownerId}", NakamaSerializer.escape_http(p_owner_id))
+		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(str(p_tournament_id)))
+		urlpath = urlpath.replace("{ownerId}", NakamaSerializer.escape_http(str(p_owner_id)))
 		var query_params = ""
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_expiry != null:
-			query_params += "expiry=%s&" % NakamaSerializer.escape_http(p_expiry)
+			query_params += "expiry=%s&" % NakamaSerializer.escape_http(str(p_expiry))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5683,14 +5683,14 @@ class ApiClient extends RefCounted:
 				return ApiUserGroupList.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/user/{userId}/group"
-		urlpath = urlpath.replace("{userId}", NakamaSerializer.escape_http(p_user_id))
+		urlpath = urlpath.replace("{userId}", NakamaSerializer.escape_http(str(p_user_id)))
 		var query_params = ""
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_state != null:
 			query_params += "state=%d&" % p_state
 		if p_cursor != null:
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(str(p_cursor))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
