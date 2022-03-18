@@ -4669,7 +4669,7 @@ class ApiClient extends RefCounted:
 	func demote_group_users_async(
 		p_session : NakamaSession
 		, p_group_id : String
-		, p_user_ids : PoolStringArray
+		, p_user_ids : PackedStringArray
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session(p_session)
 		if should_refresh != null:

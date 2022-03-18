@@ -23,7 +23,7 @@ class AsyncRequest:
 	var request : HTTPRequest
 	var uri : String
 	var method : int
-	var headers : PoolStringArray
+	var headers : PackedStringArray
 	var body : PoolByteArray
 	var retry_count := 3
 	var backoff_time := 10
@@ -38,7 +38,7 @@ class AsyncRequest:
 	var rng = RandomNumberGenerator.new()
 
 	func _init(p_id : int, p_request : HTTPRequest, p_uri : String,
-			p_method : int, p_headers : PoolStringArray, p_body : PoolByteArray,
+			p_method : int, p_headers : PackedStringArray, p_body : PoolByteArray,
 			p_retry_count : int, p_backoff_time : int, p_logger : NakamaLogger):
 		rng.seed = OS.get_ticks_usec()
 		id = p_id
@@ -150,7 +150,7 @@ func send_async(p_method : String, p_uri : String, p_headers : Dictionary, p_bod
 		method = HTTPClient.METHOD_DELETE
 	elif p_method == "HEAD":
 		method = HTTPClient.METHOD_HEAD
-	var headers = PoolStringArray()
+	var headers = PackedStringArray()
 
 	# Parse headers
 	headers.append("Accept: application/json")

@@ -108,8 +108,8 @@ static func deserialize(p_ns : GDScript, p_cls_name : String, p_dict : Dictionar
 			elif type_cmp == TYPE_ARRAY:
 				var v
 				match content:
-					TYPE_INT, TYPE_BOOL: v = PoolIntArray()
-					TYPE_STRING: v = PoolStringArray()
+					TYPE_INT, TYPE_BOOL: v = PackedIntArray()
+					TYPE_STRING: v = PackedStringArray()
 					_: v = Array()
 				for e in val:
 					if typeof(content) == TYPE_STRING:

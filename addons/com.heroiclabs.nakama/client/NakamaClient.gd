@@ -118,7 +118,7 @@ func add_friends_async(p_session : NakamaSession, p_ids = null, p_usernames = nu
 # @param p_group_id - The id of the group to add users into.
 # @param p_ids - The ids of the users to add or invite to the group.
 # Returns a task which represents the asynchronous operation.
-func add_group_users_async(p_session : NakamaSession, p_group_id : String, p_ids : PoolStringArray) -> NakamaAsyncResult:
+func add_group_users_async(p_session : NakamaSession, p_group_id : String, p_ids : PackedStringArray) -> NakamaAsyncResult:
 	return _api_client.add_group_users_async(p_session, p_group_id, p_ids);
 
 # Authenticate a user with an Apple ID against the server.
@@ -257,7 +257,7 @@ func authenticate_steam_async(p_token : String, p_username = null, p_create : bo
 # @param p_ids - The ids of the users to block.
 # @param p_usernames - The usernames of the users to block.
 # Returns a task which represents the asynchronous operation.
-func block_friends_async(p_session : NakamaSession, p_ids : PoolStringArray, p_usernames = null) -> NakamaAsyncResult:
+func block_friends_async(p_session : NakamaSession, p_ids : PackedStringArray, p_usernames = null) -> NakamaAsyncResult:
 	return _api_client.block_friends_async(p_session, p_ids, p_usernames);
 
 # Create a group.
@@ -286,7 +286,7 @@ func create_group_async(p_session : NakamaSession, p_name : String, p_descriptio
 # @param p_ids - The user ids to remove as friends.
 # @param p_usernames - The usernames to remove as friends.
 # Returns a task which represents the asynchronous operation.
-func delete_friends_async(p_session : NakamaSession, p_ids : PoolStringArray, p_usernames = null) -> NakamaAsyncResult:
+func delete_friends_async(p_session : NakamaSession, p_ids : PackedStringArray, p_usernames = null) -> NakamaAsyncResult:
 	return _api_client.delete_friends_async(p_session, p_ids, p_usernames)
 
 # Delete a group by id.
@@ -307,7 +307,7 @@ func delete_leaderboard_record_async(p_session : NakamaSession, p_leaderboard_id
 # @param p_session - The session of the user.
 # @param p_ids - The notification ids to remove.
 # Returns a task which represents the asynchronous operation.
-func delete_notifications_async(p_session : NakamaSession, p_ids : PoolStringArray) -> NakamaAsyncResult:
+func delete_notifications_async(p_session : NakamaSession, p_ids : PackedStringArray) -> NakamaAsyncResult:
 	return _api_client.delete_notifications_async(p_session, p_ids)
 
 # Delete one or more storage objects.
@@ -346,7 +346,7 @@ func get_account_async(p_session : NakamaSession): # -> NakamaAPI.ApiAccount:
 # @param p_usernames - The usernames of the users to retrieve.
 # @param p_facebook_ids - The facebook IDs of the users to retrieve.
 # Returns a task which resolves to a collection of user objects.
-func get_users_async(p_session : NakamaSession, p_ids : PoolStringArray, p_usernames = null, p_facebook_ids = null): # -> NakamaAPI.ApiUsers:
+func get_users_async(p_session : NakamaSession, p_ids : PackedStringArray, p_usernames = null, p_facebook_ids = null): # -> NakamaAPI.ApiUsers:
 	return _api_client.get_users_async(p_session, p_ids, p_usernames, p_facebook_ids)
 
 # Import Facebook friends and add them to the user's account.
@@ -394,7 +394,7 @@ func join_tournament_async(p_session : NakamaSession, p_tournament_id : String) 
 # @param p_group_id - The ID of the group.
 # @param p_ids - The IDs of the users to kick.
 # Returns a task which represents the asynchronous operation.
-func kick_group_users_async(p_session : NakamaSession, p_group_id : String, p_ids : PoolStringArray) -> NakamaAsyncResult:
+func kick_group_users_async(p_session : NakamaSession, p_group_id : String, p_ids : PackedStringArray) -> NakamaAsyncResult:
 	return _api_client.kick_group_users_async(p_session, p_group_id, p_ids)
 
 # Leave a group by ID.
@@ -674,7 +674,7 @@ func list_users_storage_objects_async(p_session : NakamaSession,
 # @param p_group_id - The ID of the group to promote users into.
 # @param p_ids - The IDs of the users to promote.
 # Returns a task which represents the asynchronous operation.
-func promote_group_users_async(p_session : NakamaSession, p_group_id : String, p_ids : PoolStringArray) -> NakamaAsyncResult:
+func promote_group_users_async(p_session : NakamaSession, p_group_id : String, p_ids : PackedStringArray) -> NakamaAsyncResult:
 	return _api_client.promote_group_users_async(p_session, p_group_id, p_ids)
 
 # Read one or more objects from the storage engine.

@@ -381,13 +381,13 @@ func godotType(p_type string, p_ref string, p_item_type string, p_extra string, 
 	if is_array {
 		switch p_item_type {
 			case "integer":
-				out = "PoolIntArray"
+				out = "PackedIntArray"
 				return
 			case "string":
-				out = "PoolStringArray"
+				out = "PackedStringArray"
 				return
 			case "boolean":
-				out = "PoolIntArray"
+				out = "PackedIntArray"
 				return
 			default:
 				out = "Array"
@@ -404,8 +404,8 @@ func godotDef(p_type string) (out string) {
 		case "bool": out = "false"
 		case "int": out = "0"
 		case "String": out = "\"\""
-		case "PoolIntArray": out = "PoolIntArray()"
-		case "PoolStringArray": out = "PoolStringArray()"
+		case "PackedIntArray": out = "PackedIntArray()"
+		case "PackedStringArray": out = "PackedStringArray()"
 		case "Array": out = "Array()"
 		case "Dictionary": out = "Dictionary()"
 	}
@@ -414,7 +414,7 @@ func godotDef(p_type string) (out string) {
 
 func godotLooseType(p_type string) (out string) {
 	switch(p_type) {
-		case "PoolStringArray", "PoolIntArray":
+		case "PackedStringArray", "PackedIntArray":
 			out = "Array"
 		default:
 			out = p_type
@@ -428,8 +428,8 @@ func godotSchemaType(p_type string) (out string) {
 		case "bool": out += "BOOL"
 		case "int": out += "INT"
 		case "String": out += "STRING"
-		case "PoolIntArray": out += "ARRAY"
-		case "PoolStringArray": out += "ARRAY"
+		case "PackedIntArray": out += "ARRAY"
+		case "PackedStringArray": out += "ARRAY"
 		case "Array": out += "ARRAY"
 		case "Dictionary": out += "DICTIONARY"
 		default: out = "\"" + p_type + "\""

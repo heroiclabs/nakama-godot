@@ -331,7 +331,7 @@ func create_match_async():
 # @param p_user_ids - The IDs of users.
 # @param p_usernames - The usernames of the users.
 # Returns a task which resolves to the current statuses for the users.
-func follow_users_async(p_ids : PoolStringArray, p_usernames : PoolStringArray = []) -> NakamaRTAPI.Status:
+func follow_users_async(p_ids : PackedStringArray, p_usernames : PackedStringArray = []) -> NakamaRTAPI.Status:
 	return _send_async(NakamaRTMessage.StatusFollow.new(p_ids, p_usernames), NakamaRTAPI.Status)
 
 # Join a chat channel on the server.
@@ -452,7 +452,7 @@ func send_match_state_raw_async(p_match_id, p_op_code : int, p_data : PoolByteAr
 # Unfollow one or more users from their status updates.
 # @param p_user_ids - An array of user ids to unfollow.
 # Returns a task which represents the asynchronous operation.
-func unfollow_users_async(p_ids : PoolStringArray):
+func unfollow_users_async(p_ids : PackedStringArray):
 	return _send_async(NakamaRTMessage.StatusUnfollow.new(p_ids))
 
 # Update a chat message on a chat channel in the server.

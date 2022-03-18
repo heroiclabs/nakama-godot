@@ -302,10 +302,10 @@ class StatusFollow extends NakamaAsyncResult:
 		"usernames": {"name": "usernames", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
 
-	var user_ids := PoolStringArray()
-	var usernames := PoolStringArray()
+	var user_ids := PackedStringArray()
+	var usernames := PackedStringArray()
 
-	func _init(p_ids : PoolStringArray, p_usernames : PoolStringArray):
+	func _init(p_ids : PackedStringArray, p_usernames : PackedStringArray):
 		user_ids = p_ids
 		usernames = p_usernames
 
@@ -326,9 +326,9 @@ class StatusUnfollow extends NakamaAsyncResult:
 		"user_ids": {"name": "user_ids", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
 
-	var user_ids := PoolStringArray()
+	var user_ids := PackedStringArray()
 
-	func _init(p_ids : PoolStringArray):
+	func _init(p_ids : PackedStringArray):
 		user_ids = p_ids
 
 	func serialize():
