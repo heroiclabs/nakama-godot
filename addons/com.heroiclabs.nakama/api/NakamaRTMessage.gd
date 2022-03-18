@@ -241,7 +241,7 @@ class MatchmakerAdd extends NakamaAsyncResult:
 		"query": {"name": "query", "type": TYPE_STRING, "required": true},
 		"max_count": {"name": "max_count", "type": TYPE_INT, "required": true},
 		"min_count": {"name": "min_count", "type": TYPE_INT, "required": true},
-		"numeric_properties": {"name": "numeric_properties", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_REAL},
+		"numeric_properties": {"name": "numeric_properties", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_FLOAT},
 		"string_properties": {"name": "string_properties", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
 
@@ -538,7 +538,7 @@ class PartyMatchmakerAdd extends NakamaAsyncResult:
 		"max_count": {"name": "max_count", "type": TYPE_INT, "required": true},
 		"query": {"name": "query", "type": TYPE_STRING, "required": false},
 		"string_properties": {"name": "string_properties", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
-		"numeric_properties": {"name": "numeric_properties", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_REAL},
+		"numeric_properties": {"name": "numeric_properties", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_FLOAT},
 	}
 
 	# Party ID.

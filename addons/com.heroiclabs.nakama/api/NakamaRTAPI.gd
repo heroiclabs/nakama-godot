@@ -407,7 +407,7 @@ class MatchmakerUser extends NakamaAsyncResult:
 		"presence": {"name": "presence", "type": "UserPresence", "required": true},
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": false},
 		"string_properties": {"name": "string_properties", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
-		"numeric_properties": {"name": "numeric_properties", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_REAL},
+		"numeric_properties": {"name": "numeric_properties", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_FLOAT},
 	}
 
 	# The presence of the user.
