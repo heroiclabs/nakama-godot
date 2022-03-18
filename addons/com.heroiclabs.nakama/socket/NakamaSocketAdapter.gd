@@ -63,10 +63,10 @@ func _process(delta):
 		_ws.poll()
 
 func _init():
-	_ws.connect("data_received", self, "_received")
-	_ws.connect("connection_established", self, "_connected")
-	_ws.connect("connection_error", self, "_error")
-	_ws.connect("connection_closed", self, "_closed")
+	_ws.connect("data_received", _received)
+	_ws.connect("connection_established", _connected)
+	_ws.connect("connection_error", _error)
+	_ws.connect("connection_closed", _closed)
 
 func _received():
 	emit_signal("received", _ws.get_peer(1).get_packet())
