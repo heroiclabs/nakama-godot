@@ -136,7 +136,7 @@ func _connected():
 	emit_signal("connected")
 	_resume_conn(OK)
 
-func _received(p_bytes : PoolByteArray):
+func _received(p_bytes : PackedByteArray):
 	var json_str = p_bytes.get_string_from_utf8()
 	var json := JSON.parse(json_str)
 	if json.error != OK or typeof(json.result) != TYPE_DICTIONARY:
@@ -437,7 +437,7 @@ func send_match_state_async(p_match_id, p_op_code : int, p_data : String, p_pres
 # @param p_data - The input data to send.
 # @param p_presences - The presences in the match who should receive the input.
 # Returns a task which represents the asynchronous operation.
-func send_match_state_raw_async(p_match_id, p_op_code : int, p_data : PoolByteArray, p_presences = null):
+func send_match_state_raw_async(p_match_id, p_op_code : int, p_data : PackedByteArray, p_presences = null):
 	var req = _send_async(NakamaRTMessage.MatchDataSend.new(
 		p_match_id,
 		p_op_code,

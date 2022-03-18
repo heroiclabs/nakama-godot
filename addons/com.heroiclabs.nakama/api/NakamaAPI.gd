@@ -3378,7 +3378,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -3403,7 +3403,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -3430,7 +3430,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -3459,7 +3459,7 @@ class ApiClient extends RefCounted:
 		var header = "Basic %s" % credentials
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -3489,7 +3489,7 @@ class ApiClient extends RefCounted:
 		var header = "Basic %s" % credentials
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -3519,7 +3519,7 @@ class ApiClient extends RefCounted:
 		var header = "Basic %s" % credentials
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -3549,7 +3549,7 @@ class ApiClient extends RefCounted:
 		var header = "Basic %s" % credentials
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -3582,7 +3582,7 @@ class ApiClient extends RefCounted:
 		var header = "Basic %s" % credentials
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -3612,7 +3612,7 @@ class ApiClient extends RefCounted:
 		var header = "Basic %s" % credentials
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -3642,7 +3642,7 @@ class ApiClient extends RefCounted:
 		var header = "Basic %s" % credentials
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -3672,7 +3672,7 @@ class ApiClient extends RefCounted:
 		var header = "Basic %s" % credentials
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -3705,7 +3705,7 @@ class ApiClient extends RefCounted:
 		var header = "Basic %s" % credentials
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -3733,7 +3733,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -3760,7 +3760,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -3787,7 +3787,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -3814,7 +3814,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -3844,7 +3844,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -3871,7 +3871,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -3898,7 +3898,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -3925,7 +3925,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -3952,7 +3952,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -3975,7 +3975,7 @@ class ApiClient extends RefCounted:
 		var header = "Basic %s" % credentials
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -4003,7 +4003,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -4030,7 +4030,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -4057,7 +4057,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -4084,7 +4084,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -4111,7 +4111,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -4138,7 +4138,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -4165,7 +4165,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -4192,7 +4192,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -4219,7 +4219,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -4256,7 +4256,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -4283,7 +4283,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -4317,7 +4317,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -4351,7 +4351,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -4385,7 +4385,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -4418,7 +4418,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -4447,7 +4447,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -4477,7 +4477,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -4521,7 +4521,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -4548,7 +4548,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -4577,7 +4577,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -4605,7 +4605,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -4637,7 +4637,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -4668,7 +4668,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -4699,7 +4699,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -4726,7 +4726,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -4757,7 +4757,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -4784,7 +4784,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -4815,7 +4815,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -4851,7 +4851,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -4878,7 +4878,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -4906,7 +4906,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -4934,7 +4934,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -4963,7 +4963,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -5003,7 +5003,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -5032,7 +5032,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -5069,7 +5069,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -5113,7 +5113,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -5143,7 +5143,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -5174,7 +5174,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -5203,7 +5203,7 @@ class ApiClient extends RefCounted:
 			var header = "Bearer %s" % p_bearer_token
 			headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -5230,7 +5230,7 @@ class ApiClient extends RefCounted:
 			var header = "Bearer %s" % p_bearer_token
 			headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -5258,7 +5258,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -5285,7 +5285,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -5313,7 +5313,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -5341,7 +5341,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -5378,7 +5378,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -5414,7 +5414,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -5458,7 +5458,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -5499,7 +5499,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -5528,7 +5528,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -5558,7 +5558,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 		content = JSON.print(p_body.serialize()).to_utf8()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
@@ -5587,7 +5587,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -5622,7 +5622,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -5660,7 +5660,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:
@@ -5697,7 +5697,7 @@ class ApiClient extends RefCounted:
 		var header = "Bearer %s" % p_session.token
 		headers["Authorization"] = header
 
-		var content : PoolByteArray
+		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content).complted
 		if result is NakamaException:

@@ -24,7 +24,7 @@ class AsyncRequest:
 	var uri : String
 	var method : int
 	var headers : PackedStringArray
-	var body : PoolByteArray
+	var body : PackedByteArray
 	var retry_count := 3
 	var backoff_time := 10
 	var logger : NakamaLogger
@@ -32,13 +32,13 @@ class AsyncRequest:
 	var cancelled = false
 	var result : int = HTTPRequest.RESULT_NO_RESPONSE
 	var response_code : int = -1
-	var response_body : PoolByteArray
+	var response_body : PackedByteArray
 	var timer : SceneTreeTimer = null
 	var cur_try : int = 1
 	var rng = RandomNumberGenerator.new()
 
 	func _init(p_id : int, p_request : HTTPRequest, p_uri : String,
-			p_method : int, p_headers : PackedStringArray, p_body : PoolByteArray,
+			p_method : int, p_headers : PackedStringArray, p_body : PackedByteArray,
 			p_retry_count : int, p_backoff_time : int, p_logger : NakamaLogger):
 		rng.seed = OS.get_ticks_usec()
 		id = p_id
@@ -134,7 +134,7 @@ class AsyncRequest:
 # @param body - Request content body to set.
 # @param timeoutSec - Request timeout.
 # Returns a task which resolves to the contents of the response.
-func send_async(p_method : String, p_uri : String, p_headers : Dictionary, p_body : PoolByteArray):
+func send_async(p_method : String, p_uri : String, p_headers : Dictionary, p_body : PackedByteArray):
 	var req = HTTPRequest.new()
 	req.timeout = timeout
 	if OS.get_name() != 'HTML5':

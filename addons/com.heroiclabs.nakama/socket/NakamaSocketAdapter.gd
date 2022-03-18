@@ -19,7 +19,7 @@ signal closed()
 signal received_error(p_exception)
 
 # A signal emitted when the socket receives a message.
-signal received(p_bytes) # PoolByteArray
+signal received(p_bytes) # PackedByteArray
 
 # If the socket is connected.
 func is_connected_to_host():
@@ -48,7 +48,7 @@ func connect_to_host(p_uri : String, p_timeout : int):
 # Send data to the server with an asynchronous operation.
 # @param p_buffer - The buffer with the message to send.
 # @param p_reliable - If the message should be sent reliably (will be ignored by some protocols).
-func send(p_buffer : PoolByteArray, p_reliable : bool = true) -> int:
+func send(p_buffer : PackedByteArray, p_reliable : bool = true) -> int:
 	return _ws.get_peer(1).put_packet(p_buffer)
 
 func _process(delta):

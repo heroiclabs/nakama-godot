@@ -293,7 +293,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
             {{- end }}
 
-		var content : PoolByteArray
+		var content : PackedByteArray
             {{- range $parameter := $operation.Parameters }}
             {{- $argument := $parameter.Name | prependParameter }}
             {{- if eq $parameter.In "body" }}
