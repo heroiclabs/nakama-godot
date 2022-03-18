@@ -3449,7 +3449,7 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/apple"
 		var query_params = ""
 		if p_create != null:
-			query_params += "create=%s&" % str(bool(p_create)).to_lower()
+			query_params += "create=%s&" % str(p_create).to_lower()
 		if p_username != null:
 			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3479,7 +3479,7 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/custom"
 		var query_params = ""
 		if p_create != null:
-			query_params += "create=%s&" % str(bool(p_create)).to_lower()
+			query_params += "create=%s&" % str(p_create).to_lower()
 		if p_username != null:
 			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3509,7 +3509,7 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/device"
 		var query_params = ""
 		if p_create != null:
-			query_params += "create=%s&" % str(bool(p_create)).to_lower()
+			query_params += "create=%s&" % str(p_create).to_lower()
 		if p_username != null:
 			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3539,7 +3539,7 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/email"
 		var query_params = ""
 		if p_create != null:
-			query_params += "create=%s&" % str(bool(p_create)).to_lower()
+			query_params += "create=%s&" % str(p_create).to_lower()
 		if p_username != null:
 			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3570,11 +3570,11 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/facebook"
 		var query_params = ""
 		if p_create != null:
-			query_params += "create=%s&" % str(bool(p_create)).to_lower()
+			query_params += "create=%s&" % str(p_create).to_lower()
 		if p_username != null:
 			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
 		if p_sync != null:
-			query_params += "sync=%s&" % str(bool(p_sync)).to_lower()
+			query_params += "sync=%s&" % str(p_sync).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3602,7 +3602,7 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/facebookinstantgame"
 		var query_params = ""
 		if p_create != null:
-			query_params += "create=%s&" % str(bool(p_create)).to_lower()
+			query_params += "create=%s&" % str(p_create).to_lower()
 		if p_username != null:
 			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3632,7 +3632,7 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/gamecenter"
 		var query_params = ""
 		if p_create != null:
-			query_params += "create=%s&" % str(bool(p_create)).to_lower()
+			query_params += "create=%s&" % str(p_create).to_lower()
 		if p_username != null:
 			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3662,7 +3662,7 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/google"
 		var query_params = ""
 		if p_create != null:
-			query_params += "create=%s&" % str(bool(p_create)).to_lower()
+			query_params += "create=%s&" % str(p_create).to_lower()
 		if p_username != null:
 			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3693,11 +3693,11 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/steam"
 		var query_params = ""
 		if p_create != null:
-			query_params += "create=%s&" % str(bool(p_create)).to_lower()
+			query_params += "create=%s&" % str(p_create).to_lower()
 		if p_username != null:
 			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
 		if p_sync != null:
-			query_params += "sync=%s&" % str(bool(p_sync)).to_lower()
+			query_params += "sync=%s&" % str(p_sync).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3837,7 +3837,7 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/link/facebook"
 		var query_params = ""
 		if p_sync != null:
-			query_params += "sync=%s&" % str(bool(p_sync)).to_lower()
+			query_params += "sync=%s&" % str(p_sync).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -4247,7 +4247,7 @@ class ApiClient extends RefCounted:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_forward != null:
-			query_params += "forward=%s&" % str(bool(p_forward)).to_lower()
+			query_params += "forward=%s&" % str(p_forward).to_lower()
 		if p_cursor != null:
 			query_params += "cursor=%s&" % NakamaSerializer.escape_http(str(p_cursor))
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -4440,7 +4440,7 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/friend/facebook"
 		var query_params = ""
 		if p_reset != null:
-			query_params += "reset=%s&" % str(bool(p_reset)).to_lower()
+			query_params += "reset=%s&" % str(p_reset).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -4470,7 +4470,7 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/friend/steam"
 		var query_params = ""
 		if p_reset != null:
-			query_params += "reset=%s&" % str(bool(p_reset)).to_lower()
+			query_params += "reset=%s&" % str(p_reset).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -4514,7 +4514,7 @@ class ApiClient extends RefCounted:
 		if p_members != null:
 			query_params += "members=%d&" % p_members
 		if p_open != null:
-			query_params += "open=%s&" % str(bool(p_open)).to_lower()
+			query_params += "open=%s&" % str(p_open).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5098,7 +5098,7 @@ class ApiClient extends RefCounted:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_authoritative != null:
-			query_params += "authoritative=%s&" % str(bool(p_authoritative)).to_lower()
+			query_params += "authoritative=%s&" % str(p_authoritative).to_lower()
 		if p_label != null:
 			query_params += "label=%s&" % NakamaSerializer.escape_http(str(p_label))
 		if p_min_size != null:

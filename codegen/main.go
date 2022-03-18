@@ -262,7 +262,7 @@ class ApiClient extends Reference:
                 {{- else if eq $parameter.Type "string" }}
 			query_params += "{{- $snakecase }}=%s&" % NakamaSerializer.escape_http({{ $argument }})
                 {{- else if eq $parameter.Type "boolean" }}
-			query_params += "{{- $snakecase }}=%s&" % str(bool({{ $argument }})).to_lower()
+			query_params += "{{- $snakecase }}=%s&" % str({{ $argument }}).to_lower()
                 {{- else if eq $parameter.Type "array" }}
 			for elem in {{ $argument }}:
 				query_params += "{{- $snakecase }}=%s&" % elem
