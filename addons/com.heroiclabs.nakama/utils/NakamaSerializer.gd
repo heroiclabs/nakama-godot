@@ -26,7 +26,7 @@ static func serialize(p_obj : Object) -> Dictionary:
 						continue
 					arr.append(serialize(e))
 				out[k] = arr
-			TYPE_INT_ARRAY, TYPE_STRING_ARRAY: # Array of ints, bools, or strings
+			TYPE_PACKED_INT32_ARRAY, TYPE_PACKED_STRING_ARRAY: # Array of ints, bools, or strings
 				var arr = []
 				for e in val:
 					if content == TYPE_BOOL:
@@ -74,7 +74,7 @@ static func deserialize(p_ns : GDScript, p_cls_name : String, p_dict : Dictionar
 		var type_cmp = type
 		if typeof(type) == TYPE_STRING: # A class
 			type_cmp = TYPE_DICTIONARY
-		if type_cmp == TYPE_STRING_ARRAY or type_cmp == TYPE_INT_ARRAY: # A specialized array
+		if type_cmp == TYPE_PACKED_STRING_ARRAY or type_cmp == TYPE_PACKED_INT32_ARRAY: # A specialized array
 			type_cmp = TYPE_ARRAY
 
 		var content_cmp = content
@@ -108,7 +108,7 @@ static func deserialize(p_ns : GDScript, p_cls_name : String, p_dict : Dictionar
 			elif type_cmp == TYPE_ARRAY:
 				var v
 				match content:
-					TYPE_INT, TYPE_BOOL: v = PackedIntArray()
+					TYPE_INT, TYPE_BOOL: v = PackedInt32Array()
 					TYPE_STRING: v = PackedStringArray()
 					_: v = Array()
 				for e in val:
