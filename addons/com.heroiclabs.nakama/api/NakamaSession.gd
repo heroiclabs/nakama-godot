@@ -121,8 +121,12 @@ func _jwt_unpack(p_token : String) -> Dictionary:
 		payload += "="
 	payload = payload.replace("-", "+").replace("_", "/")
 	var unpacked = Marshalls.base64_to_utf8(payload)
-	if not validate_json(unpacked):
-		var decoded = parse_json(unpacked)
+	
+	var json = JSON.new()
+	var error = json.parse(unpacked)
+
+	if error == OK:
+		var decoded = json.get_data()
 		if typeof(decoded) == TYPE_DICTIONARY:
 			return decoded
 	_ex = NakamaException.new("Unable to unpack token: %s" % p_token)
