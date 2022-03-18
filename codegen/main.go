@@ -233,7 +233,7 @@ class ApiClient extends Reference:
           {{- $classname = $operation.Responses.Ok.Schema.Ref | cleanRef }}
         {{- end }}
         {{- if not $operation.Security }}
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = yield(should_refresh, "completed")
 			if session.is_exception():

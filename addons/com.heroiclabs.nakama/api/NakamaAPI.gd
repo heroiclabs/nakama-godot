@@ -3719,7 +3719,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountApple
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -3746,7 +3746,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountCustom
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -3773,7 +3773,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountDevice
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -3800,7 +3800,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountEmail
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -3828,7 +3828,7 @@ class ApiClient extends RefCounted:
 		, p_body : ApiAccountFacebook
 		, p_sync = null # : boolean
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -3857,7 +3857,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountFacebookInstantGame
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -3884,7 +3884,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountGameCenter
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -3911,7 +3911,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountGoogle
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -3938,7 +3938,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiLinkSteamRequest
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -3989,7 +3989,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountApple
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4016,7 +4016,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountCustom
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4043,7 +4043,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountDevice
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4070,7 +4070,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountEmail
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4097,7 +4097,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountFacebook
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4124,7 +4124,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountFacebookInstantGame
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4151,7 +4151,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountGameCenter
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4178,7 +4178,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountGoogle
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4205,7 +4205,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountSteam
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4235,7 +4235,7 @@ class ApiClient extends RefCounted:
 		, p_forward = null # : boolean
 		, p_cursor = null # : string
 	) -> ApiChannelMessageList:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4269,7 +4269,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiEvent
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4297,7 +4297,7 @@ class ApiClient extends RefCounted:
 		, p_ids = null # : array
 		, p_usernames = null # : array
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4331,7 +4331,7 @@ class ApiClient extends RefCounted:
 		, p_state = null # : integer
 		, p_cursor = null # : string
 	) -> ApiFriendList:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4365,7 +4365,7 @@ class ApiClient extends RefCounted:
 		, p_ids = null # : array
 		, p_usernames = null # : array
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4398,7 +4398,7 @@ class ApiClient extends RefCounted:
 		, p_ids = null # : array
 		, p_usernames = null # : array
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4431,7 +4431,7 @@ class ApiClient extends RefCounted:
 		, p_body : ApiAccountFacebook
 		, p_reset = null # : boolean
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4461,7 +4461,7 @@ class ApiClient extends RefCounted:
 		, p_body : ApiAccountSteam
 		, p_reset = null # : boolean
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4495,7 +4495,7 @@ class ApiClient extends RefCounted:
 		, p_members = null # : integer
 		, p_open = null # : boolean
 	) -> ApiGroupList:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4534,7 +4534,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiCreateGroupRequest
 	) -> ApiGroup:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4562,7 +4562,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_group_id : String
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4590,7 +4590,7 @@ class ApiClient extends RefCounted:
 		, p_group_id : String
 		, p_body : ApiUpdateGroupRequest
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4619,7 +4619,7 @@ class ApiClient extends RefCounted:
 		, p_group_id : String
 		, p_user_ids = null # : array
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4650,7 +4650,7 @@ class ApiClient extends RefCounted:
 		, p_group_id : String
 		, p_user_ids = null # : array
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4681,7 +4681,7 @@ class ApiClient extends RefCounted:
 		, p_group_id : String
 		, p_user_ids : PackedStringArray
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4711,7 +4711,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_group_id : String
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4739,7 +4739,7 @@ class ApiClient extends RefCounted:
 		, p_group_id : String
 		, p_user_ids = null # : array
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4769,7 +4769,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_group_id : String
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4797,7 +4797,7 @@ class ApiClient extends RefCounted:
 		, p_group_id : String
 		, p_user_ids = null # : array
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4830,7 +4830,7 @@ class ApiClient extends RefCounted:
 		, p_state = null # : integer
 		, p_cursor = null # : string
 	) -> ApiGroupUserList:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4864,7 +4864,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiValidatePurchaseAppleRequest
 	) -> ApiValidatePurchaseResponse:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4892,7 +4892,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiValidatePurchaseGoogleRequest
 	) -> ApiValidatePurchaseResponse:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4920,7 +4920,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiValidatePurchaseHuaweiRequest
 	) -> ApiValidatePurchaseResponse:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4948,7 +4948,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_leaderboard_id : String
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -4979,7 +4979,7 @@ class ApiClient extends RefCounted:
 		, p_cursor = null # : string
 		, p_expiry = null # : string
 	) -> ApiLeaderboardRecordList:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -5017,7 +5017,7 @@ class ApiClient extends RefCounted:
 		, p_leaderboard_id : String
 		, p_body : WriteLeaderboardRecordRequestLeaderboardRecordWrite
 	) -> ApiLeaderboardRecord:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -5049,7 +5049,7 @@ class ApiClient extends RefCounted:
 		, p_limit = null # : integer
 		, p_expiry = null # : string
 	) -> ApiLeaderboardRecordList:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -5087,7 +5087,7 @@ class ApiClient extends RefCounted:
 		, p_max_size = null # : integer
 		, p_query = null # : string
 	) -> ApiMatchList:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -5126,7 +5126,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_ids = null # : array
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -5156,7 +5156,7 @@ class ApiClient extends RefCounted:
 		, p_limit = null # : integer
 		, p_cacheable_cursor = null # : string
 	) -> ApiNotificationList:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -5244,7 +5244,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiSessionLogoutRequest
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -5271,7 +5271,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiReadStorageObjectsRequest
 	) -> ApiStorageObjects:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -5299,7 +5299,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiWriteStorageObjectsRequest
 	) -> ApiStorageObjectAcks:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -5327,7 +5327,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiDeleteStorageObjectsRequest
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -5357,7 +5357,7 @@ class ApiClient extends RefCounted:
 		, p_limit = null # : integer
 		, p_cursor = null # : string
 	) -> ApiStorageObjectList:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -5394,7 +5394,7 @@ class ApiClient extends RefCounted:
 		, p_limit = null # : integer
 		, p_cursor = null # : string
 	) -> ApiStorageObjectList:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -5432,7 +5432,7 @@ class ApiClient extends RefCounted:
 		, p_limit = null # : integer
 		, p_cursor = null # : string
 	) -> ApiTournamentList:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -5475,7 +5475,7 @@ class ApiClient extends RefCounted:
 		, p_cursor = null # : string
 		, p_expiry = null # : string
 	) -> ApiTournamentRecordList:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -5513,7 +5513,7 @@ class ApiClient extends RefCounted:
 		, p_tournament_id : String
 		, p_body : WriteTournamentRecordRequestTournamentRecordWrite
 	) -> ApiLeaderboardRecord:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -5543,7 +5543,7 @@ class ApiClient extends RefCounted:
 		, p_tournament_id : String
 		, p_body : WriteTournamentRecordRequestTournamentRecordWrite
 	) -> ApiLeaderboardRecord:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -5572,7 +5572,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_tournament_id : String
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -5602,7 +5602,7 @@ class ApiClient extends RefCounted:
 		, p_limit = null # : integer
 		, p_expiry = null # : string
 	) -> ApiTournamentRecordList:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -5637,7 +5637,7 @@ class ApiClient extends RefCounted:
 		, p_usernames = null # : array
 		, p_facebook_ids = null # : array
 	) -> ApiUsers:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -5676,7 +5676,7 @@ class ApiClient extends RefCounted:
 		, p_state = null # : integer
 		, p_cursor = null # : string
 	) -> ApiUserGroupList:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
