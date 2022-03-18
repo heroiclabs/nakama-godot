@@ -12,30 +12,71 @@ func _no_get():
 	return null
 
 # The host address of the server. Defaults to "127.0.0.1".
-var host : String setget _no_set
-
+var host : String:
+	set(v):
+		_no_set(_p)
+		
 # The port number of the server. Defaults to 7350.
-var port : int setget _no_set
+var port : int:
+	set(v):
+		_no_set(_p)
 
 # The protocol scheme used to connect with the server. Must be either "http" or "https".
-var scheme : String setget _no_set
+var scheme : String:
+	set(v):
+		_no_set(_p)
 
 # The key used to authenticate with the server without a session. Defaults to "defaultkey".
-var server_key : String = "defaultkey" setget _no_set
+var server_key : String = "defaultkey":
+	set(v):
+		_no_set(_p)
 
 # Set the timeout in seconds on requests sent to the server.
 var timeout : int
 
 var logger : NakamaLogger = null
 
-var _api_client : NakamaAPI.ApiClient setget _no_set, _no_get
+var _api_client : NakamaAPI.ApiClient: 
+	set(v):
+		_no_set(_p)
+	get:
+		return _no_get()
 
-var auto_refresh : bool = true setget set_auto_refresh, get_auto_refresh
-var auto_refresh_seconds : int = true setget set_auto_refresh_seconds, get_auto_refresh_seconds
-var auto_retry : bool = true setget set_auto_retry, get_auto_retry
-var auto_retry_count setget set_auto_retry_count, get_auto_retry_count
-var auto_retry_backoff_base setget set_auto_retry_backoff_base, get_auto_retry_backoff_base
-var last_cancel_token setget _no_set, get_last_cancel_token
+var auto_refresh : bool = true:
+	set(v):
+		set_auto_refresh(_p)
+	get:
+		return get_auto_refresh()
+
+var auto_refresh_seconds : int = true:
+	set(v):
+		set_auto_refresh_seconds(_p)
+	get:
+		return get_auto_refresh_seconds()
+
+var auto_retry : bool = true:
+	set(v):
+		set_auto_retry(_p)
+	get:
+		return get_auto_retry()
+
+var auto_retry_count:
+	set(v):
+		set_auto_retry_count(_p)
+	get:
+		return get_auto_retry_count()
+
+var auto_retry_backoff_base:
+	set(v):
+		set_auto_retry_backoff_base(_p)
+	get:
+		return get_auto_retry_backoff_base()
+
+var last_cancel_token:
+	set(v):
+		_no_set(_p)
+	get:
+		return get_last_cancel_token()
 
 func get_auto_refresh():
 	return _api_client.auto_refresh
@@ -127,11 +168,11 @@ func add_group_users_async(p_session : NakamaSession, p_group_id : String, p_ids
 # @param p_vars - Extra information that will be bundled in the session token.</param>
 # Returns a task which resolves to a session object.
 func authenticate_apple_async(p_token : String, p_username = null, p_create : bool = true, p_vars = null) -> NakamaSession:
-	return _parse_auth(yield(_api_client.authenticate_apple_async(server_key, "",
+	return _parse_auth(await (_api_client.authenticate_apple_async(server_key, "",
 		NakamaAPI.ApiAccountApple.create(NakamaAPI, {
 			"token": p_token,
 			"vars": p_vars
-		}), p_create, p_username), "completed"))
+		}), p_create, p_username).completed))
 
 # Authenticate a user with a custom id.
 # @param p_id - A custom identifier usually obtained from an external authentication service.
@@ -140,11 +181,11 @@ func authenticate_apple_async(p_token : String, p_username = null, p_create : bo
 # @param p_vars - Extra information that will be bundled in the session token.
 # Returns a task which resolves to a session object.
 func authenticate_custom_async(p_id : String, p_username = null, p_create : bool = true, p_vars = null) -> NakamaSession:
-	return _parse_auth(yield(_api_client.authenticate_custom_async(server_key, "",
+	return _parse_auth(await (_api_client.authenticate_custom_async(server_key, "",
 		NakamaAPI.ApiAccountCustom.create(NakamaAPI, {
 			"id": p_id,
 			"vars": p_vars
-		}), p_create, p_username), "completed"))
+		}), p_create, p_username).completed))
 
 # Authenticate a user with a device id.
 # @param p_id - A device identifier usually obtained from a platform API.
@@ -153,11 +194,11 @@ func authenticate_custom_async(p_id : String, p_username = null, p_create : bool
 # @param p_vars - Extra information that will be bundled in the session token.
 # Returns a task which resolves to a session object.
 func authenticate_device_async(p_id : String, p_username = null, p_create : bool = true, p_vars = null) -> NakamaSession:
-	return _parse_auth(yield(_api_client.authenticate_device_async(server_key, "",
+	return _parse_auth(await (_api_client.authenticate_device_async(server_key, "",
 		NakamaAPI.ApiAccountDevice.create(NakamaAPI, {
 			"id": p_id,
 			"vars": p_vars
-		}), p_create, p_username), "completed"))
+		}), p_create, p_username).completed))
 
 # Authenticate a user with an email and password.
 # @param p_email - The email address of the user.
@@ -167,12 +208,12 @@ func authenticate_device_async(p_id : String, p_username = null, p_create : bool
 # @param p_vars - Extra information that will be bundled in the session token.
 # Returns a task which resolves to a session object.
 func authenticate_email_async(p_email : String, p_password : String, p_username = null, p_create : bool = true, p_vars = null) -> NakamaSession:
-	return _parse_auth(yield(_api_client.authenticate_email_async(server_key, "",
+	return _parse_auth(await (_api_client.authenticate_email_async(server_key, "",
 		NakamaAPI.ApiAccountEmail.create(NakamaAPI, {
 			"email": p_email,
 			"password": p_password,
 			"vars": p_vars
-		}), p_create, p_username), "completed"))
+		}), p_create, p_username).completed))
 
 # Authenticate a user with a Facebook auth token.
 # @param p_token - An OAuth access token from the Facebook SDK.
@@ -182,11 +223,11 @@ func authenticate_email_async(p_email : String, p_password : String, p_username 
 # @param p_vars - Extra information that will be bundled in the session token.
 # Returns a task which resolves to a session object.
 func authenticate_facebook_async(p_token : String, p_username = null, p_create : bool = true, p_import : bool = true, p_vars = null) -> NakamaSession:
-	return _parse_auth(yield(_api_client.authenticate_facebook_async(server_key, "",
+	return _parse_auth(await (_api_client.authenticate_facebook_async(server_key, "",
 		NakamaAPI.ApiAccountFacebook.create(NakamaAPI, {
 			"token": p_token,
 			"vars": p_vars
-		}), p_create, p_username, p_import), "completed"))
+		}), p_create, p_username, p_import).completed))
 
 # Authenticate a user with a Facebook Instant Game token against the server.
 # @param p_signed_player_info - Facebook Instant Game signed info from Facebook SDK.
@@ -196,11 +237,11 @@ func authenticate_facebook_async(p_token : String, p_username = null, p_create :
 # @param p_vars - Extra information that will be bundled in the session token.
 # Returns a task which resolves to a session object.
 func authenticate_facebook_instant_game_async(p_signed_player_info : String, p_username = null, p_create : bool = true, p_vars = null) -> NakamaSession:
-		return _parse_auth(yield(_api_client.authenticate_facebook_instant_game_async(server_key, "",
+		return _parse_auth(await (_api_client.authenticate_facebook_instant_game_async(server_key, "",
 				NakamaAPI.ApiAccountFacebookInstantGame.create(NakamaAPI, {
 						"signed_player_info": p_signed_player_info,
 						"vars": p_vars
-				}), p_create, p_username), "completed"))
+				}), p_create, p_username).completed))
 
 # Authenticate a user with Apple Game Center.
 # @param p_bundle_id - The bundle id of the Game Center application.
@@ -215,7 +256,7 @@ func authenticate_facebook_instant_game_async(p_signed_player_info : String, p_u
 # Returns a task which resolves to a session object.
 func authenticate_game_center_async(p_bundle_id : String, p_player_id : String, p_public_key_url : String,
 		p_salt : String, p_signature : String, p_timestamp_seconds : String, p_username = null, p_create : bool = true, p_vars = null) -> NakamaSession:
-	return _parse_auth(yield(_api_client.authenticate_game_center_async(server_key, "",
+	return _parse_auth(await (_api_client.authenticate_game_center_async(server_key, "",
 		NakamaAPI.ApiAccountGameCenter.create(NakamaAPI, {
 			"bundle_id": p_bundle_id,
 			"player_id": p_player_id,
@@ -224,7 +265,7 @@ func authenticate_game_center_async(p_bundle_id : String, p_player_id : String, 
 			"signature": p_signature,
 			"timestamp_seconds": p_timestamp_seconds,
 			"vars": p_vars
-		}), p_create, p_username), "completed"))
+		}), p_create, p_username).completed))
 
 # Authenticate a user with a Google auth token.
 # @param p_token - An OAuth access token from the Google SDK.
@@ -233,11 +274,11 @@ func authenticate_game_center_async(p_bundle_id : String, p_player_id : String, 
 # @param p_vars - Extra information that will be bundled in the session token.
 # Returns a task which resolves to a session object.
 func authenticate_google_async(p_token : String, p_username = null, p_create : bool = true, p_vars = null) -> NakamaSession:
-	return _parse_auth(yield(_api_client.authenticate_google_async(server_key, "",
+	return _parse_auth(await (_api_client.authenticate_google_async(server_key, "",
 		NakamaAPI.ApiAccountGoogle.create(NakamaAPI, {
 			"token": p_token,
 			"vars": p_vars
-		}), p_create, p_username), "completed"))
+		}), p_create, p_username).completed))
 
 # Authenticate a user with a Steam auth token.
 # @param p_token - An authentication token from the Steam network.
@@ -246,11 +287,11 @@ func authenticate_google_async(p_token : String, p_username = null, p_create : b
 # @param p_vars - Extra information that will be bundled in the session token.
 # Returns a task which resolves to a session object.
 func authenticate_steam_async(p_token : String, p_username = null, p_create : bool = true, p_vars = null, p_sync : bool = false) -> NakamaSession:
-	return _parse_auth(yield(_api_client.authenticate_steam_async(server_key, "",
+	return _parse_auth(await (_api_client.authenticate_steam_async(server_key, "",
 		NakamaAPI.ApiAccountSteam.create(NakamaAPI, {
 			"token": p_token,
 			"vars": p_vars
-		}), p_create, p_username, p_sync), "completed"))
+		}), p_create, p_username, p_sync).completed))
 
 # Block one or more friends by id or username.
 # @param p_session - The session of the user.
@@ -730,11 +771,11 @@ func session_logout_async(p_session : NakamaSession) -> NakamaAsyncResult:
 # @param p_vars - Extra information which should be bundled inside the session token.
 # Returns a task which resolves to a new session object.
 func session_refresh_async(p_sesison : NakamaSession, p_vars = null) -> NakamaSession:
-	return _parse_auth(yield(_api_client.session_refresh_async(server_key, "",
+	return _parse_auth(await (_api_client.session_refresh_async(server_key, "",
 		NakamaAPI.ApiSessionRefreshRequest.create(NakamaAPI, {
 			"token": p_sesison.refresh_token,
 			"vars": p_vars
-		})), "completed"))
+		})).completed))
 
 # Remove the Apple ID from the social profiles on the current user's account.
 # @param p_session - The session of the user.
