@@ -4,10 +4,21 @@ extends RefCounted
 # Usually contains at least an error message.
 class_name NakamaException
 
-var status_code : int = -1 setget _no_set
-var grpc_status_code : int = -1 setget _no_set
-var message : String = "" setget _no_set
-var cancelled : bool = false setget _no_set
+var status_code : int = -1:
+	set(v):
+		_no_set(v)
+
+var grpc_status_code : int = -1:
+	set(v):
+		_no_set(v)
+		
+var message : String = "":
+	set(v):
+		_no_set(v)
+
+var cancelled : bool = false:
+	set(v):
+		_no_set(v)
 
 func _no_set(_p):
 	pass
