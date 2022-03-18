@@ -99,8 +99,8 @@ class AsyncRequest:
 
 		var json = JSON.new()
 
-		var error : JSONParseResult = json.parse(response_body.get_string_from_utf8())
-		if error != OK:
+		var json_error = json.parse(response_body.get_string_from_utf8())
+		if json_error != OK:
 			logger.debug("Unable to parse request %d response. JSON error: %d, response code: %d" % [
 				id, json.error, response_code
 			])
