@@ -3,7 +3,7 @@ extends RefCounted
 # A client for the API in Nakama server.
 class_name NakamaClient
 
-const ChannelType = NakamaRTMessage.ChannelJoin.ChannelType
+var ChannelType = NakamaRTMessage.ChannelJoin.ChannelType
 
 func _no_set(_p):
 	return
