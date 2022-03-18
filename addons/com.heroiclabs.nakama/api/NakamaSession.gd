@@ -29,7 +29,9 @@ func is_refresh_expired() -> bool:
 func is_valid():
 	return valid
 
-func _init(p_token = null, p_created : bool = false, p_refresh_token = null, p_exception = null).(p_exception):
+func _init(p_token = null, p_created : bool = false, p_refresh_token = null, p_exception = null):
+	super(p_exception)
+	
 	if p_token:
 		created = p_created
 		_parse_token(p_token)
