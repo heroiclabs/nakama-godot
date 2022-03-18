@@ -60,27 +60,27 @@ class AsyncRequest:
 			id, retry_count - cur_try, time
 		])
 		cur_try += 1
-		yield(backoff(time), "completed")
+		await (backoff(time).completed)
 		if cancelled:
 			return
-		return yield(make_request(), "completed")
+		return await (make_request().completed)
 
 	func make_request():
 		var err = request.request(uri, headers, true, method, body.get_string_from_utf8())
 		if err != OK:
-			yield(request.get_tree(), "idle_frame")
+			await request.get_tree().idle_frame
 			result = HTTPRequest.RESULT_CANT_CONNECT
 			logger.debug("Request %d failed to start, error: %d" % [id, err])
 			return
 
-		var args = yield(request, "request_completed")
+		var args = await request.request_completed
 		result = args[0]
 		response_code = args[1]
 		response_body = args[3]
 
 	func backoff(p_time : int):
 		timer = request.get_tree().create_timer(p_time / 1000)
-		yield(timer, "timeout")
+		await timer.timeout
 		timer = null
 
 	func cancel():
@@ -186,7 +186,7 @@ static func _clear_request(p_request : AsyncRequest, p_pending : Dictionary, p_i
 static func _send_async(p_id : int, p_pending : Dictionary):
 
 	var req : AsyncRequest = p_pending[p_id]
-	yield(req.make_request(), "completed")
+	await (req.make_request().completed)
 
 	while req.result != HTTPRequest.RESULT_SUCCESS:
 		req.logger.debug("Request %d failed with result: %d, response code: %d" % [
@@ -194,7 +194,7 @@ static func _send_async(p_id : int, p_pending : Dictionary):
 		])
 		if not req.should_retry():
 			break
-		yield(req.retry(), "completed")
+		await (req.retry().completed)
 
 	_clear_request(req, p_pending, p_id)
 	return req.parse_result()
