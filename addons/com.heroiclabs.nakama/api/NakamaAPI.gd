@@ -3389,7 +3389,7 @@ class ApiClient extends RefCounted:
 	func get_account_async(
 		p_session : NakamaSession
 	) -> ApiAccount:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
@@ -3416,7 +3416,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiUpdateAccountRequest
 	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
+		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
 			var session = await should_refresh.complted
 			if session.is_exception():
