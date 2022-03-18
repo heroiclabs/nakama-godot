@@ -169,8 +169,8 @@ class MatchJoin extends NakamaAsyncResult:
 	var token = null
 	var metadata = null
 
-	func _init(p_ex=null).(p_ex):
-		pass
+	func _init(p_ex=null):
+		super(p_ex)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
