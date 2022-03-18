@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 
 # A socket to interact with Nakama server.
 class_name NakamaSocket

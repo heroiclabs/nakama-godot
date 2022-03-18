@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 
 # An exception generated during a request.
 # Usually contains at least an error message.

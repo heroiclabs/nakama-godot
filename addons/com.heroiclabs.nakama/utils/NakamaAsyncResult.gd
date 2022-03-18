@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name NakamaAsyncResult
 
 var exception : NakamaException setget _no_set, get_exception

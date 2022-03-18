@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name NakamaSerializer
 
 static func serialize(p_obj : Object) -> Dictionary:

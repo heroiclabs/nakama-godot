@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name NakamaRTMessage
 
 # Send a channel join message to the server.
