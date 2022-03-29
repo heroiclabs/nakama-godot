@@ -137,13 +137,18 @@ class ChannelMessageUpdate extends NakamaAsyncResult:
 	func _to_string():
 		return "ChannelMessageUpdate<channel_id=%s, message_id=%s, content=%s>" % [channel_id, message_id, content]
 
+
 # A create message for a match on the server.
 class MatchCreate extends NakamaAsyncResult:
 
-	const _SCHEMA = {}
+	const _SCHEMA = {
+		"name": {"name": "name", "type": TYPE_STRING, "required": false},
+	}
+	
+	var name = null
 
-	func _init():
-		pass
+	func _init(p_name = null):
+		name = p_name if p_name else null
 
 	func serialize():
 		return NakamaSerializer.serialize(self)
@@ -152,7 +157,7 @@ class MatchCreate extends NakamaAsyncResult:
 		return "match_create"
 
 	func _to_string():
-		return "MatchCreate<>"
+		return "MatchCreate<name=%s>" % [name]
 
 
 # A join message for a match on the server.

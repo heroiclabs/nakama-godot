@@ -8,6 +8,7 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 ### Added
 
 - Expose the "seen_before" property on "NakamaAPI.ApiValidatedPurchase"
+- Add support for creating match by name
 
 ## [3.0.0] - 2022-03-28
 
