@@ -3,6 +3,12 @@ All notable changes to this project are documented below.
 
 The format is based on [keep a changelog](http://keepachangelog.com/) and this project uses [semantic versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- Expose the "seen_before" property on "NakamaAPI.ApiValidatedPurchase"
+
 ## [3.0.0] - 2022-03-28
 
 ### Added
