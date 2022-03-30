@@ -3025,6 +3025,7 @@ class ApiValidatedPurchase extends NakamaAsyncResult:
 		"product_id": {"name": "_product_id", "type": TYPE_STRING, "required": false},
 		"provider_response": {"name": "_provider_response", "type": TYPE_STRING, "required": false},
 		"purchase_time": {"name": "_purchase_time", "type": TYPE_STRING, "required": false},
+		"seen_before": {"name": "_seen_before", "type": TYPE_BOOL, "required": false},
 		"store": {"name": "_store", "type": TYPE_INT, "required": false},
 		"transaction_id": {"name": "_transaction_id", "type": TYPE_STRING, "required": false},
 		"update_time": {"name": "_update_time", "type": TYPE_STRING, "required": false},
@@ -3059,6 +3060,12 @@ class ApiValidatedPurchase extends NakamaAsyncResult:
 	var _purchase_time = null
 	func _get_purchase_time() -> String:
 		return "" if not _purchase_time is String else String(_purchase_time)
+
+	# Whether the purchase had already been validated by Nakama before.
+	var seen_before : bool setget , _get_seen_before
+	var _seen_before = null
+	func _get_seen_before() -> bool:
+		return false if not _seen_before is bool else bool(_seen_before)
 
 	# 
 	var store : int setget , _get_store
@@ -3096,6 +3103,7 @@ class ApiValidatedPurchase extends NakamaAsyncResult:
 		output += "product_id: %s, " % _product_id
 		output += "provider_response: %s, " % _provider_response
 		output += "purchase_time: %s, " % _purchase_time
+		output += "seen_before: %s, " % _seen_before
 		output += "store: %s, " % _store
 		output += "transaction_id: %s, " % _transaction_id
 		output += "update_time: %s, " % _update_time
