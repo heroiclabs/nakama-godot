@@ -312,11 +312,13 @@ func connect_async(p_session : NakamaSession, p_appear_online : bool = false, p_
 # @param p_max_count - The maximum number of players to compete against in a match.
 # @param p_string_properties - A set of key/value properties to provide to searches.
 # @param p_numeric_properties - A set of key/value numeric properties to provide to searches.
+# @param p_count_multiple - Optional multiple of the count that must be satisfied.
 # Returns a task which resolves to a matchmaker ticket object.
 func add_matchmaker_async(p_query : String = "*", p_min_count : int = 2, p_max_count : int = 8,
-		p_string_props : Dictionary = {}, p_numeric_props : Dictionary = {}) -> NakamaRTAPI.MatchmakerTicket:
+		p_string_props : Dictionary = {}, p_numeric_props : Dictionary = {},
+		p_count_multiple : int = 0) -> NakamaRTAPI.MatchmakerTicket:
 	return _send_async(
-		NakamaRTMessage.MatchmakerAdd.new(p_query, p_min_count, p_max_count, p_string_props, p_numeric_props),
+		NakamaRTMessage.MatchmakerAdd.new(p_query, p_min_count, p_max_count, p_string_props, p_numeric_props, p_count_multiple),
 		NakamaRTAPI.MatchmakerTicket
 	)
 
@@ -495,12 +497,14 @@ func accept_party_member_async(p_party_id : String, p_presence : NakamaRTAPI.Use
 # @param p_max_count - Maximum total user count to match together.
 # @param p_string_properties - String properties.
 # @param p_numeric_properties - Numeric properties.
+# @param p_count_multiple - Optional multiple of the count that must be satisfied.
 # Returns a task to represent the asynchronous operation.
 func add_matchmaker_party_async(p_party_id : String, p_query : String = "*", p_min_count : int = 2,
-	p_max_count : int = 8, p_string_properties = {}, p_numeric_properties = {}):
+	p_max_count : int = 8, p_string_properties = {}, p_numeric_properties = {}, p_count_multiple : int = 0):
 	return _send_async(
 		NakamaRTMessage.PartyMatchmakerAdd.new(p_party_id, p_min_count,
-			p_max_count, p_query, p_string_properties, p_numeric_properties))
+			p_max_count, p_query, p_string_properties, p_numeric_properties,
+			p_count_multiple if p_count_multiple > 0 else null))
 
 # End a party, kicking all party members and closing it.
 # @param p_party_id - The ID of the party.
