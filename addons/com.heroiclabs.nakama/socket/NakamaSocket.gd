@@ -320,12 +320,11 @@ func add_matchmaker_async(p_query : String = "*", p_min_count : int = 2, p_max_c
 		NakamaRTAPI.MatchmakerTicket
 	)
 
-## <summary>
-## Create a multiplayer match on the server.
-## </summary>
-## Returns a task to represent the asynchronous operation.
-func create_match_async():
-	return _send_async(NakamaRTMessage.MatchCreate.new(), NakamaRTAPI.Match)
+# Create a multiplayer match on the server.
+# @param p_name - Optional name to use when creating the match.
+# Returns a task to represent the asynchronous operation.
+func create_match_async(p_name : String = ''):
+	return _send_async(NakamaRTMessage.MatchCreate.new(p_name), NakamaRTAPI.Match)
 
 # Subscribe to one or more users for their status updates.
 # @param p_user_ids - The IDs of users.
