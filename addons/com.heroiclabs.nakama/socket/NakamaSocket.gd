@@ -234,13 +234,14 @@ func _parse_result(p_responses : Dictionary, p_id : String, p_type, p_ns : GDScr
 		result_key = p_type.get_result_key()
 
 	# Here we yield and wait
-	var data = yield() # Manually resumed
+	var data = await _conn # Manually resumed
 	call_deferred("_survive", p_responses[p_id])
 	p_responses.erase(p_id) # Remove this request from the list of responses
 
 	# We got an exception, maybe the task was cancelled?
 	if data is NakamaException:
 		return p_type.new(data as NakamaException)
+		
 	# Error from server
 	if data.has("error"):
 		var err = data["error"]
@@ -271,7 +272,7 @@ func _send_async(p_message, p_parse_type = NakamaAsyncResult, p_ns = NakamaRTAPI
 		msg = p_message.get_msg_key()
 	var id = str(_last_id)
 	_last_id += 1
-	_responses[id] = _parse_result(_responses, id, p_parse_type, p_ns, p_result_key)
+	_responses[id] = _parse_result.call(_responses, id, p_parse_type, p_ns, p_result_key)
 	
 	var json_obj = JSON.new()
 
@@ -279,7 +280,7 @@ func _send_async(p_message, p_parse_type = NakamaAsyncResult, p_ns = NakamaRTAPI
 		"cid": id,
 		msg: p_message.serialize()
 	})
-	var err = _adapter.send(json)
+	var err = _adapter.send.call(json)
 	if err != OK:
 		call_deferred("_cancel_response", id)
 	return _responses[id]
