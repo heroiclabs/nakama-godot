@@ -36,11 +36,7 @@ var timeout : int
 
 var logger : NakamaLogger = null
 
-var _api_client : NakamaAPI.ApiClient: 
-	set(v):
-		_no_set(v)
-	get:
-		return _no_get()
+var _api_client : NakamaAPI.ApiClient
 
 var auto_refresh : bool = true:
 	set(v):

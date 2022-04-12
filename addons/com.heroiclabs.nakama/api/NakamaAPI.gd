@@ -12,18 +12,26 @@ class GroupUserListGroupUser extends NakamaAsyncResult:
 	}
 
 	# Their relationship to the group.
-	var _state: int  = null
+	var _state = null
 	var state : int:
 		get:
-			return 0 if not _state is int else int(_state)
+			#return 0 if not _state is int else int(_state)
+			# Work around issue #53115 / #56217
+			var tmp = _state
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# User.
-	var _user: ApiUser  = null
+	var _user = null
 	var user : ApiUser:
 		get:
-			return _user as ApiUser
+			#return _user as ApiUser
+			# Work around issue #53115 / #56217
+			var tmp = _user
+			tmp = tmp
+			return tmp as ApiUser
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> GroupUserListGroupUser:
@@ -49,18 +57,26 @@ class UserGroupListUserGroup extends NakamaAsyncResult:
 	}
 
 	# Group.
-	var _group: ApiGroup  = null
+	var _group = null
 	var group : ApiGroup:
 		get:
-			return _group as ApiGroup
+			#return _group as ApiGroup
+			# Work around issue #53115 / #56217
+			var tmp = _group
+			tmp = tmp
+			return tmp as ApiGroup
 
 	# The user's relationship to the group.
-	var _state: int  = null
+	var _state = null
 	var state : int:
 		get:
-			return 0 if not _state is int else int(_state)
+			#return 0 if not _state is int else int(_state)
+			# Work around issue #53115 / #56217
+			var tmp = _state
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> UserGroupListUserGroup:
@@ -100,30 +116,42 @@ class WriteLeaderboardRecordRequestLeaderboardRecordWrite extends NakamaAsyncRes
 	}
 
 	# Optional record metadata.
-	var _metadata: String  = null
+	var _metadata = null
 	var metadata : String:
 		get:
-			return "" if not _metadata is String else String(_metadata)
+			#return "" if not _metadata is String else String(_metadata)
+			# Work around issue #53115 / #56217
+			var tmp = _metadata
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Operator override.
-	var _operator: int  = null
+	var _operator = null
 	var operator : int:
 		get:
 			return ApiOperator.values()[0] if not ApiOperator.values().has(_operator) else _operator
 
 	# The score value to submit.
-	var _score: String  = null
+	var _score = null
 	var score : String:
 		get:
-			return "" if not _score is String else String(_score)
+			#return "" if not _score is String else String(_score)
+			# Work around issue #53115 / #56217
+			var tmp = _score
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# An optional secondary value.
-	var _subscore: String  = null
+	var _subscore = null
 	var subscore : String:
 		get:
-			return "" if not _subscore is String else String(_subscore)
+			#return "" if not _subscore is String else String(_subscore)
+			# Work around issue #53115 / #56217
+			var tmp = _subscore
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> WriteLeaderboardRecordRequestLeaderboardRecordWrite:
@@ -153,30 +181,42 @@ class WriteTournamentRecordRequestTournamentRecordWrite extends NakamaAsyncResul
 	}
 
 	# A JSON object of additional properties (optional).
-	var _metadata: String  = null
+	var _metadata = null
 	var metadata : String:
 		get:
-			return "" if not _metadata is String else String(_metadata)
+			#return "" if not _metadata is String else String(_metadata)
+			# Work around issue #53115 / #56217
+			var tmp = _metadata
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Operator override.
-	var _operator: int  = null
+	var _operator = null
 	var operator : int:
 		get:
 			return ApiOperator.values()[0] if not ApiOperator.values().has(_operator) else _operator
 
 	# The score value to submit.
-	var _score: String  = null
+	var _score = null
 	var score : String:
 		get:
-			return "" if not _score is String else String(_score)
+			#return "" if not _score is String else String(_score)
+			# Work around issue #53115 / #56217
+			var tmp = _score
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# An optional secondary value.
-	var _subscore: String  = null
+	var _subscore = null
 	var subscore : String:
 		get:
-			return "" if not _subscore is String else String(_subscore)
+			#return "" if not _subscore is String else String(_subscore)
+			# Work around issue #53115 / #56217
+			var tmp = _subscore
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> WriteTournamentRecordRequestTournamentRecordWrite:
@@ -209,65 +249,92 @@ class ApiAccount extends NakamaAsyncResult:
 	}
 
 	# The custom id in the user's account.
-	var _custom_id: String  = null
+	var _custom_id = null
 	var custom_id : String:
 		get:
-			return "" if not _custom_id is String else String(_custom_id)
+			#return "" if not _custom_id is String else String(_custom_id)
+			# Work around issue #53115 / #56217
+			var tmp = _custom_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The devices which belong to the user's account.
-	var _devices: Array  = null
+	var _devices = null
 	var devices : Array:
 		get:
-			return Array() if not _devices is Array else Array(_devices)
+			#return Array() if not _devices is Array else Array(_devices)
+			# Work around issue #53115 / #56217
+			var tmp = _devices
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
 	# The UNIX time when the user's account was disabled/banned.
-	var _disable_time: String  = null
+	var _disable_time = null
 	var disable_time : String:
 		get:
-			return "" if not _disable_time is String else String(_disable_time)
+			#return "" if not _disable_time is String else String(_disable_time)
+			# Work around issue #53115 / #56217
+			var tmp = _disable_time
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The email address of the user.
-	var _email: String  = null
+	var _email = null
 	var email : String:
 		get:
-			return "" if not _email is String else String(_email)
+			#return "" if not _email is String else String(_email)
+			# Work around issue #53115 / #56217
+			var tmp = _email
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The user object.
-	var _user: ApiUser  = null
+	var _user = null
 	var user : ApiUser:
 		get:
-			return _user as ApiUser
+			#return _user as ApiUser
+			# Work around issue #53115 / #56217
+			var tmp = _user
+			tmp = tmp
+			return tmp as ApiUser
 
 	# The UNIX time when the user's email was verified.
-	var _verify_time: String  = null
+	var _verify_time = null
 	var verify_time : String:
 		get:
-			return "" if not _verify_time is String else String(_verify_time)
+			#return "" if not _verify_time is String else String(_verify_time)
+			# Work around issue #53115 / #56217
+			var tmp = _verify_time
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The user's wallet data.
-	var _wallet: String  = null
+	var _wallet = null
 	var wallet : String:
 		get:
-			return "" if not _wallet is String else String(_wallet)
+			#return "" if not _wallet is String else String(_wallet)
+			# Work around issue #53115 / #56217
+			var tmp = _wallet
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	var _wallet_dict = null
 	var wallet_dict : Dictionary:
 		get:
-			var json = JSON.new()
-			if _wallet == null:
-				return {}
-			
-			var error = json.parse(_wallet)
-						
-			if error == OK:
+			if _wallet_dict == null:
+				if _wallet == null:
+					return {}
+				var json = JSON.new()
+				# Work around issue #53115 / #56217
+				var tmp = _wallet
+				tmp = tmp
+				if json.parse(tmp) != OK:
+					return {}
 				_wallet_dict = json.get_data()
-			else:
-				return {}		
-				
 			return _wallet_dict as Dictionary
 
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccount:
@@ -298,18 +365,22 @@ class ApiAccountApple extends NakamaAsyncResult:
 	}
 
 	# The ID token received from Apple to validate.
-	var _token: String  = null
+	var _token = null
 	var token : String:
 		get:
-			return "" if not _token is String else String(_token)
+			#return "" if not _token is String else String(_token)
+			# Work around issue #53115 / #56217
+			var tmp = _token
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Extra information that will be bundled in the session token.
-	var _vars: Dictionary  = null
+	var _vars = null
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccountApple:
@@ -324,9 +395,12 @@ class ApiAccountApple extends NakamaAsyncResult:
 		var output : String = ""
 		output += "token: %s, " % _token
 		var map_string : String = ""
-		if typeof(_vars) == TYPE_DICTIONARY:
-			for k in _vars:
-				map_string += "{%s=%s}, " % [k, _vars[k]]
+		# Work around issue #53115 / #56217
+		var tmp = _vars
+		tmp = tmp
+		if typeof(tmp) == TYPE_DICTIONARY:
+			for k in tmp:
+				map_string += "{%s=%s}, " % [k, tmp[k]]
 		output += "vars: [%s], " % map_string
 		return output
 
@@ -339,18 +413,22 @@ class ApiAccountCustom extends NakamaAsyncResult:
 	}
 
 	# A custom identifier.
-	var _id: String  = null
+	var _id = null
 	var id : String:
 		get:
-			return "" if not _id is String else String(_id)
+			#return "" if not _id is String else String(_id)
+			# Work around issue #53115 / #56217
+			var tmp = _id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Extra information that will be bundled in the session token.
-	var _vars: Dictionary  = null
+	var _vars = null
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccountCustom:
@@ -365,9 +443,12 @@ class ApiAccountCustom extends NakamaAsyncResult:
 		var output : String = ""
 		output += "id: %s, " % _id
 		var map_string : String = ""
-		if typeof(_vars) == TYPE_DICTIONARY:
-			for k in _vars:
-				map_string += "{%s=%s}, " % [k, _vars[k]]
+		# Work around issue #53115 / #56217
+		var tmp = _vars
+		tmp = tmp
+		if typeof(tmp) == TYPE_DICTIONARY:
+			for k in tmp:
+				map_string += "{%s=%s}, " % [k, tmp[k]]
 		output += "vars: [%s], " % map_string
 		return output
 
@@ -380,18 +461,22 @@ class ApiAccountDevice extends NakamaAsyncResult:
 	}
 
 	# A device identifier. Should be obtained by a platform-specific device API.
-	var _id: String  = null
+	var _id = null
 	var id : String:
 		get:
-			return "" if not _id is String else String(_id)
+			#return "" if not _id is String else String(_id)
+			# Work around issue #53115 / #56217
+			var tmp = _id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Extra information that will be bundled in the session token.
-	var _vars: Dictionary  = null
+	var _vars = null
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccountDevice:
@@ -406,9 +491,12 @@ class ApiAccountDevice extends NakamaAsyncResult:
 		var output : String = ""
 		output += "id: %s, " % _id
 		var map_string : String = ""
-		if typeof(_vars) == TYPE_DICTIONARY:
-			for k in _vars:
-				map_string += "{%s=%s}, " % [k, _vars[k]]
+		# Work around issue #53115 / #56217
+		var tmp = _vars
+		tmp = tmp
+		if typeof(tmp) == TYPE_DICTIONARY:
+			for k in tmp:
+				map_string += "{%s=%s}, " % [k, tmp[k]]
 		output += "vars: [%s], " % map_string
 		return output
 
@@ -422,24 +510,32 @@ class ApiAccountEmail extends NakamaAsyncResult:
 	}
 
 	# A valid RFC-5322 email address.
-	var _email: String  = null
+	var _email = null
 	var email : String:
 		get:
-			return "" if not _email is String else String(_email)
+			#return "" if not _email is String else String(_email)
+			# Work around issue #53115 / #56217
+			var tmp = _email
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# A password for the user account.
-	var _password: String  = null
+	var _password = null
 	var password : String:
 		get:
-			return "" if not _password is String else String(_password)
+			#return "" if not _password is String else String(_password)
+			# Work around issue #53115 / #56217
+			var tmp = _password
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Extra information that will be bundled in the session token.
-	var _vars: Dictionary  = null
+	var _vars = null
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccountEmail:
@@ -455,9 +551,12 @@ class ApiAccountEmail extends NakamaAsyncResult:
 		output += "email: %s, " % _email
 		output += "password: %s, " % _password
 		var map_string : String = ""
-		if typeof(_vars) == TYPE_DICTIONARY:
-			for k in _vars:
-				map_string += "{%s=%s}, " % [k, _vars[k]]
+		# Work around issue #53115 / #56217
+		var tmp = _vars
+		tmp = tmp
+		if typeof(tmp) == TYPE_DICTIONARY:
+			for k in tmp:
+				map_string += "{%s=%s}, " % [k, tmp[k]]
 		output += "vars: [%s], " % map_string
 		return output
 
@@ -470,18 +569,22 @@ class ApiAccountFacebook extends NakamaAsyncResult:
 	}
 
 	# The OAuth token received from Facebook to access their profile API.
-	var _token: String  = null
+	var _token = null
 	var token : String:
 		get:
-			return "" if not _token is String else String(_token)
+			#return "" if not _token is String else String(_token)
+			# Work around issue #53115 / #56217
+			var tmp = _token
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Extra information that will be bundled in the session token.
-	var _vars: Dictionary  = null
+	var _vars = null
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccountFacebook:
@@ -496,9 +599,12 @@ class ApiAccountFacebook extends NakamaAsyncResult:
 		var output : String = ""
 		output += "token: %s, " % _token
 		var map_string : String = ""
-		if typeof(_vars) == TYPE_DICTIONARY:
-			for k in _vars:
-				map_string += "{%s=%s}, " % [k, _vars[k]]
+		# Work around issue #53115 / #56217
+		var tmp = _vars
+		tmp = tmp
+		if typeof(tmp) == TYPE_DICTIONARY:
+			for k in tmp:
+				map_string += "{%s=%s}, " % [k, tmp[k]]
 		output += "vars: [%s], " % map_string
 		return output
 
@@ -511,18 +617,22 @@ class ApiAccountFacebookInstantGame extends NakamaAsyncResult:
 	}
 
 	# 
-	var _signed_player_info: String  = null
+	var _signed_player_info = null
 	var signed_player_info : String:
 		get:
-			return "" if not _signed_player_info is String else String(_signed_player_info)
+			#return "" if not _signed_player_info is String else String(_signed_player_info)
+			# Work around issue #53115 / #56217
+			var tmp = _signed_player_info
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Extra information that will be bundled in the session token.
-	var _vars: Dictionary  = null
+	var _vars = null
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccountFacebookInstantGame:
@@ -537,9 +647,12 @@ class ApiAccountFacebookInstantGame extends NakamaAsyncResult:
 		var output : String = ""
 		output += "signed_player_info: %s, " % _signed_player_info
 		var map_string : String = ""
-		if typeof(_vars) == TYPE_DICTIONARY:
-			for k in _vars:
-				map_string += "{%s=%s}, " % [k, _vars[k]]
+		# Work around issue #53115 / #56217
+		var tmp = _vars
+		tmp = tmp
+		if typeof(tmp) == TYPE_DICTIONARY:
+			for k in tmp:
+				map_string += "{%s=%s}, " % [k, tmp[k]]
 		output += "vars: [%s], " % map_string
 		return output
 
@@ -557,48 +670,72 @@ class ApiAccountGameCenter extends NakamaAsyncResult:
 	}
 
 	# Bundle ID (generated by GameCenter).
-	var _bundle_id: String  = null
+	var _bundle_id = null
 	var bundle_id : String:
 		get:
-			return "" if not _bundle_id is String else String(_bundle_id)
+			#return "" if not _bundle_id is String else String(_bundle_id)
+			# Work around issue #53115 / #56217
+			var tmp = _bundle_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Player ID (generated by GameCenter).
-	var _player_id: String  = null
+	var _player_id = null
 	var player_id : String:
 		get:
-			return "" if not _player_id is String else String(_player_id)
+			#return "" if not _player_id is String else String(_player_id)
+			# Work around issue #53115 / #56217
+			var tmp = _player_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The URL for the public encryption key.
-	var _public_key_url: String  = null
+	var _public_key_url = null
 	var public_key_url : String:
 		get:
-			return "" if not _public_key_url is String else String(_public_key_url)
+			#return "" if not _public_key_url is String else String(_public_key_url)
+			# Work around issue #53115 / #56217
+			var tmp = _public_key_url
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# A random "NSString" used to compute the hash and keep it randomized.
-	var _salt: String  = null
+	var _salt = null
 	var salt : String:
 		get:
-			return "" if not _salt is String else String(_salt)
+			#return "" if not _salt is String else String(_salt)
+			# Work around issue #53115 / #56217
+			var tmp = _salt
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The verification signature data generated.
-	var _signature: String  = null
+	var _signature = null
 	var signature : String:
 		get:
-			return "" if not _signature is String else String(_signature)
+			#return "" if not _signature is String else String(_signature)
+			# Work around issue #53115 / #56217
+			var tmp = _signature
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Time since UNIX epoch when the signature was created.
-	var _timestamp_seconds: String  = null
+	var _timestamp_seconds = null
 	var timestamp_seconds : String:
 		get:
-			return "" if not _timestamp_seconds is String else String(_timestamp_seconds)
+			#return "" if not _timestamp_seconds is String else String(_timestamp_seconds)
+			# Work around issue #53115 / #56217
+			var tmp = _timestamp_seconds
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Extra information that will be bundled in the session token.
-	var _vars: Dictionary  = null
+	var _vars = null
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccountGameCenter:
@@ -618,9 +755,12 @@ class ApiAccountGameCenter extends NakamaAsyncResult:
 		output += "signature: %s, " % _signature
 		output += "timestamp_seconds: %s, " % _timestamp_seconds
 		var map_string : String = ""
-		if typeof(_vars) == TYPE_DICTIONARY:
-			for k in _vars:
-				map_string += "{%s=%s}, " % [k, _vars[k]]
+		# Work around issue #53115 / #56217
+		var tmp = _vars
+		tmp = tmp
+		if typeof(tmp) == TYPE_DICTIONARY:
+			for k in tmp:
+				map_string += "{%s=%s}, " % [k, tmp[k]]
 		output += "vars: [%s], " % map_string
 		return output
 
@@ -633,18 +773,22 @@ class ApiAccountGoogle extends NakamaAsyncResult:
 	}
 
 	# The OAuth token received from Google to access their profile API.
-	var _token: String  = null
+	var _token = null
 	var token : String:
 		get:
-			return "" if not _token is String else String(_token)
+			#return "" if not _token is String else String(_token)
+			# Work around issue #53115 / #56217
+			var tmp = _token
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Extra information that will be bundled in the session token.
-	var _vars: Dictionary  = null
+	var _vars = null
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccountGoogle:
@@ -659,9 +803,12 @@ class ApiAccountGoogle extends NakamaAsyncResult:
 		var output : String = ""
 		output += "token: %s, " % _token
 		var map_string : String = ""
-		if typeof(_vars) == TYPE_DICTIONARY:
-			for k in _vars:
-				map_string += "{%s=%s}, " % [k, _vars[k]]
+		# Work around issue #53115 / #56217
+		var tmp = _vars
+		tmp = tmp
+		if typeof(tmp) == TYPE_DICTIONARY:
+			for k in tmp:
+				map_string += "{%s=%s}, " % [k, tmp[k]]
 		output += "vars: [%s], " % map_string
 		return output
 
@@ -674,18 +821,22 @@ class ApiAccountSteam extends NakamaAsyncResult:
 	}
 
 	# The account token received from Steam to access their profile API.
-	var _token: String  = null
+	var _token = null
 	var token : String:
 		get:
-			return "" if not _token is String else String(_token)
+			#return "" if not _token is String else String(_token)
+			# Work around issue #53115 / #56217
+			var tmp = _token
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Extra information that will be bundled in the session token.
-	var _vars: Dictionary  = null
+	var _vars = null
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccountSteam:
@@ -700,9 +851,12 @@ class ApiAccountSteam extends NakamaAsyncResult:
 		var output : String = ""
 		output += "token: %s, " % _token
 		var map_string : String = ""
-		if typeof(_vars) == TYPE_DICTIONARY:
-			for k in _vars:
-				map_string += "{%s=%s}, " % [k, _vars[k]]
+		# Work around issue #53115 / #56217
+		var tmp = _vars
+		tmp = tmp
+		if typeof(tmp) == TYPE_DICTIONARY:
+			for k in tmp:
+				map_string += "{%s=%s}, " % [k, tmp[k]]
 		output += "vars: [%s], " % map_string
 		return output
 
@@ -726,84 +880,136 @@ class ApiChannelMessage extends NakamaAsyncResult:
 	}
 
 	# The channel this message belongs to.
-	var _channel_id: String  = null
+	var _channel_id = null
 	var channel_id : String:
 		get:
-			return "" if not _channel_id is String else String(_channel_id)
+			#return "" if not _channel_id is String else String(_channel_id)
+			# Work around issue #53115 / #56217
+			var tmp = _channel_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The code representing a message type or category.
-	var _code: int  = null
+	var _code = null
 	var code : int:
 		get:
-			return 0 if not _code is int else int(_code)
+			#return 0 if not _code is int else int(_code)
+			# Work around issue #53115 / #56217
+			var tmp = _code
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# The content payload.
-	var _content: String  = null
+	var _content = null
 	var content : String:
 		get:
-			return "" if not _content is String else String(_content)
+			#return "" if not _content is String else String(_content)
+			# Work around issue #53115 / #56217
+			var tmp = _content
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The UNIX time when the message was created.
-	var _create_time: String  = null
+	var _create_time = null
 	var create_time : String:
 		get:
-			return "" if not _create_time is String else String(_create_time)
+			#return "" if not _create_time is String else String(_create_time)
+			# Work around issue #53115 / #56217
+			var tmp = _create_time
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The ID of the group, or an empty string if this message was not sent through a group channel.
-	var _group_id: String  = null
+	var _group_id = null
 	var group_id : String:
 		get:
-			return "" if not _group_id is String else String(_group_id)
+			#return "" if not _group_id is String else String(_group_id)
+			# Work around issue #53115 / #56217
+			var tmp = _group_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The unique ID of this message.
-	var _message_id: String  = null
+	var _message_id = null
 	var message_id : String:
 		get:
-			return "" if not _message_id is String else String(_message_id)
+			#return "" if not _message_id is String else String(_message_id)
+			# Work around issue #53115 / #56217
+			var tmp = _message_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# True if the message was persisted to the channel's history, false otherwise.
-	var _persistent: bool  = null
+	var _persistent = null
 	var persistent : bool:
 		get:
-			return false if not _persistent is bool else bool(_persistent)
+			#return false if not _persistent is bool else bool(_persistent)
+			# Work around issue #53115 / #56217
+			var tmp = _persistent
+			tmp = tmp
+			return false if not tmp is bool else bool(tmp)
 
 	# The name of the chat room, or an empty string if this message was not sent through a chat room.
-	var _room_name: String  = null
+	var _room_name = null
 	var room_name : String:
 		get:
-			return "" if not _room_name is String else String(_room_name)
+			#return "" if not _room_name is String else String(_room_name)
+			# Work around issue #53115 / #56217
+			var tmp = _room_name
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Message sender, usually a user ID.
-	var _sender_id: String  = null
+	var _sender_id = null
 	var sender_id : String:
 		get:
-			return "" if not _sender_id is String else String(_sender_id)
+			#return "" if not _sender_id is String else String(_sender_id)
+			# Work around issue #53115 / #56217
+			var tmp = _sender_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The UNIX time when the message was last updated.
-	var _update_time: String  = null
+	var _update_time = null
 	var update_time : String:
 		get:
-			return "" if not _update_time is String else String(_update_time)
+			#return "" if not _update_time is String else String(_update_time)
+			# Work around issue #53115 / #56217
+			var tmp = _update_time
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The ID of the first DM user, or an empty string if this message was not sent through a DM chat.
-	var _user_id_one: String  = null
+	var _user_id_one = null
 	var user_id_one : String:
 		get:
-			return "" if not _user_id_one is String else String(_user_id_one)
+			#return "" if not _user_id_one is String else String(_user_id_one)
+			# Work around issue #53115 / #56217
+			var tmp = _user_id_one
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The ID of the second DM user, or an empty string if this message was not sent through a DM chat.
-	var _user_id_two: String  = null
+	var _user_id_two = null
 	var user_id_two : String:
 		get:
-			return "" if not _user_id_two is String else String(_user_id_two)
+			#return "" if not _user_id_two is String else String(_user_id_two)
+			# Work around issue #53115 / #56217
+			var tmp = _user_id_two
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The username of the message sender, if any.
-	var _username: String  = null
+	var _username = null
 	var username : String:
 		get:
-			return "" if not _username is String else String(_username)
+			#return "" if not _username is String else String(_username)
+			# Work around issue #53115 / #56217
+			var tmp = _username
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiChannelMessage:
@@ -842,30 +1048,46 @@ class ApiChannelMessageList extends NakamaAsyncResult:
 	}
 
 	# Cacheable cursor to list newer messages. Durable and designed to be stored, unlike next/prev cursors.
-	var _cacheable_cursor: String  = null
+	var _cacheable_cursor = null
 	var cacheable_cursor : String:
 		get:
-			return "" if not _cacheable_cursor is String else String(_cacheable_cursor)
+			#return "" if not _cacheable_cursor is String else String(_cacheable_cursor)
+			# Work around issue #53115 / #56217
+			var tmp = _cacheable_cursor
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# A list of messages.
-	var _messages: Array  = null
+	var _messages = null
 	var messages : Array:
 		get:
-			return Array() if not _messages is Array else Array(_messages)
+			#return Array() if not _messages is Array else Array(_messages)
+			# Work around issue #53115 / #56217
+			var tmp = _messages
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
 	# The cursor to send when retrieving the next page, if any.
-	var _next_cursor: String  = null
+	var _next_cursor = null
 	var next_cursor : String:
 		get:
-			return "" if not _next_cursor is String else String(_next_cursor)
+			#return "" if not _next_cursor is String else String(_next_cursor)
+			# Work around issue #53115 / #56217
+			var tmp = _next_cursor
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The cursor to send when retrieving the previous page, if any.
-	var _prev_cursor: String  = null
+	var _prev_cursor = null
 	var prev_cursor : String:
 		get:
-			return "" if not _prev_cursor is String else String(_prev_cursor)
+			#return "" if not _prev_cursor is String else String(_prev_cursor)
+			# Work around issue #53115 / #56217
+			var tmp = _prev_cursor
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiChannelMessageList:
@@ -897,42 +1119,66 @@ class ApiCreateGroupRequest extends NakamaAsyncResult:
 	}
 
 	# A URL for an avatar image.
-	var _avatar_url: String  = null
+	var _avatar_url = null
 	var avatar_url : String:
 		get:
-			return "" if not _avatar_url is String else String(_avatar_url)
+			#return "" if not _avatar_url is String else String(_avatar_url)
+			# Work around issue #53115 / #56217
+			var tmp = _avatar_url
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# A description for the group.
-	var _description: String  = null
+	var _description = null
 	var description : String:
 		get:
-			return "" if not _description is String else String(_description)
+			#return "" if not _description is String else String(_description)
+			# Work around issue #53115 / #56217
+			var tmp = _description
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The language expected to be a tag which follows the BCP-47 spec.
-	var _lang_tag: String  = null
+	var _lang_tag = null
 	var lang_tag : String:
 		get:
-			return "" if not _lang_tag is String else String(_lang_tag)
+			#return "" if not _lang_tag is String else String(_lang_tag)
+			# Work around issue #53115 / #56217
+			var tmp = _lang_tag
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Maximum number of group members.
-	var _max_count: int  = null
+	var _max_count = null
 	var max_count : int:
 		get:
-			return 0 if not _max_count is int else int(_max_count)
+			#return 0 if not _max_count is int else int(_max_count)
+			# Work around issue #53115 / #56217
+			var tmp = _max_count
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# A unique name for the group.
-	var _name: String  = null
+	var _name = null
 	var name : String:
 		get:
-			return "" if not _name is String else String(_name)
+			#return "" if not _name is String else String(_name)
+			# Work around issue #53115 / #56217
+			var tmp = _name
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Mark a group as open or not where only admins can accept members.
-	var _open: bool  = null
+	var _open = null
 	var open : bool:
 		get:
-			return false if not _open is bool else bool(_open)
+			#return false if not _open is bool else bool(_open)
+			# Work around issue #53115 / #56217
+			var tmp = _open
+			tmp = tmp
+			return false if not tmp is bool else bool(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiCreateGroupRequest:
@@ -963,24 +1209,36 @@ class ApiDeleteStorageObjectId extends NakamaAsyncResult:
 	}
 
 	# The collection which stores the object.
-	var _collection: String  = null
+	var _collection = null
 	var collection : String:
 		get:
-			return "" if not _collection is String else String(_collection)
+			#return "" if not _collection is String else String(_collection)
+			# Work around issue #53115 / #56217
+			var tmp = _collection
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The key of the object within the collection.
-	var _key: String  = null
+	var _key = null
 	var key : String:
 		get:
-			return "" if not _key is String else String(_key)
+			#return "" if not _key is String else String(_key)
+			# Work around issue #53115 / #56217
+			var tmp = _key
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The version hash of the object.
-	var _version: String  = null
+	var _version = null
 	var version : String:
 		get:
-			return "" if not _version is String else String(_version)
+			#return "" if not _version is String else String(_version)
+			# Work around issue #53115 / #56217
+			var tmp = _version
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiDeleteStorageObjectId:
@@ -1006,12 +1264,16 @@ class ApiDeleteStorageObjectsRequest extends NakamaAsyncResult:
 	}
 
 	# Batch of storage objects.
-	var _object_ids: Array  = null
+	var _object_ids = null
 	var object_ids : Array:
 		get:
-			return Array() if not _object_ids is Array else Array(_object_ids)
+			#return Array() if not _object_ids is Array else Array(_object_ids)
+			# Work around issue #53115 / #56217
+			var tmp = _object_ids
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiDeleteStorageObjectsRequest:
@@ -1038,30 +1300,42 @@ class ApiEvent extends NakamaAsyncResult:
 	}
 
 	# True if the event came directly from a client call, false otherwise.
-	var _external: bool  = null
+	var _external = null
 	var external : bool:
 		get:
-			return false if not _external is bool else bool(_external)
+			#return false if not _external is bool else bool(_external)
+			# Work around issue #53115 / #56217
+			var tmp = _external
+			tmp = tmp
+			return false if not tmp is bool else bool(tmp)
 
 	# An event name, type, category, or identifier.
-	var _name: String  = null
+	var _name = null
 	var name : String:
 		get:
-			return "" if not _name is String else String(_name)
+			#return "" if not _name is String else String(_name)
+			# Work around issue #53115 / #56217
+			var tmp = _name
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Arbitrary event property values.
-	var _properties: Dictionary  = null
+	var _properties = null
 	var properties : Dictionary:
 		get:
 			return Dictionary() if not _properties is Dictionary else _properties.duplicate()
 
 	# The time when the event was triggered.
-	var _timestamp: String  = null
+	var _timestamp = null
 	var timestamp : String:
 		get:
-			return "" if not _timestamp is String else String(_timestamp)
+			#return "" if not _timestamp is String else String(_timestamp)
+			# Work around issue #53115 / #56217
+			var tmp = _timestamp
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiEvent:
@@ -1077,9 +1351,12 @@ class ApiEvent extends NakamaAsyncResult:
 		output += "external: %s, " % _external
 		output += "name: %s, " % _name
 		var map_string : String = ""
-		if typeof(_properties) == TYPE_DICTIONARY:
-			for k in _properties:
-				map_string += "{%s=%s}, " % [k, _properties[k]]
+		# Work around issue #53115 / #56217
+		var tmp = _properties
+		tmp = tmp
+		if typeof(tmp) == TYPE_DICTIONARY:
+			for k in tmp:
+				map_string += "{%s=%s}, " % [k, tmp[k]]
 		output += "properties: [%s], " % map_string
 		output += "timestamp: %s, " % _timestamp
 		return output
@@ -1094,24 +1371,36 @@ class ApiFriend extends NakamaAsyncResult:
 	}
 
 	# The friend status.
-	var _state: int  = null
+	var _state = null
 	var state : int:
 		get:
-			return 0 if not _state is int else int(_state)
+			#return 0 if not _state is int else int(_state)
+			# Work around issue #53115 / #56217
+			var tmp = _state
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# Time of the latest relationship update.
-	var _update_time: String  = null
+	var _update_time = null
 	var update_time : String:
 		get:
-			return "" if not _update_time is String else String(_update_time)
+			#return "" if not _update_time is String else String(_update_time)
+			# Work around issue #53115 / #56217
+			var tmp = _update_time
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The user object.
-	var _user: ApiUser  = null
+	var _user = null
 	var user : ApiUser:
 		get:
-			return _user as ApiUser
+			#return _user as ApiUser
+			# Work around issue #53115 / #56217
+			var tmp = _user
+			tmp = tmp
+			return tmp as ApiUser
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiFriend:
@@ -1138,18 +1427,26 @@ class ApiFriendList extends NakamaAsyncResult:
 	}
 
 	# Cursor for the next page of results, if any.
-	var _cursor: String  = null
+	var _cursor = null
 	var cursor : String:
 		get:
-			return "" if not _cursor is String else String(_cursor)
+			#return "" if not _cursor is String else String(_cursor)
+			# Work around issue #53115 / #56217
+			var tmp = _cursor
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The Friend objects.
-	var _friends: Array  = null
+	var _friends = null
 	var friends : Array:
 		get:
-			return Array() if not _friends is Array else Array(_friends)
+			#return Array() if not _friends is Array else Array(_friends)
+			# Work around issue #53115 / #56217
+			var tmp = _friends
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiFriendList:
@@ -1185,78 +1482,126 @@ class ApiGroup extends NakamaAsyncResult:
 	}
 
 	# A URL for an avatar image.
-	var _avatar_url: String  = null
+	var _avatar_url = null
 	var avatar_url : String:
 		get:
-			return "" if not _avatar_url is String else String(_avatar_url)
+			#return "" if not _avatar_url is String else String(_avatar_url)
+			# Work around issue #53115 / #56217
+			var tmp = _avatar_url
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The UNIX time when the group was created.
-	var _create_time: String  = null
+	var _create_time = null
 	var create_time : String:
 		get:
-			return "" if not _create_time is String else String(_create_time)
+			#return "" if not _create_time is String else String(_create_time)
+			# Work around issue #53115 / #56217
+			var tmp = _create_time
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The id of the user who created the group.
-	var _creator_id: String  = null
+	var _creator_id = null
 	var creator_id : String:
 		get:
-			return "" if not _creator_id is String else String(_creator_id)
+			#return "" if not _creator_id is String else String(_creator_id)
+			# Work around issue #53115 / #56217
+			var tmp = _creator_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# A description for the group.
-	var _description: String  = null
+	var _description = null
 	var description : String:
 		get:
-			return "" if not _description is String else String(_description)
+			#return "" if not _description is String else String(_description)
+			# Work around issue #53115 / #56217
+			var tmp = _description
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The current count of all members in the group.
-	var _edge_count: int  = null
+	var _edge_count = null
 	var edge_count : int:
 		get:
-			return 0 if not _edge_count is int else int(_edge_count)
+			#return 0 if not _edge_count is int else int(_edge_count)
+			# Work around issue #53115 / #56217
+			var tmp = _edge_count
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# The id of a group.
-	var _id: String  = null
+	var _id = null
 	var id : String:
 		get:
-			return "" if not _id is String else String(_id)
+			#return "" if not _id is String else String(_id)
+			# Work around issue #53115 / #56217
+			var tmp = _id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The language expected to be a tag which follows the BCP-47 spec.
-	var _lang_tag: String  = null
+	var _lang_tag = null
 	var lang_tag : String:
 		get:
-			return "" if not _lang_tag is String else String(_lang_tag)
+			#return "" if not _lang_tag is String else String(_lang_tag)
+			# Work around issue #53115 / #56217
+			var tmp = _lang_tag
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The maximum number of members allowed.
-	var _max_count: int  = null
+	var _max_count = null
 	var max_count : int:
 		get:
-			return 0 if not _max_count is int else int(_max_count)
+			#return 0 if not _max_count is int else int(_max_count)
+			# Work around issue #53115 / #56217
+			var tmp = _max_count
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# Additional information stored as a JSON object.
-	var _metadata: String  = null
+	var _metadata = null
 	var metadata : String:
 		get:
-			return "" if not _metadata is String else String(_metadata)
+			#return "" if not _metadata is String else String(_metadata)
+			# Work around issue #53115 / #56217
+			var tmp = _metadata
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The unique name of the group.
-	var _name: String  = null
+	var _name = null
 	var name : String:
 		get:
-			return "" if not _name is String else String(_name)
+			#return "" if not _name is String else String(_name)
+			# Work around issue #53115 / #56217
+			var tmp = _name
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Anyone can join open groups, otherwise only admins can accept members.
-	var _open: bool  = null
+	var _open = null
 	var open : bool:
 		get:
-			return false if not _open is bool else bool(_open)
+			#return false if not _open is bool else bool(_open)
+			# Work around issue #53115 / #56217
+			var tmp = _open
+			tmp = tmp
+			return false if not tmp is bool else bool(tmp)
 
 	# The UNIX time when the group was last updated.
-	var _update_time: String  = null
+	var _update_time = null
 	var update_time : String:
 		get:
-			return "" if not _update_time is String else String(_update_time)
+			#return "" if not _update_time is String else String(_update_time)
+			# Work around issue #53115 / #56217
+			var tmp = _update_time
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiGroup:
@@ -1292,18 +1637,26 @@ class ApiGroupList extends NakamaAsyncResult:
 	}
 
 	# A cursor used to get the next page.
-	var _cursor: String  = null
+	var _cursor = null
 	var cursor : String:
 		get:
-			return "" if not _cursor is String else String(_cursor)
+			#return "" if not _cursor is String else String(_cursor)
+			# Work around issue #53115 / #56217
+			var tmp = _cursor
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# One or more groups.
-	var _groups: Array  = null
+	var _groups = null
 	var groups : Array:
 		get:
-			return Array() if not _groups is Array else Array(_groups)
+			#return Array() if not _groups is Array else Array(_groups)
+			# Work around issue #53115 / #56217
+			var tmp = _groups
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiGroupList:
@@ -1329,18 +1682,26 @@ class ApiGroupUserList extends NakamaAsyncResult:
 	}
 
 	# Cursor for the next page of results, if any.
-	var _cursor: String  = null
+	var _cursor = null
 	var cursor : String:
 		get:
-			return "" if not _cursor is String else String(_cursor)
+			#return "" if not _cursor is String else String(_cursor)
+			# Work around issue #53115 / #56217
+			var tmp = _cursor
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# User-role pairs for a group.
-	var _group_users: Array  = null
+	var _group_users = null
 	var group_users : Array:
 		get:
-			return Array() if not _group_users is Array else Array(_group_users)
+			#return Array() if not _group_users is Array else Array(_group_users)
+			# Work around issue #53115 / #56217
+			var tmp = _group_users
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiGroupUserList:
@@ -1376,78 +1737,126 @@ class ApiLeaderboardRecord extends NakamaAsyncResult:
 	}
 
 	# The UNIX time when the leaderboard record was created.
-	var _create_time: String  = null
+	var _create_time = null
 	var create_time : String:
 		get:
-			return "" if not _create_time is String else String(_create_time)
+			#return "" if not _create_time is String else String(_create_time)
+			# Work around issue #53115 / #56217
+			var tmp = _create_time
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The UNIX time when the leaderboard record expires.
-	var _expiry_time: String  = null
+	var _expiry_time = null
 	var expiry_time : String:
 		get:
-			return "" if not _expiry_time is String else String(_expiry_time)
+			#return "" if not _expiry_time is String else String(_expiry_time)
+			# Work around issue #53115 / #56217
+			var tmp = _expiry_time
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The ID of the leaderboard this score belongs to.
-	var _leaderboard_id: String  = null
+	var _leaderboard_id = null
 	var leaderboard_id : String:
 		get:
-			return "" if not _leaderboard_id is String else String(_leaderboard_id)
+			#return "" if not _leaderboard_id is String else String(_leaderboard_id)
+			# Work around issue #53115 / #56217
+			var tmp = _leaderboard_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The maximum number of score updates allowed by the owner.
-	var _max_num_score: int  = null
+	var _max_num_score = null
 	var max_num_score : int:
 		get:
-			return 0 if not _max_num_score is int else int(_max_num_score)
+			#return 0 if not _max_num_score is int else int(_max_num_score)
+			# Work around issue #53115 / #56217
+			var tmp = _max_num_score
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# Metadata.
-	var _metadata: String  = null
+	var _metadata = null
 	var metadata : String:
 		get:
-			return "" if not _metadata is String else String(_metadata)
+			#return "" if not _metadata is String else String(_metadata)
+			# Work around issue #53115 / #56217
+			var tmp = _metadata
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The number of submissions to this score record.
-	var _num_score: int  = null
+	var _num_score = null
 	var num_score : int:
 		get:
-			return 0 if not _num_score is int else int(_num_score)
+			#return 0 if not _num_score is int else int(_num_score)
+			# Work around issue #53115 / #56217
+			var tmp = _num_score
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# The ID of the score owner, usually a user or group.
-	var _owner_id: String  = null
+	var _owner_id = null
 	var owner_id : String:
 		get:
-			return "" if not _owner_id is String else String(_owner_id)
+			#return "" if not _owner_id is String else String(_owner_id)
+			# Work around issue #53115 / #56217
+			var tmp = _owner_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The rank of this record.
-	var _rank: String  = null
+	var _rank = null
 	var rank : String:
 		get:
-			return "" if not _rank is String else String(_rank)
+			#return "" if not _rank is String else String(_rank)
+			# Work around issue #53115 / #56217
+			var tmp = _rank
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The score value.
-	var _score: String  = null
+	var _score = null
 	var score : String:
 		get:
-			return "" if not _score is String else String(_score)
+			#return "" if not _score is String else String(_score)
+			# Work around issue #53115 / #56217
+			var tmp = _score
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# An optional subscore value.
-	var _subscore: String  = null
+	var _subscore = null
 	var subscore : String:
 		get:
-			return "" if not _subscore is String else String(_subscore)
+			#return "" if not _subscore is String else String(_subscore)
+			# Work around issue #53115 / #56217
+			var tmp = _subscore
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The UNIX time when the leaderboard record was updated.
-	var _update_time: String  = null
+	var _update_time = null
 	var update_time : String:
 		get:
-			return "" if not _update_time is String else String(_update_time)
+			#return "" if not _update_time is String else String(_update_time)
+			# Work around issue #53115 / #56217
+			var tmp = _update_time
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The username of the score owner, if the owner is a user.
-	var _username: String  = null
+	var _username = null
 	var username : String:
 		get:
-			return "" if not _username is String else String(_username)
+			#return "" if not _username is String else String(_username)
+			# Work around issue #53115 / #56217
+			var tmp = _username
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiLeaderboardRecord:
@@ -1485,30 +1894,46 @@ class ApiLeaderboardRecordList extends NakamaAsyncResult:
 	}
 
 	# The cursor to send when retrieving the next page, if any.
-	var _next_cursor: String  = null
+	var _next_cursor = null
 	var next_cursor : String:
 		get:
-			return "" if not _next_cursor is String else String(_next_cursor)
+			#return "" if not _next_cursor is String else String(_next_cursor)
+			# Work around issue #53115 / #56217
+			var tmp = _next_cursor
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# A batched set of leaderboard records belonging to specified owners.
-	var _owner_records: Array  = null
+	var _owner_records = null
 	var owner_records : Array:
 		get:
-			return Array() if not _owner_records is Array else Array(_owner_records)
+			#return Array() if not _owner_records is Array else Array(_owner_records)
+			# Work around issue #53115 / #56217
+			var tmp = _owner_records
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
 	# The cursor to send when retrieving the previous page, if any.
-	var _prev_cursor: String  = null
+	var _prev_cursor = null
 	var prev_cursor : String:
 		get:
-			return "" if not _prev_cursor is String else String(_prev_cursor)
+			#return "" if not _prev_cursor is String else String(_prev_cursor)
+			# Work around issue #53115 / #56217
+			var tmp = _prev_cursor
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# A list of leaderboard records.
-	var _records: Array  = null
+	var _records = null
 	var records : Array:
 		get:
-			return Array() if not _records is Array else Array(_records)
+			#return Array() if not _records is Array else Array(_records)
+			# Work around issue #53115 / #56217
+			var tmp = _records
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiLeaderboardRecordList:
@@ -1536,18 +1961,26 @@ class ApiLinkSteamRequest extends NakamaAsyncResult:
 	}
 
 	# The Facebook account details.
-	var _account: ApiAccountSteam  = null
+	var _account = null
 	var account : ApiAccountSteam:
 		get:
-			return _account as ApiAccountSteam
+			#return _account as ApiAccountSteam
+			# Work around issue #53115 / #56217
+			var tmp = _account
+			tmp = tmp
+			return tmp as ApiAccountSteam
 
 	# Import Steam friends for the user.
-	var _sync: bool  = null
+	var _sync = null
 	var sync : bool:
 		get:
-			return false if not _sync is bool else bool(_sync)
+			#return false if not _sync is bool else bool(_sync)
+			# Work around issue #53115 / #56217
+			var tmp = _sync
+			tmp = tmp
+			return false if not tmp is bool else bool(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiLinkSteamRequest:
@@ -1577,42 +2010,66 @@ class ApiMatch extends NakamaAsyncResult:
 	}
 
 	# True if it's an server-managed authoritative match, false otherwise.
-	var _authoritative: bool  = null
+	var _authoritative = null
 	var authoritative : bool:
 		get:
-			return false if not _authoritative is bool else bool(_authoritative)
+			#return false if not _authoritative is bool else bool(_authoritative)
+			# Work around issue #53115 / #56217
+			var tmp = _authoritative
+			tmp = tmp
+			return false if not tmp is bool else bool(tmp)
 
 	# 
-	var _handler_name: String  = null
+	var _handler_name = null
 	var handler_name : String:
 		get:
-			return "" if not _handler_name is String else String(_handler_name)
+			#return "" if not _handler_name is String else String(_handler_name)
+			# Work around issue #53115 / #56217
+			var tmp = _handler_name
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Match label, if any.
-	var _label: String  = null
+	var _label = null
 	var label : String:
 		get:
-			return "" if not _label is String else String(_label)
+			#return "" if not _label is String else String(_label)
+			# Work around issue #53115 / #56217
+			var tmp = _label
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The ID of the match, can be used to join.
-	var _match_id: String  = null
+	var _match_id = null
 	var match_id : String:
 		get:
-			return "" if not _match_id is String else String(_match_id)
+			#return "" if not _match_id is String else String(_match_id)
+			# Work around issue #53115 / #56217
+			var tmp = _match_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Current number of users in the match.
-	var _size: int  = null
+	var _size = null
 	var size : int:
 		get:
-			return 0 if not _size is int else int(_size)
+			#return 0 if not _size is int else int(_size)
+			# Work around issue #53115 / #56217
+			var tmp = _size
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# 
-	var _tick_rate: int  = null
+	var _tick_rate = null
 	var tick_rate : int:
 		get:
-			return 0 if not _tick_rate is int else int(_tick_rate)
+			#return 0 if not _tick_rate is int else int(_tick_rate)
+			# Work around issue #53115 / #56217
+			var tmp = _tick_rate
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiMatch:
@@ -1641,12 +2098,16 @@ class ApiMatchList extends NakamaAsyncResult:
 	}
 
 	# A number of matches corresponding to a list operation.
-	var _matches: Array  = null
+	var _matches = null
 	var matches : Array:
 		get:
-			return Array() if not _matches is Array else Array(_matches)
+			#return Array() if not _matches is Array else Array(_matches)
+			# Work around issue #53115 / #56217
+			var tmp = _matches
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiMatchList:
@@ -1676,48 +2137,76 @@ class ApiNotification extends NakamaAsyncResult:
 	}
 
 	# Category code for this notification.
-	var _code: int  = null
+	var _code = null
 	var code : int:
 		get:
-			return 0 if not _code is int else int(_code)
+			#return 0 if not _code is int else int(_code)
+			# Work around issue #53115 / #56217
+			var tmp = _code
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# Content of the notification in JSON.
-	var _content: String  = null
+	var _content = null
 	var content : String:
 		get:
-			return "" if not _content is String else String(_content)
+			#return "" if not _content is String else String(_content)
+			# Work around issue #53115 / #56217
+			var tmp = _content
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The UNIX time when the notification was created.
-	var _create_time: String  = null
+	var _create_time = null
 	var create_time : String:
 		get:
-			return "" if not _create_time is String else String(_create_time)
+			#return "" if not _create_time is String else String(_create_time)
+			# Work around issue #53115 / #56217
+			var tmp = _create_time
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# ID of the Notification.
-	var _id: String  = null
+	var _id = null
 	var id : String:
 		get:
-			return "" if not _id is String else String(_id)
+			#return "" if not _id is String else String(_id)
+			# Work around issue #53115 / #56217
+			var tmp = _id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# True if this notification was persisted to the database.
-	var _persistent: bool  = null
+	var _persistent = null
 	var persistent : bool:
 		get:
-			return false if not _persistent is bool else bool(_persistent)
+			#return false if not _persistent is bool else bool(_persistent)
+			# Work around issue #53115 / #56217
+			var tmp = _persistent
+			tmp = tmp
+			return false if not tmp is bool else bool(tmp)
 
 	# ID of the sender, if a user. Otherwise 'null'.
-	var _sender_id: String  = null
+	var _sender_id = null
 	var sender_id : String:
 		get:
-			return "" if not _sender_id is String else String(_sender_id)
+			#return "" if not _sender_id is String else String(_sender_id)
+			# Work around issue #53115 / #56217
+			var tmp = _sender_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Subject of the notification.
-	var _subject: String  = null
+	var _subject = null
 	var subject : String:
 		get:
-			return "" if not _subject is String else String(_subject)
+			#return "" if not _subject is String else String(_subject)
+			# Work around issue #53115 / #56217
+			var tmp = _subject
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiNotification:
@@ -1748,18 +2237,26 @@ class ApiNotificationList extends NakamaAsyncResult:
 	}
 
 	# Use this cursor to paginate notifications. Cache this to catch up to new notifications.
-	var _cacheable_cursor: String  = null
+	var _cacheable_cursor = null
 	var cacheable_cursor : String:
 		get:
-			return "" if not _cacheable_cursor is String else String(_cacheable_cursor)
+			#return "" if not _cacheable_cursor is String else String(_cacheable_cursor)
+			# Work around issue #53115 / #56217
+			var tmp = _cacheable_cursor
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Collection of notifications.
-	var _notifications: Array  = null
+	var _notifications = null
 	var notifications : Array:
 		get:
-			return Array() if not _notifications is Array else Array(_notifications)
+			#return Array() if not _notifications is Array else Array(_notifications)
+			# Work around issue #53115 / #56217
+			var tmp = _notifications
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiNotificationList:
@@ -1794,24 +2291,36 @@ class ApiReadStorageObjectId extends NakamaAsyncResult:
 	}
 
 	# The collection which stores the object.
-	var _collection: String  = null
+	var _collection = null
 	var collection : String:
 		get:
-			return "" if not _collection is String else String(_collection)
+			#return "" if not _collection is String else String(_collection)
+			# Work around issue #53115 / #56217
+			var tmp = _collection
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The key of the object within the collection.
-	var _key: String  = null
+	var _key = null
 	var key : String:
 		get:
-			return "" if not _key is String else String(_key)
+			#return "" if not _key is String else String(_key)
+			# Work around issue #53115 / #56217
+			var tmp = _key
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The user owner of the object.
-	var _user_id: String  = null
+	var _user_id = null
 	var user_id : String:
 		get:
-			return "" if not _user_id is String else String(_user_id)
+			#return "" if not _user_id is String else String(_user_id)
+			# Work around issue #53115 / #56217
+			var tmp = _user_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiReadStorageObjectId:
@@ -1837,12 +2346,16 @@ class ApiReadStorageObjectsRequest extends NakamaAsyncResult:
 	}
 
 	# Batch of storage objects.
-	var _object_ids: Array  = null
+	var _object_ids = null
 	var object_ids : Array:
 		get:
-			return Array() if not _object_ids is Array else Array(_object_ids)
+			#return Array() if not _object_ids is Array else Array(_object_ids)
+			# Work around issue #53115 / #56217
+			var tmp = _object_ids
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiReadStorageObjectsRequest:
@@ -1868,24 +2381,36 @@ class ApiRpc extends NakamaAsyncResult:
 	}
 
 	# The authentication key used when executed as a non-client HTTP request.
-	var _http_key: String  = null
+	var _http_key = null
 	var http_key : String:
 		get:
-			return "" if not _http_key is String else String(_http_key)
+			#return "" if not _http_key is String else String(_http_key)
+			# Work around issue #53115 / #56217
+			var tmp = _http_key
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The identifier of the function.
-	var _id: String  = null
+	var _id = null
 	var id : String:
 		get:
-			return "" if not _id is String else String(_id)
+			#return "" if not _id is String else String(_id)
+			# Work around issue #53115 / #56217
+			var tmp = _id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The payload of the function which must be a JSON object.
-	var _payload: String  = null
+	var _payload = null
 	var payload : String:
 		get:
-			return "" if not _payload is String else String(_payload)
+			#return "" if not _payload is String else String(_payload)
+			# Work around issue #53115 / #56217
+			var tmp = _payload
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiRpc:
@@ -1913,24 +2438,36 @@ class ApiSession extends NakamaAsyncResult:
 	}
 
 	# True if the corresponding account was just created, false otherwise.
-	var _created: bool  = null
+	var _created = null
 	var created : bool:
 		get:
-			return false if not _created is bool else bool(_created)
+			#return false if not _created is bool else bool(_created)
+			# Work around issue #53115 / #56217
+			var tmp = _created
+			tmp = tmp
+			return false if not tmp is bool else bool(tmp)
 
 	# Refresh token that can be used for session token renewal.
-	var _refresh_token: String  = null
+	var _refresh_token = null
 	var refresh_token : String:
 		get:
-			return "" if not _refresh_token is String else String(_refresh_token)
+			#return "" if not _refresh_token is String else String(_refresh_token)
+			# Work around issue #53115 / #56217
+			var tmp = _refresh_token
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Authentication credentials.
-	var _token: String  = null
+	var _token = null
 	var token : String:
 		get:
-			return "" if not _token is String else String(_token)
+			#return "" if not _token is String else String(_token)
+			# Work around issue #53115 / #56217
+			var tmp = _token
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiSession:
@@ -1957,18 +2494,26 @@ class ApiSessionLogoutRequest extends NakamaAsyncResult:
 	}
 
 	# Refresh token to invalidate.
-	var _refresh_token: String  = null
+	var _refresh_token = null
 	var refresh_token : String:
 		get:
-			return "" if not _refresh_token is String else String(_refresh_token)
+			#return "" if not _refresh_token is String else String(_refresh_token)
+			# Work around issue #53115 / #56217
+			var tmp = _refresh_token
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Session token to log out.
-	var _token: String  = null
+	var _token = null
 	var token : String:
 		get:
-			return "" if not _token is String else String(_token)
+			#return "" if not _token is String else String(_token)
+			# Work around issue #53115 / #56217
+			var tmp = _token
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiSessionLogoutRequest:
@@ -1994,18 +2539,22 @@ class ApiSessionRefreshRequest extends NakamaAsyncResult:
 	}
 
 	# Refresh token.
-	var _token: String  = null
+	var _token = null
 	var token : String:
 		get:
-			return "" if not _token is String else String(_token)
+			#return "" if not _token is String else String(_token)
+			# Work around issue #53115 / #56217
+			var tmp = _token
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Extra information that will be bundled in the session token.
-	var _vars: Dictionary  = null
+	var _vars = null
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiSessionRefreshRequest:
@@ -2020,9 +2569,12 @@ class ApiSessionRefreshRequest extends NakamaAsyncResult:
 		var output : String = ""
 		output += "token: %s, " % _token
 		var map_string : String = ""
-		if typeof(_vars) == TYPE_DICTIONARY:
-			for k in _vars:
-				map_string += "{%s=%s}, " % [k, _vars[k]]
+		# Work around issue #53115 / #56217
+		var tmp = _vars
+		tmp = tmp
+		if typeof(tmp) == TYPE_DICTIONARY:
+			for k in tmp:
+				map_string += "{%s=%s}, " % [k, tmp[k]]
 		output += "vars: [%s], " % map_string
 		return output
 
@@ -2042,60 +2594,96 @@ class ApiStorageObject extends NakamaAsyncResult:
 	}
 
 	# The collection which stores the object.
-	var _collection: String  = null
+	var _collection = null
 	var collection : String:
 		get:
-			return "" if not _collection is String else String(_collection)
+			#return "" if not _collection is String else String(_collection)
+			# Work around issue #53115 / #56217
+			var tmp = _collection
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The UNIX time when the object was created.
-	var _create_time: String  = null
+	var _create_time = null
 	var create_time : String:
 		get:
-			return "" if not _create_time is String else String(_create_time)
+			#return "" if not _create_time is String else String(_create_time)
+			# Work around issue #53115 / #56217
+			var tmp = _create_time
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The key of the object within the collection.
-	var _key: String  = null
+	var _key = null
 	var key : String:
 		get:
-			return "" if not _key is String else String(_key)
+			#return "" if not _key is String else String(_key)
+			# Work around issue #53115 / #56217
+			var tmp = _key
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The read access permissions for the object.
-	var _permission_read: int  = null
+	var _permission_read = null
 	var permission_read : int:
 		get:
-			return 0 if not _permission_read is int else int(_permission_read)
+			#return 0 if not _permission_read is int else int(_permission_read)
+			# Work around issue #53115 / #56217
+			var tmp = _permission_read
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# The write access permissions for the object.
-	var _permission_write: int  = null
+	var _permission_write = null
 	var permission_write : int:
 		get:
-			return 0 if not _permission_write is int else int(_permission_write)
+			#return 0 if not _permission_write is int else int(_permission_write)
+			# Work around issue #53115 / #56217
+			var tmp = _permission_write
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# The UNIX time when the object was last updated.
-	var _update_time: String  = null
+	var _update_time = null
 	var update_time : String:
 		get:
-			return "" if not _update_time is String else String(_update_time)
+			#return "" if not _update_time is String else String(_update_time)
+			# Work around issue #53115 / #56217
+			var tmp = _update_time
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The user owner of the object.
-	var _user_id: String  = null
+	var _user_id = null
 	var user_id : String:
 		get:
-			return "" if not _user_id is String else String(_user_id)
+			#return "" if not _user_id is String else String(_user_id)
+			# Work around issue #53115 / #56217
+			var tmp = _user_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The value of the object.
-	var _value: String  = null
+	var _value = null
 	var value : String:
 		get:
-			return "" if not _value is String else String(_value)
+			#return "" if not _value is String else String(_value)
+			# Work around issue #53115 / #56217
+			var tmp = _value
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The version hash of the object.
-	var _version: String  = null
+	var _version = null
 	var version : String:
 		get:
-			return "" if not _version is String else String(_version)
+			#return "" if not _version is String else String(_version)
+			# Work around issue #53115 / #56217
+			var tmp = _version
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiStorageObject:
@@ -2130,30 +2718,46 @@ class ApiStorageObjectAck extends NakamaAsyncResult:
 	}
 
 	# The collection which stores the object.
-	var _collection: String  = null
+	var _collection = null
 	var collection : String:
 		get:
-			return "" if not _collection is String else String(_collection)
+			#return "" if not _collection is String else String(_collection)
+			# Work around issue #53115 / #56217
+			var tmp = _collection
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The key of the object within the collection.
-	var _key: String  = null
+	var _key = null
 	var key : String:
 		get:
-			return "" if not _key is String else String(_key)
+			#return "" if not _key is String else String(_key)
+			# Work around issue #53115 / #56217
+			var tmp = _key
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The owner of the object.
-	var _user_id: String  = null
+	var _user_id = null
 	var user_id : String:
 		get:
-			return "" if not _user_id is String else String(_user_id)
+			#return "" if not _user_id is String else String(_user_id)
+			# Work around issue #53115 / #56217
+			var tmp = _user_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The version hash of the object.
-	var _version: String  = null
+	var _version = null
 	var version : String:
 		get:
-			return "" if not _version is String else String(_version)
+			#return "" if not _version is String else String(_version)
+			# Work around issue #53115 / #56217
+			var tmp = _version
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiStorageObjectAck:
@@ -2180,12 +2784,16 @@ class ApiStorageObjectAcks extends NakamaAsyncResult:
 	}
 
 	# Batch of storage write acknowledgements.
-	var _acks: Array  = null
+	var _acks = null
 	var acks : Array:
 		get:
-			return Array() if not _acks is Array else Array(_acks)
+			#return Array() if not _acks is Array else Array(_acks)
+			# Work around issue #53115 / #56217
+			var tmp = _acks
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiStorageObjectAcks:
@@ -2210,18 +2818,26 @@ class ApiStorageObjectList extends NakamaAsyncResult:
 	}
 
 	# The cursor for the next page of results, if any.
-	var _cursor: String  = null
+	var _cursor = null
 	var cursor : String:
 		get:
-			return "" if not _cursor is String else String(_cursor)
+			#return "" if not _cursor is String else String(_cursor)
+			# Work around issue #53115 / #56217
+			var tmp = _cursor
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The list of storage objects.
-	var _objects: Array  = null
+	var _objects = null
 	var objects : Array:
 		get:
-			return Array() if not _objects is Array else Array(_objects)
+			#return Array() if not _objects is Array else Array(_objects)
+			# Work around issue #53115 / #56217
+			var tmp = _objects
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiStorageObjectList:
@@ -2246,12 +2862,16 @@ class ApiStorageObjects extends NakamaAsyncResult:
 	}
 
 	# The batch of storage objects.
-	var _objects: Array  = null
+	var _objects = null
 	var objects : Array:
 		get:
-			return Array() if not _objects is Array else Array(_objects)
+			#return Array() if not _objects is Array else Array(_objects)
+			# Work around issue #53115 / #56217
+			var tmp = _objects
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiStorageObjects:
@@ -2293,120 +2913,192 @@ class ApiTournament extends NakamaAsyncResult:
 	}
 
 	# True if the tournament is active and can enter. A computed value.
-	var _can_enter: bool  = null
+	var _can_enter = null
 	var can_enter : bool:
 		get:
-			return false if not _can_enter is bool else bool(_can_enter)
+			#return false if not _can_enter is bool else bool(_can_enter)
+			# Work around issue #53115 / #56217
+			var tmp = _can_enter
+			tmp = tmp
+			return false if not tmp is bool else bool(tmp)
 
 	# The category of the tournament. e.g. "vip" could be category 1.
-	var _category: int  = null
+	var _category = null
 	var category : int:
 		get:
-			return 0 if not _category is int else int(_category)
+			#return 0 if not _category is int else int(_category)
+			# Work around issue #53115 / #56217
+			var tmp = _category
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# The UNIX time when the tournament was created.
-	var _create_time: String  = null
+	var _create_time = null
 	var create_time : String:
 		get:
-			return "" if not _create_time is String else String(_create_time)
+			#return "" if not _create_time is String else String(_create_time)
+			# Work around issue #53115 / #56217
+			var tmp = _create_time
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The description of the tournament. May be blank.
-	var _description: String  = null
+	var _description = null
 	var description : String:
 		get:
-			return "" if not _description is String else String(_description)
+			#return "" if not _description is String else String(_description)
+			# Work around issue #53115 / #56217
+			var tmp = _description
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Duration of the tournament in seconds.
-	var _duration: int  = null
+	var _duration = null
 	var duration : int:
 		get:
-			return 0 if not _duration is int else int(_duration)
+			#return 0 if not _duration is int else int(_duration)
+			# Work around issue #53115 / #56217
+			var tmp = _duration
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# The UNIX time when the tournament stops being active until next reset. A computed value.
-	var _end_active: int  = null
+	var _end_active = null
 	var end_active : int:
 		get:
-			return 0 if not _end_active is int else int(_end_active)
+			#return 0 if not _end_active is int else int(_end_active)
+			# Work around issue #53115 / #56217
+			var tmp = _end_active
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# The UNIX time when the tournament will be stopped.
-	var _end_time: String  = null
+	var _end_time = null
 	var end_time : String:
 		get:
-			return "" if not _end_time is String else String(_end_time)
+			#return "" if not _end_time is String else String(_end_time)
+			# Work around issue #53115 / #56217
+			var tmp = _end_time
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The ID of the tournament.
-	var _id: String  = null
+	var _id = null
 	var id : String:
 		get:
-			return "" if not _id is String else String(_id)
+			#return "" if not _id is String else String(_id)
+			# Work around issue #53115 / #56217
+			var tmp = _id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The maximum score updates allowed per player for the current tournament.
-	var _max_num_score: int  = null
+	var _max_num_score = null
 	var max_num_score : int:
 		get:
-			return 0 if not _max_num_score is int else int(_max_num_score)
+			#return 0 if not _max_num_score is int else int(_max_num_score)
+			# Work around issue #53115 / #56217
+			var tmp = _max_num_score
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# The maximum number of players for the tournament.
-	var _max_size: int  = null
+	var _max_size = null
 	var max_size : int:
 		get:
-			return 0 if not _max_size is int else int(_max_size)
+			#return 0 if not _max_size is int else int(_max_size)
+			# Work around issue #53115 / #56217
+			var tmp = _max_size
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# Additional information stored as a JSON object.
-	var _metadata: String  = null
+	var _metadata = null
 	var metadata : String:
 		get:
-			return "" if not _metadata is String else String(_metadata)
+			#return "" if not _metadata is String else String(_metadata)
+			# Work around issue #53115 / #56217
+			var tmp = _metadata
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The UNIX time when the tournament is next playable. A computed value.
-	var _next_reset: int  = null
+	var _next_reset = null
 	var next_reset : int:
 		get:
-			return 0 if not _next_reset is int else int(_next_reset)
+			#return 0 if not _next_reset is int else int(_next_reset)
+			# Work around issue #53115 / #56217
+			var tmp = _next_reset
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# Operator.
-	var _operator: int  = null
+	var _operator = null
 	var operator : int:
 		get:
 			return ApiOperator.values()[0] if not ApiOperator.values().has(_operator) else _operator
 
 	# The UNIX time when the tournament was last reset. A computed value.
-	var _prev_reset: int  = null
+	var _prev_reset = null
 	var prev_reset : int:
 		get:
-			return 0 if not _prev_reset is int else int(_prev_reset)
+			#return 0 if not _prev_reset is int else int(_prev_reset)
+			# Work around issue #53115 / #56217
+			var tmp = _prev_reset
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# The current number of players in the tournament.
-	var _size: int  = null
+	var _size = null
 	var size : int:
 		get:
-			return 0 if not _size is int else int(_size)
+			#return 0 if not _size is int else int(_size)
+			# Work around issue #53115 / #56217
+			var tmp = _size
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# ASC (0) or DESC (1) sort mode of scores in the tournament.
-	var _sort_order: int  = null
+	var _sort_order = null
 	var sort_order : int:
 		get:
-			return 0 if not _sort_order is int else int(_sort_order)
+			#return 0 if not _sort_order is int else int(_sort_order)
+			# Work around issue #53115 / #56217
+			var tmp = _sort_order
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# The UNIX time when the tournament start being active. A computed value.
-	var _start_active: int  = null
+	var _start_active = null
 	var start_active : int:
 		get:
-			return 0 if not _start_active is int else int(_start_active)
+			#return 0 if not _start_active is int else int(_start_active)
+			# Work around issue #53115 / #56217
+			var tmp = _start_active
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# The UNIX time when the tournament will start.
-	var _start_time: String  = null
+	var _start_time = null
 	var start_time : String:
 		get:
-			return "" if not _start_time is String else String(_start_time)
+			#return "" if not _start_time is String else String(_start_time)
+			# Work around issue #53115 / #56217
+			var tmp = _start_time
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The title for the tournament.
-	var _title: String  = null
+	var _title = null
 	var title : String:
 		get:
-			return "" if not _title is String else String(_title)
+			#return "" if not _title is String else String(_title)
+			# Work around issue #53115 / #56217
+			var tmp = _title
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiTournament:
@@ -2449,18 +3141,26 @@ class ApiTournamentList extends NakamaAsyncResult:
 	}
 
 	# A pagination cursor (optional).
-	var _cursor: String  = null
+	var _cursor = null
 	var cursor : String:
 		get:
-			return "" if not _cursor is String else String(_cursor)
+			#return "" if not _cursor is String else String(_cursor)
+			# Work around issue #53115 / #56217
+			var tmp = _cursor
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The list of tournaments returned.
-	var _tournaments: Array  = null
+	var _tournaments = null
 	var tournaments : Array:
 		get:
-			return Array() if not _tournaments is Array else Array(_tournaments)
+			#return Array() if not _tournaments is Array else Array(_tournaments)
+			# Work around issue #53115 / #56217
+			var tmp = _tournaments
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiTournamentList:
@@ -2488,30 +3188,46 @@ class ApiTournamentRecordList extends NakamaAsyncResult:
 	}
 
 	# The cursor to send when retireving the next page (optional).
-	var _next_cursor: String  = null
+	var _next_cursor = null
 	var next_cursor : String:
 		get:
-			return "" if not _next_cursor is String else String(_next_cursor)
+			#return "" if not _next_cursor is String else String(_next_cursor)
+			# Work around issue #53115 / #56217
+			var tmp = _next_cursor
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# A batched set of tournament records belonging to specified owners.
-	var _owner_records: Array  = null
+	var _owner_records = null
 	var owner_records : Array:
 		get:
-			return Array() if not _owner_records is Array else Array(_owner_records)
+			#return Array() if not _owner_records is Array else Array(_owner_records)
+			# Work around issue #53115 / #56217
+			var tmp = _owner_records
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
 	# The cursor to send when retrieving the previous page (optional).
-	var _prev_cursor: String  = null
+	var _prev_cursor = null
 	var prev_cursor : String:
 		get:
-			return "" if not _prev_cursor is String else String(_prev_cursor)
+			#return "" if not _prev_cursor is String else String(_prev_cursor)
+			# Work around issue #53115 / #56217
+			var tmp = _prev_cursor
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# A list of tournament records.
-	var _records: Array  = null
+	var _records = null
 	var records : Array:
 		get:
-			return Array() if not _records is Array else Array(_records)
+			#return Array() if not _records is Array else Array(_records)
+			# Work around issue #53115 / #56217
+			var tmp = _records
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiTournamentRecordList:
@@ -2543,42 +3259,66 @@ class ApiUpdateAccountRequest extends NakamaAsyncResult:
 	}
 
 	# A URL for an avatar image.
-	var _avatar_url: String  = null
+	var _avatar_url = null
 	var avatar_url : String:
 		get:
-			return "" if not _avatar_url is String else String(_avatar_url)
+			#return "" if not _avatar_url is String else String(_avatar_url)
+			# Work around issue #53115 / #56217
+			var tmp = _avatar_url
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The display name of the user.
-	var _display_name: String  = null
+	var _display_name = null
 	var display_name : String:
 		get:
-			return "" if not _display_name is String else String(_display_name)
+			#return "" if not _display_name is String else String(_display_name)
+			# Work around issue #53115 / #56217
+			var tmp = _display_name
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The language expected to be a tag which follows the BCP-47 spec.
-	var _lang_tag: String  = null
+	var _lang_tag = null
 	var lang_tag : String:
 		get:
-			return "" if not _lang_tag is String else String(_lang_tag)
+			#return "" if not _lang_tag is String else String(_lang_tag)
+			# Work around issue #53115 / #56217
+			var tmp = _lang_tag
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The location set by the user.
-	var _location: String  = null
+	var _location = null
 	var location : String:
 		get:
-			return "" if not _location is String else String(_location)
+			#return "" if not _location is String else String(_location)
+			# Work around issue #53115 / #56217
+			var tmp = _location
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The timezone set by the user.
-	var _timezone: String  = null
+	var _timezone = null
 	var timezone : String:
 		get:
-			return "" if not _timezone is String else String(_timezone)
+			#return "" if not _timezone is String else String(_timezone)
+			# Work around issue #53115 / #56217
+			var tmp = _timezone
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The username of the user's account.
-	var _username: String  = null
+	var _username = null
 	var username : String:
 		get:
-			return "" if not _username is String else String(_username)
+			#return "" if not _username is String else String(_username)
+			# Work around issue #53115 / #56217
+			var tmp = _username
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiUpdateAccountRequest:
@@ -2612,42 +3352,66 @@ class ApiUpdateGroupRequest extends NakamaAsyncResult:
 	}
 
 	# Avatar URL.
-	var _avatar_url: String  = null
+	var _avatar_url = null
 	var avatar_url : String:
 		get:
-			return "" if not _avatar_url is String else String(_avatar_url)
+			#return "" if not _avatar_url is String else String(_avatar_url)
+			# Work around issue #53115 / #56217
+			var tmp = _avatar_url
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Description string.
-	var _description: String  = null
+	var _description = null
 	var description : String:
 		get:
-			return "" if not _description is String else String(_description)
+			#return "" if not _description is String else String(_description)
+			# Work around issue #53115 / #56217
+			var tmp = _description
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The ID of the group to update.
-	var _group_id: String  = null
+	var _group_id = null
 	var group_id : String:
 		get:
-			return "" if not _group_id is String else String(_group_id)
+			#return "" if not _group_id is String else String(_group_id)
+			# Work around issue #53115 / #56217
+			var tmp = _group_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Lang tag.
-	var _lang_tag: String  = null
+	var _lang_tag = null
 	var lang_tag : String:
 		get:
-			return "" if not _lang_tag is String else String(_lang_tag)
+			#return "" if not _lang_tag is String else String(_lang_tag)
+			# Work around issue #53115 / #56217
+			var tmp = _lang_tag
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Name.
-	var _name: String  = null
+	var _name = null
 	var name : String:
 		get:
-			return "" if not _name is String else String(_name)
+			#return "" if not _name is String else String(_name)
+			# Work around issue #53115 / #56217
+			var tmp = _name
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Open is true if anyone should be allowed to join, or false if joins must be approved by a group admin.
-	var _open: bool  = null
+	var _open = null
 	var open : bool:
 		get:
-			return false if not _open is bool else bool(_open)
+			#return false if not _open is bool else bool(_open)
+			# Work around issue #53115 / #56217
+			var tmp = _open
+			tmp = tmp
+			return false if not tmp is bool else bool(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiUpdateGroupRequest:
@@ -2693,114 +3457,186 @@ class ApiUser extends NakamaAsyncResult:
 	}
 
 	# The Apple Sign In ID in the user's account.
-	var _apple_id: String  = null
+	var _apple_id = null
 	var apple_id : String:
 		get:
-			return "" if not _apple_id is String else String(_apple_id)
+			#return "" if not _apple_id is String else String(_apple_id)
+			# Work around issue #53115 / #56217
+			var tmp = _apple_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# A URL for an avatar image.
-	var _avatar_url: String  = null
+	var _avatar_url = null
 	var avatar_url : String:
 		get:
-			return "" if not _avatar_url is String else String(_avatar_url)
+			#return "" if not _avatar_url is String else String(_avatar_url)
+			# Work around issue #53115 / #56217
+			var tmp = _avatar_url
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The UNIX time when the user was created.
-	var _create_time: String  = null
+	var _create_time = null
 	var create_time : String:
 		get:
-			return "" if not _create_time is String else String(_create_time)
+			#return "" if not _create_time is String else String(_create_time)
+			# Work around issue #53115 / #56217
+			var tmp = _create_time
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The display name of the user.
-	var _display_name: String  = null
+	var _display_name = null
 	var display_name : String:
 		get:
-			return "" if not _display_name is String else String(_display_name)
+			#return "" if not _display_name is String else String(_display_name)
+			# Work around issue #53115 / #56217
+			var tmp = _display_name
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Number of related edges to this user.
-	var _edge_count: int  = null
+	var _edge_count = null
 	var edge_count : int:
 		get:
-			return 0 if not _edge_count is int else int(_edge_count)
+			#return 0 if not _edge_count is int else int(_edge_count)
+			# Work around issue #53115 / #56217
+			var tmp = _edge_count
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# The Facebook id in the user's account.
-	var _facebook_id: String  = null
+	var _facebook_id = null
 	var facebook_id : String:
 		get:
-			return "" if not _facebook_id is String else String(_facebook_id)
+			#return "" if not _facebook_id is String else String(_facebook_id)
+			# Work around issue #53115 / #56217
+			var tmp = _facebook_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The Facebook Instant Game ID in the user's account.
-	var _facebook_instant_game_id: String  = null
+	var _facebook_instant_game_id = null
 	var facebook_instant_game_id : String:
 		get:
-			return "" if not _facebook_instant_game_id is String else String(_facebook_instant_game_id)
+			#return "" if not _facebook_instant_game_id is String else String(_facebook_instant_game_id)
+			# Work around issue #53115 / #56217
+			var tmp = _facebook_instant_game_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The Apple Game Center in of the user's account.
-	var _gamecenter_id: String  = null
+	var _gamecenter_id = null
 	var gamecenter_id : String:
 		get:
-			return "" if not _gamecenter_id is String else String(_gamecenter_id)
+			#return "" if not _gamecenter_id is String else String(_gamecenter_id)
+			# Work around issue #53115 / #56217
+			var tmp = _gamecenter_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The Google id in the user's account.
-	var _google_id: String  = null
+	var _google_id = null
 	var google_id : String:
 		get:
-			return "" if not _google_id is String else String(_google_id)
+			#return "" if not _google_id is String else String(_google_id)
+			# Work around issue #53115 / #56217
+			var tmp = _google_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The id of the user's account.
-	var _id: String  = null
+	var _id = null
 	var id : String:
 		get:
-			return "" if not _id is String else String(_id)
+			#return "" if not _id is String else String(_id)
+			# Work around issue #53115 / #56217
+			var tmp = _id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The language expected to be a tag which follows the BCP-47 spec.
-	var _lang_tag: String  = null
+	var _lang_tag = null
 	var lang_tag : String:
 		get:
-			return "" if not _lang_tag is String else String(_lang_tag)
+			#return "" if not _lang_tag is String else String(_lang_tag)
+			# Work around issue #53115 / #56217
+			var tmp = _lang_tag
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The location set by the user.
-	var _location: String  = null
+	var _location = null
 	var location : String:
 		get:
-			return "" if not _location is String else String(_location)
+			#return "" if not _location is String else String(_location)
+			# Work around issue #53115 / #56217
+			var tmp = _location
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Additional information stored as a JSON object.
-	var _metadata: String  = null
+	var _metadata = null
 	var metadata : String:
 		get:
-			return "" if not _metadata is String else String(_metadata)
+			#return "" if not _metadata is String else String(_metadata)
+			# Work around issue #53115 / #56217
+			var tmp = _metadata
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Indicates whether the user is currently online.
-	var _online: bool  = null
+	var _online = null
 	var online : bool:
 		get:
-			return false if not _online is bool else bool(_online)
+			#return false if not _online is bool else bool(_online)
+			# Work around issue #53115 / #56217
+			var tmp = _online
+			tmp = tmp
+			return false if not tmp is bool else bool(tmp)
 
 	# The Steam id in the user's account.
-	var _steam_id: String  = null
+	var _steam_id = null
 	var steam_id : String:
 		get:
-			return "" if not _steam_id is String else String(_steam_id)
+			#return "" if not _steam_id is String else String(_steam_id)
+			# Work around issue #53115 / #56217
+			var tmp = _steam_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The timezone set by the user.
-	var _timezone: String  = null
+	var _timezone = null
 	var timezone : String:
 		get:
-			return "" if not _timezone is String else String(_timezone)
+			#return "" if not _timezone is String else String(_timezone)
+			# Work around issue #53115 / #56217
+			var tmp = _timezone
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The UNIX time when the user was last updated.
-	var _update_time: String  = null
+	var _update_time = null
 	var update_time : String:
 		get:
-			return "" if not _update_time is String else String(_update_time)
+			#return "" if not _update_time is String else String(_update_time)
+			# Work around issue #53115 / #56217
+			var tmp = _update_time
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The username of the user's account.
-	var _username: String  = null
+	var _username = null
 	var username : String:
 		get:
-			return "" if not _username is String else String(_username)
+			#return "" if not _username is String else String(_username)
+			# Work around issue #53115 / #56217
+			var tmp = _username
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiUser:
@@ -2842,18 +3678,26 @@ class ApiUserGroupList extends NakamaAsyncResult:
 	}
 
 	# Cursor for the next page of results, if any.
-	var _cursor: String  = null
+	var _cursor = null
 	var cursor : String:
 		get:
-			return "" if not _cursor is String else String(_cursor)
+			#return "" if not _cursor is String else String(_cursor)
+			# Work around issue #53115 / #56217
+			var tmp = _cursor
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Group-role pairs for a user.
-	var _user_groups: Array  = null
+	var _user_groups = null
 	var user_groups : Array:
 		get:
-			return Array() if not _user_groups is Array else Array(_user_groups)
+			#return Array() if not _user_groups is Array else Array(_user_groups)
+			# Work around issue #53115 / #56217
+			var tmp = _user_groups
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiUserGroupList:
@@ -2878,12 +3722,16 @@ class ApiUsers extends NakamaAsyncResult:
 	}
 
 	# The User objects.
-	var _users: Array  = null
+	var _users = null
 	var users : Array:
 		get:
-			return Array() if not _users is Array else Array(_users)
+			#return Array() if not _users is Array else Array(_users)
+			# Work around issue #53115 / #56217
+			var tmp = _users
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiUsers:
@@ -2907,12 +3755,16 @@ class ApiValidatePurchaseAppleRequest extends NakamaAsyncResult:
 	}
 
 	# Base64 encoded Apple receipt data payload.
-	var _receipt: String  = null
+	var _receipt = null
 	var receipt : String:
 		get:
-			return "" if not _receipt is String else String(_receipt)
+			#return "" if not _receipt is String else String(_receipt)
+			# Work around issue #53115 / #56217
+			var tmp = _receipt
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidatePurchaseAppleRequest:
@@ -2936,12 +3788,16 @@ class ApiValidatePurchaseGoogleRequest extends NakamaAsyncResult:
 	}
 
 	# JSON encoded Google purchase payload.
-	var _purchase: String  = null
+	var _purchase = null
 	var purchase : String:
 		get:
-			return "" if not _purchase is String else String(_purchase)
+			#return "" if not _purchase is String else String(_purchase)
+			# Work around issue #53115 / #56217
+			var tmp = _purchase
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidatePurchaseGoogleRequest:
@@ -2966,18 +3822,26 @@ class ApiValidatePurchaseHuaweiRequest extends NakamaAsyncResult:
 	}
 
 	# JSON encoded Huawei InAppPurchaseData.
-	var _purchase: String  = null
+	var _purchase = null
 	var purchase : String:
 		get:
-			return "" if not _purchase is String else String(_purchase)
+			#return "" if not _purchase is String else String(_purchase)
+			# Work around issue #53115 / #56217
+			var tmp = _purchase
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# InAppPurchaseData signature.
-	var _signature: String  = null
+	var _signature = null
 	var signature : String:
 		get:
-			return "" if not _signature is String else String(_signature)
+			#return "" if not _signature is String else String(_signature)
+			# Work around issue #53115 / #56217
+			var tmp = _signature
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidatePurchaseHuaweiRequest:
@@ -3002,12 +3866,16 @@ class ApiValidatePurchaseResponse extends NakamaAsyncResult:
 	}
 
 	# Newly seen validated purchases.
-	var _validated_purchases: Array  = null
+	var _validated_purchases = null
 	var validated_purchases : Array:
 		get:
-			return Array() if not _validated_purchases is Array else Array(_validated_purchases)
+			#return Array() if not _validated_purchases is Array else Array(_validated_purchases)
+			# Work around issue #53115 / #56217
+			var tmp = _validated_purchases
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidatePurchaseResponse:
@@ -3032,60 +3900,95 @@ class ApiValidatedPurchase extends NakamaAsyncResult:
 		"product_id": {"name": "_product_id", "type": TYPE_STRING, "required": false},
 		"provider_response": {"name": "_provider_response", "type": TYPE_STRING, "required": false},
 		"purchase_time": {"name": "_purchase_time", "type": TYPE_STRING, "required": false},
+		"seen_before": {"name": "_seen_before", "type": TYPE_BOOL, "required": false},
 		"store": {"name": "_store", "type": TYPE_INT, "required": false},
 		"transaction_id": {"name": "_transaction_id", "type": TYPE_STRING, "required": false},
 		"update_time": {"name": "_update_time", "type": TYPE_STRING, "required": false},
 	}
 
 	# UNIX Timestamp when the receipt validation was stored in DB.
-	var _create_time: String  = null
+	var _create_time = null
 	var create_time : String:
 		get:
-			return "" if not _create_time is String else String(_create_time)
+			#return "" if not _create_time is String else String(_create_time)
+			# Work around issue #53115 / #56217
+			var tmp = _create_time
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Whether the purchase was done in production or sandbox environment.
-	var _environment: int  = null
+	var _environment = null
 	var environment : int:
 		get:
 			return ValidatedPurchaseEnvironment.values()[0] if not ValidatedPurchaseEnvironment.values().has(_environment) else _environment
 
 	# Purchase Product ID.
-	var _product_id: String  = null
+	var _product_id = null
 	var product_id : String:
 		get:
-			return "" if not _product_id is String else String(_product_id)
+			#return "" if not _product_id is String else String(_product_id)
+			# Work around issue #53115 / #56217
+			var tmp = _product_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# Raw provider validation response.
-	var _provider_response: String  = null
+	var _provider_response = null
 	var provider_response : String:
 		get:
-			return "" if not _provider_response is String else String(_provider_response)
+			#return "" if not _provider_response is String else String(_provider_response)
+			# Work around issue #53115 / #56217
+			var tmp = _provider_response
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# UNIX Timestamp when the purchase was done.
-	var _purchase_time: String  = null
+	var _purchase_time = null
 	var purchase_time : String:
 		get:
-			return "" if not _purchase_time is String else String(_purchase_time)
+			#return "" if not _purchase_time is String else String(_purchase_time)
+			# Work around issue #53115 / #56217
+			var tmp = _purchase_time
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
+
+	# Whether the purchase had already been validated by Nakama before.
+	var _seen_before = null
+	var seen_before : bool:
+		get:
+			#return false if not _seen_before is bool else bool(_seen_before)
+			# Work around issue #53115 / #56217
+			var tmp = _seen_before
+			tmp = tmp
+			return false if not tmp is bool else bool(tmp)
 
 	# 
-	var _store: int  = null
+	var _store = null
 	var store : int:
 		get:
 			return ValidatedPurchaseStore.values()[0] if not ValidatedPurchaseStore.values().has(_store) else _store
 
 	# Purchase Transaction ID.
-	var _transaction_id: String  = null
+	var _transaction_id = null
 	var transaction_id : String:
 		get:
-			return "" if not _transaction_id is String else String(_transaction_id)
+			#return "" if not _transaction_id is String else String(_transaction_id)
+			# Work around issue #53115 / #56217
+			var tmp = _transaction_id
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# UNIX Timestamp when the receipt validation was updated in DB.
-	var _update_time: String  = null
+	var _update_time = null
 	var update_time : String:
 		get:
-			return "" if not _update_time is String else String(_update_time)
+			#return "" if not _update_time is String else String(_update_time)
+			# Work around issue #53115 / #56217
+			var tmp = _update_time
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidatedPurchase:
@@ -3103,6 +4006,7 @@ class ApiValidatedPurchase extends NakamaAsyncResult:
 		output += "product_id: %s, " % _product_id
 		output += "provider_response: %s, " % _provider_response
 		output += "purchase_time: %s, " % _purchase_time
+		output += "seen_before: %s, " % _seen_before
 		output += "store: %s, " % _store
 		output += "transaction_id: %s, " % _transaction_id
 		output += "update_time: %s, " % _update_time
@@ -3121,42 +4025,66 @@ class ApiWriteStorageObject extends NakamaAsyncResult:
 	}
 
 	# The collection to store the object.
-	var _collection: String  = null
+	var _collection = null
 	var collection : String:
 		get:
-			return "" if not _collection is String else String(_collection)
+			#return "" if not _collection is String else String(_collection)
+			# Work around issue #53115 / #56217
+			var tmp = _collection
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The key for the object within the collection.
-	var _key: String  = null
+	var _key = null
 	var key : String:
 		get:
-			return "" if not _key is String else String(_key)
+			#return "" if not _key is String else String(_key)
+			# Work around issue #53115 / #56217
+			var tmp = _key
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The read access permissions for the object.
-	var _permission_read: int  = null
+	var _permission_read = null
 	var permission_read : int:
 		get:
-			return 0 if not _permission_read is int else int(_permission_read)
+			#return 0 if not _permission_read is int else int(_permission_read)
+			# Work around issue #53115 / #56217
+			var tmp = _permission_read
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# The write access permissions for the object.
-	var _permission_write: int  = null
+	var _permission_write = null
 	var permission_write : int:
 		get:
-			return 0 if not _permission_write is int else int(_permission_write)
+			#return 0 if not _permission_write is int else int(_permission_write)
+			# Work around issue #53115 / #56217
+			var tmp = _permission_write
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# The value of the object.
-	var _value: String  = null
+	var _value = null
 	var value : String:
 		get:
-			return "" if not _value is String else String(_value)
+			#return "" if not _value is String else String(_value)
+			# Work around issue #53115 / #56217
+			var tmp = _value
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# The version hash of the object to check. Possible values are: ["", "*", "#hash#"].
-	var _version: String  = null
+	var _version = null
 	var version : String:
 		get:
-			return "" if not _version is String else String(_version)
+			#return "" if not _version is String else String(_version)
+			# Work around issue #53115 / #56217
+			var tmp = _version
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiWriteStorageObject:
@@ -3185,12 +4113,16 @@ class ApiWriteStorageObjectsRequest extends NakamaAsyncResult:
 	}
 
 	# The objects to store on the server.
-	var _objects: Array  = null
+	var _objects = null
 	var objects : Array:
 		get:
-			return Array() if not _objects is Array else Array(_objects)
+			#return Array() if not _objects is Array else Array(_objects)
+			# Work around issue #53115 / #56217
+			var tmp = _objects
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiWriteStorageObjectsRequest:
@@ -3215,18 +4147,26 @@ class ProtobufAny extends NakamaAsyncResult:
 	}
 
 	# 
-	var _type_url: String  = null
+	var _type_url = null
 	var type_url : String:
 		get:
-			return "" if not _type_url is String else String(_type_url)
+			#return "" if not _type_url is String else String(_type_url)
+			# Work around issue #53115 / #56217
+			var tmp = _type_url
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
 	# 
-	var _value: String  = null
+	var _value = null
 	var value : String:
 		get:
-			return "" if not _value is String else String(_value)
+			#return "" if not _value is String else String(_value)
+			# Work around issue #53115 / #56217
+			var tmp = _value
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ProtobufAny:
@@ -3253,24 +4193,36 @@ class RpcStatus extends NakamaAsyncResult:
 	}
 
 	# 
-	var _code: int  = null
+	var _code = null
 	var code : int:
 		get:
-			return 0 if not _code is int else int(_code)
+			#return 0 if not _code is int else int(_code)
+			# Work around issue #53115 / #56217
+			var tmp = _code
+			tmp = tmp
+			return 0 if not tmp is int else int(tmp)
 
 	# 
-	var _details: Array  = null
+	var _details = null
 	var details : Array:
 		get:
-			return Array() if not _details is Array else Array(_details)
+			#return Array() if not _details is Array else Array(_details)
+			# Work around issue #53115 / #56217
+			var tmp = _details
+			tmp = tmp
+			return Array() if not tmp is Array else Array(tmp)
 
 	# 
-	var _message: String  = null
+	var _message = null
 	var message : String:
 		get:
-			return "" if not _message is String else String(_message)
+			#return "" if not _message is String else String(_message)
+			# Work around issue #53115 / #56217
+			var tmp = _message
+			tmp = tmp
+			return "" if not tmp is String else String(tmp)
 
-	func _init(p_exception = null): 
+	func _init(p_exception = null):
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> RpcStatus:
@@ -3298,49 +4250,28 @@ class ApiClient extends RefCounted:
 	var _server_key : String
 	var auto_refresh := true
 	var auto_refresh_time := 300
-	
+
 	var auto_retry : bool:
-		set(v):
-			_set_retry(v)
+		set(p_value):
+			_http_adapter.auto_retry = p_value
 		get:
-			return _get_retry()
-			
+			return _http_adapter.auto_retry
+
 	var auto_retry_count : int:
-		set(v):
-			_set_retry_count(v)
+		set(p_value):
+			_http_adapter.auto_retry_count = p_value
 		get:
-			return _get_retry_count()
+			return _http_adapter.auto_retry_count
 
 	var auto_retry_backoff_base : int:
-		set(v):
-			_set_retry_backoff(v)
+		set(p_value):
+			_http_adapter.auto_retry_backoff_base = p_value
 		get:
-			return _get_retry_backoff()
+			return _http_adapter.auto_retry_backoff_base
 
 	var last_cancel_token:
 		get:
-			return _get_last_token() 
-
-	func _set_retry(p_value):
-		_http_adapter.auto_retry = p_value
-		
-	func _get_retry():
-		return _http_adapter.auto_retry
-
-	func _set_retry_count(p_value):
-		_http_adapter.auto_retry_count = p_value
-
-	func _get_retry_count():
-		return _http_adapter.auto_retry_count
-
-	func _set_retry_backoff(p_value):
-		_http_adapter.auto_retry_backoff_base = p_value
-
-	func _get_retry_backoff():
-		return _http_adapter.auto_retry_backoff_base
-
-	func _get_last_token():
-		return _http_adapter.get_last_token()
+			return _http_adapter.get_last_token()
 
 	func _init(p_base_uri : String, p_http_adapter, p_namespace : GDScript, p_server_key : String, p_timeout : int = 10):
 		_base_uri = p_base_uri
@@ -3353,7 +4284,7 @@ class ApiClient extends RefCounted:
 		if auto_refresh and p_session.is_valid() and p_session.refresh_token and not p_session.is_refresh_expired() and p_session.would_expire_in(auto_refresh_time):
 			var request = ApiSessionRefreshRequest.new()
 			request._token = p_session.refresh_token
-			return await session_refresh_async.call(_server_key, "", request).complted
+			return await session_refresh_async(_server_key, "", request)
 		return null
 
 	func cancel_request(p_token):
@@ -3366,7 +4297,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -3380,7 +4311,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3391,7 +4322,7 @@ class ApiClient extends RefCounted:
 	) -> ApiAccount:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiAccount.new(session.get_exception())
 			p_session.refresh(session)
@@ -3405,7 +4336,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiAccount.new(result)
 		var out : ApiAccount = NakamaSerializer.deserialize(_namespace, "ApiAccount", result)
@@ -3418,7 +4349,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -3431,9 +4362,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3451,7 +4382,10 @@ class ApiClient extends RefCounted:
 		if p_create != null:
 			query_params += "create=%s&" % str(p_create).to_lower()
 		if p_username != null:
-			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
+			# Work around issue #53115 / #56217
+			var tmp = p_username
+			tmp = tmp
+			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3460,9 +4394,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiSession.new(result)
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
@@ -3481,7 +4415,10 @@ class ApiClient extends RefCounted:
 		if p_create != null:
 			query_params += "create=%s&" % str(p_create).to_lower()
 		if p_username != null:
-			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
+			# Work around issue #53115 / #56217
+			var tmp = p_username
+			tmp = tmp
+			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3490,9 +4427,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiSession.new(result)
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
@@ -3511,7 +4448,10 @@ class ApiClient extends RefCounted:
 		if p_create != null:
 			query_params += "create=%s&" % str(p_create).to_lower()
 		if p_username != null:
-			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
+			# Work around issue #53115 / #56217
+			var tmp = p_username
+			tmp = tmp
+			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3520,9 +4460,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiSession.new(result)
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
@@ -3541,7 +4481,10 @@ class ApiClient extends RefCounted:
 		if p_create != null:
 			query_params += "create=%s&" % str(p_create).to_lower()
 		if p_username != null:
-			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
+			# Work around issue #53115 / #56217
+			var tmp = p_username
+			tmp = tmp
+			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3550,9 +4493,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiSession.new(result)
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
@@ -3572,7 +4515,10 @@ class ApiClient extends RefCounted:
 		if p_create != null:
 			query_params += "create=%s&" % str(p_create).to_lower()
 		if p_username != null:
-			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
+			# Work around issue #53115 / #56217
+			var tmp = p_username
+			tmp = tmp
+			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
 		if p_sync != null:
 			query_params += "sync=%s&" % str(p_sync).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3583,9 +4529,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiSession.new(result)
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
@@ -3604,7 +4550,10 @@ class ApiClient extends RefCounted:
 		if p_create != null:
 			query_params += "create=%s&" % str(p_create).to_lower()
 		if p_username != null:
-			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
+			# Work around issue #53115 / #56217
+			var tmp = p_username
+			tmp = tmp
+			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3613,9 +4562,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiSession.new(result)
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
@@ -3634,7 +4583,10 @@ class ApiClient extends RefCounted:
 		if p_create != null:
 			query_params += "create=%s&" % str(p_create).to_lower()
 		if p_username != null:
-			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
+			# Work around issue #53115 / #56217
+			var tmp = p_username
+			tmp = tmp
+			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3643,9 +4595,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiSession.new(result)
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
@@ -3664,7 +4616,10 @@ class ApiClient extends RefCounted:
 		if p_create != null:
 			query_params += "create=%s&" % str(p_create).to_lower()
 		if p_username != null:
-			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
+			# Work around issue #53115 / #56217
+			var tmp = p_username
+			tmp = tmp
+			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3673,9 +4628,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiSession.new(result)
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
@@ -3695,7 +4650,10 @@ class ApiClient extends RefCounted:
 		if p_create != null:
 			query_params += "create=%s&" % str(p_create).to_lower()
 		if p_username != null:
-			query_params += "username=%s&" % NakamaSerializer.escape_http(str(p_username))
+			# Work around issue #53115 / #56217
+			var tmp = p_username
+			tmp = tmp
+			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
 		if p_sync != null:
 			query_params += "sync=%s&" % str(p_sync).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -3706,9 +4664,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiSession.new(result)
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
@@ -3721,7 +4679,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -3734,9 +4692,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3748,7 +4706,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -3761,9 +4719,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3775,7 +4733,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -3788,9 +4746,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3802,7 +4760,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -3815,9 +4773,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3830,7 +4788,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -3845,9 +4803,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3859,7 +4817,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -3872,9 +4830,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3886,7 +4844,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -3899,9 +4857,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3913,7 +4871,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -3926,9 +4884,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3940,7 +4898,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -3953,9 +4911,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -3976,9 +4934,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiSession.new(result)
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
@@ -3991,7 +4949,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -4004,9 +4962,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4018,7 +4976,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -4031,9 +4989,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4045,7 +5003,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -4058,9 +5016,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4072,7 +5030,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -4085,9 +5043,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4099,7 +5057,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -4112,9 +5070,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4126,7 +5084,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -4139,9 +5097,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4153,7 +5111,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -4166,9 +5124,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4180,7 +5138,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -4193,9 +5151,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4207,7 +5165,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -4220,9 +5178,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4237,19 +5195,22 @@ class ApiClient extends RefCounted:
 	) -> ApiChannelMessageList:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiChannelMessageList.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/channel/{channelId}"
-		urlpath = urlpath.replace("{channelId}", NakamaSerializer.escape_http(str(p_channel_id)))
+		urlpath = urlpath.replace("{channelId}", NakamaSerializer.escape_http(p_channel_id))
 		var query_params = ""
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_forward != null:
 			query_params += "forward=%s&" % str(p_forward).to_lower()
 		if p_cursor != null:
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(str(p_cursor))
+			# Work around issue #53115 / #56217
+			var tmp = p_cursor
+			tmp = tmp
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -4258,7 +5219,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiChannelMessageList.new(result)
 		var out : ApiChannelMessageList = NakamaSerializer.deserialize(_namespace, "ApiChannelMessageList", result)
@@ -4271,7 +5232,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -4284,9 +5245,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4299,7 +5260,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -4319,7 +5280,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4333,7 +5294,7 @@ class ApiClient extends RefCounted:
 	) -> ApiFriendList:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiFriendList.new(session.get_exception())
 			p_session.refresh(session)
@@ -4344,7 +5305,10 @@ class ApiClient extends RefCounted:
 		if p_state != null:
 			query_params += "state=%d&" % p_state
 		if p_cursor != null:
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(str(p_cursor))
+			# Work around issue #53115 / #56217
+			var tmp = p_cursor
+			tmp = tmp
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -4353,7 +5317,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiFriendList.new(result)
 		var out : ApiFriendList = NakamaSerializer.deserialize(_namespace, "ApiFriendList", result)
@@ -4367,7 +5331,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -4387,7 +5351,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4400,7 +5364,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -4420,7 +5384,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4433,7 +5397,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -4448,9 +5412,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4463,7 +5427,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -4478,9 +5442,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4497,20 +5461,29 @@ class ApiClient extends RefCounted:
 	) -> ApiGroupList:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiGroupList.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/group"
 		var query_params = ""
 		if p_name != null:
-			query_params += "name=%s&" % NakamaSerializer.escape_http(str(p_name))
+			# Work around issue #53115 / #56217
+			var tmp = p_name
+			tmp = tmp
+			query_params += "name=%s&" % NakamaSerializer.escape_http(tmp)
 		if p_cursor != null:
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(str(p_cursor))
+			# Work around issue #53115 / #56217
+			var tmp = p_cursor
+			tmp = tmp
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_lang_tag != null:
-			query_params += "lang_tag=%s&" % NakamaSerializer.escape_http(str(p_lang_tag))
+			# Work around issue #53115 / #56217
+			var tmp = p_lang_tag
+			tmp = tmp
+			query_params += "lang_tag=%s&" % NakamaSerializer.escape_http(tmp)
 		if p_members != null:
 			query_params += "members=%d&" % p_members
 		if p_open != null:
@@ -4523,7 +5496,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiGroupList.new(result)
 		var out : ApiGroupList = NakamaSerializer.deserialize(_namespace, "ApiGroupList", result)
@@ -4536,7 +5509,7 @@ class ApiClient extends RefCounted:
 	) -> ApiGroup:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiGroup.new(session.get_exception())
 			p_session.refresh(session)
@@ -4549,9 +5522,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiGroup.new(result)
 		var out : ApiGroup = NakamaSerializer.deserialize(_namespace, "ApiGroup", result)
@@ -4564,12 +5537,12 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}"
-		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(str(p_group_id)))
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "DELETE"
@@ -4579,7 +5552,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4592,12 +5565,12 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}"
-		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(str(p_group_id)))
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "PUT"
@@ -4606,9 +5579,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4621,12 +5594,12 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/add"
-		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(str(p_group_id)))
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
 		if p_user_ids != null:
 			for elem in p_user_ids:
@@ -4639,7 +5612,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4652,12 +5625,12 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/ban"
-		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(str(p_group_id)))
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
 		if p_user_ids != null:
 			for elem in p_user_ids:
@@ -4670,7 +5643,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4683,12 +5656,12 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/demote"
-		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(str(p_group_id)))
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
 		if true: # Hack for static checks
 			for elem in p_user_ids:
@@ -4701,7 +5674,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4713,12 +5686,12 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/join"
-		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(str(p_group_id)))
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
@@ -4728,7 +5701,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4741,12 +5714,12 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/kick"
-		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(str(p_group_id)))
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
 		if p_user_ids != null:
 			for elem in p_user_ids:
@@ -4759,7 +5732,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4771,12 +5744,12 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/leave"
-		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(str(p_group_id)))
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
@@ -4786,7 +5759,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4799,12 +5772,12 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/promote"
-		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(str(p_group_id)))
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
 		if p_user_ids != null:
 			for elem in p_user_ids:
@@ -4817,7 +5790,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4832,19 +5805,22 @@ class ApiClient extends RefCounted:
 	) -> ApiGroupUserList:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiGroupUserList.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/group/{groupId}/user"
-		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(str(p_group_id)))
+		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_state != null:
 			query_params += "state=%d&" % p_state
 		if p_cursor != null:
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(str(p_cursor))
+			# Work around issue #53115 / #56217
+			var tmp = p_cursor
+			tmp = tmp
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -4853,7 +5829,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiGroupUserList.new(result)
 		var out : ApiGroupUserList = NakamaSerializer.deserialize(_namespace, "ApiGroupUserList", result)
@@ -4866,7 +5842,7 @@ class ApiClient extends RefCounted:
 	) -> ApiValidatePurchaseResponse:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiValidatePurchaseResponse.new(session.get_exception())
 			p_session.refresh(session)
@@ -4879,9 +5855,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiValidatePurchaseResponse.new(result)
 		var out : ApiValidatePurchaseResponse = NakamaSerializer.deserialize(_namespace, "ApiValidatePurchaseResponse", result)
@@ -4894,7 +5870,7 @@ class ApiClient extends RefCounted:
 	) -> ApiValidatePurchaseResponse:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiValidatePurchaseResponse.new(session.get_exception())
 			p_session.refresh(session)
@@ -4907,9 +5883,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiValidatePurchaseResponse.new(result)
 		var out : ApiValidatePurchaseResponse = NakamaSerializer.deserialize(_namespace, "ApiValidatePurchaseResponse", result)
@@ -4922,7 +5898,7 @@ class ApiClient extends RefCounted:
 	) -> ApiValidatePurchaseResponse:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiValidatePurchaseResponse.new(session.get_exception())
 			p_session.refresh(session)
@@ -4935,9 +5911,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiValidatePurchaseResponse.new(result)
 		var out : ApiValidatePurchaseResponse = NakamaSerializer.deserialize(_namespace, "ApiValidatePurchaseResponse", result)
@@ -4950,12 +5926,12 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/leaderboard/{leaderboardId}"
-		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(str(p_leaderboard_id)))
+		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(p_leaderboard_id))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "DELETE"
@@ -4965,7 +5941,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -4981,12 +5957,12 @@ class ApiClient extends RefCounted:
 	) -> ApiLeaderboardRecordList:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiLeaderboardRecordList.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/leaderboard/{leaderboardId}"
-		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(str(p_leaderboard_id)))
+		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(p_leaderboard_id))
 		var query_params = ""
 		if p_owner_ids != null:
 			for elem in p_owner_ids:
@@ -4994,9 +5970,15 @@ class ApiClient extends RefCounted:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cursor != null:
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(str(p_cursor))
+			# Work around issue #53115 / #56217
+			var tmp = p_cursor
+			tmp = tmp
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
 		if p_expiry != null:
-			query_params += "expiry=%s&" % NakamaSerializer.escape_http(str(p_expiry))
+			# Work around issue #53115 / #56217
+			var tmp = p_expiry
+			tmp = tmp
+			query_params += "expiry=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5005,7 +5987,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiLeaderboardRecordList.new(result)
 		var out : ApiLeaderboardRecordList = NakamaSerializer.deserialize(_namespace, "ApiLeaderboardRecordList", result)
@@ -5019,12 +6001,12 @@ class ApiClient extends RefCounted:
 	) -> ApiLeaderboardRecord:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiLeaderboardRecord.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/leaderboard/{leaderboardId}"
-		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(str(p_leaderboard_id)))
+		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(p_leaderboard_id))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
@@ -5033,9 +6015,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiLeaderboardRecord.new(result)
 		var out : ApiLeaderboardRecord = NakamaSerializer.deserialize(_namespace, "ApiLeaderboardRecord", result)
@@ -5051,18 +6033,21 @@ class ApiClient extends RefCounted:
 	) -> ApiLeaderboardRecordList:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiLeaderboardRecordList.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/leaderboard/{leaderboardId}/owner/{ownerId}"
-		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(str(p_leaderboard_id)))
-		urlpath = urlpath.replace("{ownerId}", NakamaSerializer.escape_http(str(p_owner_id)))
+		urlpath = urlpath.replace("{leaderboardId}", NakamaSerializer.escape_http(p_leaderboard_id))
+		urlpath = urlpath.replace("{ownerId}", NakamaSerializer.escape_http(p_owner_id))
 		var query_params = ""
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_expiry != null:
-			query_params += "expiry=%s&" % NakamaSerializer.escape_http(str(p_expiry))
+			# Work around issue #53115 / #56217
+			var tmp = p_expiry
+			tmp = tmp
+			query_params += "expiry=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5071,7 +6056,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiLeaderboardRecordList.new(result)
 		var out : ApiLeaderboardRecordList = NakamaSerializer.deserialize(_namespace, "ApiLeaderboardRecordList", result)
@@ -5089,7 +6074,7 @@ class ApiClient extends RefCounted:
 	) -> ApiMatchList:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiMatchList.new(session.get_exception())
 			p_session.refresh(session)
@@ -5100,13 +6085,19 @@ class ApiClient extends RefCounted:
 		if p_authoritative != null:
 			query_params += "authoritative=%s&" % str(p_authoritative).to_lower()
 		if p_label != null:
-			query_params += "label=%s&" % NakamaSerializer.escape_http(str(p_label))
+			# Work around issue #53115 / #56217
+			var tmp = p_label
+			tmp = tmp
+			query_params += "label=%s&" % NakamaSerializer.escape_http(tmp)
 		if p_min_size != null:
 			query_params += "min_size=%d&" % p_min_size
 		if p_max_size != null:
 			query_params += "max_size=%d&" % p_max_size
 		if p_query != null:
-			query_params += "query=%s&" % NakamaSerializer.escape_http(str(p_query))
+			# Work around issue #53115 / #56217
+			var tmp = p_query
+			tmp = tmp
+			query_params += "query=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5115,7 +6106,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiMatchList.new(result)
 		var out : ApiMatchList = NakamaSerializer.deserialize(_namespace, "ApiMatchList", result)
@@ -5128,7 +6119,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -5145,7 +6136,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -5158,7 +6149,7 @@ class ApiClient extends RefCounted:
 	) -> ApiNotificationList:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiNotificationList.new(session.get_exception())
 			p_session.refresh(session)
@@ -5167,7 +6158,10 @@ class ApiClient extends RefCounted:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cacheable_cursor != null:
-			query_params += "cacheable_cursor=%s&" % NakamaSerializer.escape_http(str(p_cacheable_cursor))
+			# Work around issue #53115 / #56217
+			var tmp = p_cacheable_cursor
+			tmp = tmp
+			query_params += "cacheable_cursor=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5176,7 +6170,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiNotificationList.new(result)
 		var out : ApiNotificationList = NakamaSerializer.deserialize(_namespace, "ApiNotificationList", result)
@@ -5190,12 +6184,18 @@ class ApiClient extends RefCounted:
 		, p_http_key = null # : string
 	) -> ApiRpc:
 		var urlpath : String = "/v2/rpc/{id}"
-		urlpath = urlpath.replace("{id}", NakamaSerializer.escape_http(str(p_id)))
+		urlpath = urlpath.replace("{id}", NakamaSerializer.escape_http(p_id))
 		var query_params = ""
 		if p_payload != null:
-			query_params += "payload=%s&" % NakamaSerializer.escape_http(str(p_payload))
+			# Work around issue #53115 / #56217
+			var tmp = p_payload
+			tmp = tmp
+			query_params += "payload=%s&" % NakamaSerializer.escape_http(tmp)
 		if p_http_key != null:
-			query_params += "http_key=%s&" % NakamaSerializer.escape_http(str(p_http_key))
+			# Work around issue #53115 / #56217
+			var tmp = p_http_key
+			tmp = tmp
+			query_params += "http_key=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5205,7 +6205,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiRpc.new(result)
 		var out : ApiRpc = NakamaSerializer.deserialize(_namespace, "ApiRpc", result)
@@ -5219,10 +6219,13 @@ class ApiClient extends RefCounted:
 		, p_http_key = null # : string
 	) -> ApiRpc:
 		var urlpath : String = "/v2/rpc/{id}"
-		urlpath = urlpath.replace("{id}", NakamaSerializer.escape_http(str(p_id)))
+		urlpath = urlpath.replace("{id}", NakamaSerializer.escape_http(p_id))
 		var query_params = ""
 		if p_http_key != null:
-			query_params += "http_key=%s&" % NakamaSerializer.escape_http(str(p_http_key))
+			# Work around issue #53115 / #56217
+			var tmp = p_http_key
+			tmp = tmp
+			query_params += "http_key=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -5231,9 +6234,9 @@ class ApiClient extends RefCounted:
 			headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body).to_utf8()
+		content = JSON.new().stringify(p_body).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiRpc.new(result)
 		var out : ApiRpc = NakamaSerializer.deserialize(_namespace, "ApiRpc", result)
@@ -5246,7 +6249,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -5259,9 +6262,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -5273,7 +6276,7 @@ class ApiClient extends RefCounted:
 	) -> ApiStorageObjects:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiStorageObjects.new(session.get_exception())
 			p_session.refresh(session)
@@ -5286,9 +6289,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiStorageObjects.new(result)
 		var out : ApiStorageObjects = NakamaSerializer.deserialize(_namespace, "ApiStorageObjects", result)
@@ -5301,7 +6304,7 @@ class ApiClient extends RefCounted:
 	) -> ApiStorageObjectAcks:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiStorageObjectAcks.new(session.get_exception())
 			p_session.refresh(session)
@@ -5314,9 +6317,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiStorageObjectAcks.new(result)
 		var out : ApiStorageObjectAcks = NakamaSerializer.deserialize(_namespace, "ApiStorageObjectAcks", result)
@@ -5329,7 +6332,7 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
@@ -5342,9 +6345,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -5359,19 +6362,25 @@ class ApiClient extends RefCounted:
 	) -> ApiStorageObjectList:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiStorageObjectList.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/storage/{collection}"
-		urlpath = urlpath.replace("{collection}", NakamaSerializer.escape_http(str(p_collection)))
+		urlpath = urlpath.replace("{collection}", NakamaSerializer.escape_http(p_collection))
 		var query_params = ""
 		if p_user_id != null:
-			query_params += "user_id=%s&" % NakamaSerializer.escape_http(str(p_user_id))
+			# Work around issue #53115 / #56217
+			var tmp = p_user_id
+			tmp = tmp
+			query_params += "user_id=%s&" % NakamaSerializer.escape_http(tmp)
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cursor != null:
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(str(p_cursor))
+			# Work around issue #53115 / #56217
+			var tmp = p_cursor
+			tmp = tmp
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5380,7 +6389,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiStorageObjectList.new(result)
 		var out : ApiStorageObjectList = NakamaSerializer.deserialize(_namespace, "ApiStorageObjectList", result)
@@ -5396,18 +6405,21 @@ class ApiClient extends RefCounted:
 	) -> ApiStorageObjectList:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiStorageObjectList.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/storage/{collection}/{userId}"
-		urlpath = urlpath.replace("{collection}", NakamaSerializer.escape_http(str(p_collection)))
-		urlpath = urlpath.replace("{userId}", NakamaSerializer.escape_http(str(p_user_id)))
+		urlpath = urlpath.replace("{collection}", NakamaSerializer.escape_http(p_collection))
+		urlpath = urlpath.replace("{userId}", NakamaSerializer.escape_http(p_user_id))
 		var query_params = ""
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cursor != null:
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(str(p_cursor))
+			# Work around issue #53115 / #56217
+			var tmp = p_cursor
+			tmp = tmp
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5416,7 +6428,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiStorageObjectList.new(result)
 		var out : ApiStorageObjectList = NakamaSerializer.deserialize(_namespace, "ApiStorageObjectList", result)
@@ -5434,7 +6446,7 @@ class ApiClient extends RefCounted:
 	) -> ApiTournamentList:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiTournamentList.new(session.get_exception())
 			p_session.refresh(session)
@@ -5451,7 +6463,10 @@ class ApiClient extends RefCounted:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cursor != null:
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(str(p_cursor))
+			# Work around issue #53115 / #56217
+			var tmp = p_cursor
+			tmp = tmp
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5460,7 +6475,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiTournamentList.new(result)
 		var out : ApiTournamentList = NakamaSerializer.deserialize(_namespace, "ApiTournamentList", result)
@@ -5477,12 +6492,12 @@ class ApiClient extends RefCounted:
 	) -> ApiTournamentRecordList:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiTournamentRecordList.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/tournament/{tournamentId}"
-		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(str(p_tournament_id)))
+		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(p_tournament_id))
 		var query_params = ""
 		if p_owner_ids != null:
 			for elem in p_owner_ids:
@@ -5490,9 +6505,15 @@ class ApiClient extends RefCounted:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cursor != null:
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(str(p_cursor))
+			# Work around issue #53115 / #56217
+			var tmp = p_cursor
+			tmp = tmp
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
 		if p_expiry != null:
-			query_params += "expiry=%s&" % NakamaSerializer.escape_http(str(p_expiry))
+			# Work around issue #53115 / #56217
+			var tmp = p_expiry
+			tmp = tmp
+			query_params += "expiry=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5501,7 +6522,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiTournamentRecordList.new(result)
 		var out : ApiTournamentRecordList = NakamaSerializer.deserialize(_namespace, "ApiTournamentRecordList", result)
@@ -5515,12 +6536,12 @@ class ApiClient extends RefCounted:
 	) -> ApiLeaderboardRecord:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiLeaderboardRecord.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/tournament/{tournamentId}"
-		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(str(p_tournament_id)))
+		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(p_tournament_id))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
@@ -5529,9 +6550,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiLeaderboardRecord.new(result)
 		var out : ApiLeaderboardRecord = NakamaSerializer.deserialize(_namespace, "ApiLeaderboardRecord", result)
@@ -5545,12 +6566,12 @@ class ApiClient extends RefCounted:
 	) -> ApiLeaderboardRecord:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiLeaderboardRecord.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/tournament/{tournamentId}"
-		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(str(p_tournament_id)))
+		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(p_tournament_id))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "PUT"
@@ -5559,9 +6580,9 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiLeaderboardRecord.new(result)
 		var out : ApiLeaderboardRecord = NakamaSerializer.deserialize(_namespace, "ApiLeaderboardRecord", result)
@@ -5574,12 +6595,12 @@ class ApiClient extends RefCounted:
 	) -> NakamaAsyncResult:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return NakamaAsyncResult.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/tournament/{tournamentId}/join"
-		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(str(p_tournament_id)))
+		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(p_tournament_id))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
@@ -5589,7 +6610,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
@@ -5604,18 +6625,21 @@ class ApiClient extends RefCounted:
 	) -> ApiTournamentRecordList:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiTournamentRecordList.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/tournament/{tournamentId}/owner/{ownerId}"
-		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(str(p_tournament_id)))
-		urlpath = urlpath.replace("{ownerId}", NakamaSerializer.escape_http(str(p_owner_id)))
+		urlpath = urlpath.replace("{tournamentId}", NakamaSerializer.escape_http(p_tournament_id))
+		urlpath = urlpath.replace("{ownerId}", NakamaSerializer.escape_http(p_owner_id))
 		var query_params = ""
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_expiry != null:
-			query_params += "expiry=%s&" % NakamaSerializer.escape_http(str(p_expiry))
+			# Work around issue #53115 / #56217
+			var tmp = p_expiry
+			tmp = tmp
+			query_params += "expiry=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5624,7 +6648,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiTournamentRecordList.new(result)
 		var out : ApiTournamentRecordList = NakamaSerializer.deserialize(_namespace, "ApiTournamentRecordList", result)
@@ -5639,7 +6663,7 @@ class ApiClient extends RefCounted:
 	) -> ApiUsers:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiUsers.new(session.get_exception())
 			p_session.refresh(session)
@@ -5662,7 +6686,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiUsers.new(result)
 		var out : ApiUsers = NakamaSerializer.deserialize(_namespace, "ApiUsers", result)
@@ -5678,19 +6702,22 @@ class ApiClient extends RefCounted:
 	) -> ApiUserGroupList:
 		var should_refresh = _refresh_session.call(p_session)
 		if should_refresh != null:
-			var session = await should_refresh.complted
+			var session = await should_refresh.completed
 			if session.is_exception():
 				return ApiUserGroupList.new(session.get_exception())
 			p_session.refresh(session)
 		var urlpath : String = "/v2/user/{userId}/group"
-		urlpath = urlpath.replace("{userId}", NakamaSerializer.escape_http(str(p_user_id)))
+		urlpath = urlpath.replace("{userId}", NakamaSerializer.escape_http(p_user_id))
 		var query_params = ""
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_state != null:
 			query_params += "state=%d&" % p_state
 		if p_cursor != null:
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(str(p_cursor))
+			# Work around issue #53115 / #56217
+			var tmp = p_cursor
+			tmp = tmp
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5699,7 +6726,7 @@ class ApiClient extends RefCounted:
 
 		var content : PackedByteArray
 
-		var result = await _http_adapter.send_async(method, uri, headers, content).complted
+		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
 			return ApiUserGroupList.new(result)
 		var out : ApiUserGroupList = NakamaSerializer.deserialize(_namespace, "ApiUserGroupList", result)

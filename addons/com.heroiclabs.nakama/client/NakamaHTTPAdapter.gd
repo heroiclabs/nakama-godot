@@ -40,7 +40,7 @@ class AsyncRequest:
 	func _init(p_id : int, p_request : HTTPRequest, p_uri : String,
 			p_method : int, p_headers : PackedStringArray, p_body : PackedByteArray,
 			p_retry_count : int, p_backoff_time : int, p_logger : NakamaLogger):
-		rng.seed = OS.get_ticks_usec()
+		rng.seed = Time.get_ticks_usec()
 		id = p_id
 		request = p_request
 		uri = p_uri
@@ -68,7 +68,7 @@ class AsyncRequest:
 	func make_request():
 		var err = request.request(uri, headers, true, method, body.get_string_from_utf8())
 		if err != OK:
-			await request.get_tree().idle_frame
+			await request.get_tree().process_frame
 			result = HTTPRequest.RESULT_CANT_CONNECT
 			logger.debug("Request %d failed to start, error: %d" % [id, err])
 			return
@@ -172,7 +172,7 @@ func send_async(p_method : String, p_uri : String, p_headers : Dictionary, p_bod
 
 	add_child(req)
 
-	return _send_async.call(id, _pending)
+	return await _send_async.call(id, _pending)
 
 func get_last_token():
 	return id

@@ -10,7 +10,7 @@ var exception : NakamaException:
 var _ex = null
 
 func _no_set(v):
-	return
+	pass
 
 func _init(p_ex = null):
 	_ex = p_ex
