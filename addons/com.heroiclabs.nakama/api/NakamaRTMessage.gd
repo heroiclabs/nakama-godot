@@ -137,13 +137,18 @@ class ChannelMessageUpdate extends NakamaAsyncResult:
 	func _to_string():
 		return "ChannelMessageUpdate<channel_id=%s, message_id=%s, content=%s>" % [channel_id, message_id, content]
 
+
 # A create message for a match on the server.
 class MatchCreate extends NakamaAsyncResult:
 
-	var _SCHEMA = {}
+	var _SCHEMA = {
+		"name": {"name": "name", "type": TYPE_STRING, "required": false},
+	}
+	
+	var name = null
 
-	func _init():
-		pass
+	func _init(p_name = null):
+		name = p_name if p_name else null
 
 	func serialize():
 		return NakamaSerializer.serialize(self)
@@ -152,7 +157,7 @@ class MatchCreate extends NakamaAsyncResult:
 		return "match_create"
 
 	func _to_string():
-		return "MatchCreate<>"
+		return "MatchCreate<name=%s>" % [name]
 
 
 # A join message for a match on the server.
@@ -243,6 +248,7 @@ class MatchmakerAdd extends NakamaAsyncResult:
 		"min_count": {"name": "min_count", "type": TYPE_INT, "required": true},
 		"numeric_properties": {"name": "numeric_properties", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_FLOAT},
 		"string_properties": {"name": "string_properties", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
+		"count_multiple": {"name": "count_multiple", "type": TYPE_INT, "required": false},
 	}
 
 	var query : String = "*"
@@ -250,17 +256,20 @@ class MatchmakerAdd extends NakamaAsyncResult:
 	var min_count : int = 2
 	var string_properties : Dictionary
 	var numeric_properties : Dictionary
+	var count_multiple
 
 	func _no_set(_val):
 		return
 
 	func _init(p_query : String = "*", p_min_count : int = 2, p_max_count : int = 8,
-			p_string_props : Dictionary = Dictionary(), p_numeric_props : Dictionary = Dictionary()):
+			p_string_props : Dictionary = Dictionary(), p_numeric_props : Dictionary = Dictionary(),
+			p_count_multiple : int = 0):
 		query = p_query
 		min_count = p_min_count
 		max_count = p_max_count
 		string_properties = p_string_props
 		numeric_properties = p_numeric_props
+		count_multiple = p_count_multiple if p_count_multiple > 0 else null
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -269,7 +278,7 @@ class MatchmakerAdd extends NakamaAsyncResult:
 		return "matchmaker_add"
 
 	func _to_string():
-		return "MatchmakerAdd<query=%s, max_count=%d, min_count=%d, numeric_properties=%s, string_properties=%s>" % [query, max_count, min_count, numeric_properties, string_properties]
+		return "MatchmakerAdd<query=%s, max_count=%d, min_count=%d, numeric_properties=%s, string_properties=%s, count_multiple=%s>" % [query, max_count, min_count, numeric_properties, string_properties, count_multiple]
 
 
 # Remove the user from the matchmaker pool by ticket.
@@ -553,14 +562,17 @@ class PartyMatchmakerAdd extends NakamaAsyncResult:
 	var string_properties : Dictionary
 	# Numeric properties.
 	var numeric_properties : Dictionary
+	# Optional multiple of the count that must be satisfied.
+	var count_multiple
 
-	func _init(p_id : String, p_min_count : int, p_max_count : int, p_query : String, p_string_properties = null, p_numeric_properties = null):
+	func _init(p_id : String, p_min_count : int, p_max_count : int, p_query : String, p_string_properties = null, p_numeric_properties = null, p_count_multiple = null):
 		party_id = p_id
 		min_count = p_min_count
 		max_count = p_max_count
 		query = p_query
 		string_properties = p_string_properties
 		numeric_properties = p_numeric_properties
+		count_multiple = p_count_multiple
 
 	func serialize():
 		return NakamaSerializer.serialize(self)
@@ -569,7 +581,7 @@ class PartyMatchmakerAdd extends NakamaAsyncResult:
 		return "party_matchmaker_add"
 
 	func _to_string():
-		return "PartyMatchmakerAdd<party_id=%s, min_count=%d, max_count=%d, query=%s, string_properties=%s, numeric_properties=%s>" % [party_id, min_count, max_count, query, string_properties, numeric_properties]
+		return "PartyMatchmakerAdd<party_id=%s, min_count=%d, max_count=%d, query=%s, string_properties=%s, numeric_properties=%s, count_multiple>" % [party_id, min_count, max_count, query, string_properties, numeric_properties, count_multiple]
 
 
 # Cancel a party matchmaking process using a ticket.
