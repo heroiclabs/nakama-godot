@@ -12,24 +12,28 @@ func _no_get():
 	return null
 
 # The host address of the server. Defaults to "127.0.0.1".
+var _host
 var host : String:
-	set(v):
-		_no_set(v)
+	get:
+		return _host
 		
 # The port number of the server. Defaults to 7350.
+var _port
 var port : int:
-	set(v):
-		_no_set(v)
+	get:
+		return _port
 
 # The protocol scheme used to connect with the server. Must be either "http" or "https".
+var _scheme
 var scheme : String:
-	set(v):
-		_no_set(v)
+	get:
+		return _scheme
 
 # The key used to authenticate with the server without a session. Defaults to "defaultkey".
-var server_key : String = "defaultkey":
-	set(v):
-		_no_set(v)
+var _server_key : String = "defaultkey"
+var server_key:
+	get:
+		return _server_key
 
 # Set the timeout in seconds on requests sent to the server.
 var timeout : int
@@ -117,13 +121,13 @@ func _init(p_adapter : NakamaHTTPAdapter,
 		p_port : int,
 		p_timeout : int):
 
-	server_key = p_server_key
-	scheme = p_scheme
-	host = p_host
-	port = p_port
+	_server_key = p_server_key
+	_scheme = p_scheme
+	_host = p_host
+	_port = p_port
 	timeout = p_timeout
 	logger = p_adapter.logger
-	_api_client = NakamaAPI.ApiClient.new(scheme + "://" + host + ":" + str(port), p_adapter, NakamaAPI, server_key, p_timeout)
+	_api_client = NakamaAPI.ApiClient.new(_scheme + "://" + _host + ":" + str(_port), p_adapter, NakamaAPI, _server_key, p_timeout)
 
 # Restore a session from the auth token.
 # A `null` or empty authentication token will return `null`.
