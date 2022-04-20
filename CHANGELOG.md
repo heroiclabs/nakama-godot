@@ -11,6 +11,7 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 - Add support for creating match by name
 - Add support for "count_multple" on "NakamaSocket.add_matchmaker_async()" and "NakamaSocket.add_matchmaker_party_async()"
 - Add C# support classes to better integrate the .NET client with the Mono version of Godot, allowing HTML5 exports to work
+- Fixed sending and receiving of PartyData
 
 ## [3.0.0] - 2022-03-28
 
