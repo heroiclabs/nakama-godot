@@ -825,7 +825,10 @@ class PartyData extends NakamaAsyncResult:
 		return "PartyData<party_id=%s, presence=%s, op_code=%d, data%s>" % [party_id, presence, op_code, data]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> PartyData:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyData", p_dict), PartyData) as PartyData
+		var out := _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyData", p_dict), PartyData) as PartyData
+		if out.data: # Decode base64 received data
+			out.data = Marshalls.base64_to_utf8(out.data)
+		return out
 
 	static func get_result_key() -> String:
 		return "party_data"
