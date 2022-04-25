@@ -838,8 +838,8 @@ class PartyClose extends NakamaAsyncResult:
 	# Party ID to close.
 	var party_id : String
 
-	func _init(p_id : String):
-		party_id = p_id
+	func _init(p_ex = null).(p_ex):
+		pass
 
 	func serialize():
 		return NakamaSerializer.serialize(self)

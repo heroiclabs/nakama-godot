@@ -510,7 +510,9 @@ func add_matchmaker_party_async(p_party_id : String, p_query : String = "*", p_m
 # @param p_party_id - The ID of the party.
 # Returns a task to represent the asynchronous operation.
 func close_party_async(p_party_id : String):
-	return _send_async(NakamaRTAPI.PartyClose.new(p_party_id))
+	var msg := NakamaRTAPI.PartyClose.new()
+	msg.party_id = p_party_id
+	return _send_async(msg)
 
 # Create a party.
 # @param p_open - Whether or not the party will require join requests to be approved by the party leader.
