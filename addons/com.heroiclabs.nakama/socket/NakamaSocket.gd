@@ -570,5 +570,6 @@ func remove_party_member_async(p_party_id : String, p_presence : NakamaRTAPI.Use
 # @param p_op_code - Op code value.
 # @param data - Data payload, if any.
 # Returns a task which represents the asynchronous operation.
-func send_party_data_async(p_party_id : String, p_op_code : int, p_data = null):
-	return _send_async(NakamaRTMessage.PartyDataSend.new(p_party_id, p_op_code, p_data))
+func send_party_data_async(p_party_id : String, p_op_code : int, p_data:String = ""):
+	var base64_data = null if p_data.empty() else Marshalls.utf8_to_base64(p_data)
+	return _send_async(NakamaRTMessage.PartyDataSend.new(p_party_id, p_op_code, base64_data))
