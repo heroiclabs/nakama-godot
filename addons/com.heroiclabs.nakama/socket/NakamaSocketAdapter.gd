@@ -1,4 +1,4 @@
-@tool
+#@tool
 extends Node
 
 # An adapter which implements a socket with a protocol supported by Nakama.
@@ -39,7 +39,7 @@ func close():
 func connect_to_host(p_uri : String, p_timeout : int):
 	_ws.disconnect_from_host()
 	_timeout = p_timeout
-	_start = OS.get_unix_time()
+	_start = Time.get_unix_time_from_system()
 	var err = _ws.connect_to_url(p_uri)
 	if err != OK:
 		logger.debug("Error connecting to host %s" % p_uri)
@@ -53,7 +53,7 @@ func send(p_buffer : PackedByteArray, p_reliable : bool = true) -> int:
 
 func _process(delta):
 	if _ws.get_connection_status() == WebSocketClient.CONNECTION_CONNECTING:
-		if _start + _timeout < OS.get_unix_time():
+		if _start + _timeout < Time.get_unix_time_from_system():
 			logger.debug("Timeout when connecting to socket")
 			emit_signal("received_error", ERR_TIMEOUT)
 			_ws.disconnect_from_host()

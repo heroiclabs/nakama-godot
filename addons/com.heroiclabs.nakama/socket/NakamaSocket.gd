@@ -74,6 +74,7 @@ var _responses : Dictionary
 var _last_id : int = 1
 var _conn = null
 var logger : NakamaLogger = null
+var json := JSON.new()
 
 func _resume_conn(p_err : int):
 	if _conn:
@@ -137,8 +138,6 @@ func _connected():
 	_resume_conn(OK)
 
 func _received(p_bytes : PackedByteArray):
-	var json = JSON.new()
-
 	var json_str = p_bytes.get_string_from_utf8()
 	var json_error := json.parse(json_str)
 	if json_error != OK or typeof(json.get_data()) != TYPE_DICTIONARY:
@@ -274,9 +273,7 @@ func _send_async(p_message, p_parse_type = NakamaAsyncResult, p_ns = NakamaRTAPI
 	_last_id += 1
 	_responses[id] = _parse_result.call(_responses, id, p_parse_type, p_ns, p_result_key)
 	
-	var json_obj = JSON.new()
-
-	var json := json_obj.stringify({
+	var json := json.stringify({
 		"cid": id,
 		msg: p_message.serialize()
 	})
@@ -407,7 +404,7 @@ func rpc_async(p_func_id : String, p_payload = null) -> NakamaAPI.ApiRpc:
 		TYPE_NIL, TYPE_STRING:
 			pass
 		_:
-			payload = JSON.print(p_payload)
+			payload = json.stringify(p_payload)
 	return _send_async(NakamaAPI.ApiRpc.create(NakamaAPI, {
 		"id": p_func_id,
 		"payload": payload
@@ -464,7 +461,7 @@ func unfollow_users_async(p_ids : PackedStringArray):
 # Returns a task which resolves to an acknowledgement of the updated message.
 func update_chat_message_async(p_channel_id : String, p_message_id : String, p_content : Dictionary):
 	return _send_async(
-		NakamaRTMessage.ChannelMessageUpdate.new(p_channel_id, p_message_id, JSON.print(p_content)),
+		NakamaRTMessage.ChannelMessageUpdate.new(p_channel_id, p_message_id, json.stringify(p_content)),
 		NakamaRTAPI.ChannelMessageAck
 	)
 
@@ -480,7 +477,7 @@ func update_status_async(p_status : String):
 # Returns a task which resolves to the acknowledgement of the chat message write.
 func write_chat_message_async(p_channel_id : String, p_content : Dictionary):
 	return _send_async(
-		NakamaRTMessage.ChannelMessageSend.new(p_channel_id, JSON.print(p_content)),
+		NakamaRTMessage.ChannelMessageSend.new(p_channel_id, json.stringify(p_content)),
 		NakamaRTAPI.ChannelMessageAck
 	)
 

@@ -6,7 +6,7 @@ class_name NakamaAPI
 # A single user-role pair.
 class GroupUserListGroupUser extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"state": {"name": "_state", "type": TYPE_INT, "required": false},
 		"user": {"name": "_user", "type": "ApiUser", "required": false},
 	}
@@ -51,7 +51,7 @@ class GroupUserListGroupUser extends NakamaAsyncResult:
 # A single group-role pair.
 class UserGroupListUserGroup extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"group": {"name": "_group", "type": "ApiGroup", "required": false},
 		"state": {"name": "_state", "type": TYPE_INT, "required": false},
 	}
@@ -108,7 +108,7 @@ enum ValidatedPurchaseStore {APPLE_APP_STORE = 0,GOOGLE_PLAY_STORE = 1,HUAWEI_AP
 # Record values to write.
 class WriteLeaderboardRecordRequestLeaderboardRecordWrite extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"metadata": {"name": "_metadata", "type": TYPE_STRING, "required": false},
 		"operator": {"name": "_operator", "type": TYPE_INT, "required": false},
 		"score": {"name": "_score", "type": TYPE_STRING, "required": false},
@@ -173,7 +173,7 @@ class WriteLeaderboardRecordRequestLeaderboardRecordWrite extends NakamaAsyncRes
 # Record values to write.
 class WriteTournamentRecordRequestTournamentRecordWrite extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"metadata": {"name": "_metadata", "type": TYPE_STRING, "required": false},
 		"operator": {"name": "_operator", "type": TYPE_INT, "required": false},
 		"score": {"name": "_score", "type": TYPE_STRING, "required": false},
@@ -238,7 +238,7 @@ class WriteTournamentRecordRequestTournamentRecordWrite extends NakamaAsyncResul
 # A user with additional account details. Always the current user.
 class ApiAccount extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"custom_id": {"name": "_custom_id", "type": TYPE_STRING, "required": false},
 		"devices": {"name": "_devices", "type": TYPE_ARRAY, "required": false, "content": "ApiAccountDevice"},
 		"disable_time": {"name": "_disable_time", "type": TYPE_STRING, "required": false},
@@ -359,7 +359,7 @@ class ApiAccount extends NakamaAsyncResult:
 # Send a Apple Sign In token to the server. Used with authenticate/link/unlink.
 class ApiAccountApple extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"token": {"name": "_token", "type": TYPE_STRING, "required": false},
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
@@ -407,7 +407,7 @@ class ApiAccountApple extends NakamaAsyncResult:
 # Send a custom ID to the server. Used with authenticate/link/unlink.
 class ApiAccountCustom extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"id": {"name": "_id", "type": TYPE_STRING, "required": false},
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
@@ -455,7 +455,7 @@ class ApiAccountCustom extends NakamaAsyncResult:
 # Send a device to the server. Used with authenticate/link/unlink and user.
 class ApiAccountDevice extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"id": {"name": "_id", "type": TYPE_STRING, "required": false},
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
@@ -503,7 +503,7 @@ class ApiAccountDevice extends NakamaAsyncResult:
 # Send an email with password to the server. Used with authenticate/link/unlink.
 class ApiAccountEmail extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"email": {"name": "_email", "type": TYPE_STRING, "required": false},
 		"password": {"name": "_password", "type": TYPE_STRING, "required": false},
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
@@ -563,7 +563,7 @@ class ApiAccountEmail extends NakamaAsyncResult:
 # Send a Facebook token to the server. Used with authenticate/link/unlink.
 class ApiAccountFacebook extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"token": {"name": "_token", "type": TYPE_STRING, "required": false},
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
@@ -611,7 +611,7 @@ class ApiAccountFacebook extends NakamaAsyncResult:
 # Send a Facebook Instant Game token to the server. Used with authenticate/link/unlink.
 class ApiAccountFacebookInstantGame extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"signed_player_info": {"name": "_signed_player_info", "type": TYPE_STRING, "required": false},
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
@@ -659,7 +659,7 @@ class ApiAccountFacebookInstantGame extends NakamaAsyncResult:
 # Send Apple's Game Center account credentials to the server. Used with authenticate/link/unlink.
 class ApiAccountGameCenter extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"bundle_id": {"name": "_bundle_id", "type": TYPE_STRING, "required": false},
 		"player_id": {"name": "_player_id", "type": TYPE_STRING, "required": false},
 		"public_key_url": {"name": "_public_key_url", "type": TYPE_STRING, "required": false},
@@ -767,7 +767,7 @@ class ApiAccountGameCenter extends NakamaAsyncResult:
 # Send a Google token to the server. Used with authenticate/link/unlink.
 class ApiAccountGoogle extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"token": {"name": "_token", "type": TYPE_STRING, "required": false},
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
@@ -815,7 +815,7 @@ class ApiAccountGoogle extends NakamaAsyncResult:
 # Send a Steam token to the server. Used with authenticate/link/unlink.
 class ApiAccountSteam extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"token": {"name": "_token", "type": TYPE_STRING, "required": false},
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
@@ -863,7 +863,7 @@ class ApiAccountSteam extends NakamaAsyncResult:
 # A message sent on a channel.
 class ApiChannelMessage extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"channel_id": {"name": "_channel_id", "type": TYPE_STRING, "required": false},
 		"code": {"name": "_code", "type": TYPE_INT, "required": false},
 		"content": {"name": "_content", "type": TYPE_STRING, "required": false},
@@ -1040,7 +1040,7 @@ class ApiChannelMessage extends NakamaAsyncResult:
 # A list of channel messages, usually a result of a list operation.
 class ApiChannelMessageList extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"cacheable_cursor": {"name": "_cacheable_cursor", "type": TYPE_STRING, "required": false},
 		"messages": {"name": "_messages", "type": TYPE_ARRAY, "required": false, "content": "ApiChannelMessage"},
 		"next_cursor": {"name": "_next_cursor", "type": TYPE_STRING, "required": false},
@@ -1109,7 +1109,7 @@ class ApiChannelMessageList extends NakamaAsyncResult:
 # Create a group with the current user as owner.
 class ApiCreateGroupRequest extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"avatar_url": {"name": "_avatar_url", "type": TYPE_STRING, "required": false},
 		"description": {"name": "_description", "type": TYPE_STRING, "required": false},
 		"lang_tag": {"name": "_lang_tag", "type": TYPE_STRING, "required": false},
@@ -1202,7 +1202,7 @@ class ApiCreateGroupRequest extends NakamaAsyncResult:
 # Storage objects to delete.
 class ApiDeleteStorageObjectId extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"collection": {"name": "_collection", "type": TYPE_STRING, "required": false},
 		"key": {"name": "_key", "type": TYPE_STRING, "required": false},
 		"version": {"name": "_version", "type": TYPE_STRING, "required": false},
@@ -1259,7 +1259,7 @@ class ApiDeleteStorageObjectId extends NakamaAsyncResult:
 # Batch delete storage objects.
 class ApiDeleteStorageObjectsRequest extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"object_ids": {"name": "_object_ids", "type": TYPE_ARRAY, "required": false, "content": "ApiDeleteStorageObjectId"},
 	}
 
@@ -1292,7 +1292,7 @@ class ApiDeleteStorageObjectsRequest extends NakamaAsyncResult:
 # Represents an event to be passed through the server to registered event handlers.
 class ApiEvent extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"external": {"name": "_external", "type": TYPE_BOOL, "required": false},
 		"name": {"name": "_name", "type": TYPE_STRING, "required": false},
 		"properties": {"name": "_properties", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
@@ -1364,7 +1364,7 @@ class ApiEvent extends NakamaAsyncResult:
 # A friend of a user.
 class ApiFriend extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"state": {"name": "_state", "type": TYPE_INT, "required": false},
 		"update_time": {"name": "_update_time", "type": TYPE_STRING, "required": false},
 		"user": {"name": "_user", "type": "ApiUser", "required": false},
@@ -1421,7 +1421,7 @@ class ApiFriend extends NakamaAsyncResult:
 # A collection of zero or more friends of the user.
 class ApiFriendList extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"cursor": {"name": "_cursor", "type": TYPE_STRING, "required": false},
 		"friends": {"name": "_friends", "type": TYPE_ARRAY, "required": false, "content": "ApiFriend"},
 	}
@@ -1466,7 +1466,7 @@ class ApiFriendList extends NakamaAsyncResult:
 # A group in the server.
 class ApiGroup extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"avatar_url": {"name": "_avatar_url", "type": TYPE_STRING, "required": false},
 		"create_time": {"name": "_create_time", "type": TYPE_STRING, "required": false},
 		"creator_id": {"name": "_creator_id", "type": TYPE_STRING, "required": false},
@@ -1631,7 +1631,7 @@ class ApiGroup extends NakamaAsyncResult:
 # One or more groups returned from a listing operation.
 class ApiGroupList extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"cursor": {"name": "_cursor", "type": TYPE_STRING, "required": false},
 		"groups": {"name": "_groups", "type": TYPE_ARRAY, "required": false, "content": "ApiGroup"},
 	}
@@ -1676,7 +1676,7 @@ class ApiGroupList extends NakamaAsyncResult:
 # A list of users belonging to a group, along with their role.
 class ApiGroupUserList extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"cursor": {"name": "_cursor", "type": TYPE_STRING, "required": false},
 		"group_users": {"name": "_group_users", "type": TYPE_ARRAY, "required": false, "content": "GroupUserListGroupUser"},
 	}
@@ -1721,7 +1721,7 @@ class ApiGroupUserList extends NakamaAsyncResult:
 # Represents a complete leaderboard record with all scores and associated metadata.
 class ApiLeaderboardRecord extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"create_time": {"name": "_create_time", "type": TYPE_STRING, "required": false},
 		"expiry_time": {"name": "_expiry_time", "type": TYPE_STRING, "required": false},
 		"leaderboard_id": {"name": "_leaderboard_id", "type": TYPE_STRING, "required": false},
@@ -1886,7 +1886,7 @@ class ApiLeaderboardRecord extends NakamaAsyncResult:
 # A set of leaderboard records, may be part of a leaderboard records page or a batch of individual records.
 class ApiLeaderboardRecordList extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"next_cursor": {"name": "_next_cursor", "type": TYPE_STRING, "required": false},
 		"owner_records": {"name": "_owner_records", "type": TYPE_ARRAY, "required": false, "content": "ApiLeaderboardRecord"},
 		"prev_cursor": {"name": "_prev_cursor", "type": TYPE_STRING, "required": false},
@@ -1955,7 +1955,7 @@ class ApiLeaderboardRecordList extends NakamaAsyncResult:
 # Link Steam to the current user's account.
 class ApiLinkSteamRequest extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"account": {"name": "_account", "type": "ApiAccountSteam", "required": false},
 		"sync": {"name": "_sync", "type": TYPE_BOOL, "required": false},
 	}
@@ -2000,7 +2000,7 @@ class ApiLinkSteamRequest extends NakamaAsyncResult:
 # Represents a realtime match.
 class ApiMatch extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"authoritative": {"name": "_authoritative", "type": TYPE_BOOL, "required": false},
 		"handler_name": {"name": "_handler_name", "type": TYPE_STRING, "required": false},
 		"label": {"name": "_label", "type": TYPE_STRING, "required": false},
@@ -2093,7 +2093,7 @@ class ApiMatch extends NakamaAsyncResult:
 # A list of realtime matches.
 class ApiMatchList extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"matches": {"name": "_matches", "type": TYPE_ARRAY, "required": false, "content": "ApiMatch"},
 	}
 
@@ -2126,7 +2126,7 @@ class ApiMatchList extends NakamaAsyncResult:
 # A notification in the server.
 class ApiNotification extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"code": {"name": "_code", "type": TYPE_INT, "required": false},
 		"content": {"name": "_content", "type": TYPE_STRING, "required": false},
 		"create_time": {"name": "_create_time", "type": TYPE_STRING, "required": false},
@@ -2231,7 +2231,7 @@ class ApiNotification extends NakamaAsyncResult:
 # A collection of zero or more notifications.
 class ApiNotificationList extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"cacheable_cursor": {"name": "_cacheable_cursor", "type": TYPE_STRING, "required": false},
 		"notifications": {"name": "_notifications", "type": TYPE_ARRAY, "required": false, "content": "ApiNotification"},
 	}
@@ -2284,7 +2284,7 @@ enum ApiOperator {NO_OVERRIDE = 0,BEST = 1,SET = 2,INCREMENT = 3,DECREMENT = 4,}
 # Storage objects to get.
 class ApiReadStorageObjectId extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"collection": {"name": "_collection", "type": TYPE_STRING, "required": false},
 		"key": {"name": "_key", "type": TYPE_STRING, "required": false},
 		"user_id": {"name": "_user_id", "type": TYPE_STRING, "required": false},
@@ -2341,7 +2341,7 @@ class ApiReadStorageObjectId extends NakamaAsyncResult:
 # Batch get storage objects.
 class ApiReadStorageObjectsRequest extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"object_ids": {"name": "_object_ids", "type": TYPE_ARRAY, "required": false, "content": "ApiReadStorageObjectId"},
 	}
 
@@ -2374,7 +2374,7 @@ class ApiReadStorageObjectsRequest extends NakamaAsyncResult:
 # Execute an Lua function on the server.
 class ApiRpc extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"http_key": {"name": "_http_key", "type": TYPE_STRING, "required": false},
 		"id": {"name": "_id", "type": TYPE_STRING, "required": false},
 		"payload": {"name": "_payload", "type": TYPE_STRING, "required": false},
@@ -2431,7 +2431,7 @@ class ApiRpc extends NakamaAsyncResult:
 # A user's session used to authenticate messages.
 class ApiSession extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"created": {"name": "_created", "type": TYPE_BOOL, "required": false},
 		"refresh_token": {"name": "_refresh_token", "type": TYPE_STRING, "required": false},
 		"token": {"name": "_token", "type": TYPE_STRING, "required": false},
@@ -2488,7 +2488,7 @@ class ApiSession extends NakamaAsyncResult:
 # Log out a session, invalidate a refresh token, or log out all sessions/refresh tokens for a user.
 class ApiSessionLogoutRequest extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"refresh_token": {"name": "_refresh_token", "type": TYPE_STRING, "required": false},
 		"token": {"name": "_token", "type": TYPE_STRING, "required": false},
 	}
@@ -2533,7 +2533,7 @@ class ApiSessionLogoutRequest extends NakamaAsyncResult:
 # Authenticate against the server with a refresh token.
 class ApiSessionRefreshRequest extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"token": {"name": "_token", "type": TYPE_STRING, "required": false},
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
@@ -2581,7 +2581,7 @@ class ApiSessionRefreshRequest extends NakamaAsyncResult:
 # An object within the storage engine.
 class ApiStorageObject extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"collection": {"name": "_collection", "type": TYPE_STRING, "required": false},
 		"create_time": {"name": "_create_time", "type": TYPE_STRING, "required": false},
 		"key": {"name": "_key", "type": TYPE_STRING, "required": false},
@@ -2710,7 +2710,7 @@ class ApiStorageObject extends NakamaAsyncResult:
 # A storage acknowledgement.
 class ApiStorageObjectAck extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"collection": {"name": "_collection", "type": TYPE_STRING, "required": false},
 		"key": {"name": "_key", "type": TYPE_STRING, "required": false},
 		"user_id": {"name": "_user_id", "type": TYPE_STRING, "required": false},
@@ -2779,7 +2779,7 @@ class ApiStorageObjectAck extends NakamaAsyncResult:
 # Batch of acknowledgements for the storage object write.
 class ApiStorageObjectAcks extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"acks": {"name": "_acks", "type": TYPE_ARRAY, "required": false, "content": "ApiStorageObjectAck"},
 	}
 
@@ -2812,7 +2812,7 @@ class ApiStorageObjectAcks extends NakamaAsyncResult:
 # List of storage objects.
 class ApiStorageObjectList extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"cursor": {"name": "_cursor", "type": TYPE_STRING, "required": false},
 		"objects": {"name": "_objects", "type": TYPE_ARRAY, "required": false, "content": "ApiStorageObject"},
 	}
@@ -2857,7 +2857,7 @@ class ApiStorageObjectList extends NakamaAsyncResult:
 # Batch of storage objects.
 class ApiStorageObjects extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"objects": {"name": "_objects", "type": TYPE_ARRAY, "required": false, "content": "ApiStorageObject"},
 	}
 
@@ -2890,7 +2890,7 @@ class ApiStorageObjects extends NakamaAsyncResult:
 # A tournament on the server.
 class ApiTournament extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"can_enter": {"name": "_can_enter", "type": TYPE_BOOL, "required": false},
 		"category": {"name": "_category", "type": TYPE_INT, "required": false},
 		"create_time": {"name": "_create_time", "type": TYPE_STRING, "required": false},
@@ -3135,7 +3135,7 @@ class ApiTournament extends NakamaAsyncResult:
 # A list of tournaments.
 class ApiTournamentList extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"cursor": {"name": "_cursor", "type": TYPE_STRING, "required": false},
 		"tournaments": {"name": "_tournaments", "type": TYPE_ARRAY, "required": false, "content": "ApiTournament"},
 	}
@@ -3180,7 +3180,7 @@ class ApiTournamentList extends NakamaAsyncResult:
 # A set of tournament records which may be part of a tournament records page or a batch of individual records.
 class ApiTournamentRecordList extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"next_cursor": {"name": "_next_cursor", "type": TYPE_STRING, "required": false},
 		"owner_records": {"name": "_owner_records", "type": TYPE_ARRAY, "required": false, "content": "ApiLeaderboardRecord"},
 		"prev_cursor": {"name": "_prev_cursor", "type": TYPE_STRING, "required": false},
@@ -3249,7 +3249,7 @@ class ApiTournamentRecordList extends NakamaAsyncResult:
 # Update a user's account details.
 class ApiUpdateAccountRequest extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"avatar_url": {"name": "_avatar_url", "type": TYPE_STRING, "required": false},
 		"display_name": {"name": "_display_name", "type": TYPE_STRING, "required": false},
 		"lang_tag": {"name": "_lang_tag", "type": TYPE_STRING, "required": false},
@@ -3342,7 +3342,7 @@ class ApiUpdateAccountRequest extends NakamaAsyncResult:
 # Update fields in a given group.
 class ApiUpdateGroupRequest extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"avatar_url": {"name": "_avatar_url", "type": TYPE_STRING, "required": false},
 		"description": {"name": "_description", "type": TYPE_STRING, "required": false},
 		"group_id": {"name": "_group_id", "type": TYPE_STRING, "required": false},
@@ -3435,7 +3435,7 @@ class ApiUpdateGroupRequest extends NakamaAsyncResult:
 # A user in the server.
 class ApiUser extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"apple_id": {"name": "_apple_id", "type": TYPE_STRING, "required": false},
 		"avatar_url": {"name": "_avatar_url", "type": TYPE_STRING, "required": false},
 		"create_time": {"name": "_create_time", "type": TYPE_STRING, "required": false},
@@ -3672,7 +3672,7 @@ class ApiUser extends NakamaAsyncResult:
 # A list of groups belonging to a user, along with the user's role in each group.
 class ApiUserGroupList extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"cursor": {"name": "_cursor", "type": TYPE_STRING, "required": false},
 		"user_groups": {"name": "_user_groups", "type": TYPE_ARRAY, "required": false, "content": "UserGroupListUserGroup"},
 	}
@@ -3717,7 +3717,7 @@ class ApiUserGroupList extends NakamaAsyncResult:
 # A collection of zero or more users.
 class ApiUsers extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"users": {"name": "_users", "type": TYPE_ARRAY, "required": false, "content": "ApiUser"},
 	}
 
@@ -3750,7 +3750,7 @@ class ApiUsers extends NakamaAsyncResult:
 # 
 class ApiValidatePurchaseAppleRequest extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"receipt": {"name": "_receipt", "type": TYPE_STRING, "required": false},
 	}
 
@@ -3783,7 +3783,7 @@ class ApiValidatePurchaseAppleRequest extends NakamaAsyncResult:
 # 
 class ApiValidatePurchaseGoogleRequest extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"purchase": {"name": "_purchase", "type": TYPE_STRING, "required": false},
 	}
 
@@ -3816,7 +3816,7 @@ class ApiValidatePurchaseGoogleRequest extends NakamaAsyncResult:
 # 
 class ApiValidatePurchaseHuaweiRequest extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"purchase": {"name": "_purchase", "type": TYPE_STRING, "required": false},
 		"signature": {"name": "_signature", "type": TYPE_STRING, "required": false},
 	}
@@ -3861,7 +3861,7 @@ class ApiValidatePurchaseHuaweiRequest extends NakamaAsyncResult:
 # 
 class ApiValidatePurchaseResponse extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"validated_purchases": {"name": "_validated_purchases", "type": TYPE_ARRAY, "required": false, "content": "ApiValidatedPurchase"},
 	}
 
@@ -3894,7 +3894,7 @@ class ApiValidatePurchaseResponse extends NakamaAsyncResult:
 # Validated Purchase stored by Nakama.
 class ApiValidatedPurchase extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"create_time": {"name": "_create_time", "type": TYPE_STRING, "required": false},
 		"environment": {"name": "_environment", "type": TYPE_INT, "required": false},
 		"product_id": {"name": "_product_id", "type": TYPE_STRING, "required": false},
@@ -4015,7 +4015,7 @@ class ApiValidatedPurchase extends NakamaAsyncResult:
 # The object to store.
 class ApiWriteStorageObject extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"collection": {"name": "_collection", "type": TYPE_STRING, "required": false},
 		"key": {"name": "_key", "type": TYPE_STRING, "required": false},
 		"permission_read": {"name": "_permission_read", "type": TYPE_INT, "required": false},
@@ -4108,7 +4108,7 @@ class ApiWriteStorageObject extends NakamaAsyncResult:
 # Write objects to the storage engine.
 class ApiWriteStorageObjectsRequest extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"objects": {"name": "_objects", "type": TYPE_ARRAY, "required": false, "content": "ApiWriteStorageObject"},
 	}
 
@@ -4141,7 +4141,7 @@ class ApiWriteStorageObjectsRequest extends NakamaAsyncResult:
 # 
 class ProtobufAny extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"type_url": {"name": "_type_url", "type": TYPE_STRING, "required": false},
 		"value": {"name": "_value", "type": TYPE_STRING, "required": false},
 	}
@@ -4186,7 +4186,7 @@ class ProtobufAny extends NakamaAsyncResult:
 # 
 class RpcStatus extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"code": {"name": "_code", "type": TYPE_INT, "required": false},
 		"details": {"name": "_details", "type": TYPE_ARRAY, "required": false, "content": "ProtobufAny"},
 		"message": {"name": "_message", "type": TYPE_STRING, "required": false},

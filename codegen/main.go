@@ -65,7 +65,7 @@ enum {{ $classname | title }} { {{- range $idx, $enum := $definition.Enum }}{{ $
 # {{ $definition.Description | stripNewlines }}
 class {{ $classname }} extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		{{- range $propname, $property := $definition.Properties }}
 		{{- $fieldname := $propname | pascalToSnake }}
 		{{- $_field := printf "_%s" $fieldname }}

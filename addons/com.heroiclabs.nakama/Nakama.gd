@@ -1,4 +1,4 @@
-@tool
+#@tool
 extends Node
 
 # The default host address of the server.

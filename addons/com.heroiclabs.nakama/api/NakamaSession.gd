@@ -54,13 +54,13 @@ func _no_set(v):
 	return
 
 func is_expired() -> bool:
-	return expire_time < OS.get_unix_time()
+	return expire_time < Time.get_unix_time_from_system()
 
 func would_expire_in(p_secs : int) -> bool:
-	return expire_time < OS.get_unix_time() + p_secs
+	return expire_time < Time.get_unix_time_from_system() + p_secs
 
 func is_refresh_expired() -> bool:
-	return refresh_expire_time < OS.get_unix_time()
+	return refresh_expire_time < Time.get_unix_time_from_system()
 
 func is_valid():
 	return valid
@@ -87,7 +87,7 @@ func _parse_token(p_token):
 		return
 	valid = true
 	token = p_token
-	create_time = OS.get_unix_time()
+	create_time = Time.get_unix_time_from_system()
 	expire_time = int(decoded.get("exp", 0))
 	username = str(decoded.get("usn", ""))
 	user_id = str(decoded.get("uid", ""))

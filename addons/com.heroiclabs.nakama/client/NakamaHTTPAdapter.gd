@@ -1,4 +1,4 @@
-@tool
+#@tool
 extends Node
 
 # An adapter which implements the HTTP protocol.
@@ -95,6 +95,8 @@ class AsyncRequest:
 		if cancelled:
 			return NakamaException.new("Request cancelled", -1, -1, true)
 		elif result != HTTPRequest.RESULT_SUCCESS:
+			if result == null:
+				result = 0
 			return NakamaException.new("HTTPRequest failed!", result)
 
 		var json = JSON.new()
@@ -122,7 +124,7 @@ class AsyncRequest:
 			else:
 				error = str(result)
 			if typeof(error) == TYPE_DICTIONARY:
-				error = JSON.print(error)
+				error = json.stringify(error)
 			logger.debug("Request %d returned response code: %d, RPC code: %d, error: %s" % [
 				id, response_code, code, error
 			])
