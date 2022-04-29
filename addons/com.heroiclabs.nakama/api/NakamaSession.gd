@@ -82,7 +82,7 @@ func refresh(p_session):
 
 func _parse_token(p_token):
 	var decoded = _jwt_unpack(p_token)
-	if decoded.empty():
+	if decoded.is_empty():
 		valid = false
 		return
 	valid = true
@@ -98,7 +98,7 @@ func _parse_token(p_token):
 
 func _parse_refresh_token(p_refresh_token):
 	var decoded = _jwt_unpack(p_refresh_token)
-	if decoded.empty():
+	if decoded.is_empty():
 		return
 	refresh_expire_time = int(decoded.get("exp", 0))
 	refresh_token = p_refresh_token
