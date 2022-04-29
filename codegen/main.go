@@ -247,12 +247,11 @@ class ApiClient extends RefCounted:
           {{- $classname = $operation.Responses.Ok.Schema.Ref | cleanRef }}
         {{- end }}
         {{- if not $operation.Security }}
-		var should_refresh = _refresh_session.call(p_session)
-		if should_refresh != null:
-			var session = await should_refresh.completed
-			if session.is_exception():
-				return {{ $classname }}.new(session.get_exception())
-			p_session.refresh(session)
+		var try_refresh = await _refresh_session.call(p_session)
+		if try_refresh != null:
+			if try_refresh.is_exception():
+				return {{ $classname }}.new(try_refresh.get_exception())
+			await p_session.refresh(try_refresh)
         {{- end }}
 		var urlpath : String = "{{- $url }}"
             {{- range $parameter := $operation.Parameters }}

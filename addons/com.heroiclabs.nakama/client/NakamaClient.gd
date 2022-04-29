@@ -729,7 +729,7 @@ func read_storage_objects_async(p_session : NakamaSession, p_ids : Array): # -> 
 			continue # TODO Exceptions
 		var obj_id : NakamaStorageObjectId = id
 		ids.append(obj_id.as_read().serialize())
-	return _api_client.read_storage_objects_async.call(p_session,
+	return await _api_client.read_storage_objects_async.call(p_session,
 		NakamaAPI.ApiReadStorageObjectsRequest.create(NakamaAPI, {
 			"object_ids": ids
 		}))
@@ -976,7 +976,7 @@ func write_storage_objects_async(p_session : NakamaSession, p_objects : Array): 
 			continue # TODO Exceptions
 		var write_obj : NakamaWriteStorageObject = obj
 		writes.append(write_obj.as_write().serialize())
-	return _api_client.write_storage_objects_async.call(p_session,
+	return await _api_client.write_storage_objects_async.call(p_session,
 		NakamaAPI.ApiWriteStorageObjectsRequest.create(NakamaAPI, {
 			"objects": writes
 		}))
