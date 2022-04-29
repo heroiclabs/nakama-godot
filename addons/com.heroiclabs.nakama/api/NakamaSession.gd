@@ -1,75 +1,99 @@
 extends NakamaAsyncResult
 class_name NakamaSession
 
-
-var created : bool = false:
+var _created : bool = false
+var created : bool:
 	set(v):
-		_no_set(v)
+		pass
+	get:
+		return _created
 
-var token : String = "":
+var _token : String = ""
+var token : String:
 	set(v):
-		_no_set(v)
+		pass
+	get:
+		return _token
 
-var create_time : int = 0:
+var _create_time : int = 0
+var create_time : int:
 	set(v):
-		_no_set(v)
+		pass
+	get:
+		return _create_time
 
-var expire_time : int = 0:
+var _expire_time : int = 0
+var expire_time : int:
 	set(v):
-		_no_set(v)
+		pass
+	get:
+		return _expire_time
 
-var expired : bool = true:
+var expired : bool:
 	set(v):
-		_no_set(v)
+		pass
 	get:
 		return is_expired()
-		
-var vars : Dictionary = {}:
-	set(v):
-		_no_set(v)
 
-var username : String = "":
+var _vars : Dictionary = {}
+var vars : Dictionary:
 	set(v):
-		_no_set(v)
-
-var user_id : String = "":
-	set(v):
-		_no_set(v)
-
-var refresh_token : String = "":
-	set(v):
-		_no_set(v)
-
-var refresh_expire_time : int = 0:
-	set(v):
-		_no_set(v)
-
-var valid : bool = false: 
-	set(v):
-		_no_set(v)
+		pass
 	get:
-		return is_valid()
+		return _vars
 
-func _no_set(v):
-	return
+var _username : String = ""
+var username : String:
+	set(v):
+		pass
+	get:
+		return _username
+
+var _user_id : String = ""
+var user_id : String:
+	set(v):
+		pass
+	get:
+		return _user_id
+
+var _refresh_token : String = ""
+var refresh_token : String:
+	set(v):
+		pass
+	get:
+		return _refresh_token
+
+var _refresh_expire_time : int = 0
+var refresh_expire_time : int:
+	set(v):
+		pass
+	get:
+		return _refresh_expire_time
+
+var _valid : bool = false
+var valid : bool: 
+	set(v):
+		pass
+	get:
+		return _valid
 
 func is_expired() -> bool:
-	return expire_time < Time.get_unix_time_from_system()
+	return _expire_time < Time.get_unix_time_from_system()
 
 func would_expire_in(p_secs : int) -> bool:
-	return expire_time < Time.get_unix_time_from_system() + p_secs
+	return _expire_time < Time.get_unix_time_from_system() + p_secs
 
 func is_refresh_expired() -> bool:
-	return refresh_expire_time < Time.get_unix_time_from_system()
+	return _refresh_expire_time < Time.get_unix_time_from_system()
 
 func is_valid():
-	return valid
+	return _valid
 
 func _init(p_token = null, p_created : bool = false, p_refresh_token = null, p_exception = null):
 	super(p_exception)
 	
 	if p_token:
-		created = p_created
+		_created = p_created
 		_parse_token(p_token)
 	if p_refresh_token:
 		_parse_refresh_token(p_refresh_token)
@@ -83,31 +107,31 @@ func refresh(p_session):
 func _parse_token(p_token):
 	var decoded = _jwt_unpack(p_token)
 	if decoded.is_empty():
-		valid = false
+		_valid = false
 		return
-	valid = true
-	token = p_token
-	create_time = Time.get_unix_time_from_system()
-	expire_time = int(decoded.get("exp", 0))
-	username = str(decoded.get("usn", ""))
-	user_id = str(decoded.get("uid", ""))
-	vars = {}
+	_valid = true
+	_token = p_token
+	_create_time = Time.get_unix_time_from_system()
+	_expire_time = int(decoded.get("exp", 0))
+	_username = str(decoded.get("usn", ""))
+	_user_id = str(decoded.get("uid", ""))
+	_vars = {}
 	if decoded.has("vrs") and typeof(decoded["vrs"]) == TYPE_DICTIONARY:
 		for k in decoded["vrs"]:
-			vars[k] = decoded["vrs"][k]
+			_vars[k] = decoded["vrs"][k]
 
 func _parse_refresh_token(p_refresh_token):
 	var decoded = _jwt_unpack(p_refresh_token)
 	if decoded.is_empty():
 		return
-	refresh_expire_time = int(decoded.get("exp", 0))
-	refresh_token = p_refresh_token
+	_refresh_expire_time = int(decoded.get("exp", 0))
+	_refresh_token = p_refresh_token
 
 func _to_string():
 	if is_exception():
 		return get_exception()._to_string()
 	return "Session<created=%s, token=%s, create_time=%d, username=%s, user_id=%s, vars=%s, expire_time=%d, refresh_token=%s refresh_expire_time=%d>" % [
-		created, token, create_time, username, user_id, str(vars), expire_time, refresh_token, refresh_expire_time]
+		_created, _token, _create_time, _username, _user_id, str(_vars), _expire_time, _refresh_token, _refresh_expire_time]
 
 func _jwt_unpack(p_token : String) -> Dictionary:
 	# Hack decode JSON payload from JWT.
