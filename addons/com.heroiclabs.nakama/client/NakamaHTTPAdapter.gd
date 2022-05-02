@@ -113,16 +113,16 @@ class AsyncRequest:
 		if response_code != HTTPClient.RESPONSE_OK:
 			var error = ""
 			var code = -1
-			if typeof(result) == TYPE_DICTIONARY:
+			if typeof(parsed) == TYPE_DICTIONARY:
 				if "message" in parsed:
 					error = parsed["message"]
 				elif "error" in parsed:
 					error = parsed["error"]
 				else:
-					error = str(result)
+					error = str(parsed)
 				code = parsed["code"] if "code" in parsed else -1
 			else:
-				error = str(result)
+				error = str(parsed)
 			if typeof(error) == TYPE_DICTIONARY:
 				error = json.stringify(error)
 			logger.debug("Request %d returned response code: %d, RPC code: %d, error: %s" % [

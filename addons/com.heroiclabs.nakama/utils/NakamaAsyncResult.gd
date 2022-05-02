@@ -3,14 +3,11 @@ class_name NakamaAsyncResult
 
 var exception : NakamaException:
 	set(v):
-		_no_set(v)
+		pass
 	get:
 		return get_exception()
 		
 var _ex = null
-
-func _no_set(v):
-	pass
 
 func _init(p_ex = null):
 	_ex = p_ex

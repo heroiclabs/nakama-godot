@@ -258,9 +258,6 @@ class MatchmakerAdd extends NakamaAsyncResult:
 	var numeric_properties : Dictionary
 	var count_multiple
 
-	func _no_set(_val):
-		return
-
 	func _init(p_query : String = "*", p_min_count : int = 2, p_max_count : int = 8,
 			p_string_props : Dictionary = Dictionary(), p_numeric_props : Dictionary = Dictionary(),
 			p_count_multiple : int = 0):

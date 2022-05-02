@@ -9,22 +9,22 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Reference",
+"base": "RefCounted",
 "class": "NakamaAPI",
 "language": "GDScript",
 "path": "res://addons/com.heroiclabs.nakama/api/NakamaAPI.gd"
 }, {
-"base": "Reference",
+"base": "RefCounted",
 "class": "NakamaAsyncResult",
 "language": "GDScript",
 "path": "res://addons/com.heroiclabs.nakama/utils/NakamaAsyncResult.gd"
 }, {
-"base": "Reference",
+"base": "RefCounted",
 "class": "NakamaClient",
 "language": "GDScript",
 "path": "res://addons/com.heroiclabs.nakama/client/NakamaClient.gd"
 }, {
-"base": "Reference",
+"base": "RefCounted",
 "class": "NakamaException",
 "language": "GDScript",
 "path": "res://addons/com.heroiclabs.nakama/utils/NakamaException.gd"
@@ -34,7 +34,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/com.heroiclabs.nakama/client/NakamaHTTPAdapter.gd"
 }, {
-"base": "Reference",
+"base": "RefCounted",
 "class": "NakamaLogger",
 "language": "GDScript",
 "path": "res://addons/com.heroiclabs.nakama/utils/NakamaLogger.gd"
@@ -44,12 +44,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/com.heroiclabs.nakama/api/NakamaRTAPI.gd"
 }, {
-"base": "Reference",
+"base": "RefCounted",
 "class": "NakamaRTMessage",
 "language": "GDScript",
 "path": "res://addons/com.heroiclabs.nakama/api/NakamaRTMessage.gd"
 }, {
-"base": "Reference",
+"base": "RefCounted",
 "class": "NakamaSerializer",
 "language": "GDScript",
 "path": "res://addons/com.heroiclabs.nakama/utils/NakamaSerializer.gd"
@@ -59,7 +59,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/com.heroiclabs.nakama/api/NakamaSession.gd"
 }, {
-"base": "Reference",
+"base": "RefCounted",
 "class": "NakamaSocket",
 "language": "GDScript",
 "path": "res://addons/com.heroiclabs.nakama/socket/NakamaSocket.gd"
@@ -69,12 +69,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/com.heroiclabs.nakama/socket/NakamaSocketAdapter.gd"
 }, {
-"base": "Reference",
+"base": "RefCounted",
 "class": "NakamaStorageObjectId",
 "language": "GDScript",
 "path": "res://addons/com.heroiclabs.nakama/api/NakamaStorageObjectId.gd"
 }, {
-"base": "Reference",
+"base": "RefCounted",
 "class": "NakamaWriteStorageObject",
 "language": "GDScript",
 "path": "res://addons/com.heroiclabs.nakama/api/NakamaWriteStorageObject.gd"

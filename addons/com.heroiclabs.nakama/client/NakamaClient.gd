@@ -5,33 +5,35 @@ class_name NakamaClient
 
 var ChannelType = NakamaRTMessage.ChannelJoin.ChannelType
 
-func _no_set(_p):
-	return
-
-func _no_get():
-	return null
-
 # The host address of the server. Defaults to "127.0.0.1".
 var _host
 var host : String:
+	set(v):
+		pass
 	get:
 		return _host
 		
 # The port number of the server. Defaults to 7350.
 var _port
 var port : int:
+	set(v):
+		pass
 	get:
 		return _port
 
 # The protocol scheme used to connect with the server. Must be either "http" or "https".
 var _scheme
 var scheme : String:
+	set(v):
+		pass
 	get:
 		return _scheme
 
 # The key used to authenticate with the server without a session. Defaults to "defaultkey".
 var _server_key : String = "defaultkey"
 var server_key:
+	set(v):
+		pass
 	get:
 		return _server_key
 
@@ -74,7 +76,7 @@ var auto_retry_backoff_base:
 
 var last_cancel_token:
 	set(v):
-		_no_set(v)
+		pass
 	get:
 		return get_last_cancel_token()
 
