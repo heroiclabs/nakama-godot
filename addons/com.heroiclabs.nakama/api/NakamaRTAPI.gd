@@ -5,7 +5,7 @@ class_name NakamaRTAPI
 # A chat channel on the server.
 class Channel extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"id": {"name": "id", "type": TYPE_STRING, "required": true},
 		"presences": {"name": "presences", "type": TYPE_ARRAY, "required": false, "content": "UserPresence"},
 		"self": {"name": "self_presence", "type": "UserPresence", "required": true},
@@ -54,7 +54,7 @@ class Channel extends NakamaAsyncResult:
 
 class ChannelMessageAck extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"channel_id": {"name": "channel_id", "type": TYPE_STRING, "required": true},
 		"code": {"name": "code", "type": TYPE_INT, "required": true},
 		"create_time": {"name": "create_time", "type": TYPE_STRING, "required": false},
@@ -120,7 +120,7 @@ class ChannelMessageAck extends NakamaAsyncResult:
 # A batch of join and leave presences on a chat channel.
 class ChannelPresenceEvent extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"channel_id": {"name": "channel_id", "type": TYPE_STRING, "required": true},
 		"joins": {"name": "joins", "type": TYPE_ARRAY, "required": false, "content" : "UserPresence"},
 		"leaves": {"name": "leaves", "type": TYPE_ARRAY, "required": false, "content" : "UserPresence"},
@@ -170,7 +170,7 @@ class ChannelPresenceEvent extends NakamaAsyncResult:
 # Describes an error which occurred on the server.
 class Error extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"code": {"name": "code", "type": TYPE_INT, "required": true},
 		"message": {"name": "message", "type": TYPE_STRING, "required": true},
 		"context": {"name": "context", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
@@ -222,7 +222,7 @@ class Error extends NakamaAsyncResult:
 # A multiplayer match.
 class Match extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"authoritative": {"name": "authoritative", "type": TYPE_BOOL, "required": false},
 		"match_id": {"name": "match_id", "type": TYPE_STRING, "required": true},
 		"label": {"name": "label", "type": TYPE_STRING, "required": false},
@@ -265,7 +265,7 @@ class Match extends NakamaAsyncResult:
 
 # Some game state update in a match.
 class MatchData extends NakamaAsyncResult:
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"match_id": {"name": "match_id", "type": TYPE_STRING, "required": true},
 		"presence": {"name": "presence", "type": "UserPresence", "required": false},
 		"op_code": {"name": "op_code", "type": TYPE_STRING, "required": false},
@@ -304,7 +304,7 @@ class MatchData extends NakamaAsyncResult:
 
 # A batch of join and leave presences for a match.
 class MatchPresenceEvent extends NakamaAsyncResult:
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"match_id": {"name": "match_id", "type": TYPE_STRING, "required": true},
 		"joins": {"name": "joins", "type": TYPE_ARRAY, "required": false, "content" : "UserPresence"},
 		"leaves": {"name": "leaves", "type": TYPE_ARRAY, "required": false, "content" : "UserPresence"},
@@ -336,7 +336,7 @@ class MatchPresenceEvent extends NakamaAsyncResult:
 # The result of a successful matchmaker operation sent to the server.
 class MatchmakerMatched extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"match_id": {"name": "match_id", "type": TYPE_STRING, "required": false},
 		"ticket": {"name": "ticket", "type": TYPE_STRING, "required": true},
 		"token": {"name": "token", "type": TYPE_STRING, "required": false},
@@ -379,7 +379,7 @@ class MatchmakerMatched extends NakamaAsyncResult:
 # The matchmaker ticket received from the server.
 class MatchmakerTicket extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"ticket": {"name": "ticket", "type": TYPE_STRING, "required": true}
 	}
 
@@ -403,7 +403,7 @@ class MatchmakerTicket extends NakamaAsyncResult:
 # The user with the parameters they sent to the server when asking for opponents.
 class MatchmakerUser extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"presence": {"name": "presence", "type": "UserPresence", "required": true},
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": false},
 		"string_properties": {"name": "string_properties", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
@@ -440,7 +440,7 @@ class MatchmakerUser extends NakamaAsyncResult:
 # Receive status updates for users.
 class Status extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"presences": {"name": "presences", "type": TYPE_ARRAY, "required": true, "content": "UserPresence"},
 	}
 
@@ -463,7 +463,7 @@ class Status extends NakamaAsyncResult:
 
 # A status update event about other users who've come online or gone offline.
 class StatusPresenceEvent extends NakamaAsyncResult:
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"joins": {"name": "joins", "type": TYPE_ARRAY, "required": false, "content" : "UserPresence"},
 		"leaves": {"name": "leaves", "type": TYPE_ARRAY, "required": false, "content" : "UserPresence"},
 	}
@@ -493,7 +493,7 @@ class StatusPresenceEvent extends NakamaAsyncResult:
 # A realtime socket stream on the server.
 class Stream extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"mode": {"name": "mode", "type": TYPE_INT, "required": true},
 		"subject": {"name": "subject", "type": TYPE_STRING, "required": false},
 		"subcontext": {"name": "subcontext", "type": TYPE_STRING, "required": false},
@@ -530,7 +530,7 @@ class Stream extends NakamaAsyncResult:
 # Streams are built on to provide abstractions for matches, chat channels, etc. In most cases you'll never need to
 # interact with the low level stream itself.
 class StreamPresenceEvent extends NakamaAsyncResult:
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"stream": {"name": "stream", "type": "Stream", "required": true},
 		"joins": {"name": "joins", "type": TYPE_ARRAY, "required": false, "content" : "UserPresence"},
 		"leaves": {"name": "leaves", "type": TYPE_ARRAY, "required": false, "content" : "UserPresence"},
@@ -559,7 +559,7 @@ class StreamPresenceEvent extends NakamaAsyncResult:
 # A state change received from a stream.
 class StreamData extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"stream": {"name": "stream", "type": "Stream", "required": true},
 		"sender": {"name": "sender", "type": "UserPresence", "required": false},
 		"data": {"name": "state", "type": TYPE_STRING, "required": false},
@@ -594,7 +594,7 @@ class StreamData extends NakamaAsyncResult:
 # `{ node_id, user_id, session_id }` is used which is exposed as this object.
 class UserPresence extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"persistence": {"name": "persistence", "type": TYPE_BOOL, "required": false},
 		"session_id": {"name": "session_id", "type": TYPE_STRING, "required": true},
 		"status": {"name": "status", "type": TYPE_STRING, "required": false},
@@ -637,7 +637,7 @@ class UserPresence extends NakamaAsyncResult:
 
 class Party extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 		"open": {"name": "open", "type": TYPE_BOOL, "required": false},
 		"max_size": {"name": "max_size", "type": TYPE_INT, "required": true},
@@ -684,7 +684,7 @@ class Party extends NakamaAsyncResult:
 
 # Presence update for a particular party.
 class PartyPresenceEvent extends NakamaAsyncResult:
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 		"joins": {"name": "joins", "type": TYPE_ARRAY, "required": false, "content": "UserPresence"},
 		"leaves": {"name": "leaves", "type": TYPE_ARRAY, "required": false, "content": "UserPresence"},
@@ -715,7 +715,7 @@ class PartyPresenceEvent extends NakamaAsyncResult:
 
 # Announcement of a new party leader.
 class PartyLeader extends NakamaAsyncResult:
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 		"presence": {"name": "presence", "type": "UserPresence", "required": true},
 	}
@@ -743,7 +743,7 @@ class PartyLeader extends NakamaAsyncResult:
 
 # Incoming notification for one or more new presences attempting to join the party.
 class PartyJoinRequest extends NakamaAsyncResult:
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 		"presences": {"name": "presences", "type": TYPE_ARRAY, "required": false, "content": "UserPresence"},
 	}
@@ -771,7 +771,7 @@ class PartyJoinRequest extends NakamaAsyncResult:
 
 # A response from starting a new party matchmaking process.
 class PartyMatchmakerTicket extends NakamaAsyncResult:
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 		"ticket": {"name": "ticket", "type": TYPE_STRING, "required": true},
 	}
@@ -799,7 +799,7 @@ class PartyMatchmakerTicket extends NakamaAsyncResult:
 
 # Incoming party data delivered from the server.
 class PartyData extends NakamaAsyncResult:
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 		"presence": {"name": "presence", "type": "UserPresence", "required": false},
 		"op_code": {"name": "op_code", "type": TYPE_INT, "required": true},
@@ -832,7 +832,7 @@ class PartyData extends NakamaAsyncResult:
 
 # End a party, kicking all party members and closing it. (this is both a message and a result)
 class PartyClose extends NakamaAsyncResult:
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 	}
 	# Party ID to close.
