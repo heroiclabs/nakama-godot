@@ -118,6 +118,62 @@ func _on_socket_error(err):
 	printerr("Socket error %s" % err)
 ```
 
+## Mono / C#
+
+If you're using the Mono version of Godot with C# support, you can use the
+[Nakama .NET client](https://github.com/heroiclabs/nakama-dotnet/), which can be
+installed via NuGet:
+
+```
+dotnet add package NakamaClient
+```
+
+This addon includes some C# classes for use with the .NET client, to provide deeper
+integration with Godot:
+
+- `GodotLogger`: A logger which prints to the Godot console.
+- `GodotHttpAdapter`: An HTTP adapter which uses Godot's HTTPRequest node.
+- `GodotWebSocketAdapter`: A socket adapter which uses Godot's WebSocketClient.
+
+Here's an example of how to use them:
+
+```csharp
+	var http_adapter = new GodotHttpAdapter();
+	// It's a Node, so it needs to be added to the scene tree.
+	// Consider putting this in an autoload singleton so it won't go away unexpectedly.
+	AddChild(http_adapter);
+
+	const string scheme = "http";
+	const string host = "127.0.0.1";
+	const int port = 7350;
+	const string serverKey = "defaultkey";
+
+	// Pass in the 'http_adapter' as the last argument.
+	var client = new Client(scheme, host, port, serverKey, http_adapter);
+
+	// To log DEBUG messages to the Godot console.
+	client.Logger = new GodotLogger("Nakama", GodotLogger.LogLevel.DEBUG);
+
+	ISession session;
+	try {
+		session = await client.AuthenticateDeviceAsync(OS.GetUniqueId(), "TestUser", true);
+	}
+	catch (ApiResponseException e) {
+		GD.PrintErr(e.ToString());
+		return;
+	}
+
+	var websocket_adapter = new GodotWebSocketAdapter();
+	// Like the HTTP adapter, it's a Node, so it needs to be added to the scene tree.
+	// Consider putting this in an autoload singleton so it won't go away unexpectedly.
+	AddChild(websocket_adapter);
+
+	// Pass in the 'websocket_adapter' as the last argument.
+	var socket = Socket.From(client, websocket_adapter);
+```
+
+**Note:** _The out-of-the-box Nakama .NET client will work fine with desktop builds of your game! However, it won't work with HTML5 builds, unless you use the `GodotHttpAdapter` and `GodotWebSocketAdapter` classes._
+
 ## Contribute
 
 The development roadmap is managed as GitHub issues and pull requests are welcome. If you're interested to improve the code please open an issue to discuss the changes or drop in and discuss it in the [community forum](https://forum.heroiclabs.com).

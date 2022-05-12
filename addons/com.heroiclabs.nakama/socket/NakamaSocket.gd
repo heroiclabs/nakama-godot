@@ -523,7 +523,9 @@ func add_matchmaker_party_async(p_party_id : String, p_query : String = "*", p_m
 # @param p_party_id - The ID of the party.
 # Returns a task to represent the asynchronous operation.
 func close_party_async(p_party_id : String):
-	return _send_async(NakamaRTAPI.PartyClose.new(p_party_id))
+	var msg := NakamaRTAPI.PartyClose.new()
+	msg.party_id = p_party_id
+	return await _send_async(msg).completed
 
 # Create a party.
 # @param p_open - Whether or not the party will require join requests to be approved by the party leader.
@@ -581,5 +583,6 @@ func remove_party_member_async(p_party_id : String, p_presence : NakamaRTAPI.Use
 # @param p_op_code - Op code value.
 # @param data - Data payload, if any.
 # Returns a task which represents the asynchronous operation.
-func send_party_data_async(p_party_id : String, p_op_code : int, p_data = null):
-	return await _send_async(NakamaRTMessage.PartyDataSend.new(p_party_id, p_op_code, p_data)).completed
+func send_party_data_async(p_party_id : String, p_op_code : int, p_data:String = ""):
+	var base64_data = null if p_data.is_empty() else Marshalls.utf8_to_base64(p_data)
+	return await _send_async(NakamaRTMessage.PartyDataSend.new(p_party_id, p_op_code, base64_data)).completed

@@ -37,7 +37,7 @@ class Channel extends NakamaAsyncResult:
 	var user_id_two : String
 
 	func _init(p_ex = null):
-		super(p_ex)		
+		super(p_ex)
 
 	func _to_string():
 		if is_exception(): return get_exception()._to_string()
@@ -356,7 +356,7 @@ class MatchmakerMatched extends NakamaAsyncResult:
 
 	# The other users matched with this user and the parameters they sent.
 	var users : Array # MatchmakerUser
-	
+
 	# The current user who matched with opponents.
 	var self_user : MatchmakerUser
 
@@ -825,7 +825,10 @@ class PartyData extends NakamaAsyncResult:
 		return "PartyData<party_id=%s, presence=%s, op_code=%d, data%s>" % [party_id, presence, op_code, data]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> PartyData:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyData", p_dict), PartyData) as PartyData
+		var out := _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyData", p_dict), PartyData) as PartyData
+		if out.data: # Decode base64 received data
+			out.data = Marshalls.base64_to_utf8(out.data)
+		return out
 
 	static func get_result_key() -> String:
 		return "party_data"
@@ -838,8 +841,8 @@ class PartyClose extends NakamaAsyncResult:
 	# Party ID to close.
 	var party_id : String
 
-	func _init(p_id : String):
-		party_id = p_id
+	func _init(p_ex = null):
+		super(p_ex)
 
 	func serialize():
 		return NakamaSerializer.serialize(self)

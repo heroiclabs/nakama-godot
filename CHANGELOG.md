@@ -3,13 +3,19 @@ All notable changes to this project are documented below.
 
 The format is based on [keep a changelog](http://keepachangelog.com/) and this project uses [semantic versioning](http://semver.org/).
 
-## [Unreleased]
+## [3.1.0] - 2022-04-28
 
 ### Added
 
 - Expose the "seen_before" property on "NakamaAPI.ApiValidatedPurchase"
 - Add support for creating match by name
 - Add support for "count_multple" on "NakamaSocket.add_matchmaker_async()" and "NakamaSocket.add_matchmaker_party_async()"
+- Add C# support classes to better integrate the .NET client with the Mono version of Godot, allowing HTML5 exports to work
+
+### Fixed
+
+- Fix receiving "NakamaRTAPI.PartyClose" message
+- Fix sending and receiving of PartyData
 
 ## [3.0.0] - 2022-03-28
 
