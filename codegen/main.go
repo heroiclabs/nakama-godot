@@ -36,10 +36,7 @@ var utilities = map[string]string {
 				if _wallet == null:
 					return {}
 				var json = JSON.new()
-				# Work around issue #53115 / #56217
-				var tmp = _wallet
-				tmp = tmp
-				if json.parse(tmp) != OK:
+				if json.parse(_wallet) != OK:
 					return {}
 				_wallet_dict = json.get_data()
 			return _wallet_dict as Dictionary
@@ -87,27 +84,19 @@ class {{ $classname }} extends NakamaAsyncResult:
 	{{- $gdDef := $gdType | godotDef }}
 
 	# {{ $property.Description }}
-	var {{ $_field }} = null
+	var {{ $_field }}
 	var {{ $fieldname }} : {{ $gdType }}:
 		get:
 			{{- if $property.Ref }}
 			{{- if isRefToEnum (cleanRef $property.Ref) }}{{/* Enums */}}
 			return {{ cleanRef $property.Ref }}.values()[0] if not {{ cleanRef $property.Ref }}.values().has({{ $_field }}) else {{ $_field }}
 			{{- else }}{{/* Object reference */}}
-			#return _{{ $fieldname }} as {{ $gdType }}
-			# Work around issue #53115 / #56217
-			var tmp = _{{ $fieldname }}
-			tmp = tmp
-			return tmp as {{ $gdType }}
+			return _{{ $fieldname }} as {{ $gdType }}
 			{{- end }}
 			{{- else if eq $property.Type "object"}}{{/* Dictionaries */}}
 			return Dictionary() if not {{ $_field }} is Dictionary else {{ $_field }}.duplicate()
 			{{- else }}{{/* Simple type */}}
-			#return {{ $gdDef }} if not {{ $_field }} is {{ $gdType }} else {{ $gdType }}({{ $_field }})
-			# Work around issue #53115 / #56217
-			var tmp = {{ $_field }}
-			tmp = tmp
-			return {{ $gdDef }} if not tmp is {{ $gdType }} else {{ $gdType }}(tmp)
+			return {{ $gdDef }} if not {{ $_field }} is {{ $gdType }} else {{ $gdType }}({{ $_field }})
 			{{- end }}
 			{{- end }}
 
@@ -133,12 +122,9 @@ class {{ $classname }} extends NakamaAsyncResult:
 		output += "{{ $fieldname }}: %s, " % [{{ $_field }}]
             {{- else if eq $property.Type "object" }}
 		var map_string : String = ""
-		# Work around issue #53115 / #56217
-		var tmp = {{ $_field }}
-		tmp = tmp
-		if typeof(tmp) == TYPE_DICTIONARY:
-			for k in tmp:
-				map_string += "{%s=%s}, " % [k, tmp[k]]
+		if typeof({{ $_field }}) == TYPE_DICTIONARY:
+			for k in {{ $_field }}:
+				map_string += "{%s=%s}, " % [k, {{ $_field }}[k]]
 		output += "{{ $fieldname }}: [%s], " % map_string
             {{- else }}
 		output += "{{ $fieldname }}: %s, " % {{ $_field }}
@@ -277,6 +263,7 @@ class ApiClient extends RefCounted:
 			var tmp = {{ $argument }}
 			tmp = tmp
 			query_params += "{{- $snakecase }}=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "{{- $snakecase }}=%s&" % NakamaSerializer.escape_http({{ $argument }})
                 {{- else if eq $parameter.Type "boolean" }}
 			query_params += "{{- $snakecase }}=%s&" % str({{ $argument }}).to_lower()
                 {{- else if eq $parameter.Type "array" }}

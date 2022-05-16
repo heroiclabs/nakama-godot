@@ -12,24 +12,16 @@ class GroupUserListGroupUser extends NakamaAsyncResult:
 	}
 
 	# Their relationship to the group.
-	var _state = null
+	var _state
 	var state : int:
 		get:
-			#return 0 if not _state is int else int(_state)
-			# Work around issue #53115 / #56217
-			var tmp = _state
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _state is int else int(_state)
 
 	# User.
-	var _user = null
+	var _user
 	var user : ApiUser:
 		get:
-			#return _user as ApiUser
-			# Work around issue #53115 / #56217
-			var tmp = _user
-			tmp = tmp
-			return tmp as ApiUser
+			return _user as ApiUser
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -57,24 +49,16 @@ class UserGroupListUserGroup extends NakamaAsyncResult:
 	}
 
 	# Group.
-	var _group = null
+	var _group
 	var group : ApiGroup:
 		get:
-			#return _group as ApiGroup
-			# Work around issue #53115 / #56217
-			var tmp = _group
-			tmp = tmp
-			return tmp as ApiGroup
+			return _group as ApiGroup
 
 	# The user's relationship to the group.
-	var _state = null
+	var _state
 	var state : int:
 		get:
-			#return 0 if not _state is int else int(_state)
-			# Work around issue #53115 / #56217
-			var tmp = _state
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _state is int else int(_state)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -116,40 +100,28 @@ class WriteLeaderboardRecordRequestLeaderboardRecordWrite extends NakamaAsyncRes
 	}
 
 	# Optional record metadata.
-	var _metadata = null
+	var _metadata
 	var metadata : String:
 		get:
-			#return "" if not _metadata is String else String(_metadata)
-			# Work around issue #53115 / #56217
-			var tmp = _metadata
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _metadata is String else String(_metadata)
 
 	# Operator override.
-	var _operator = null
+	var _operator
 	var operator : int:
 		get:
 			return ApiOperator.values()[0] if not ApiOperator.values().has(_operator) else _operator
 
 	# The score value to submit.
-	var _score = null
+	var _score
 	var score : String:
 		get:
-			#return "" if not _score is String else String(_score)
-			# Work around issue #53115 / #56217
-			var tmp = _score
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _score is String else String(_score)
 
 	# An optional secondary value.
-	var _subscore = null
+	var _subscore
 	var subscore : String:
 		get:
-			#return "" if not _subscore is String else String(_subscore)
-			# Work around issue #53115 / #56217
-			var tmp = _subscore
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _subscore is String else String(_subscore)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -181,40 +153,28 @@ class WriteTournamentRecordRequestTournamentRecordWrite extends NakamaAsyncResul
 	}
 
 	# A JSON object of additional properties (optional).
-	var _metadata = null
+	var _metadata
 	var metadata : String:
 		get:
-			#return "" if not _metadata is String else String(_metadata)
-			# Work around issue #53115 / #56217
-			var tmp = _metadata
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _metadata is String else String(_metadata)
 
 	# Operator override.
-	var _operator = null
+	var _operator
 	var operator : int:
 		get:
 			return ApiOperator.values()[0] if not ApiOperator.values().has(_operator) else _operator
 
 	# The score value to submit.
-	var _score = null
+	var _score
 	var score : String:
 		get:
-			#return "" if not _score is String else String(_score)
-			# Work around issue #53115 / #56217
-			var tmp = _score
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _score is String else String(_score)
 
 	# An optional secondary value.
-	var _subscore = null
+	var _subscore
 	var subscore : String:
 		get:
-			#return "" if not _subscore is String else String(_subscore)
-			# Work around issue #53115 / #56217
-			var tmp = _subscore
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _subscore is String else String(_subscore)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -249,74 +209,46 @@ class ApiAccount extends NakamaAsyncResult:
 	}
 
 	# The custom id in the user's account.
-	var _custom_id = null
+	var _custom_id
 	var custom_id : String:
 		get:
-			#return "" if not _custom_id is String else String(_custom_id)
-			# Work around issue #53115 / #56217
-			var tmp = _custom_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _custom_id is String else String(_custom_id)
 
 	# The devices which belong to the user's account.
-	var _devices = null
+	var _devices
 	var devices : Array:
 		get:
-			#return Array() if not _devices is Array else Array(_devices)
-			# Work around issue #53115 / #56217
-			var tmp = _devices
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _devices is Array else Array(_devices)
 
 	# The UNIX time when the user's account was disabled/banned.
-	var _disable_time = null
+	var _disable_time
 	var disable_time : String:
 		get:
-			#return "" if not _disable_time is String else String(_disable_time)
-			# Work around issue #53115 / #56217
-			var tmp = _disable_time
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _disable_time is String else String(_disable_time)
 
 	# The email address of the user.
-	var _email = null
+	var _email
 	var email : String:
 		get:
-			#return "" if not _email is String else String(_email)
-			# Work around issue #53115 / #56217
-			var tmp = _email
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _email is String else String(_email)
 
 	# The user object.
-	var _user = null
+	var _user
 	var user : ApiUser:
 		get:
-			#return _user as ApiUser
-			# Work around issue #53115 / #56217
-			var tmp = _user
-			tmp = tmp
-			return tmp as ApiUser
+			return _user as ApiUser
 
 	# The UNIX time when the user's email was verified.
-	var _verify_time = null
+	var _verify_time
 	var verify_time : String:
 		get:
-			#return "" if not _verify_time is String else String(_verify_time)
-			# Work around issue #53115 / #56217
-			var tmp = _verify_time
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _verify_time is String else String(_verify_time)
 
 	# The user's wallet data.
-	var _wallet = null
+	var _wallet
 	var wallet : String:
 		get:
-			#return "" if not _wallet is String else String(_wallet)
-			# Work around issue #53115 / #56217
-			var tmp = _wallet
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _wallet is String else String(_wallet)
 
 	var _wallet_dict = null
 	var wallet_dict : Dictionary:
@@ -325,10 +257,7 @@ class ApiAccount extends NakamaAsyncResult:
 				if _wallet == null:
 					return {}
 				var json = JSON.new()
-				# Work around issue #53115 / #56217
-				var tmp = _wallet
-				tmp = tmp
-				if json.parse(tmp) != OK:
+				if json.parse(_wallet) != OK:
 					return {}
 				_wallet_dict = json.get_data()
 			return _wallet_dict as Dictionary
@@ -365,17 +294,13 @@ class ApiAccountApple extends NakamaAsyncResult:
 	}
 
 	# The ID token received from Apple to validate.
-	var _token = null
+	var _token
 	var token : String:
 		get:
-			#return "" if not _token is String else String(_token)
-			# Work around issue #53115 / #56217
-			var tmp = _token
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _token is String else String(_token)
 
 	# Extra information that will be bundled in the session token.
-	var _vars = null
+	var _vars
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
@@ -395,12 +320,9 @@ class ApiAccountApple extends NakamaAsyncResult:
 		var output : String = ""
 		output += "token: %s, " % _token
 		var map_string : String = ""
-		# Work around issue #53115 / #56217
-		var tmp = _vars
-		tmp = tmp
-		if typeof(tmp) == TYPE_DICTIONARY:
-			for k in tmp:
-				map_string += "{%s=%s}, " % [k, tmp[k]]
+		if typeof(_vars) == TYPE_DICTIONARY:
+			for k in _vars:
+				map_string += "{%s=%s}, " % [k, _vars[k]]
 		output += "vars: [%s], " % map_string
 		return output
 
@@ -413,17 +335,13 @@ class ApiAccountCustom extends NakamaAsyncResult:
 	}
 
 	# A custom identifier.
-	var _id = null
+	var _id
 	var id : String:
 		get:
-			#return "" if not _id is String else String(_id)
-			# Work around issue #53115 / #56217
-			var tmp = _id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _id is String else String(_id)
 
 	# Extra information that will be bundled in the session token.
-	var _vars = null
+	var _vars
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
@@ -443,12 +361,9 @@ class ApiAccountCustom extends NakamaAsyncResult:
 		var output : String = ""
 		output += "id: %s, " % _id
 		var map_string : String = ""
-		# Work around issue #53115 / #56217
-		var tmp = _vars
-		tmp = tmp
-		if typeof(tmp) == TYPE_DICTIONARY:
-			for k in tmp:
-				map_string += "{%s=%s}, " % [k, tmp[k]]
+		if typeof(_vars) == TYPE_DICTIONARY:
+			for k in _vars:
+				map_string += "{%s=%s}, " % [k, _vars[k]]
 		output += "vars: [%s], " % map_string
 		return output
 
@@ -461,17 +376,13 @@ class ApiAccountDevice extends NakamaAsyncResult:
 	}
 
 	# A device identifier. Should be obtained by a platform-specific device API.
-	var _id = null
+	var _id
 	var id : String:
 		get:
-			#return "" if not _id is String else String(_id)
-			# Work around issue #53115 / #56217
-			var tmp = _id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _id is String else String(_id)
 
 	# Extra information that will be bundled in the session token.
-	var _vars = null
+	var _vars
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
@@ -491,12 +402,9 @@ class ApiAccountDevice extends NakamaAsyncResult:
 		var output : String = ""
 		output += "id: %s, " % _id
 		var map_string : String = ""
-		# Work around issue #53115 / #56217
-		var tmp = _vars
-		tmp = tmp
-		if typeof(tmp) == TYPE_DICTIONARY:
-			for k in tmp:
-				map_string += "{%s=%s}, " % [k, tmp[k]]
+		if typeof(_vars) == TYPE_DICTIONARY:
+			for k in _vars:
+				map_string += "{%s=%s}, " % [k, _vars[k]]
 		output += "vars: [%s], " % map_string
 		return output
 
@@ -510,27 +418,19 @@ class ApiAccountEmail extends NakamaAsyncResult:
 	}
 
 	# A valid RFC-5322 email address.
-	var _email = null
+	var _email
 	var email : String:
 		get:
-			#return "" if not _email is String else String(_email)
-			# Work around issue #53115 / #56217
-			var tmp = _email
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _email is String else String(_email)
 
 	# A password for the user account.
-	var _password = null
+	var _password
 	var password : String:
 		get:
-			#return "" if not _password is String else String(_password)
-			# Work around issue #53115 / #56217
-			var tmp = _password
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _password is String else String(_password)
 
 	# Extra information that will be bundled in the session token.
-	var _vars = null
+	var _vars
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
@@ -551,12 +451,9 @@ class ApiAccountEmail extends NakamaAsyncResult:
 		output += "email: %s, " % _email
 		output += "password: %s, " % _password
 		var map_string : String = ""
-		# Work around issue #53115 / #56217
-		var tmp = _vars
-		tmp = tmp
-		if typeof(tmp) == TYPE_DICTIONARY:
-			for k in tmp:
-				map_string += "{%s=%s}, " % [k, tmp[k]]
+		if typeof(_vars) == TYPE_DICTIONARY:
+			for k in _vars:
+				map_string += "{%s=%s}, " % [k, _vars[k]]
 		output += "vars: [%s], " % map_string
 		return output
 
@@ -569,17 +466,13 @@ class ApiAccountFacebook extends NakamaAsyncResult:
 	}
 
 	# The OAuth token received from Facebook to access their profile API.
-	var _token = null
+	var _token
 	var token : String:
 		get:
-			#return "" if not _token is String else String(_token)
-			# Work around issue #53115 / #56217
-			var tmp = _token
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _token is String else String(_token)
 
 	# Extra information that will be bundled in the session token.
-	var _vars = null
+	var _vars
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
@@ -599,12 +492,9 @@ class ApiAccountFacebook extends NakamaAsyncResult:
 		var output : String = ""
 		output += "token: %s, " % _token
 		var map_string : String = ""
-		# Work around issue #53115 / #56217
-		var tmp = _vars
-		tmp = tmp
-		if typeof(tmp) == TYPE_DICTIONARY:
-			for k in tmp:
-				map_string += "{%s=%s}, " % [k, tmp[k]]
+		if typeof(_vars) == TYPE_DICTIONARY:
+			for k in _vars:
+				map_string += "{%s=%s}, " % [k, _vars[k]]
 		output += "vars: [%s], " % map_string
 		return output
 
@@ -617,17 +507,13 @@ class ApiAccountFacebookInstantGame extends NakamaAsyncResult:
 	}
 
 	# 
-	var _signed_player_info = null
+	var _signed_player_info
 	var signed_player_info : String:
 		get:
-			#return "" if not _signed_player_info is String else String(_signed_player_info)
-			# Work around issue #53115 / #56217
-			var tmp = _signed_player_info
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _signed_player_info is String else String(_signed_player_info)
 
 	# Extra information that will be bundled in the session token.
-	var _vars = null
+	var _vars
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
@@ -647,12 +533,9 @@ class ApiAccountFacebookInstantGame extends NakamaAsyncResult:
 		var output : String = ""
 		output += "signed_player_info: %s, " % _signed_player_info
 		var map_string : String = ""
-		# Work around issue #53115 / #56217
-		var tmp = _vars
-		tmp = tmp
-		if typeof(tmp) == TYPE_DICTIONARY:
-			for k in tmp:
-				map_string += "{%s=%s}, " % [k, tmp[k]]
+		if typeof(_vars) == TYPE_DICTIONARY:
+			for k in _vars:
+				map_string += "{%s=%s}, " % [k, _vars[k]]
 		output += "vars: [%s], " % map_string
 		return output
 
@@ -670,67 +553,43 @@ class ApiAccountGameCenter extends NakamaAsyncResult:
 	}
 
 	# Bundle ID (generated by GameCenter).
-	var _bundle_id = null
+	var _bundle_id
 	var bundle_id : String:
 		get:
-			#return "" if not _bundle_id is String else String(_bundle_id)
-			# Work around issue #53115 / #56217
-			var tmp = _bundle_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _bundle_id is String else String(_bundle_id)
 
 	# Player ID (generated by GameCenter).
-	var _player_id = null
+	var _player_id
 	var player_id : String:
 		get:
-			#return "" if not _player_id is String else String(_player_id)
-			# Work around issue #53115 / #56217
-			var tmp = _player_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _player_id is String else String(_player_id)
 
 	# The URL for the public encryption key.
-	var _public_key_url = null
+	var _public_key_url
 	var public_key_url : String:
 		get:
-			#return "" if not _public_key_url is String else String(_public_key_url)
-			# Work around issue #53115 / #56217
-			var tmp = _public_key_url
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _public_key_url is String else String(_public_key_url)
 
 	# A random "NSString" used to compute the hash and keep it randomized.
-	var _salt = null
+	var _salt
 	var salt : String:
 		get:
-			#return "" if not _salt is String else String(_salt)
-			# Work around issue #53115 / #56217
-			var tmp = _salt
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _salt is String else String(_salt)
 
 	# The verification signature data generated.
-	var _signature = null
+	var _signature
 	var signature : String:
 		get:
-			#return "" if not _signature is String else String(_signature)
-			# Work around issue #53115 / #56217
-			var tmp = _signature
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _signature is String else String(_signature)
 
 	# Time since UNIX epoch when the signature was created.
-	var _timestamp_seconds = null
+	var _timestamp_seconds
 	var timestamp_seconds : String:
 		get:
-			#return "" if not _timestamp_seconds is String else String(_timestamp_seconds)
-			# Work around issue #53115 / #56217
-			var tmp = _timestamp_seconds
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _timestamp_seconds is String else String(_timestamp_seconds)
 
 	# Extra information that will be bundled in the session token.
-	var _vars = null
+	var _vars
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
@@ -755,12 +614,9 @@ class ApiAccountGameCenter extends NakamaAsyncResult:
 		output += "signature: %s, " % _signature
 		output += "timestamp_seconds: %s, " % _timestamp_seconds
 		var map_string : String = ""
-		# Work around issue #53115 / #56217
-		var tmp = _vars
-		tmp = tmp
-		if typeof(tmp) == TYPE_DICTIONARY:
-			for k in tmp:
-				map_string += "{%s=%s}, " % [k, tmp[k]]
+		if typeof(_vars) == TYPE_DICTIONARY:
+			for k in _vars:
+				map_string += "{%s=%s}, " % [k, _vars[k]]
 		output += "vars: [%s], " % map_string
 		return output
 
@@ -773,17 +629,13 @@ class ApiAccountGoogle extends NakamaAsyncResult:
 	}
 
 	# The OAuth token received from Google to access their profile API.
-	var _token = null
+	var _token
 	var token : String:
 		get:
-			#return "" if not _token is String else String(_token)
-			# Work around issue #53115 / #56217
-			var tmp = _token
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _token is String else String(_token)
 
 	# Extra information that will be bundled in the session token.
-	var _vars = null
+	var _vars
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
@@ -803,12 +655,9 @@ class ApiAccountGoogle extends NakamaAsyncResult:
 		var output : String = ""
 		output += "token: %s, " % _token
 		var map_string : String = ""
-		# Work around issue #53115 / #56217
-		var tmp = _vars
-		tmp = tmp
-		if typeof(tmp) == TYPE_DICTIONARY:
-			for k in tmp:
-				map_string += "{%s=%s}, " % [k, tmp[k]]
+		if typeof(_vars) == TYPE_DICTIONARY:
+			for k in _vars:
+				map_string += "{%s=%s}, " % [k, _vars[k]]
 		output += "vars: [%s], " % map_string
 		return output
 
@@ -821,17 +670,13 @@ class ApiAccountSteam extends NakamaAsyncResult:
 	}
 
 	# The account token received from Steam to access their profile API.
-	var _token = null
+	var _token
 	var token : String:
 		get:
-			#return "" if not _token is String else String(_token)
-			# Work around issue #53115 / #56217
-			var tmp = _token
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _token is String else String(_token)
 
 	# Extra information that will be bundled in the session token.
-	var _vars = null
+	var _vars
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
@@ -851,12 +696,9 @@ class ApiAccountSteam extends NakamaAsyncResult:
 		var output : String = ""
 		output += "token: %s, " % _token
 		var map_string : String = ""
-		# Work around issue #53115 / #56217
-		var tmp = _vars
-		tmp = tmp
-		if typeof(tmp) == TYPE_DICTIONARY:
-			for k in tmp:
-				map_string += "{%s=%s}, " % [k, tmp[k]]
+		if typeof(_vars) == TYPE_DICTIONARY:
+			for k in _vars:
+				map_string += "{%s=%s}, " % [k, _vars[k]]
 		output += "vars: [%s], " % map_string
 		return output
 
@@ -880,134 +722,82 @@ class ApiChannelMessage extends NakamaAsyncResult:
 	}
 
 	# The channel this message belongs to.
-	var _channel_id = null
+	var _channel_id
 	var channel_id : String:
 		get:
-			#return "" if not _channel_id is String else String(_channel_id)
-			# Work around issue #53115 / #56217
-			var tmp = _channel_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _channel_id is String else String(_channel_id)
 
 	# The code representing a message type or category.
-	var _code = null
+	var _code
 	var code : int:
 		get:
-			#return 0 if not _code is int else int(_code)
-			# Work around issue #53115 / #56217
-			var tmp = _code
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _code is int else int(_code)
 
 	# The content payload.
-	var _content = null
+	var _content
 	var content : String:
 		get:
-			#return "" if not _content is String else String(_content)
-			# Work around issue #53115 / #56217
-			var tmp = _content
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _content is String else String(_content)
 
 	# The UNIX time when the message was created.
-	var _create_time = null
+	var _create_time
 	var create_time : String:
 		get:
-			#return "" if not _create_time is String else String(_create_time)
-			# Work around issue #53115 / #56217
-			var tmp = _create_time
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _create_time is String else String(_create_time)
 
 	# The ID of the group, or an empty string if this message was not sent through a group channel.
-	var _group_id = null
+	var _group_id
 	var group_id : String:
 		get:
-			#return "" if not _group_id is String else String(_group_id)
-			# Work around issue #53115 / #56217
-			var tmp = _group_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _group_id is String else String(_group_id)
 
 	# The unique ID of this message.
-	var _message_id = null
+	var _message_id
 	var message_id : String:
 		get:
-			#return "" if not _message_id is String else String(_message_id)
-			# Work around issue #53115 / #56217
-			var tmp = _message_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _message_id is String else String(_message_id)
 
 	# True if the message was persisted to the channel's history, false otherwise.
-	var _persistent = null
+	var _persistent
 	var persistent : bool:
 		get:
-			#return false if not _persistent is bool else bool(_persistent)
-			# Work around issue #53115 / #56217
-			var tmp = _persistent
-			tmp = tmp
-			return false if not tmp is bool else bool(tmp)
+			return false if not _persistent is bool else bool(_persistent)
 
 	# The name of the chat room, or an empty string if this message was not sent through a chat room.
-	var _room_name = null
+	var _room_name
 	var room_name : String:
 		get:
-			#return "" if not _room_name is String else String(_room_name)
-			# Work around issue #53115 / #56217
-			var tmp = _room_name
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _room_name is String else String(_room_name)
 
 	# Message sender, usually a user ID.
-	var _sender_id = null
+	var _sender_id
 	var sender_id : String:
 		get:
-			#return "" if not _sender_id is String else String(_sender_id)
-			# Work around issue #53115 / #56217
-			var tmp = _sender_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _sender_id is String else String(_sender_id)
 
 	# The UNIX time when the message was last updated.
-	var _update_time = null
+	var _update_time
 	var update_time : String:
 		get:
-			#return "" if not _update_time is String else String(_update_time)
-			# Work around issue #53115 / #56217
-			var tmp = _update_time
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _update_time is String else String(_update_time)
 
 	# The ID of the first DM user, or an empty string if this message was not sent through a DM chat.
-	var _user_id_one = null
+	var _user_id_one
 	var user_id_one : String:
 		get:
-			#return "" if not _user_id_one is String else String(_user_id_one)
-			# Work around issue #53115 / #56217
-			var tmp = _user_id_one
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _user_id_one is String else String(_user_id_one)
 
 	# The ID of the second DM user, or an empty string if this message was not sent through a DM chat.
-	var _user_id_two = null
+	var _user_id_two
 	var user_id_two : String:
 		get:
-			#return "" if not _user_id_two is String else String(_user_id_two)
-			# Work around issue #53115 / #56217
-			var tmp = _user_id_two
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _user_id_two is String else String(_user_id_two)
 
 	# The username of the message sender, if any.
-	var _username = null
+	var _username
 	var username : String:
 		get:
-			#return "" if not _username is String else String(_username)
-			# Work around issue #53115 / #56217
-			var tmp = _username
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _username is String else String(_username)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -1048,44 +838,28 @@ class ApiChannelMessageList extends NakamaAsyncResult:
 	}
 
 	# Cacheable cursor to list newer messages. Durable and designed to be stored, unlike next/prev cursors.
-	var _cacheable_cursor = null
+	var _cacheable_cursor
 	var cacheable_cursor : String:
 		get:
-			#return "" if not _cacheable_cursor is String else String(_cacheable_cursor)
-			# Work around issue #53115 / #56217
-			var tmp = _cacheable_cursor
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _cacheable_cursor is String else String(_cacheable_cursor)
 
 	# A list of messages.
-	var _messages = null
+	var _messages
 	var messages : Array:
 		get:
-			#return Array() if not _messages is Array else Array(_messages)
-			# Work around issue #53115 / #56217
-			var tmp = _messages
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _messages is Array else Array(_messages)
 
 	# The cursor to send when retrieving the next page, if any.
-	var _next_cursor = null
+	var _next_cursor
 	var next_cursor : String:
 		get:
-			#return "" if not _next_cursor is String else String(_next_cursor)
-			# Work around issue #53115 / #56217
-			var tmp = _next_cursor
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _next_cursor is String else String(_next_cursor)
 
 	# The cursor to send when retrieving the previous page, if any.
-	var _prev_cursor = null
+	var _prev_cursor
 	var prev_cursor : String:
 		get:
-			#return "" if not _prev_cursor is String else String(_prev_cursor)
-			# Work around issue #53115 / #56217
-			var tmp = _prev_cursor
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _prev_cursor is String else String(_prev_cursor)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -1119,64 +893,40 @@ class ApiCreateGroupRequest extends NakamaAsyncResult:
 	}
 
 	# A URL for an avatar image.
-	var _avatar_url = null
+	var _avatar_url
 	var avatar_url : String:
 		get:
-			#return "" if not _avatar_url is String else String(_avatar_url)
-			# Work around issue #53115 / #56217
-			var tmp = _avatar_url
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _avatar_url is String else String(_avatar_url)
 
 	# A description for the group.
-	var _description = null
+	var _description
 	var description : String:
 		get:
-			#return "" if not _description is String else String(_description)
-			# Work around issue #53115 / #56217
-			var tmp = _description
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _description is String else String(_description)
 
 	# The language expected to be a tag which follows the BCP-47 spec.
-	var _lang_tag = null
+	var _lang_tag
 	var lang_tag : String:
 		get:
-			#return "" if not _lang_tag is String else String(_lang_tag)
-			# Work around issue #53115 / #56217
-			var tmp = _lang_tag
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _lang_tag is String else String(_lang_tag)
 
 	# Maximum number of group members.
-	var _max_count = null
+	var _max_count
 	var max_count : int:
 		get:
-			#return 0 if not _max_count is int else int(_max_count)
-			# Work around issue #53115 / #56217
-			var tmp = _max_count
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _max_count is int else int(_max_count)
 
 	# A unique name for the group.
-	var _name = null
+	var _name
 	var name : String:
 		get:
-			#return "" if not _name is String else String(_name)
-			# Work around issue #53115 / #56217
-			var tmp = _name
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _name is String else String(_name)
 
 	# Mark a group as open or not where only admins can accept members.
-	var _open = null
+	var _open
 	var open : bool:
 		get:
-			#return false if not _open is bool else bool(_open)
-			# Work around issue #53115 / #56217
-			var tmp = _open
-			tmp = tmp
-			return false if not tmp is bool else bool(tmp)
+			return false if not _open is bool else bool(_open)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -1209,34 +959,22 @@ class ApiDeleteStorageObjectId extends NakamaAsyncResult:
 	}
 
 	# The collection which stores the object.
-	var _collection = null
+	var _collection
 	var collection : String:
 		get:
-			#return "" if not _collection is String else String(_collection)
-			# Work around issue #53115 / #56217
-			var tmp = _collection
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _collection is String else String(_collection)
 
 	# The key of the object within the collection.
-	var _key = null
+	var _key
 	var key : String:
 		get:
-			#return "" if not _key is String else String(_key)
-			# Work around issue #53115 / #56217
-			var tmp = _key
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _key is String else String(_key)
 
 	# The version hash of the object.
-	var _version = null
+	var _version
 	var version : String:
 		get:
-			#return "" if not _version is String else String(_version)
-			# Work around issue #53115 / #56217
-			var tmp = _version
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _version is String else String(_version)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -1264,14 +1002,10 @@ class ApiDeleteStorageObjectsRequest extends NakamaAsyncResult:
 	}
 
 	# Batch of storage objects.
-	var _object_ids = null
+	var _object_ids
 	var object_ids : Array:
 		get:
-			#return Array() if not _object_ids is Array else Array(_object_ids)
-			# Work around issue #53115 / #56217
-			var tmp = _object_ids
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _object_ids is Array else Array(_object_ids)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -1300,40 +1034,28 @@ class ApiEvent extends NakamaAsyncResult:
 	}
 
 	# True if the event came directly from a client call, false otherwise.
-	var _external = null
+	var _external
 	var external : bool:
 		get:
-			#return false if not _external is bool else bool(_external)
-			# Work around issue #53115 / #56217
-			var tmp = _external
-			tmp = tmp
-			return false if not tmp is bool else bool(tmp)
+			return false if not _external is bool else bool(_external)
 
 	# An event name, type, category, or identifier.
-	var _name = null
+	var _name
 	var name : String:
 		get:
-			#return "" if not _name is String else String(_name)
-			# Work around issue #53115 / #56217
-			var tmp = _name
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _name is String else String(_name)
 
 	# Arbitrary event property values.
-	var _properties = null
+	var _properties
 	var properties : Dictionary:
 		get:
 			return Dictionary() if not _properties is Dictionary else _properties.duplicate()
 
 	# The time when the event was triggered.
-	var _timestamp = null
+	var _timestamp
 	var timestamp : String:
 		get:
-			#return "" if not _timestamp is String else String(_timestamp)
-			# Work around issue #53115 / #56217
-			var tmp = _timestamp
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _timestamp is String else String(_timestamp)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -1351,12 +1073,9 @@ class ApiEvent extends NakamaAsyncResult:
 		output += "external: %s, " % _external
 		output += "name: %s, " % _name
 		var map_string : String = ""
-		# Work around issue #53115 / #56217
-		var tmp = _properties
-		tmp = tmp
-		if typeof(tmp) == TYPE_DICTIONARY:
-			for k in tmp:
-				map_string += "{%s=%s}, " % [k, tmp[k]]
+		if typeof(_properties) == TYPE_DICTIONARY:
+			for k in _properties:
+				map_string += "{%s=%s}, " % [k, _properties[k]]
 		output += "properties: [%s], " % map_string
 		output += "timestamp: %s, " % _timestamp
 		return output
@@ -1371,34 +1090,22 @@ class ApiFriend extends NakamaAsyncResult:
 	}
 
 	# The friend status.
-	var _state = null
+	var _state
 	var state : int:
 		get:
-			#return 0 if not _state is int else int(_state)
-			# Work around issue #53115 / #56217
-			var tmp = _state
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _state is int else int(_state)
 
 	# Time of the latest relationship update.
-	var _update_time = null
+	var _update_time
 	var update_time : String:
 		get:
-			#return "" if not _update_time is String else String(_update_time)
-			# Work around issue #53115 / #56217
-			var tmp = _update_time
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _update_time is String else String(_update_time)
 
 	# The user object.
-	var _user = null
+	var _user
 	var user : ApiUser:
 		get:
-			#return _user as ApiUser
-			# Work around issue #53115 / #56217
-			var tmp = _user
-			tmp = tmp
-			return tmp as ApiUser
+			return _user as ApiUser
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -1427,24 +1134,16 @@ class ApiFriendList extends NakamaAsyncResult:
 	}
 
 	# Cursor for the next page of results, if any.
-	var _cursor = null
+	var _cursor
 	var cursor : String:
 		get:
-			#return "" if not _cursor is String else String(_cursor)
-			# Work around issue #53115 / #56217
-			var tmp = _cursor
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _cursor is String else String(_cursor)
 
 	# The Friend objects.
-	var _friends = null
+	var _friends
 	var friends : Array:
 		get:
-			#return Array() if not _friends is Array else Array(_friends)
-			# Work around issue #53115 / #56217
-			var tmp = _friends
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _friends is Array else Array(_friends)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -1482,124 +1181,76 @@ class ApiGroup extends NakamaAsyncResult:
 	}
 
 	# A URL for an avatar image.
-	var _avatar_url = null
+	var _avatar_url
 	var avatar_url : String:
 		get:
-			#return "" if not _avatar_url is String else String(_avatar_url)
-			# Work around issue #53115 / #56217
-			var tmp = _avatar_url
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _avatar_url is String else String(_avatar_url)
 
 	# The UNIX time when the group was created.
-	var _create_time = null
+	var _create_time
 	var create_time : String:
 		get:
-			#return "" if not _create_time is String else String(_create_time)
-			# Work around issue #53115 / #56217
-			var tmp = _create_time
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _create_time is String else String(_create_time)
 
 	# The id of the user who created the group.
-	var _creator_id = null
+	var _creator_id
 	var creator_id : String:
 		get:
-			#return "" if not _creator_id is String else String(_creator_id)
-			# Work around issue #53115 / #56217
-			var tmp = _creator_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _creator_id is String else String(_creator_id)
 
 	# A description for the group.
-	var _description = null
+	var _description
 	var description : String:
 		get:
-			#return "" if not _description is String else String(_description)
-			# Work around issue #53115 / #56217
-			var tmp = _description
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _description is String else String(_description)
 
 	# The current count of all members in the group.
-	var _edge_count = null
+	var _edge_count
 	var edge_count : int:
 		get:
-			#return 0 if not _edge_count is int else int(_edge_count)
-			# Work around issue #53115 / #56217
-			var tmp = _edge_count
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _edge_count is int else int(_edge_count)
 
 	# The id of a group.
-	var _id = null
+	var _id
 	var id : String:
 		get:
-			#return "" if not _id is String else String(_id)
-			# Work around issue #53115 / #56217
-			var tmp = _id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _id is String else String(_id)
 
 	# The language expected to be a tag which follows the BCP-47 spec.
-	var _lang_tag = null
+	var _lang_tag
 	var lang_tag : String:
 		get:
-			#return "" if not _lang_tag is String else String(_lang_tag)
-			# Work around issue #53115 / #56217
-			var tmp = _lang_tag
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _lang_tag is String else String(_lang_tag)
 
 	# The maximum number of members allowed.
-	var _max_count = null
+	var _max_count
 	var max_count : int:
 		get:
-			#return 0 if not _max_count is int else int(_max_count)
-			# Work around issue #53115 / #56217
-			var tmp = _max_count
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _max_count is int else int(_max_count)
 
 	# Additional information stored as a JSON object.
-	var _metadata = null
+	var _metadata
 	var metadata : String:
 		get:
-			#return "" if not _metadata is String else String(_metadata)
-			# Work around issue #53115 / #56217
-			var tmp = _metadata
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _metadata is String else String(_metadata)
 
 	# The unique name of the group.
-	var _name = null
+	var _name
 	var name : String:
 		get:
-			#return "" if not _name is String else String(_name)
-			# Work around issue #53115 / #56217
-			var tmp = _name
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _name is String else String(_name)
 
 	# Anyone can join open groups, otherwise only admins can accept members.
-	var _open = null
+	var _open
 	var open : bool:
 		get:
-			#return false if not _open is bool else bool(_open)
-			# Work around issue #53115 / #56217
-			var tmp = _open
-			tmp = tmp
-			return false if not tmp is bool else bool(tmp)
+			return false if not _open is bool else bool(_open)
 
 	# The UNIX time when the group was last updated.
-	var _update_time = null
+	var _update_time
 	var update_time : String:
 		get:
-			#return "" if not _update_time is String else String(_update_time)
-			# Work around issue #53115 / #56217
-			var tmp = _update_time
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _update_time is String else String(_update_time)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -1637,24 +1288,16 @@ class ApiGroupList extends NakamaAsyncResult:
 	}
 
 	# A cursor used to get the next page.
-	var _cursor = null
+	var _cursor
 	var cursor : String:
 		get:
-			#return "" if not _cursor is String else String(_cursor)
-			# Work around issue #53115 / #56217
-			var tmp = _cursor
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _cursor is String else String(_cursor)
 
 	# One or more groups.
-	var _groups = null
+	var _groups
 	var groups : Array:
 		get:
-			#return Array() if not _groups is Array else Array(_groups)
-			# Work around issue #53115 / #56217
-			var tmp = _groups
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _groups is Array else Array(_groups)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -1682,24 +1325,16 @@ class ApiGroupUserList extends NakamaAsyncResult:
 	}
 
 	# Cursor for the next page of results, if any.
-	var _cursor = null
+	var _cursor
 	var cursor : String:
 		get:
-			#return "" if not _cursor is String else String(_cursor)
-			# Work around issue #53115 / #56217
-			var tmp = _cursor
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _cursor is String else String(_cursor)
 
 	# User-role pairs for a group.
-	var _group_users = null
+	var _group_users
 	var group_users : Array:
 		get:
-			#return Array() if not _group_users is Array else Array(_group_users)
-			# Work around issue #53115 / #56217
-			var tmp = _group_users
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _group_users is Array else Array(_group_users)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -1737,124 +1372,76 @@ class ApiLeaderboardRecord extends NakamaAsyncResult:
 	}
 
 	# The UNIX time when the leaderboard record was created.
-	var _create_time = null
+	var _create_time
 	var create_time : String:
 		get:
-			#return "" if not _create_time is String else String(_create_time)
-			# Work around issue #53115 / #56217
-			var tmp = _create_time
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _create_time is String else String(_create_time)
 
 	# The UNIX time when the leaderboard record expires.
-	var _expiry_time = null
+	var _expiry_time
 	var expiry_time : String:
 		get:
-			#return "" if not _expiry_time is String else String(_expiry_time)
-			# Work around issue #53115 / #56217
-			var tmp = _expiry_time
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _expiry_time is String else String(_expiry_time)
 
 	# The ID of the leaderboard this score belongs to.
-	var _leaderboard_id = null
+	var _leaderboard_id
 	var leaderboard_id : String:
 		get:
-			#return "" if not _leaderboard_id is String else String(_leaderboard_id)
-			# Work around issue #53115 / #56217
-			var tmp = _leaderboard_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _leaderboard_id is String else String(_leaderboard_id)
 
 	# The maximum number of score updates allowed by the owner.
-	var _max_num_score = null
+	var _max_num_score
 	var max_num_score : int:
 		get:
-			#return 0 if not _max_num_score is int else int(_max_num_score)
-			# Work around issue #53115 / #56217
-			var tmp = _max_num_score
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _max_num_score is int else int(_max_num_score)
 
 	# Metadata.
-	var _metadata = null
+	var _metadata
 	var metadata : String:
 		get:
-			#return "" if not _metadata is String else String(_metadata)
-			# Work around issue #53115 / #56217
-			var tmp = _metadata
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _metadata is String else String(_metadata)
 
 	# The number of submissions to this score record.
-	var _num_score = null
+	var _num_score
 	var num_score : int:
 		get:
-			#return 0 if not _num_score is int else int(_num_score)
-			# Work around issue #53115 / #56217
-			var tmp = _num_score
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _num_score is int else int(_num_score)
 
 	# The ID of the score owner, usually a user or group.
-	var _owner_id = null
+	var _owner_id
 	var owner_id : String:
 		get:
-			#return "" if not _owner_id is String else String(_owner_id)
-			# Work around issue #53115 / #56217
-			var tmp = _owner_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _owner_id is String else String(_owner_id)
 
 	# The rank of this record.
-	var _rank = null
+	var _rank
 	var rank : String:
 		get:
-			#return "" if not _rank is String else String(_rank)
-			# Work around issue #53115 / #56217
-			var tmp = _rank
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _rank is String else String(_rank)
 
 	# The score value.
-	var _score = null
+	var _score
 	var score : String:
 		get:
-			#return "" if not _score is String else String(_score)
-			# Work around issue #53115 / #56217
-			var tmp = _score
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _score is String else String(_score)
 
 	# An optional subscore value.
-	var _subscore = null
+	var _subscore
 	var subscore : String:
 		get:
-			#return "" if not _subscore is String else String(_subscore)
-			# Work around issue #53115 / #56217
-			var tmp = _subscore
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _subscore is String else String(_subscore)
 
 	# The UNIX time when the leaderboard record was updated.
-	var _update_time = null
+	var _update_time
 	var update_time : String:
 		get:
-			#return "" if not _update_time is String else String(_update_time)
-			# Work around issue #53115 / #56217
-			var tmp = _update_time
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _update_time is String else String(_update_time)
 
 	# The username of the score owner, if the owner is a user.
-	var _username = null
+	var _username
 	var username : String:
 		get:
-			#return "" if not _username is String else String(_username)
-			# Work around issue #53115 / #56217
-			var tmp = _username
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _username is String else String(_username)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -1894,44 +1481,28 @@ class ApiLeaderboardRecordList extends NakamaAsyncResult:
 	}
 
 	# The cursor to send when retrieving the next page, if any.
-	var _next_cursor = null
+	var _next_cursor
 	var next_cursor : String:
 		get:
-			#return "" if not _next_cursor is String else String(_next_cursor)
-			# Work around issue #53115 / #56217
-			var tmp = _next_cursor
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _next_cursor is String else String(_next_cursor)
 
 	# A batched set of leaderboard records belonging to specified owners.
-	var _owner_records = null
+	var _owner_records
 	var owner_records : Array:
 		get:
-			#return Array() if not _owner_records is Array else Array(_owner_records)
-			# Work around issue #53115 / #56217
-			var tmp = _owner_records
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _owner_records is Array else Array(_owner_records)
 
 	# The cursor to send when retrieving the previous page, if any.
-	var _prev_cursor = null
+	var _prev_cursor
 	var prev_cursor : String:
 		get:
-			#return "" if not _prev_cursor is String else String(_prev_cursor)
-			# Work around issue #53115 / #56217
-			var tmp = _prev_cursor
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _prev_cursor is String else String(_prev_cursor)
 
 	# A list of leaderboard records.
-	var _records = null
+	var _records
 	var records : Array:
 		get:
-			#return Array() if not _records is Array else Array(_records)
-			# Work around issue #53115 / #56217
-			var tmp = _records
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _records is Array else Array(_records)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -1961,24 +1532,16 @@ class ApiLinkSteamRequest extends NakamaAsyncResult:
 	}
 
 	# The Facebook account details.
-	var _account = null
+	var _account
 	var account : ApiAccountSteam:
 		get:
-			#return _account as ApiAccountSteam
-			# Work around issue #53115 / #56217
-			var tmp = _account
-			tmp = tmp
-			return tmp as ApiAccountSteam
+			return _account as ApiAccountSteam
 
 	# Import Steam friends for the user.
-	var _sync = null
+	var _sync
 	var sync : bool:
 		get:
-			#return false if not _sync is bool else bool(_sync)
-			# Work around issue #53115 / #56217
-			var tmp = _sync
-			tmp = tmp
-			return false if not tmp is bool else bool(tmp)
+			return false if not _sync is bool else bool(_sync)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -2010,64 +1573,40 @@ class ApiMatch extends NakamaAsyncResult:
 	}
 
 	# True if it's an server-managed authoritative match, false otherwise.
-	var _authoritative = null
+	var _authoritative
 	var authoritative : bool:
 		get:
-			#return false if not _authoritative is bool else bool(_authoritative)
-			# Work around issue #53115 / #56217
-			var tmp = _authoritative
-			tmp = tmp
-			return false if not tmp is bool else bool(tmp)
+			return false if not _authoritative is bool else bool(_authoritative)
 
 	# 
-	var _handler_name = null
+	var _handler_name
 	var handler_name : String:
 		get:
-			#return "" if not _handler_name is String else String(_handler_name)
-			# Work around issue #53115 / #56217
-			var tmp = _handler_name
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _handler_name is String else String(_handler_name)
 
 	# Match label, if any.
-	var _label = null
+	var _label
 	var label : String:
 		get:
-			#return "" if not _label is String else String(_label)
-			# Work around issue #53115 / #56217
-			var tmp = _label
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _label is String else String(_label)
 
 	# The ID of the match, can be used to join.
-	var _match_id = null
+	var _match_id
 	var match_id : String:
 		get:
-			#return "" if not _match_id is String else String(_match_id)
-			# Work around issue #53115 / #56217
-			var tmp = _match_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _match_id is String else String(_match_id)
 
 	# Current number of users in the match.
-	var _size = null
+	var _size
 	var size : int:
 		get:
-			#return 0 if not _size is int else int(_size)
-			# Work around issue #53115 / #56217
-			var tmp = _size
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _size is int else int(_size)
 
 	# 
-	var _tick_rate = null
+	var _tick_rate
 	var tick_rate : int:
 		get:
-			#return 0 if not _tick_rate is int else int(_tick_rate)
-			# Work around issue #53115 / #56217
-			var tmp = _tick_rate
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _tick_rate is int else int(_tick_rate)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -2098,14 +1637,10 @@ class ApiMatchList extends NakamaAsyncResult:
 	}
 
 	# A number of matches corresponding to a list operation.
-	var _matches = null
+	var _matches
 	var matches : Array:
 		get:
-			#return Array() if not _matches is Array else Array(_matches)
-			# Work around issue #53115 / #56217
-			var tmp = _matches
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _matches is Array else Array(_matches)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -2137,74 +1672,46 @@ class ApiNotification extends NakamaAsyncResult:
 	}
 
 	# Category code for this notification.
-	var _code = null
+	var _code
 	var code : int:
 		get:
-			#return 0 if not _code is int else int(_code)
-			# Work around issue #53115 / #56217
-			var tmp = _code
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _code is int else int(_code)
 
 	# Content of the notification in JSON.
-	var _content = null
+	var _content
 	var content : String:
 		get:
-			#return "" if not _content is String else String(_content)
-			# Work around issue #53115 / #56217
-			var tmp = _content
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _content is String else String(_content)
 
 	# The UNIX time when the notification was created.
-	var _create_time = null
+	var _create_time
 	var create_time : String:
 		get:
-			#return "" if not _create_time is String else String(_create_time)
-			# Work around issue #53115 / #56217
-			var tmp = _create_time
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _create_time is String else String(_create_time)
 
 	# ID of the Notification.
-	var _id = null
+	var _id
 	var id : String:
 		get:
-			#return "" if not _id is String else String(_id)
-			# Work around issue #53115 / #56217
-			var tmp = _id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _id is String else String(_id)
 
 	# True if this notification was persisted to the database.
-	var _persistent = null
+	var _persistent
 	var persistent : bool:
 		get:
-			#return false if not _persistent is bool else bool(_persistent)
-			# Work around issue #53115 / #56217
-			var tmp = _persistent
-			tmp = tmp
-			return false if not tmp is bool else bool(tmp)
+			return false if not _persistent is bool else bool(_persistent)
 
 	# ID of the sender, if a user. Otherwise 'null'.
-	var _sender_id = null
+	var _sender_id
 	var sender_id : String:
 		get:
-			#return "" if not _sender_id is String else String(_sender_id)
-			# Work around issue #53115 / #56217
-			var tmp = _sender_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _sender_id is String else String(_sender_id)
 
 	# Subject of the notification.
-	var _subject = null
+	var _subject
 	var subject : String:
 		get:
-			#return "" if not _subject is String else String(_subject)
-			# Work around issue #53115 / #56217
-			var tmp = _subject
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _subject is String else String(_subject)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -2237,24 +1744,16 @@ class ApiNotificationList extends NakamaAsyncResult:
 	}
 
 	# Use this cursor to paginate notifications. Cache this to catch up to new notifications.
-	var _cacheable_cursor = null
+	var _cacheable_cursor
 	var cacheable_cursor : String:
 		get:
-			#return "" if not _cacheable_cursor is String else String(_cacheable_cursor)
-			# Work around issue #53115 / #56217
-			var tmp = _cacheable_cursor
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _cacheable_cursor is String else String(_cacheable_cursor)
 
 	# Collection of notifications.
-	var _notifications = null
+	var _notifications
 	var notifications : Array:
 		get:
-			#return Array() if not _notifications is Array else Array(_notifications)
-			# Work around issue #53115 / #56217
-			var tmp = _notifications
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _notifications is Array else Array(_notifications)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -2291,34 +1790,22 @@ class ApiReadStorageObjectId extends NakamaAsyncResult:
 	}
 
 	# The collection which stores the object.
-	var _collection = null
+	var _collection
 	var collection : String:
 		get:
-			#return "" if not _collection is String else String(_collection)
-			# Work around issue #53115 / #56217
-			var tmp = _collection
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _collection is String else String(_collection)
 
 	# The key of the object within the collection.
-	var _key = null
+	var _key
 	var key : String:
 		get:
-			#return "" if not _key is String else String(_key)
-			# Work around issue #53115 / #56217
-			var tmp = _key
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _key is String else String(_key)
 
 	# The user owner of the object.
-	var _user_id = null
+	var _user_id
 	var user_id : String:
 		get:
-			#return "" if not _user_id is String else String(_user_id)
-			# Work around issue #53115 / #56217
-			var tmp = _user_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _user_id is String else String(_user_id)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -2346,14 +1833,10 @@ class ApiReadStorageObjectsRequest extends NakamaAsyncResult:
 	}
 
 	# Batch of storage objects.
-	var _object_ids = null
+	var _object_ids
 	var object_ids : Array:
 		get:
-			#return Array() if not _object_ids is Array else Array(_object_ids)
-			# Work around issue #53115 / #56217
-			var tmp = _object_ids
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _object_ids is Array else Array(_object_ids)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -2381,34 +1864,22 @@ class ApiRpc extends NakamaAsyncResult:
 	}
 
 	# The authentication key used when executed as a non-client HTTP request.
-	var _http_key = null
+	var _http_key
 	var http_key : String:
 		get:
-			#return "" if not _http_key is String else String(_http_key)
-			# Work around issue #53115 / #56217
-			var tmp = _http_key
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _http_key is String else String(_http_key)
 
 	# The identifier of the function.
-	var _id = null
+	var _id
 	var id : String:
 		get:
-			#return "" if not _id is String else String(_id)
-			# Work around issue #53115 / #56217
-			var tmp = _id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _id is String else String(_id)
 
 	# The payload of the function which must be a JSON object.
-	var _payload = null
+	var _payload
 	var payload : String:
 		get:
-			#return "" if not _payload is String else String(_payload)
-			# Work around issue #53115 / #56217
-			var tmp = _payload
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _payload is String else String(_payload)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -2438,34 +1909,22 @@ class ApiSession extends NakamaAsyncResult:
 	}
 
 	# True if the corresponding account was just created, false otherwise.
-	var _created = null
+	var _created
 	var created : bool:
 		get:
-			#return false if not _created is bool else bool(_created)
-			# Work around issue #53115 / #56217
-			var tmp = _created
-			tmp = tmp
-			return false if not tmp is bool else bool(tmp)
+			return false if not _created is bool else bool(_created)
 
 	# Refresh token that can be used for session token renewal.
-	var _refresh_token = null
+	var _refresh_token
 	var refresh_token : String:
 		get:
-			#return "" if not _refresh_token is String else String(_refresh_token)
-			# Work around issue #53115 / #56217
-			var tmp = _refresh_token
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _refresh_token is String else String(_refresh_token)
 
 	# Authentication credentials.
-	var _token = null
+	var _token
 	var token : String:
 		get:
-			#return "" if not _token is String else String(_token)
-			# Work around issue #53115 / #56217
-			var tmp = _token
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _token is String else String(_token)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -2494,24 +1953,16 @@ class ApiSessionLogoutRequest extends NakamaAsyncResult:
 	}
 
 	# Refresh token to invalidate.
-	var _refresh_token = null
+	var _refresh_token
 	var refresh_token : String:
 		get:
-			#return "" if not _refresh_token is String else String(_refresh_token)
-			# Work around issue #53115 / #56217
-			var tmp = _refresh_token
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _refresh_token is String else String(_refresh_token)
 
 	# Session token to log out.
-	var _token = null
+	var _token
 	var token : String:
 		get:
-			#return "" if not _token is String else String(_token)
-			# Work around issue #53115 / #56217
-			var tmp = _token
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _token is String else String(_token)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -2539,17 +1990,13 @@ class ApiSessionRefreshRequest extends NakamaAsyncResult:
 	}
 
 	# Refresh token.
-	var _token = null
+	var _token
 	var token : String:
 		get:
-			#return "" if not _token is String else String(_token)
-			# Work around issue #53115 / #56217
-			var tmp = _token
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _token is String else String(_token)
 
 	# Extra information that will be bundled in the session token.
-	var _vars = null
+	var _vars
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
@@ -2569,12 +2016,9 @@ class ApiSessionRefreshRequest extends NakamaAsyncResult:
 		var output : String = ""
 		output += "token: %s, " % _token
 		var map_string : String = ""
-		# Work around issue #53115 / #56217
-		var tmp = _vars
-		tmp = tmp
-		if typeof(tmp) == TYPE_DICTIONARY:
-			for k in tmp:
-				map_string += "{%s=%s}, " % [k, tmp[k]]
+		if typeof(_vars) == TYPE_DICTIONARY:
+			for k in _vars:
+				map_string += "{%s=%s}, " % [k, _vars[k]]
 		output += "vars: [%s], " % map_string
 		return output
 
@@ -2594,94 +2038,58 @@ class ApiStorageObject extends NakamaAsyncResult:
 	}
 
 	# The collection which stores the object.
-	var _collection = null
+	var _collection
 	var collection : String:
 		get:
-			#return "" if not _collection is String else String(_collection)
-			# Work around issue #53115 / #56217
-			var tmp = _collection
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _collection is String else String(_collection)
 
 	# The UNIX time when the object was created.
-	var _create_time = null
+	var _create_time
 	var create_time : String:
 		get:
-			#return "" if not _create_time is String else String(_create_time)
-			# Work around issue #53115 / #56217
-			var tmp = _create_time
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _create_time is String else String(_create_time)
 
 	# The key of the object within the collection.
-	var _key = null
+	var _key
 	var key : String:
 		get:
-			#return "" if not _key is String else String(_key)
-			# Work around issue #53115 / #56217
-			var tmp = _key
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _key is String else String(_key)
 
 	# The read access permissions for the object.
-	var _permission_read = null
+	var _permission_read
 	var permission_read : int:
 		get:
-			#return 0 if not _permission_read is int else int(_permission_read)
-			# Work around issue #53115 / #56217
-			var tmp = _permission_read
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _permission_read is int else int(_permission_read)
 
 	# The write access permissions for the object.
-	var _permission_write = null
+	var _permission_write
 	var permission_write : int:
 		get:
-			#return 0 if not _permission_write is int else int(_permission_write)
-			# Work around issue #53115 / #56217
-			var tmp = _permission_write
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _permission_write is int else int(_permission_write)
 
 	# The UNIX time when the object was last updated.
-	var _update_time = null
+	var _update_time
 	var update_time : String:
 		get:
-			#return "" if not _update_time is String else String(_update_time)
-			# Work around issue #53115 / #56217
-			var tmp = _update_time
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _update_time is String else String(_update_time)
 
 	# The user owner of the object.
-	var _user_id = null
+	var _user_id
 	var user_id : String:
 		get:
-			#return "" if not _user_id is String else String(_user_id)
-			# Work around issue #53115 / #56217
-			var tmp = _user_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _user_id is String else String(_user_id)
 
 	# The value of the object.
-	var _value = null
+	var _value
 	var value : String:
 		get:
-			#return "" if not _value is String else String(_value)
-			# Work around issue #53115 / #56217
-			var tmp = _value
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _value is String else String(_value)
 
 	# The version hash of the object.
-	var _version = null
+	var _version
 	var version : String:
 		get:
-			#return "" if not _version is String else String(_version)
-			# Work around issue #53115 / #56217
-			var tmp = _version
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _version is String else String(_version)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -2718,44 +2126,28 @@ class ApiStorageObjectAck extends NakamaAsyncResult:
 	}
 
 	# The collection which stores the object.
-	var _collection = null
+	var _collection
 	var collection : String:
 		get:
-			#return "" if not _collection is String else String(_collection)
-			# Work around issue #53115 / #56217
-			var tmp = _collection
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _collection is String else String(_collection)
 
 	# The key of the object within the collection.
-	var _key = null
+	var _key
 	var key : String:
 		get:
-			#return "" if not _key is String else String(_key)
-			# Work around issue #53115 / #56217
-			var tmp = _key
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _key is String else String(_key)
 
 	# The owner of the object.
-	var _user_id = null
+	var _user_id
 	var user_id : String:
 		get:
-			#return "" if not _user_id is String else String(_user_id)
-			# Work around issue #53115 / #56217
-			var tmp = _user_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _user_id is String else String(_user_id)
 
 	# The version hash of the object.
-	var _version = null
+	var _version
 	var version : String:
 		get:
-			#return "" if not _version is String else String(_version)
-			# Work around issue #53115 / #56217
-			var tmp = _version
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _version is String else String(_version)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -2784,14 +2176,10 @@ class ApiStorageObjectAcks extends NakamaAsyncResult:
 	}
 
 	# Batch of storage write acknowledgements.
-	var _acks = null
+	var _acks
 	var acks : Array:
 		get:
-			#return Array() if not _acks is Array else Array(_acks)
-			# Work around issue #53115 / #56217
-			var tmp = _acks
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _acks is Array else Array(_acks)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -2818,24 +2206,16 @@ class ApiStorageObjectList extends NakamaAsyncResult:
 	}
 
 	# The cursor for the next page of results, if any.
-	var _cursor = null
+	var _cursor
 	var cursor : String:
 		get:
-			#return "" if not _cursor is String else String(_cursor)
-			# Work around issue #53115 / #56217
-			var tmp = _cursor
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _cursor is String else String(_cursor)
 
 	# The list of storage objects.
-	var _objects = null
+	var _objects
 	var objects : Array:
 		get:
-			#return Array() if not _objects is Array else Array(_objects)
-			# Work around issue #53115 / #56217
-			var tmp = _objects
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _objects is Array else Array(_objects)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -2862,14 +2242,10 @@ class ApiStorageObjects extends NakamaAsyncResult:
 	}
 
 	# The batch of storage objects.
-	var _objects = null
+	var _objects
 	var objects : Array:
 		get:
-			#return Array() if not _objects is Array else Array(_objects)
-			# Work around issue #53115 / #56217
-			var tmp = _objects
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _objects is Array else Array(_objects)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -2913,190 +2289,118 @@ class ApiTournament extends NakamaAsyncResult:
 	}
 
 	# True if the tournament is active and can enter. A computed value.
-	var _can_enter = null
+	var _can_enter
 	var can_enter : bool:
 		get:
-			#return false if not _can_enter is bool else bool(_can_enter)
-			# Work around issue #53115 / #56217
-			var tmp = _can_enter
-			tmp = tmp
-			return false if not tmp is bool else bool(tmp)
+			return false if not _can_enter is bool else bool(_can_enter)
 
 	# The category of the tournament. e.g. "vip" could be category 1.
-	var _category = null
+	var _category
 	var category : int:
 		get:
-			#return 0 if not _category is int else int(_category)
-			# Work around issue #53115 / #56217
-			var tmp = _category
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _category is int else int(_category)
 
 	# The UNIX time when the tournament was created.
-	var _create_time = null
+	var _create_time
 	var create_time : String:
 		get:
-			#return "" if not _create_time is String else String(_create_time)
-			# Work around issue #53115 / #56217
-			var tmp = _create_time
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _create_time is String else String(_create_time)
 
 	# The description of the tournament. May be blank.
-	var _description = null
+	var _description
 	var description : String:
 		get:
-			#return "" if not _description is String else String(_description)
-			# Work around issue #53115 / #56217
-			var tmp = _description
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _description is String else String(_description)
 
 	# Duration of the tournament in seconds.
-	var _duration = null
+	var _duration
 	var duration : int:
 		get:
-			#return 0 if not _duration is int else int(_duration)
-			# Work around issue #53115 / #56217
-			var tmp = _duration
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _duration is int else int(_duration)
 
 	# The UNIX time when the tournament stops being active until next reset. A computed value.
-	var _end_active = null
+	var _end_active
 	var end_active : int:
 		get:
-			#return 0 if not _end_active is int else int(_end_active)
-			# Work around issue #53115 / #56217
-			var tmp = _end_active
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _end_active is int else int(_end_active)
 
 	# The UNIX time when the tournament will be stopped.
-	var _end_time = null
+	var _end_time
 	var end_time : String:
 		get:
-			#return "" if not _end_time is String else String(_end_time)
-			# Work around issue #53115 / #56217
-			var tmp = _end_time
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _end_time is String else String(_end_time)
 
 	# The ID of the tournament.
-	var _id = null
+	var _id
 	var id : String:
 		get:
-			#return "" if not _id is String else String(_id)
-			# Work around issue #53115 / #56217
-			var tmp = _id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _id is String else String(_id)
 
 	# The maximum score updates allowed per player for the current tournament.
-	var _max_num_score = null
+	var _max_num_score
 	var max_num_score : int:
 		get:
-			#return 0 if not _max_num_score is int else int(_max_num_score)
-			# Work around issue #53115 / #56217
-			var tmp = _max_num_score
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _max_num_score is int else int(_max_num_score)
 
 	# The maximum number of players for the tournament.
-	var _max_size = null
+	var _max_size
 	var max_size : int:
 		get:
-			#return 0 if not _max_size is int else int(_max_size)
-			# Work around issue #53115 / #56217
-			var tmp = _max_size
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _max_size is int else int(_max_size)
 
 	# Additional information stored as a JSON object.
-	var _metadata = null
+	var _metadata
 	var metadata : String:
 		get:
-			#return "" if not _metadata is String else String(_metadata)
-			# Work around issue #53115 / #56217
-			var tmp = _metadata
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _metadata is String else String(_metadata)
 
 	# The UNIX time when the tournament is next playable. A computed value.
-	var _next_reset = null
+	var _next_reset
 	var next_reset : int:
 		get:
-			#return 0 if not _next_reset is int else int(_next_reset)
-			# Work around issue #53115 / #56217
-			var tmp = _next_reset
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _next_reset is int else int(_next_reset)
 
 	# Operator.
-	var _operator = null
+	var _operator
 	var operator : int:
 		get:
 			return ApiOperator.values()[0] if not ApiOperator.values().has(_operator) else _operator
 
 	# The UNIX time when the tournament was last reset. A computed value.
-	var _prev_reset = null
+	var _prev_reset
 	var prev_reset : int:
 		get:
-			#return 0 if not _prev_reset is int else int(_prev_reset)
-			# Work around issue #53115 / #56217
-			var tmp = _prev_reset
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _prev_reset is int else int(_prev_reset)
 
 	# The current number of players in the tournament.
-	var _size = null
+	var _size
 	var size : int:
 		get:
-			#return 0 if not _size is int else int(_size)
-			# Work around issue #53115 / #56217
-			var tmp = _size
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _size is int else int(_size)
 
 	# ASC (0) or DESC (1) sort mode of scores in the tournament.
-	var _sort_order = null
+	var _sort_order
 	var sort_order : int:
 		get:
-			#return 0 if not _sort_order is int else int(_sort_order)
-			# Work around issue #53115 / #56217
-			var tmp = _sort_order
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _sort_order is int else int(_sort_order)
 
 	# The UNIX time when the tournament start being active. A computed value.
-	var _start_active = null
+	var _start_active
 	var start_active : int:
 		get:
-			#return 0 if not _start_active is int else int(_start_active)
-			# Work around issue #53115 / #56217
-			var tmp = _start_active
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _start_active is int else int(_start_active)
 
 	# The UNIX time when the tournament will start.
-	var _start_time = null
+	var _start_time
 	var start_time : String:
 		get:
-			#return "" if not _start_time is String else String(_start_time)
-			# Work around issue #53115 / #56217
-			var tmp = _start_time
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _start_time is String else String(_start_time)
 
 	# The title for the tournament.
-	var _title = null
+	var _title
 	var title : String:
 		get:
-			#return "" if not _title is String else String(_title)
-			# Work around issue #53115 / #56217
-			var tmp = _title
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _title is String else String(_title)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -3141,24 +2445,16 @@ class ApiTournamentList extends NakamaAsyncResult:
 	}
 
 	# A pagination cursor (optional).
-	var _cursor = null
+	var _cursor
 	var cursor : String:
 		get:
-			#return "" if not _cursor is String else String(_cursor)
-			# Work around issue #53115 / #56217
-			var tmp = _cursor
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _cursor is String else String(_cursor)
 
 	# The list of tournaments returned.
-	var _tournaments = null
+	var _tournaments
 	var tournaments : Array:
 		get:
-			#return Array() if not _tournaments is Array else Array(_tournaments)
-			# Work around issue #53115 / #56217
-			var tmp = _tournaments
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _tournaments is Array else Array(_tournaments)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -3188,44 +2484,28 @@ class ApiTournamentRecordList extends NakamaAsyncResult:
 	}
 
 	# The cursor to send when retireving the next page (optional).
-	var _next_cursor = null
+	var _next_cursor
 	var next_cursor : String:
 		get:
-			#return "" if not _next_cursor is String else String(_next_cursor)
-			# Work around issue #53115 / #56217
-			var tmp = _next_cursor
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _next_cursor is String else String(_next_cursor)
 
 	# A batched set of tournament records belonging to specified owners.
-	var _owner_records = null
+	var _owner_records
 	var owner_records : Array:
 		get:
-			#return Array() if not _owner_records is Array else Array(_owner_records)
-			# Work around issue #53115 / #56217
-			var tmp = _owner_records
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _owner_records is Array else Array(_owner_records)
 
 	# The cursor to send when retrieving the previous page (optional).
-	var _prev_cursor = null
+	var _prev_cursor
 	var prev_cursor : String:
 		get:
-			#return "" if not _prev_cursor is String else String(_prev_cursor)
-			# Work around issue #53115 / #56217
-			var tmp = _prev_cursor
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _prev_cursor is String else String(_prev_cursor)
 
 	# A list of tournament records.
-	var _records = null
+	var _records
 	var records : Array:
 		get:
-			#return Array() if not _records is Array else Array(_records)
-			# Work around issue #53115 / #56217
-			var tmp = _records
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _records is Array else Array(_records)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -3259,64 +2539,40 @@ class ApiUpdateAccountRequest extends NakamaAsyncResult:
 	}
 
 	# A URL for an avatar image.
-	var _avatar_url = null
+	var _avatar_url
 	var avatar_url : String:
 		get:
-			#return "" if not _avatar_url is String else String(_avatar_url)
-			# Work around issue #53115 / #56217
-			var tmp = _avatar_url
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _avatar_url is String else String(_avatar_url)
 
 	# The display name of the user.
-	var _display_name = null
+	var _display_name
 	var display_name : String:
 		get:
-			#return "" if not _display_name is String else String(_display_name)
-			# Work around issue #53115 / #56217
-			var tmp = _display_name
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _display_name is String else String(_display_name)
 
 	# The language expected to be a tag which follows the BCP-47 spec.
-	var _lang_tag = null
+	var _lang_tag
 	var lang_tag : String:
 		get:
-			#return "" if not _lang_tag is String else String(_lang_tag)
-			# Work around issue #53115 / #56217
-			var tmp = _lang_tag
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _lang_tag is String else String(_lang_tag)
 
 	# The location set by the user.
-	var _location = null
+	var _location
 	var location : String:
 		get:
-			#return "" if not _location is String else String(_location)
-			# Work around issue #53115 / #56217
-			var tmp = _location
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _location is String else String(_location)
 
 	# The timezone set by the user.
-	var _timezone = null
+	var _timezone
 	var timezone : String:
 		get:
-			#return "" if not _timezone is String else String(_timezone)
-			# Work around issue #53115 / #56217
-			var tmp = _timezone
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _timezone is String else String(_timezone)
 
 	# The username of the user's account.
-	var _username = null
+	var _username
 	var username : String:
 		get:
-			#return "" if not _username is String else String(_username)
-			# Work around issue #53115 / #56217
-			var tmp = _username
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _username is String else String(_username)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -3352,64 +2608,40 @@ class ApiUpdateGroupRequest extends NakamaAsyncResult:
 	}
 
 	# Avatar URL.
-	var _avatar_url = null
+	var _avatar_url
 	var avatar_url : String:
 		get:
-			#return "" if not _avatar_url is String else String(_avatar_url)
-			# Work around issue #53115 / #56217
-			var tmp = _avatar_url
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _avatar_url is String else String(_avatar_url)
 
 	# Description string.
-	var _description = null
+	var _description
 	var description : String:
 		get:
-			#return "" if not _description is String else String(_description)
-			# Work around issue #53115 / #56217
-			var tmp = _description
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _description is String else String(_description)
 
 	# The ID of the group to update.
-	var _group_id = null
+	var _group_id
 	var group_id : String:
 		get:
-			#return "" if not _group_id is String else String(_group_id)
-			# Work around issue #53115 / #56217
-			var tmp = _group_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _group_id is String else String(_group_id)
 
 	# Lang tag.
-	var _lang_tag = null
+	var _lang_tag
 	var lang_tag : String:
 		get:
-			#return "" if not _lang_tag is String else String(_lang_tag)
-			# Work around issue #53115 / #56217
-			var tmp = _lang_tag
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _lang_tag is String else String(_lang_tag)
 
 	# Name.
-	var _name = null
+	var _name
 	var name : String:
 		get:
-			#return "" if not _name is String else String(_name)
-			# Work around issue #53115 / #56217
-			var tmp = _name
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _name is String else String(_name)
 
 	# Open is true if anyone should be allowed to join, or false if joins must be approved by a group admin.
-	var _open = null
+	var _open
 	var open : bool:
 		get:
-			#return false if not _open is bool else bool(_open)
-			# Work around issue #53115 / #56217
-			var tmp = _open
-			tmp = tmp
-			return false if not tmp is bool else bool(tmp)
+			return false if not _open is bool else bool(_open)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -3457,184 +2689,112 @@ class ApiUser extends NakamaAsyncResult:
 	}
 
 	# The Apple Sign In ID in the user's account.
-	var _apple_id = null
+	var _apple_id
 	var apple_id : String:
 		get:
-			#return "" if not _apple_id is String else String(_apple_id)
-			# Work around issue #53115 / #56217
-			var tmp = _apple_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _apple_id is String else String(_apple_id)
 
 	# A URL for an avatar image.
-	var _avatar_url = null
+	var _avatar_url
 	var avatar_url : String:
 		get:
-			#return "" if not _avatar_url is String else String(_avatar_url)
-			# Work around issue #53115 / #56217
-			var tmp = _avatar_url
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _avatar_url is String else String(_avatar_url)
 
 	# The UNIX time when the user was created.
-	var _create_time = null
+	var _create_time
 	var create_time : String:
 		get:
-			#return "" if not _create_time is String else String(_create_time)
-			# Work around issue #53115 / #56217
-			var tmp = _create_time
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _create_time is String else String(_create_time)
 
 	# The display name of the user.
-	var _display_name = null
+	var _display_name
 	var display_name : String:
 		get:
-			#return "" if not _display_name is String else String(_display_name)
-			# Work around issue #53115 / #56217
-			var tmp = _display_name
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _display_name is String else String(_display_name)
 
 	# Number of related edges to this user.
-	var _edge_count = null
+	var _edge_count
 	var edge_count : int:
 		get:
-			#return 0 if not _edge_count is int else int(_edge_count)
-			# Work around issue #53115 / #56217
-			var tmp = _edge_count
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _edge_count is int else int(_edge_count)
 
 	# The Facebook id in the user's account.
-	var _facebook_id = null
+	var _facebook_id
 	var facebook_id : String:
 		get:
-			#return "" if not _facebook_id is String else String(_facebook_id)
-			# Work around issue #53115 / #56217
-			var tmp = _facebook_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _facebook_id is String else String(_facebook_id)
 
 	# The Facebook Instant Game ID in the user's account.
-	var _facebook_instant_game_id = null
+	var _facebook_instant_game_id
 	var facebook_instant_game_id : String:
 		get:
-			#return "" if not _facebook_instant_game_id is String else String(_facebook_instant_game_id)
-			# Work around issue #53115 / #56217
-			var tmp = _facebook_instant_game_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _facebook_instant_game_id is String else String(_facebook_instant_game_id)
 
 	# The Apple Game Center in of the user's account.
-	var _gamecenter_id = null
+	var _gamecenter_id
 	var gamecenter_id : String:
 		get:
-			#return "" if not _gamecenter_id is String else String(_gamecenter_id)
-			# Work around issue #53115 / #56217
-			var tmp = _gamecenter_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _gamecenter_id is String else String(_gamecenter_id)
 
 	# The Google id in the user's account.
-	var _google_id = null
+	var _google_id
 	var google_id : String:
 		get:
-			#return "" if not _google_id is String else String(_google_id)
-			# Work around issue #53115 / #56217
-			var tmp = _google_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _google_id is String else String(_google_id)
 
 	# The id of the user's account.
-	var _id = null
+	var _id
 	var id : String:
 		get:
-			#return "" if not _id is String else String(_id)
-			# Work around issue #53115 / #56217
-			var tmp = _id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _id is String else String(_id)
 
 	# The language expected to be a tag which follows the BCP-47 spec.
-	var _lang_tag = null
+	var _lang_tag
 	var lang_tag : String:
 		get:
-			#return "" if not _lang_tag is String else String(_lang_tag)
-			# Work around issue #53115 / #56217
-			var tmp = _lang_tag
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _lang_tag is String else String(_lang_tag)
 
 	# The location set by the user.
-	var _location = null
+	var _location
 	var location : String:
 		get:
-			#return "" if not _location is String else String(_location)
-			# Work around issue #53115 / #56217
-			var tmp = _location
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _location is String else String(_location)
 
 	# Additional information stored as a JSON object.
-	var _metadata = null
+	var _metadata
 	var metadata : String:
 		get:
-			#return "" if not _metadata is String else String(_metadata)
-			# Work around issue #53115 / #56217
-			var tmp = _metadata
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _metadata is String else String(_metadata)
 
 	# Indicates whether the user is currently online.
-	var _online = null
+	var _online
 	var online : bool:
 		get:
-			#return false if not _online is bool else bool(_online)
-			# Work around issue #53115 / #56217
-			var tmp = _online
-			tmp = tmp
-			return false if not tmp is bool else bool(tmp)
+			return false if not _online is bool else bool(_online)
 
 	# The Steam id in the user's account.
-	var _steam_id = null
+	var _steam_id
 	var steam_id : String:
 		get:
-			#return "" if not _steam_id is String else String(_steam_id)
-			# Work around issue #53115 / #56217
-			var tmp = _steam_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _steam_id is String else String(_steam_id)
 
 	# The timezone set by the user.
-	var _timezone = null
+	var _timezone
 	var timezone : String:
 		get:
-			#return "" if not _timezone is String else String(_timezone)
-			# Work around issue #53115 / #56217
-			var tmp = _timezone
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _timezone is String else String(_timezone)
 
 	# The UNIX time when the user was last updated.
-	var _update_time = null
+	var _update_time
 	var update_time : String:
 		get:
-			#return "" if not _update_time is String else String(_update_time)
-			# Work around issue #53115 / #56217
-			var tmp = _update_time
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _update_time is String else String(_update_time)
 
 	# The username of the user's account.
-	var _username = null
+	var _username
 	var username : String:
 		get:
-			#return "" if not _username is String else String(_username)
-			# Work around issue #53115 / #56217
-			var tmp = _username
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _username is String else String(_username)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -3678,24 +2838,16 @@ class ApiUserGroupList extends NakamaAsyncResult:
 	}
 
 	# Cursor for the next page of results, if any.
-	var _cursor = null
+	var _cursor
 	var cursor : String:
 		get:
-			#return "" if not _cursor is String else String(_cursor)
-			# Work around issue #53115 / #56217
-			var tmp = _cursor
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _cursor is String else String(_cursor)
 
 	# Group-role pairs for a user.
-	var _user_groups = null
+	var _user_groups
 	var user_groups : Array:
 		get:
-			#return Array() if not _user_groups is Array else Array(_user_groups)
-			# Work around issue #53115 / #56217
-			var tmp = _user_groups
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _user_groups is Array else Array(_user_groups)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -3722,14 +2874,10 @@ class ApiUsers extends NakamaAsyncResult:
 	}
 
 	# The User objects.
-	var _users = null
+	var _users
 	var users : Array:
 		get:
-			#return Array() if not _users is Array else Array(_users)
-			# Work around issue #53115 / #56217
-			var tmp = _users
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _users is Array else Array(_users)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -3755,14 +2903,10 @@ class ApiValidatePurchaseAppleRequest extends NakamaAsyncResult:
 	}
 
 	# Base64 encoded Apple receipt data payload.
-	var _receipt = null
+	var _receipt
 	var receipt : String:
 		get:
-			#return "" if not _receipt is String else String(_receipt)
-			# Work around issue #53115 / #56217
-			var tmp = _receipt
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _receipt is String else String(_receipt)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -3788,14 +2932,10 @@ class ApiValidatePurchaseGoogleRequest extends NakamaAsyncResult:
 	}
 
 	# JSON encoded Google purchase payload.
-	var _purchase = null
+	var _purchase
 	var purchase : String:
 		get:
-			#return "" if not _purchase is String else String(_purchase)
-			# Work around issue #53115 / #56217
-			var tmp = _purchase
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _purchase is String else String(_purchase)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -3822,24 +2962,16 @@ class ApiValidatePurchaseHuaweiRequest extends NakamaAsyncResult:
 	}
 
 	# JSON encoded Huawei InAppPurchaseData.
-	var _purchase = null
+	var _purchase
 	var purchase : String:
 		get:
-			#return "" if not _purchase is String else String(_purchase)
-			# Work around issue #53115 / #56217
-			var tmp = _purchase
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _purchase is String else String(_purchase)
 
 	# InAppPurchaseData signature.
-	var _signature = null
+	var _signature
 	var signature : String:
 		get:
-			#return "" if not _signature is String else String(_signature)
-			# Work around issue #53115 / #56217
-			var tmp = _signature
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _signature is String else String(_signature)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -3866,14 +2998,10 @@ class ApiValidatePurchaseResponse extends NakamaAsyncResult:
 	}
 
 	# Newly seen validated purchases.
-	var _validated_purchases = null
+	var _validated_purchases
 	var validated_purchases : Array:
 		get:
-			#return Array() if not _validated_purchases is Array else Array(_validated_purchases)
-			# Work around issue #53115 / #56217
-			var tmp = _validated_purchases
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _validated_purchases is Array else Array(_validated_purchases)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -3907,86 +3035,58 @@ class ApiValidatedPurchase extends NakamaAsyncResult:
 	}
 
 	# UNIX Timestamp when the receipt validation was stored in DB.
-	var _create_time = null
+	var _create_time
 	var create_time : String:
 		get:
-			#return "" if not _create_time is String else String(_create_time)
-			# Work around issue #53115 / #56217
-			var tmp = _create_time
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _create_time is String else String(_create_time)
 
 	# Whether the purchase was done in production or sandbox environment.
-	var _environment = null
+	var _environment
 	var environment : int:
 		get:
 			return ValidatedPurchaseEnvironment.values()[0] if not ValidatedPurchaseEnvironment.values().has(_environment) else _environment
 
 	# Purchase Product ID.
-	var _product_id = null
+	var _product_id
 	var product_id : String:
 		get:
-			#return "" if not _product_id is String else String(_product_id)
-			# Work around issue #53115 / #56217
-			var tmp = _product_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _product_id is String else String(_product_id)
 
 	# Raw provider validation response.
-	var _provider_response = null
+	var _provider_response
 	var provider_response : String:
 		get:
-			#return "" if not _provider_response is String else String(_provider_response)
-			# Work around issue #53115 / #56217
-			var tmp = _provider_response
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _provider_response is String else String(_provider_response)
 
 	# UNIX Timestamp when the purchase was done.
-	var _purchase_time = null
+	var _purchase_time
 	var purchase_time : String:
 		get:
-			#return "" if not _purchase_time is String else String(_purchase_time)
-			# Work around issue #53115 / #56217
-			var tmp = _purchase_time
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _purchase_time is String else String(_purchase_time)
 
 	# Whether the purchase had already been validated by Nakama before.
-	var _seen_before = null
+	var _seen_before
 	var seen_before : bool:
 		get:
-			#return false if not _seen_before is bool else bool(_seen_before)
-			# Work around issue #53115 / #56217
-			var tmp = _seen_before
-			tmp = tmp
-			return false if not tmp is bool else bool(tmp)
+			return false if not _seen_before is bool else bool(_seen_before)
 
 	# 
-	var _store = null
+	var _store
 	var store : int:
 		get:
 			return ValidatedPurchaseStore.values()[0] if not ValidatedPurchaseStore.values().has(_store) else _store
 
 	# Purchase Transaction ID.
-	var _transaction_id = null
+	var _transaction_id
 	var transaction_id : String:
 		get:
-			#return "" if not _transaction_id is String else String(_transaction_id)
-			# Work around issue #53115 / #56217
-			var tmp = _transaction_id
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _transaction_id is String else String(_transaction_id)
 
 	# UNIX Timestamp when the receipt validation was updated in DB.
-	var _update_time = null
+	var _update_time
 	var update_time : String:
 		get:
-			#return "" if not _update_time is String else String(_update_time)
-			# Work around issue #53115 / #56217
-			var tmp = _update_time
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _update_time is String else String(_update_time)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -4025,64 +3125,40 @@ class ApiWriteStorageObject extends NakamaAsyncResult:
 	}
 
 	# The collection to store the object.
-	var _collection = null
+	var _collection
 	var collection : String:
 		get:
-			#return "" if not _collection is String else String(_collection)
-			# Work around issue #53115 / #56217
-			var tmp = _collection
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _collection is String else String(_collection)
 
 	# The key for the object within the collection.
-	var _key = null
+	var _key
 	var key : String:
 		get:
-			#return "" if not _key is String else String(_key)
-			# Work around issue #53115 / #56217
-			var tmp = _key
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _key is String else String(_key)
 
 	# The read access permissions for the object.
-	var _permission_read = null
+	var _permission_read
 	var permission_read : int:
 		get:
-			#return 0 if not _permission_read is int else int(_permission_read)
-			# Work around issue #53115 / #56217
-			var tmp = _permission_read
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _permission_read is int else int(_permission_read)
 
 	# The write access permissions for the object.
-	var _permission_write = null
+	var _permission_write
 	var permission_write : int:
 		get:
-			#return 0 if not _permission_write is int else int(_permission_write)
-			# Work around issue #53115 / #56217
-			var tmp = _permission_write
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _permission_write is int else int(_permission_write)
 
 	# The value of the object.
-	var _value = null
+	var _value
 	var value : String:
 		get:
-			#return "" if not _value is String else String(_value)
-			# Work around issue #53115 / #56217
-			var tmp = _value
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _value is String else String(_value)
 
 	# The version hash of the object to check. Possible values are: ["", "*", "#hash#"].
-	var _version = null
+	var _version
 	var version : String:
 		get:
-			#return "" if not _version is String else String(_version)
-			# Work around issue #53115 / #56217
-			var tmp = _version
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _version is String else String(_version)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -4113,14 +3189,10 @@ class ApiWriteStorageObjectsRequest extends NakamaAsyncResult:
 	}
 
 	# The objects to store on the server.
-	var _objects = null
+	var _objects
 	var objects : Array:
 		get:
-			#return Array() if not _objects is Array else Array(_objects)
-			# Work around issue #53115 / #56217
-			var tmp = _objects
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _objects is Array else Array(_objects)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -4147,24 +3219,16 @@ class ProtobufAny extends NakamaAsyncResult:
 	}
 
 	# 
-	var _type_url = null
+	var _type_url
 	var type_url : String:
 		get:
-			#return "" if not _type_url is String else String(_type_url)
-			# Work around issue #53115 / #56217
-			var tmp = _type_url
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _type_url is String else String(_type_url)
 
 	# 
-	var _value = null
+	var _value
 	var value : String:
 		get:
-			#return "" if not _value is String else String(_value)
-			# Work around issue #53115 / #56217
-			var tmp = _value
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _value is String else String(_value)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -4193,34 +3257,22 @@ class RpcStatus extends NakamaAsyncResult:
 	}
 
 	# 
-	var _code = null
+	var _code
 	var code : int:
 		get:
-			#return 0 if not _code is int else int(_code)
-			# Work around issue #53115 / #56217
-			var tmp = _code
-			tmp = tmp
-			return 0 if not tmp is int else int(tmp)
+			return 0 if not _code is int else int(_code)
 
 	# 
-	var _details = null
+	var _details
 	var details : Array:
 		get:
-			#return Array() if not _details is Array else Array(_details)
-			# Work around issue #53115 / #56217
-			var tmp = _details
-			tmp = tmp
-			return Array() if not tmp is Array else Array(tmp)
+			return Array() if not _details is Array else Array(_details)
 
 	# 
-	var _message = null
+	var _message
 	var message : String:
 		get:
-			#return "" if not _message is String else String(_message)
-			# Work around issue #53115 / #56217
-			var tmp = _message
-			tmp = tmp
-			return "" if not tmp is String else String(tmp)
+			return "" if not _message is String else String(_message)
 
 	func _init(p_exception = null):
 		super(p_exception)
@@ -4383,6 +3435,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_username
 			tmp = tmp
 			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -4416,6 +3469,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_username
 			tmp = tmp
 			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -4449,6 +3503,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_username
 			tmp = tmp
 			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -4482,6 +3537,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_username
 			tmp = tmp
 			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -4516,6 +3572,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_username
 			tmp = tmp
 			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
 		if p_sync != null:
 			query_params += "sync=%s&" % str(p_sync).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -4551,6 +3608,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_username
 			tmp = tmp
 			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -4584,6 +3642,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_username
 			tmp = tmp
 			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -4617,6 +3676,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_username
 			tmp = tmp
 			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -4651,6 +3711,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_username
 			tmp = tmp
 			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
 		if p_sync != null:
 			query_params += "sync=%s&" % str(p_sync).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -5189,6 +4250,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_cursor
 			tmp = tmp
 			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5284,6 +4346,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_cursor
 			tmp = tmp
 			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5442,11 +4505,13 @@ class ApiClient extends RefCounted:
 			var tmp = p_name
 			tmp = tmp
 			query_params += "name=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "name=%s&" % NakamaSerializer.escape_http(p_name)
 		if p_cursor != null:
 			# Work around issue #53115 / #56217
 			var tmp = p_cursor
 			tmp = tmp
 			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_lang_tag != null:
@@ -5454,6 +4519,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_lang_tag
 			tmp = tmp
 			query_params += "lang_tag=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "lang_tag=%s&" % NakamaSerializer.escape_http(p_lang_tag)
 		if p_members != null:
 			query_params += "members=%d&" % p_members
 		if p_open != null:
@@ -5780,6 +4846,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_cursor
 			tmp = tmp
 			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5928,11 +4995,13 @@ class ApiClient extends RefCounted:
 			var tmp = p_cursor
 			tmp = tmp
 			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
 		if p_expiry != null:
 			# Work around issue #53115 / #56217
 			var tmp = p_expiry
 			tmp = tmp
 			query_params += "expiry=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "expiry=%s&" % NakamaSerializer.escape_http(p_expiry)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -6000,6 +5069,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_expiry
 			tmp = tmp
 			query_params += "expiry=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "expiry=%s&" % NakamaSerializer.escape_http(p_expiry)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -6040,6 +5110,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_label
 			tmp = tmp
 			query_params += "label=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "label=%s&" % NakamaSerializer.escape_http(p_label)
 		if p_min_size != null:
 			query_params += "min_size=%d&" % p_min_size
 		if p_max_size != null:
@@ -6049,6 +5120,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_query
 			tmp = tmp
 			query_params += "query=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "query=%s&" % NakamaSerializer.escape_http(p_query)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -6111,6 +5183,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_cacheable_cursor
 			tmp = tmp
 			query_params += "cacheable_cursor=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "cacheable_cursor=%s&" % NakamaSerializer.escape_http(p_cacheable_cursor)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -6140,11 +5213,13 @@ class ApiClient extends RefCounted:
 			var tmp = p_payload
 			tmp = tmp
 			query_params += "payload=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "payload=%s&" % NakamaSerializer.escape_http(p_payload)
 		if p_http_key != null:
 			# Work around issue #53115 / #56217
 			var tmp = p_http_key
 			tmp = tmp
 			query_params += "http_key=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "http_key=%s&" % NakamaSerializer.escape_http(p_http_key)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -6175,6 +5250,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_http_key
 			tmp = tmp
 			query_params += "http_key=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "http_key=%s&" % NakamaSerializer.escape_http(p_http_key)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -6318,6 +5394,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_user_id
 			tmp = tmp
 			query_params += "user_id=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "user_id=%s&" % NakamaSerializer.escape_http(p_user_id)
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cursor != null:
@@ -6325,6 +5402,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_cursor
 			tmp = tmp
 			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -6363,6 +5441,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_cursor
 			tmp = tmp
 			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -6409,6 +5488,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_cursor
 			tmp = tmp
 			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -6450,11 +5530,13 @@ class ApiClient extends RefCounted:
 			var tmp = p_cursor
 			tmp = tmp
 			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
 		if p_expiry != null:
 			# Work around issue #53115 / #56217
 			var tmp = p_expiry
 			tmp = tmp
 			query_params += "expiry=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "expiry=%s&" % NakamaSerializer.escape_http(p_expiry)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -6577,6 +5659,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_expiry
 			tmp = tmp
 			query_params += "expiry=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "expiry=%s&" % NakamaSerializer.escape_http(p_expiry)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -6653,6 +5736,7 @@ class ApiClient extends RefCounted:
 			var tmp = p_cursor
 			tmp = tmp
 			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
+			#query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
