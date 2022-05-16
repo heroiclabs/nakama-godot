@@ -4,7 +4,7 @@ class_name NakamaRTMessage
 # Send a channel join message to the server.
 class ChannelJoin:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"persistence": {"name": "persistence", "type": TYPE_BOOL, "required": true},
 		"hidden": {"name": "hidden", "type": TYPE_BOOL, "required": true},
 		"target": {"name": "target", "type": TYPE_STRING, "required": true},
@@ -44,7 +44,7 @@ class ChannelJoin:
 # A leave message for a match on the server.
 class ChannelLeave extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"channel_id": {"name": "channel_id", "type": TYPE_STRING, "required": true}
 	}
 	var channel_id : String
@@ -64,7 +64,7 @@ class ChannelLeave extends NakamaAsyncResult:
 
 class ChannelMessageRemove extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"channel_id": {"name": "channel_id", "type": TYPE_STRING, "required": true},
 		"message_id": {"name": "message_id", "type": TYPE_STRING, "required": true}
 	}
@@ -89,7 +89,7 @@ class ChannelMessageRemove extends NakamaAsyncResult:
 # Send a chat message to a channel on the server.
 class ChannelMessageSend extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"channel_id": {"name": "channel_id", "type": TYPE_STRING, "required": true},
 		"content": {"name": "content", "type": TYPE_STRING, "required": true}
 	}
@@ -113,7 +113,7 @@ class ChannelMessageSend extends NakamaAsyncResult:
 
 class ChannelMessageUpdate extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"channel_id": {"name": "channel_id", "type": TYPE_STRING, "required": true},
 		"message_id": {"name": "message_id", "type": TYPE_STRING, "required": true},
 		"content": {"name": "content", "type": TYPE_STRING, "required": true}
@@ -141,7 +141,7 @@ class ChannelMessageUpdate extends NakamaAsyncResult:
 # A create message for a match on the server.
 class MatchCreate extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"name": {"name": "name", "type": TYPE_STRING, "required": false},
 	}
 	
@@ -163,7 +163,7 @@ class MatchCreate extends NakamaAsyncResult:
 # A join message for a match on the server.
 class MatchJoin extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"match_id": {"name": "match_id", "type": TYPE_STRING, "required": false},
 		"token": {"name": "token", "type": TYPE_STRING, "required": false},
 		"metadata": {"name": "metadata", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
@@ -190,7 +190,7 @@ class MatchJoin extends NakamaAsyncResult:
 # A leave message for a match on the server.
 class MatchLeave extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"match_id": {"name": "match_id", "type": TYPE_STRING, "required": true}
 	}
 	var match_id : String
@@ -211,7 +211,7 @@ class MatchLeave extends NakamaAsyncResult:
 # Send new state to a match on the server.
 class MatchDataSend extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"match_id": {"name": "match_id", "type": TYPE_STRING, "required": true},
 		"op_code": {"name": "op_code", "type": TYPE_INT, "required": true},
 		"presences": {"name": "presences", "type": TYPE_ARRAY, "required": false, "content": "UserPresence"},
@@ -242,7 +242,7 @@ class MatchDataSend extends NakamaAsyncResult:
 # Add the user to the matchmaker pool with properties.
 class MatchmakerAdd extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"query": {"name": "query", "type": TYPE_STRING, "required": true},
 		"max_count": {"name": "max_count", "type": TYPE_INT, "required": true},
 		"min_count": {"name": "min_count", "type": TYPE_INT, "required": true},
@@ -281,7 +281,7 @@ class MatchmakerAdd extends NakamaAsyncResult:
 # Remove the user from the matchmaker pool by ticket.
 class MatchmakerRemove extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"ticket": {"name": "ticket", "type": TYPE_STRING, "required": true}
 	}
 
@@ -303,7 +303,7 @@ class MatchmakerRemove extends NakamaAsyncResult:
 # Follow one or more other users for status updates.
 class StatusFollow extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"user_ids": {"name": "user_ids", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 		"usernames": {"name": "usernames", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
@@ -328,7 +328,7 @@ class StatusFollow extends NakamaAsyncResult:
 # Unfollow one or more users on the server.
 class StatusUnfollow extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"user_ids": {"name": "user_ids", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
 
@@ -350,7 +350,7 @@ class StatusUnfollow extends NakamaAsyncResult:
 # Unfollow one or more users on the server.
 class StatusUpdate extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"status": {"name": "status", "type": TYPE_STRING, "required": true},
 	}
 
@@ -371,7 +371,7 @@ class StatusUpdate extends NakamaAsyncResult:
 # Create a party.
 class PartyCreate extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"open": {"name": "open", "type": TYPE_BOOL, "required": true},
 		"max_size": {"name": "max_size", "type": TYPE_INT, "required": true},
 	}
@@ -397,7 +397,7 @@ class PartyCreate extends NakamaAsyncResult:
 # Join a party, or request to join if the party is not open.
 class PartyJoin extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 	}
 	# Party ID to join.
@@ -419,7 +419,7 @@ class PartyJoin extends NakamaAsyncResult:
 # Leave a party.
 class PartyLeave extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 	}
 	# Party ID to leave.
@@ -441,7 +441,7 @@ class PartyLeave extends NakamaAsyncResult:
 # Promote a new party leader.
 class PartyPromote extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 		"presence": {"name": "presence", "type": "UserPresence", "required": true},
 	}
@@ -466,7 +466,7 @@ class PartyPromote extends NakamaAsyncResult:
 
 # Accept a request to join.
 class PartyAccept extends NakamaAsyncResult:
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 		"presence": {"name": "presence", "type": "UserPresence", "required": true},
 	}
@@ -491,7 +491,7 @@ class PartyAccept extends NakamaAsyncResult:
 
 # Kick a party member, or decline a request to join.
 class PartyRemove extends NakamaAsyncResult:
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 		"presence": {"name": "presence", "type": "UserPresence", "required": true},
 	}
@@ -516,7 +516,7 @@ class PartyRemove extends NakamaAsyncResult:
 
 # Request a list of pending join requests for a party.
 class PartyJoinRequestList extends NakamaAsyncResult:
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 	}
 	# Party ID to get a list of join requests for.
@@ -538,7 +538,7 @@ class PartyJoinRequestList extends NakamaAsyncResult:
 # Begin matchmaking as a party.
 class PartyMatchmakerAdd extends NakamaAsyncResult:
 
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 		"min_count": {"name": "min_count", "type": TYPE_INT, "required": true},
 		"max_count": {"name": "max_count", "type": TYPE_INT, "required": true},
@@ -583,7 +583,7 @@ class PartyMatchmakerAdd extends NakamaAsyncResult:
 
 # Cancel a party matchmaking process using a ticket.
 class PartyMatchmakerRemove extends NakamaAsyncResult:
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 		"ticket": {"name": "ticket", "type": TYPE_STRING, "required": true},
 	}
@@ -608,7 +608,7 @@ class PartyMatchmakerRemove extends NakamaAsyncResult:
 
 # Send data to a party.
 class PartyDataSend extends NakamaAsyncResult:
-	var _SCHEMA = {
+	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 		"op_code": {"name": "op_code", "type": TYPE_INT, "required": true},
 		"data": {"name": "data", "type": TYPE_STRING, "required": false}
