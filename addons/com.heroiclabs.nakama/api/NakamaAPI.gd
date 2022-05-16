@@ -3429,7 +3429,11 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/apple"
 		var query_params = ""
 		if p_create != null:
-			query_params += "create=%s&" % str(p_create).to_lower()
+			# Work around issue #53115 / #56217
+			var tmp = p_create
+			tmp = tmp
+			query_params += "create=%s&" % str(bool(tmp)).to_lower()
+			#query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
 			# Work around issue #53115 / #56217
 			var tmp = p_username
@@ -3463,7 +3467,11 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/custom"
 		var query_params = ""
 		if p_create != null:
-			query_params += "create=%s&" % str(p_create).to_lower()
+			# Work around issue #53115 / #56217
+			var tmp = p_create
+			tmp = tmp
+			query_params += "create=%s&" % str(bool(tmp)).to_lower()
+			#query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
 			# Work around issue #53115 / #56217
 			var tmp = p_username
@@ -3497,7 +3505,11 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/device"
 		var query_params = ""
 		if p_create != null:
-			query_params += "create=%s&" % str(p_create).to_lower()
+			# Work around issue #53115 / #56217
+			var tmp = p_create
+			tmp = tmp
+			query_params += "create=%s&" % str(bool(tmp)).to_lower()
+			#query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
 			# Work around issue #53115 / #56217
 			var tmp = p_username
@@ -3531,7 +3543,11 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/email"
 		var query_params = ""
 		if p_create != null:
-			query_params += "create=%s&" % str(p_create).to_lower()
+			# Work around issue #53115 / #56217
+			var tmp = p_create
+			tmp = tmp
+			query_params += "create=%s&" % str(bool(tmp)).to_lower()
+			#query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
 			# Work around issue #53115 / #56217
 			var tmp = p_username
@@ -3566,7 +3582,11 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/facebook"
 		var query_params = ""
 		if p_create != null:
-			query_params += "create=%s&" % str(p_create).to_lower()
+			# Work around issue #53115 / #56217
+			var tmp = p_create
+			tmp = tmp
+			query_params += "create=%s&" % str(bool(tmp)).to_lower()
+			#query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
 			# Work around issue #53115 / #56217
 			var tmp = p_username
@@ -3574,7 +3594,11 @@ class ApiClient extends RefCounted:
 			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
 			#query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
 		if p_sync != null:
-			query_params += "sync=%s&" % str(p_sync).to_lower()
+			# Work around issue #53115 / #56217
+			var tmp = p_sync
+			tmp = tmp
+			query_params += "sync=%s&" % str(bool(tmp)).to_lower()
+			#query_params += "sync=%s&" % str(bool(p_sync)).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3602,7 +3626,11 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/facebookinstantgame"
 		var query_params = ""
 		if p_create != null:
-			query_params += "create=%s&" % str(p_create).to_lower()
+			# Work around issue #53115 / #56217
+			var tmp = p_create
+			tmp = tmp
+			query_params += "create=%s&" % str(bool(tmp)).to_lower()
+			#query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
 			# Work around issue #53115 / #56217
 			var tmp = p_username
@@ -3636,7 +3664,11 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/gamecenter"
 		var query_params = ""
 		if p_create != null:
-			query_params += "create=%s&" % str(p_create).to_lower()
+			# Work around issue #53115 / #56217
+			var tmp = p_create
+			tmp = tmp
+			query_params += "create=%s&" % str(bool(tmp)).to_lower()
+			#query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
 			# Work around issue #53115 / #56217
 			var tmp = p_username
@@ -3670,7 +3702,11 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/google"
 		var query_params = ""
 		if p_create != null:
-			query_params += "create=%s&" % str(p_create).to_lower()
+			# Work around issue #53115 / #56217
+			var tmp = p_create
+			tmp = tmp
+			query_params += "create=%s&" % str(bool(tmp)).to_lower()
+			#query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
 			# Work around issue #53115 / #56217
 			var tmp = p_username
@@ -3705,7 +3741,11 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/steam"
 		var query_params = ""
 		if p_create != null:
-			query_params += "create=%s&" % str(p_create).to_lower()
+			# Work around issue #53115 / #56217
+			var tmp = p_create
+			tmp = tmp
+			query_params += "create=%s&" % str(bool(tmp)).to_lower()
+			#query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
 			# Work around issue #53115 / #56217
 			var tmp = p_username
@@ -3713,7 +3753,11 @@ class ApiClient extends RefCounted:
 			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
 			#query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
 		if p_sync != null:
-			query_params += "sync=%s&" % str(p_sync).to_lower()
+			# Work around issue #53115 / #56217
+			var tmp = p_sync
+			tmp = tmp
+			query_params += "sync=%s&" % str(bool(tmp)).to_lower()
+			#query_params += "sync=%s&" % str(bool(p_sync)).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3848,7 +3892,11 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/link/facebook"
 		var query_params = ""
 		if p_sync != null:
-			query_params += "sync=%s&" % str(p_sync).to_lower()
+			# Work around issue #53115 / #56217
+			var tmp = p_sync
+			tmp = tmp
+			query_params += "sync=%s&" % str(bool(tmp)).to_lower()
+			#query_params += "sync=%s&" % str(bool(p_sync)).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -4244,7 +4292,11 @@ class ApiClient extends RefCounted:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_forward != null:
-			query_params += "forward=%s&" % str(p_forward).to_lower()
+			# Work around issue #53115 / #56217
+			var tmp = p_forward
+			tmp = tmp
+			query_params += "forward=%s&" % str(bool(tmp)).to_lower()
+			#query_params += "forward=%s&" % str(bool(p_forward)).to_lower()
 		if p_cursor != null:
 			# Work around issue #53115 / #56217
 			var tmp = p_cursor
@@ -4439,7 +4491,11 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/friend/facebook"
 		var query_params = ""
 		if p_reset != null:
-			query_params += "reset=%s&" % str(p_reset).to_lower()
+			# Work around issue #53115 / #56217
+			var tmp = p_reset
+			tmp = tmp
+			query_params += "reset=%s&" % str(bool(tmp)).to_lower()
+			#query_params += "reset=%s&" % str(bool(p_reset)).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -4468,7 +4524,11 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/friend/steam"
 		var query_params = ""
 		if p_reset != null:
-			query_params += "reset=%s&" % str(p_reset).to_lower()
+			# Work around issue #53115 / #56217
+			var tmp = p_reset
+			tmp = tmp
+			query_params += "reset=%s&" % str(bool(tmp)).to_lower()
+			#query_params += "reset=%s&" % str(bool(p_reset)).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -4523,7 +4583,11 @@ class ApiClient extends RefCounted:
 		if p_members != null:
 			query_params += "members=%d&" % p_members
 		if p_open != null:
-			query_params += "open=%s&" % str(p_open).to_lower()
+			# Work around issue #53115 / #56217
+			var tmp = p_open
+			tmp = tmp
+			query_params += "open=%s&" % str(bool(tmp)).to_lower()
+			#query_params += "open=%s&" % str(bool(p_open)).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5104,7 +5168,11 @@ class ApiClient extends RefCounted:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_authoritative != null:
-			query_params += "authoritative=%s&" % str(p_authoritative).to_lower()
+			# Work around issue #53115 / #56217
+			var tmp = p_authoritative
+			tmp = tmp
+			query_params += "authoritative=%s&" % str(bool(tmp)).to_lower()
+			#query_params += "authoritative=%s&" % str(bool(p_authoritative)).to_lower()
 		if p_label != null:
 			# Work around issue #53115 / #56217
 			var tmp = p_label

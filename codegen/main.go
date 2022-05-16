@@ -87,18 +87,18 @@ class {{ $classname }} extends NakamaAsyncResult:
 	var {{ $_field }}
 	var {{ $fieldname }} : {{ $gdType }}:
 		get:
-			{{- if $property.Ref }}
+		{{- if $property.Ref }}
 			{{- if isRefToEnum (cleanRef $property.Ref) }}{{/* Enums */}}
 			return {{ cleanRef $property.Ref }}.values()[0] if not {{ cleanRef $property.Ref }}.values().has({{ $_field }}) else {{ $_field }}
 			{{- else }}{{/* Object reference */}}
 			return _{{ $fieldname }} as {{ $gdType }}
 			{{- end }}
-			{{- else if eq $property.Type "object"}}{{/* Dictionaries */}}
+		{{- else if eq $property.Type "object"}}{{/* Dictionaries */}}
 			return Dictionary() if not {{ $_field }} is Dictionary else {{ $_field }}.duplicate()
-			{{- else }}{{/* Simple type */}}
+		{{- else }}{{/* Simple type */}}
 			return {{ $gdDef }} if not {{ $_field }} is {{ $gdType }} else {{ $gdType }}({{ $_field }})
-			{{- end }}
-			{{- end }}
+		{{- end }}
+		{{- end }}
 
 	{{- godotClassUtils $classname }}
 
@@ -265,7 +265,11 @@ class ApiClient extends RefCounted:
 			query_params += "{{- $snakecase }}=%s&" % NakamaSerializer.escape_http(tmp)
 			#query_params += "{{- $snakecase }}=%s&" % NakamaSerializer.escape_http({{ $argument }})
                 {{- else if eq $parameter.Type "boolean" }}
-			query_params += "{{- $snakecase }}=%s&" % str({{ $argument }}).to_lower()
+			# Work around issue #53115 / #56217
+			var tmp = {{ $argument }}
+			tmp = tmp
+			query_params += "{{- $snakecase }}=%s&" % str(bool(tmp)).to_lower()
+			#query_params += "{{- $snakecase }}=%s&" % str(bool({{ $argument }})).to_lower()
                 {{- else if eq $parameter.Type "array" }}
 			for elem in {{ $argument }}:
 				query_params += "{{- $snakecase }}=%s&" % elem
