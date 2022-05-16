@@ -1,4 +1,4 @@
-#@tool
+@tool
 extends Node
 
 # An adapter which implements the HTTP protocol.

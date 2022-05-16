@@ -1,4 +1,4 @@
-#@tool
+@tool
 extends Node
 
 # An adapter which implements a socket with a protocol supported by Nakama.
