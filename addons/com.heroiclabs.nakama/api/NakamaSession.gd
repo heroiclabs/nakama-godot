@@ -71,7 +71,7 @@ var refresh_expire_time : int:
 		return _refresh_expire_time
 
 var _valid : bool = false
-var valid : bool: 
+var valid : bool:
 	set(v):
 		pass
 	get:

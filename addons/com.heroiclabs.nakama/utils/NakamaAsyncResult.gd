@@ -6,7 +6,7 @@ var exception : NakamaException:
 		pass
 	get:
 		return get_exception()
-		
+
 var _ex = null
 
 func _init(p_ex = null):

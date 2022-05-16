@@ -12,7 +12,7 @@ var host : String:
 		pass
 	get:
 		return _host
-		
+
 # The port number of the server. Defaults to 7350.
 var _port
 var port : int:

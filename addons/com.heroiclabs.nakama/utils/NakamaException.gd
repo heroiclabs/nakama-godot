@@ -17,7 +17,7 @@ var grpc_status_code : int:
 		pass
 	get:
 		return _grpc_status_code
-		
+
 var _message : String = ""
 var message : String:
 	set(v):
