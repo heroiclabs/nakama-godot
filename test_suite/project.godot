@@ -6,79 +6,79 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
+config_version=5
 
-_global_script_classes=[ {
+_global_script_classes=[{
 "base": "RefCounted",
-"class": "NakamaAPI",
-"language": "GDScript",
+"class": &"NakamaAPI",
+"language": &"GDScript",
 "path": "res://addons/com.heroiclabs.nakama/api/NakamaAPI.gd"
 }, {
 "base": "RefCounted",
-"class": "NakamaAsyncResult",
-"language": "GDScript",
+"class": &"NakamaAsyncResult",
+"language": &"GDScript",
 "path": "res://addons/com.heroiclabs.nakama/utils/NakamaAsyncResult.gd"
 }, {
 "base": "RefCounted",
-"class": "NakamaClient",
-"language": "GDScript",
+"class": &"NakamaClient",
+"language": &"GDScript",
 "path": "res://addons/com.heroiclabs.nakama/client/NakamaClient.gd"
 }, {
 "base": "RefCounted",
-"class": "NakamaException",
-"language": "GDScript",
+"class": &"NakamaException",
+"language": &"GDScript",
 "path": "res://addons/com.heroiclabs.nakama/utils/NakamaException.gd"
 }, {
 "base": "Node",
-"class": "NakamaHTTPAdapter",
-"language": "GDScript",
+"class": &"NakamaHTTPAdapter",
+"language": &"GDScript",
 "path": "res://addons/com.heroiclabs.nakama/client/NakamaHTTPAdapter.gd"
 }, {
 "base": "RefCounted",
-"class": "NakamaLogger",
-"language": "GDScript",
+"class": &"NakamaLogger",
+"language": &"GDScript",
 "path": "res://addons/com.heroiclabs.nakama/utils/NakamaLogger.gd"
 }, {
 "base": "NakamaAsyncResult",
-"class": "NakamaRTAPI",
-"language": "GDScript",
+"class": &"NakamaRTAPI",
+"language": &"GDScript",
 "path": "res://addons/com.heroiclabs.nakama/api/NakamaRTAPI.gd"
 }, {
 "base": "RefCounted",
-"class": "NakamaRTMessage",
-"language": "GDScript",
+"class": &"NakamaRTMessage",
+"language": &"GDScript",
 "path": "res://addons/com.heroiclabs.nakama/api/NakamaRTMessage.gd"
 }, {
 "base": "RefCounted",
-"class": "NakamaSerializer",
-"language": "GDScript",
+"class": &"NakamaSerializer",
+"language": &"GDScript",
 "path": "res://addons/com.heroiclabs.nakama/utils/NakamaSerializer.gd"
 }, {
 "base": "NakamaAsyncResult",
-"class": "NakamaSession",
-"language": "GDScript",
+"class": &"NakamaSession",
+"language": &"GDScript",
 "path": "res://addons/com.heroiclabs.nakama/api/NakamaSession.gd"
 }, {
 "base": "RefCounted",
-"class": "NakamaSocket",
-"language": "GDScript",
+"class": &"NakamaSocket",
+"language": &"GDScript",
 "path": "res://addons/com.heroiclabs.nakama/socket/NakamaSocket.gd"
 }, {
 "base": "Node",
-"class": "NakamaSocketAdapter",
-"language": "GDScript",
+"class": &"NakamaSocketAdapter",
+"language": &"GDScript",
 "path": "res://addons/com.heroiclabs.nakama/socket/NakamaSocketAdapter.gd"
 }, {
 "base": "RefCounted",
-"class": "NakamaStorageObjectId",
-"language": "GDScript",
+"class": &"NakamaStorageObjectId",
+"language": &"GDScript",
 "path": "res://addons/com.heroiclabs.nakama/api/NakamaStorageObjectId.gd"
 }, {
 "base": "RefCounted",
-"class": "NakamaWriteStorageObject",
-"language": "GDScript",
+"class": &"NakamaWriteStorageObject",
+"language": &"GDScript",
 "path": "res://addons/com.heroiclabs.nakama/api/NakamaWriteStorageObject.gd"
-} ]
+}]
 _global_script_class_icons={
 "NakamaAPI": "",
 "NakamaAsyncResult": "",
@@ -99,6 +99,7 @@ _global_script_class_icons={
 [application]
 
 run/main_scene="res://tester.tscn"
+config/features=PackedStringArray("4.0")
 
 [autoload]
 

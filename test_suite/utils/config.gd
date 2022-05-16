@@ -9,13 +9,14 @@ func _ready():
 	var f = File.new()
 	if f.open("res://settings.json", File.READ) != OK:
 		return
-	var json = JSON.parse(f.get_as_text())
-	if json.error != OK or typeof(json.result) != TYPE_DICTIONARY:
+	var json = JSON.new()
+	var error = json.parse(f.get_as_text())
+	var parsed = json.get_data()
+	if error != OK or typeof(parsed) != TYPE_DICTIONARY:
 		return
-	var d = json.result
-	for k in d:
+	for k in parsed:
 		match k:
-			"HOST": HOST = d[k]
-			"PORT": PORT = d[k]
-			"SCHEME": SCHEME = d[k]
-			"SERVER_KEY": SERVER_KEY = d[k]
+			"HOST": HOST = parsed[k]
+			"PORT": PORT = parsed[k]
+			"SCHEME": SCHEME = parsed[k]
+			"SERVER_KEY": SERVER_KEY = parsed[k]

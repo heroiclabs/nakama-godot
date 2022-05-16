@@ -5,13 +5,13 @@ var _connected = false
 func setup():
 	var client = Nakama.create_client(Config.SERVER_KEY, Config.HOST, Config.PORT, Config.SCHEME)
 
-	var session = yield(client.authenticate_custom_async("MyIdentifier"), "completed")
+	var session = await client.authenticate_custom_async("MyIdentifier")
 	if assert_cond(session.is_valid()):
 		return
 
 	var socket = Nakama.create_socket_from(client)
-	socket.connect("connected", self, "_on_socket_connected")
-	var done = yield(socket.connect_async(session), "completed")
+	socket.connected.connect(self._on_socket_connected)
+	var done = await socket.connect_async(session)
 	# Check that connection succeded
 	if assert_false(done.is_exception()):
 		return
