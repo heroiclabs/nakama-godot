@@ -11,9 +11,9 @@ func setup():
 
 	var socket = Nakama.create_socket_from(client)
 	socket.connected.connect(self._on_socket_connected)
-	var done = await socket.connect_async(session)
+	var conn = await socket.connect_async(session)
 	# Check that connection succeded
-	if assert_false(done.is_exception()):
+	if assert_false(conn.is_exception()):
 		return
 	# Check that signal has been called
 	if assert_cond(_connected):

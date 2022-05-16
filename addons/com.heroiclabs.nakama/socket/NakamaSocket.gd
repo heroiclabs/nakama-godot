@@ -94,8 +94,9 @@ class AsyncRequest:
 		type = p_type
 		ns = p_ns
 
-		# Specifically defined key, or default for object.
-		result_key = p_result_key if p_result_key != null else p_type.get_result_key()
+		if type != NakamaAsyncResult:
+			# Specifically defined key, or default for object.
+			result_key = p_result_key if p_result_key != null else type.get_result_key()
 
 	func resume(data, logger = null) -> void:
 		var result = _parse_result(data, logger)
@@ -331,7 +332,7 @@ func connect_async(p_session : NakamaSession, p_appear_online : bool = false, p_
 # Returns a task which resolves to a matchmaker ticket object.
 func add_matchmaker_async(p_query : String = "*", p_min_count : int = 2, p_max_count : int = 8,
 		p_string_props : Dictionary = {}, p_numeric_props : Dictionary = {},
-		p_count_multiple : int = 0) -> NakamaRTAPI.MatchmakerTicket:
+		p_count_multiple : int = 0): # -> NakamaRTAPI.MatchmakerTicket
 	return await _send_async(
 		NakamaRTMessage.MatchmakerAdd.new(p_query, p_min_count, p_max_count, p_string_props, p_numeric_props, p_count_multiple),
 		NakamaRTAPI.MatchmakerTicket
@@ -347,7 +348,7 @@ func create_match_async(p_name : String = ''):
 # @param p_user_ids - The IDs of users.
 # @param p_usernames - The usernames of the users.
 # Returns a task which resolves to the current statuses for the users.
-func follow_users_async(p_ids : PackedStringArray, p_usernames : PackedStringArray) -> NakamaRTAPI.Status:
+func follow_users_async(p_ids : PackedStringArray, p_usernames : PackedStringArray): # -> NakamaRTAPI.Status
 	return await _send_async(NakamaRTMessage.StatusFollow.new(p_ids, p_usernames), NakamaRTAPI.Status).completed
 
 # Join a chat channel on the server.
@@ -356,7 +357,7 @@ func follow_users_async(p_ids : PackedStringArray, p_usernames : PackedStringArr
 # @param p_persistence - If chat messages should be stored.
 # @param p_hidden - If the current user should be hidden on the channel.
 # Returns a task which resolves to a chat channel object.
-func join_chat_async(p_target : String, p_type : int, p_persistence : bool = false, p_hidden : bool = false) -> NakamaRTAPI.Channel:
+func join_chat_async(p_target : String, p_type : int, p_persistence : bool = false, p_hidden : bool = false): # -> NakamaRTAPI.Channel
 	return await _send_async(
 		NakamaRTMessage.ChannelJoin.new(p_target, p_type, p_persistence, p_hidden),
 		NakamaRTAPI.Channel
@@ -415,7 +416,7 @@ func remove_matchmaker_async(p_ticket : String) -> NakamaAsyncResult:
 # @param p_func_id - The ID of the function to execute.
 # @param p_payload - An (optional) String payload to send to the server.
 # Returns a task which resolves to the RPC function response object.
-func rpc_async(p_func_id : String, p_payload = null) -> NakamaAPI.ApiRpc:
+func rpc_async(p_func_id : String, p_payload = null): # -> NakamaAPI.ApiRpc
 	var payload = p_payload
 	match typeof(p_payload):
 		TYPE_NIL, TYPE_STRING:
@@ -500,7 +501,7 @@ func write_chat_message_async(p_channel_id : String, p_content : Dictionary):
 # @param p_party_id - The party ID to accept the join request for.
 # @param p_presence - The presence to accept as a party member.
 # Returns a task to represent the asynchronous operation.
-func accept_party_member_async(p_party_id : String, p_presence : NakamaRTAPI.UserPresence):
+func accept_party_member_async(p_party_id : String, p_presence):
 	return await _send_async(NakamaRTMessage.PartyAccept.new(p_party_id, p_presence)).completed
 
 # Begin matchmaking as a party.
@@ -531,7 +532,7 @@ func close_party_async(p_party_id : String):
 # @param p_open - Whether or not the party will require join requests to be approved by the party leader.
 # @param p_max_size - Maximum number of party members. This maximum does not include the party leader.
 # Returns a task to represent the asynchronous operation.
-func create_party_async(p_open : bool, p_max_size : int) -> NakamaRTAPI.Party:
+func create_party_async(p_open : bool, p_max_size : int): # -> NakamaRTAPI.Party
 	return await _send_async(
 		NakamaRTMessage.PartyCreate.new(p_open, p_max_size),
 		NakamaRTAPI.Party
@@ -552,7 +553,7 @@ func leave_party_async(p_party_id : String):
 # Request a list of pending join requests for a party.
 # @param p_party_id - Party ID.
 # Returns a task which resolves to a list of all party join requests.
-func list_party_join_requests_async(p_party_id : String) -> NakamaRTAPI.PartyJoinRequest:
+func list_party_join_requests_async(p_party_id : String): # -> NakamaRTAPI.PartyJoinRequest
 	return await _send_async(
 		NakamaRTMessage.PartyJoinRequestList.new(p_party_id),
 		NakamaRTAPI.PartyJoinRequest).completed
@@ -561,7 +562,7 @@ func list_party_join_requests_async(p_party_id : String) -> NakamaRTAPI.PartyJoi
 # @param p_party_id - Party ID.
 # @param p_party_member - The presence of an existing party member to promote as the new leader.
 # Returns a which represents the asynchronous operation.
-func promote_party_member(p_party_id : String, p_party_member : NakamaRTAPI.UserPresence):
+func promote_party_member(p_party_id : String, p_party_member):
 	return await _send_async(NakamaRTMessage.PartyPromote.new(p_party_id, p_party_member)).completed
 
 # Cancel a party matchmaking process using a ticket.
@@ -575,7 +576,7 @@ func remove_matchmaker_party_async(p_party_id : String, p_ticket : String):
 # @param p_party_id - Party ID to remove/reject from.
 # @param p_presence - The presence to remove or reject.
 # Returns a task which represents the asynchronous operation.
-func remove_party_member_async(p_party_id : String, p_presence : NakamaRTAPI.UserPresence):
+func remove_party_member_async(p_party_id : String, p_presence):
 	return await _send_async(NakamaRTMessage.PartyRemove.new(p_party_id, p_presence)).completed
 
 # Send data to a party.
