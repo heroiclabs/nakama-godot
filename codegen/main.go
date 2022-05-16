@@ -233,7 +233,7 @@ class ApiClient extends RefCounted:
           {{- $classname = $operation.Responses.Ok.Schema.Ref | cleanRef }}
         {{- end }}
         {{- if not $operation.Security }}
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return {{ $classname }}.new(try_refresh.get_exception())

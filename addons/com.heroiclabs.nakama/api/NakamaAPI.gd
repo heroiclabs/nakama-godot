@@ -3347,7 +3347,7 @@ class ApiClient extends RefCounted:
 	func healthcheck_async(
 		p_session : NakamaSession
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -3371,7 +3371,7 @@ class ApiClient extends RefCounted:
 	func get_account_async(
 		p_session : NakamaSession
 	) -> ApiAccount:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiAccount.new(try_refresh.get_exception())
@@ -3397,7 +3397,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiUpdateAccountRequest
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -3779,7 +3779,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountApple
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -3805,7 +3805,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountCustom
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -3831,7 +3831,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountDevice
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -3857,7 +3857,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountEmail
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -3884,7 +3884,7 @@ class ApiClient extends RefCounted:
 		, p_body : ApiAccountFacebook
 		, p_sync = null # : boolean
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -3916,7 +3916,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountFacebookInstantGame
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -3942,7 +3942,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountGameCenter
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -3968,7 +3968,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountGoogle
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -3994,7 +3994,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiLinkSteamRequest
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4044,7 +4044,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountApple
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4070,7 +4070,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountCustom
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4096,7 +4096,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountDevice
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4122,7 +4122,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountEmail
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4148,7 +4148,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountFacebook
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4174,7 +4174,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountFacebookInstantGame
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4200,7 +4200,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountGameCenter
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4226,7 +4226,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountGoogle
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4252,7 +4252,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiAccountSteam
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4281,7 +4281,7 @@ class ApiClient extends RefCounted:
 		, p_forward = null # : boolean
 		, p_cursor = null # : string
 	) -> ApiChannelMessageList:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiChannelMessageList.new(try_refresh.get_exception())
@@ -4322,7 +4322,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiEvent
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4349,7 +4349,7 @@ class ApiClient extends RefCounted:
 		, p_ids = null # : array
 		, p_usernames = null # : array
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4382,7 +4382,7 @@ class ApiClient extends RefCounted:
 		, p_state = null # : integer
 		, p_cursor = null # : string
 	) -> ApiFriendList:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiFriendList.new(try_refresh.get_exception())
@@ -4419,7 +4419,7 @@ class ApiClient extends RefCounted:
 		, p_ids = null # : array
 		, p_usernames = null # : array
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4451,7 +4451,7 @@ class ApiClient extends RefCounted:
 		, p_ids = null # : array
 		, p_usernames = null # : array
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4483,7 +4483,7 @@ class ApiClient extends RefCounted:
 		, p_body : ApiAccountFacebook
 		, p_reset = null # : boolean
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4516,7 +4516,7 @@ class ApiClient extends RefCounted:
 		, p_body : ApiAccountSteam
 		, p_reset = null # : boolean
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4553,7 +4553,7 @@ class ApiClient extends RefCounted:
 		, p_members = null # : integer
 		, p_open = null # : boolean
 	) -> ApiGroupList:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiGroupList.new(try_refresh.get_exception())
@@ -4607,7 +4607,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiCreateGroupRequest
 	) -> ApiGroup:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiGroup.new(try_refresh.get_exception())
@@ -4634,7 +4634,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_group_id : String
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4661,7 +4661,7 @@ class ApiClient extends RefCounted:
 		, p_group_id : String
 		, p_body : ApiUpdateGroupRequest
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4689,7 +4689,7 @@ class ApiClient extends RefCounted:
 		, p_group_id : String
 		, p_user_ids = null # : array
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4719,7 +4719,7 @@ class ApiClient extends RefCounted:
 		, p_group_id : String
 		, p_user_ids = null # : array
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4749,7 +4749,7 @@ class ApiClient extends RefCounted:
 		, p_group_id : String
 		, p_user_ids : PackedStringArray
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4778,7 +4778,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_group_id : String
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4805,7 +4805,7 @@ class ApiClient extends RefCounted:
 		, p_group_id : String
 		, p_user_ids = null # : array
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4834,7 +4834,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_group_id : String
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4861,7 +4861,7 @@ class ApiClient extends RefCounted:
 		, p_group_id : String
 		, p_user_ids = null # : array
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -4893,7 +4893,7 @@ class ApiClient extends RefCounted:
 		, p_state = null # : integer
 		, p_cursor = null # : string
 	) -> ApiGroupUserList:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiGroupUserList.new(try_refresh.get_exception())
@@ -4930,7 +4930,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiValidatePurchaseAppleRequest
 	) -> ApiValidatePurchaseResponse:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiValidatePurchaseResponse.new(try_refresh.get_exception())
@@ -4957,7 +4957,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiValidatePurchaseGoogleRequest
 	) -> ApiValidatePurchaseResponse:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiValidatePurchaseResponse.new(try_refresh.get_exception())
@@ -4984,7 +4984,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiValidatePurchaseHuaweiRequest
 	) -> ApiValidatePurchaseResponse:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiValidatePurchaseResponse.new(try_refresh.get_exception())
@@ -5011,7 +5011,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_leaderboard_id : String
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -5041,7 +5041,7 @@ class ApiClient extends RefCounted:
 		, p_cursor = null # : string
 		, p_expiry = null # : string
 	) -> ApiLeaderboardRecordList:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiLeaderboardRecordList.new(try_refresh.get_exception())
@@ -5086,7 +5086,7 @@ class ApiClient extends RefCounted:
 		, p_leaderboard_id : String
 		, p_body : WriteLeaderboardRecordRequestLeaderboardRecordWrite
 	) -> ApiLeaderboardRecord:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiLeaderboardRecord.new(try_refresh.get_exception())
@@ -5117,7 +5117,7 @@ class ApiClient extends RefCounted:
 		, p_limit = null # : integer
 		, p_expiry = null # : string
 	) -> ApiLeaderboardRecordList:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiLeaderboardRecordList.new(try_refresh.get_exception())
@@ -5158,7 +5158,7 @@ class ApiClient extends RefCounted:
 		, p_max_size = null # : integer
 		, p_query = null # : string
 	) -> ApiMatchList:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiMatchList.new(try_refresh.get_exception())
@@ -5208,7 +5208,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_ids = null # : array
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -5237,7 +5237,7 @@ class ApiClient extends RefCounted:
 		, p_limit = null # : integer
 		, p_cacheable_cursor = null # : string
 	) -> ApiNotificationList:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiNotificationList.new(try_refresh.get_exception())
@@ -5340,7 +5340,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiSessionLogoutRequest
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -5366,7 +5366,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiReadStorageObjectsRequest
 	) -> ApiStorageObjects:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiStorageObjects.new(try_refresh.get_exception())
@@ -5393,7 +5393,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiWriteStorageObjectsRequest
 	) -> ApiStorageObjectAcks:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiStorageObjectAcks.new(try_refresh.get_exception())
@@ -5420,7 +5420,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_body : ApiDeleteStorageObjectsRequest
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -5449,7 +5449,7 @@ class ApiClient extends RefCounted:
 		, p_limit = null # : integer
 		, p_cursor = null # : string
 	) -> ApiStorageObjectList:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiStorageObjectList.new(try_refresh.get_exception())
@@ -5493,7 +5493,7 @@ class ApiClient extends RefCounted:
 		, p_limit = null # : integer
 		, p_cursor = null # : string
 	) -> ApiStorageObjectList:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiStorageObjectList.new(try_refresh.get_exception())
@@ -5534,7 +5534,7 @@ class ApiClient extends RefCounted:
 		, p_limit = null # : integer
 		, p_cursor = null # : string
 	) -> ApiTournamentList:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiTournamentList.new(try_refresh.get_exception())
@@ -5580,7 +5580,7 @@ class ApiClient extends RefCounted:
 		, p_cursor = null # : string
 		, p_expiry = null # : string
 	) -> ApiTournamentRecordList:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiTournamentRecordList.new(try_refresh.get_exception())
@@ -5625,7 +5625,7 @@ class ApiClient extends RefCounted:
 		, p_tournament_id : String
 		, p_body : WriteTournamentRecordRequestTournamentRecordWrite
 	) -> ApiLeaderboardRecord:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiLeaderboardRecord.new(try_refresh.get_exception())
@@ -5654,7 +5654,7 @@ class ApiClient extends RefCounted:
 		, p_tournament_id : String
 		, p_body : WriteTournamentRecordRequestTournamentRecordWrite
 	) -> ApiLeaderboardRecord:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiLeaderboardRecord.new(try_refresh.get_exception())
@@ -5682,7 +5682,7 @@ class ApiClient extends RefCounted:
 		p_session : NakamaSession
 		, p_tournament_id : String
 	) -> NakamaAsyncResult:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return NakamaAsyncResult.new(try_refresh.get_exception())
@@ -5711,7 +5711,7 @@ class ApiClient extends RefCounted:
 		, p_limit = null # : integer
 		, p_expiry = null # : string
 	) -> ApiTournamentRecordList:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiTournamentRecordList.new(try_refresh.get_exception())
@@ -5749,7 +5749,7 @@ class ApiClient extends RefCounted:
 		, p_usernames = null # : array
 		, p_facebook_ids = null # : array
 	) -> ApiUsers:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiUsers.new(try_refresh.get_exception())
@@ -5787,7 +5787,7 @@ class ApiClient extends RefCounted:
 		, p_state = null # : integer
 		, p_cursor = null # : string
 	) -> ApiUserGroupList:
-		var try_refresh = await _refresh_session.call(p_session)
+		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
 			if try_refresh.is_exception():
 				return ApiUserGroupList.new(try_refresh.get_exception())

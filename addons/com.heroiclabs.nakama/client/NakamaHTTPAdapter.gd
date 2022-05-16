@@ -60,10 +60,10 @@ class AsyncRequest:
 			id, retry_count - cur_try, time
 		])
 		cur_try += 1
-		await backoff.call(time)
+		await backoff(time)
 		if cancelled:
 			return
-		return await make_request.call()
+		return await make_request()
 
 	func make_request():
 		var err = request.request(uri, headers, true, method, body.get_string_from_utf8())
@@ -174,7 +174,7 @@ func send_async(p_method : String, p_uri : String, p_headers : Dictionary, p_bod
 
 	add_child(req)
 
-	return await _send_async.call(id, _pending)
+	return await _send_async(id, _pending)
 
 func get_last_token():
 	return id
@@ -192,7 +192,7 @@ static func _clear_request(p_request : AsyncRequest, p_pending : Dictionary, p_i
 static func _send_async(p_id : int, p_pending : Dictionary):
 
 	var req : AsyncRequest = p_pending[p_id]
-	await req.make_request.call()
+	await req.make_request()
 
 	while req.result != HTTPRequest.RESULT_SUCCESS:
 		req.logger.debug("Request %d failed with result: %d, response code: %d" % [
@@ -200,7 +200,7 @@ static func _send_async(p_id : int, p_pending : Dictionary):
 		])
 		if not req.should_retry():
 			break
-		await req.retry.call()
+		await req.retry()
 
 	_clear_request(req, p_pending, p_id)
 	return req.parse_result()

@@ -292,7 +292,7 @@ func _send_async(p_message, p_parse_type = NakamaAsyncResult, p_ns = NakamaRTAPI
 		"cid": id,
 		msg: p_message.serialize()
 	})
-	var err = _adapter.send.call(json_str.to_utf8_buffer())
+	var err = _adapter.send(json_str.to_utf8_buffer())
 	if err != OK:
 		call_deferred("_cancel_request", id)
 	return _requests[id]
