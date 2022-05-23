@@ -504,7 +504,8 @@ func add_matchmaker_party_async(p_party_id : String, p_query : String = "*", p_m
 	return _send_async(
 		NakamaRTMessage.PartyMatchmakerAdd.new(p_party_id, p_min_count,
 			p_max_count, p_query, p_string_properties, p_numeric_properties,
-			p_count_multiple if p_count_multiple > 0 else null))
+			p_count_multiple if p_count_multiple > 0 else null),
+		NakamaRTAPI.PartyMatchmakerTicket)
 
 # End a party, kicking all party members and closing it.
 # @param p_party_id - The ID of the party.
