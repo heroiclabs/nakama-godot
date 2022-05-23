@@ -578,7 +578,7 @@ class PartyMatchmakerAdd extends NakamaAsyncResult:
 		return "party_matchmaker_add"
 
 	func _to_string():
-		return "PartyMatchmakerAdd<party_id=%s, min_count=%d, max_count=%d, query=%s, string_properties=%s, numeric_properties=%s, count_multiple>" % [party_id, min_count, max_count, query, string_properties, numeric_properties, count_multiple]
+		return "PartyMatchmakerAdd<party_id=%s, min_count=%d, max_count=%d, query=%s, string_properties=%s, numeric_properties=%s, count_multiple=%s>" % [party_id, min_count, max_count, query, string_properties, numeric_properties, count_multiple]
 
 
 # Cancel a party matchmaking process using a ticket.

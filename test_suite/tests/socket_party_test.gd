@@ -38,7 +38,6 @@ func setup():
 	socket2.received_party_close.connect(self._on_party_close)
 	socket2.received_party_join_request.connect(self._on_party_join_request)
 	socket2.received_party_leader.connect(self._on_party_leader)
-	socket2.received_party_matchmaker_ticket.connect(self._on_party_ticket)
 	socket2.received_party_presence.connect(self._on_party_presence)
 
 	var conn2 = await socket2.connect_async(session2)
@@ -79,6 +78,7 @@ func _on_party_leader(party_leader):
 	var ticket = await socket2.add_matchmaker_party_async(party_leader.party_id)
 	if assert_false(ticket.is_exception()):
 		return
+	_on_party_ticket(ticket)
 
 func _on_party_ticket(ticket):
 	prints("_on_party_ticket", ticket)
