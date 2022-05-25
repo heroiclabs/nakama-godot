@@ -38,7 +38,6 @@ func setup():
 	socket2.connect("received_party_close", self, "_on_party_close")
 	socket2.connect("received_party_join_request", self, "_on_party_join_request")
 	socket2.connect("received_party_leader", self, "_on_party_leader")
-	socket2.connect("received_party_matchmaker_ticket", self, "_on_party_ticket")
 	socket2.connect("received_party_presence", self, "_on_party_presence")
 
 	var done2 = yield(socket2.connect_async(session2), "completed")
@@ -77,6 +76,7 @@ func _on_party_leader(party_leader : NakamaRTAPI.PartyLeader):
 	var ticket = yield(socket2.add_matchmaker_party_async(party_leader.party_id), "completed")
 	if assert_false(ticket.is_exception()):
 		return
+	_on_party_ticket(ticket)
 
 func _on_party_ticket(ticket : NakamaRTAPI.PartyMatchmakerTicket):
 	prints("_on_party_ticket", ticket)
