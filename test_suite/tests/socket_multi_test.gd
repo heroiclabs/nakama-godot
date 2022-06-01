@@ -11,62 +11,64 @@ var socket2 = null
 func setup():
 	var client = Nakama.create_client(Config.SERVER_KEY, Config.HOST, Config.PORT, Config.SCHEME)
 
-	var session1 = yield(client.authenticate_custom_async("MyIdentifier"), "completed")
+	var session1 = await client.authenticate_custom_async("MyIdentifier")
 	if assert_cond(session1.is_valid()):
 		return
 
-	var session2 = yield(client.authenticate_custom_async("MyIdentifier2"), "completed")
+	var session2 = await client.authenticate_custom_async("MyIdentifier2")
 	if assert_cond(session1.is_valid()):
 		return
 
 	socket1 = Nakama.create_socket_from(client)
 	socket1.connect("received_channel_message", self, "_on_socket1_message")
 	socket1.connect("received_matchmaker_matched", self, "_on_socket1_matchmaker_matched")
-	var done = yield(socket1.connect_async(session1), "completed")
+	var done = await socket1.connect_async(session1)
 	# Check that connection succeded
 	if assert_false(done.is_exception()):
 		return
 
 	socket2 = Nakama.create_socket_from(client)
-	done = yield(socket2.connect_async(session2), "completed")
+	done = await socket2.connect_async(session2)
 	# Check that connection succeded
 	if assert_false(done.is_exception()):
 		return
 
 	# Join room
-	var room1 = yield(socket1.join_chat_async("MyRoom", NakamaSocket.ChannelType.Room), "completed")
+	var room1 = await socket1.join_chat_async("MyRoom", NakamaSocket.ChannelType.Room)
 	if assert_false(room1.is_exception()):
 		return
-	var room2 = yield(socket2.join_chat_async("MyRoom", NakamaSocket.ChannelType.Room), "completed")
+	var room2 = await socket2.join_chat_async("MyRoom", NakamaSocket.ChannelType.Room)
 	if assert_false(room2.is_exception()):
 		return
 
 	# Socket 2 send message to socket 1
-	var msg_ack = yield(socket2.write_chat_message_async(room2.id, content), "completed")
+	var msg_ack = await socket2.write_chat_message_async(room2.id, content)
 	if assert_false(msg_ack.is_exception()):
 		return
 
-	var ticket1 = yield(socket1.add_matchmaker_async("+properties.region:europe +properties.rank:>=7 +properties.rank:<=9", 2, 8, match_string_props, match_numeric_props), "completed")
+	var ticket1 = await socket1.add_matchmaker_async("+properties.region:europe +properties.rank:>=7 +properties.rank:<=9", 2, 8, match_string_props, match_numeric_props)
 	if assert_false(ticket1.is_exception()):
 		return
-	var ticket2 = yield(socket2.add_matchmaker_async("+properties.region:europe +properties.rank:>=7 +properties.rank:<=9", 2, 8, match_string_props, match_numeric_props), "completed")
+	var ticket2 = await socket2.add_matchmaker_async("+properties.region:europe +properties.rank:>=7 +properties.rank:<=9", 2, 8, match_string_props, match_numeric_props)
 	if assert_false(ticket2.is_exception()):
 		return
 
 func _on_socket1_message(msg):
-	if assert_equal(msg.content, JSON.print(content)):
+	var json = JSON.new()
+	if assert_equal(msg.content, json.stringify(content)):
 		return
 	got_msg = true
 	check_end()
 
 func _on_socket1_matchmaker_matched(p_matchmaker_matched):
-	if assert_equal(JSON.print(p_matchmaker_matched.users[0].string_properties), JSON.print(match_string_props)):
+	var json = JSON.new()
+	if assert_equal(json.stringify(p_matchmaker_matched.users[0].string_properties), json.stringify(match_string_props)):
 		return
-	if assert_equal(JSON.print(p_matchmaker_matched.users[0].numeric_properties), JSON.print(match_numeric_props)):
+	if assert_equal(json.stringify(p_matchmaker_matched.users[0].numeric_properties), json.stringify(match_numeric_props)):
 		return
-	if assert_equal(JSON.print(p_matchmaker_matched.users[1].string_properties), JSON.print(match_string_props)):
+	if assert_equal(json.stringify(p_matchmaker_matched.users[1].string_properties), json.stringify(match_string_props)):
 		return
-	if assert_equal(JSON.print(p_matchmaker_matched.users[1].numeric_properties), JSON.print(match_numeric_props)):
+	if assert_equal(json.stringify(p_matchmaker_matched.users[1].numeric_properties), json.stringify(match_numeric_props)):
 		return
 	got_match = true
 	check_end()

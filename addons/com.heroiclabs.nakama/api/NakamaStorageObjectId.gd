@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name NakamaStorageObjectId
 
 # The collection which stores the object.

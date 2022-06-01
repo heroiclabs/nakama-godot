@@ -1,4 +1,4 @@
-tool
+@tool
 extends Node
 
 # An adapter which implements a socket with a protocol supported by Nakama.
@@ -19,7 +19,7 @@ signal closed()
 signal received_error(p_exception)
 
 # A signal emitted when the socket receives a message.
-signal received(p_bytes) # PoolByteArray
+signal received(p_bytes) # PackedByteArray
 
 # If the socket is connected.
 func is_connected_to_host():
@@ -39,7 +39,7 @@ func close():
 func connect_to_host(p_uri : String, p_timeout : int):
 	_ws.disconnect_from_host()
 	_timeout = p_timeout
-	_start = OS.get_unix_time()
+	_start = Time.get_unix_time_from_system()
 	var err = _ws.connect_to_url(p_uri)
 	if err != OK:
 		logger.debug("Error connecting to host %s" % p_uri)
@@ -48,12 +48,12 @@ func connect_to_host(p_uri : String, p_timeout : int):
 # Send data to the server with an asynchronous operation.
 # @param p_buffer - The buffer with the message to send.
 # @param p_reliable - If the message should be sent reliably (will be ignored by some protocols).
-func send(p_buffer : PoolByteArray, p_reliable : bool = true) -> int:
+func send(p_buffer : PackedByteArray, p_reliable : bool = true) -> int:
 	return _ws.get_peer(1).put_packet(p_buffer)
 
 func _process(delta):
 	if _ws.get_connection_status() == WebSocketClient.CONNECTION_CONNECTING:
-		if _start + _timeout < OS.get_unix_time():
+		if _start + _timeout < Time.get_unix_time_from_system():
 			logger.debug("Timeout when connecting to socket")
 			emit_signal("received_error", ERR_TIMEOUT)
 			_ws.disconnect_from_host()
@@ -63,10 +63,10 @@ func _process(delta):
 		_ws.poll()
 
 func _init():
-	_ws.connect("data_received", self, "_received")
-	_ws.connect("connection_established", self, "_connected")
-	_ws.connect("connection_error", self, "_error")
-	_ws.connect("connection_closed", self, "_closed")
+	_ws.data_received.connect(self._received)
+	_ws.connection_established.connect(self._connected)
+	_ws.connection_error.connect(self._error)
+	_ws.connection_closed.connect(self._closed)
 
 func _received():
 	emit_signal("received", _ws.get_peer(1).get_packet())

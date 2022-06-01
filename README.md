@@ -5,7 +5,7 @@ Nakama Godot
 
 [Nakama](https://github.com/heroiclabs/nakama) is an open-source server designed to power modern games and apps. Features include user accounts, chat, social, matchmaker, realtime multiplayer, and much [more](https://heroiclabs.com).
 
-This client implements the full API and socket options with the server. It's written in GDScript to support Godot Engine `3.1+`.
+This client implements the full API and socket options with the server. It's written in GDScript to support Godot Engine `4.0+`.
 
 Full documentation is online - https://heroiclabs.com/docs
 
@@ -43,8 +43,8 @@ There's a variety of ways to [authenticate](https://heroiclabs.com/docs/authenti
 ```gdscript
 	var email = "super@heroes.com"
 	var password = "batsignal"
-	# Use yield(client.function(), "completed") to wait for the request to complete.
-	var session : NakamaSession = yield(client.authenticate_email_async(email, password), "completed")
+	# Use 'await' to wait for the request to complete.
+	var session : NakamaSession = await client.authenticate_email_async(email, password)
 	print(session)
 ```
 
@@ -78,7 +78,7 @@ The client includes lots of builtin APIs for various features of the game server
 All requests are sent with a session object which authorizes the client.
 
 ```gdscript
-	var account = yield(client.get_account_async(session), "completed")
+	var account = await client.get_account_async(session)
 	print(account.user.id)
 	print(account.user.username)
 	print(account.wallet)
@@ -90,7 +90,7 @@ Since Godot Engine does not support exceptions, whenever you make an async reque
 
 ```gdscript
 	var an_invalid_session = NakamaSession.new() # An empty session, which will cause and error when we use it.
-	var account2 = yield(client.get_account_async(an_invalid_session), "completed")
+	var account2 = await client.get_account_async(an_invalid_session)
 	print(account2) # This will print the exception
 	if account2.is_exception():
 		print("We got an exception")
@@ -102,10 +102,10 @@ The client can create one or more sockets with the server. Each socket can have 
 
 ```gdscript
 	var socket = Nakama.create_socket_from(client)
-	socket.connect("connected", self, "_on_socket_connected")
-	socket.connect("closed", self, "_on_socket_closed")
-	socket.connect("received_error", self, "_on_socket_error")
-	yield(socket.connect_async(session), "completed")
+	socket.connected.connect(self._on_socket_connected)
+	socket.closed.connect(self._on_socket_closed)
+	socket.received_error.connect(self._on_socket_error)
+	await socket.connect_async(session)
 	print("Done")
 
 func _on_socket_connected():
