@@ -144,7 +144,7 @@ class MatchCreate extends NakamaAsyncResult:
 	const _SCHEMA = {
 		"name": {"name": "name", "type": TYPE_STRING, "required": false},
 	}
-	
+
 	var name = null
 
 	func _init(p_name = null):
