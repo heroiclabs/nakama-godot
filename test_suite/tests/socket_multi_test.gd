@@ -20,8 +20,8 @@ func setup():
 		return
 
 	socket1 = Nakama.create_socket_from(client)
-	socket1.connect("received_channel_message", self, "_on_socket1_message")
-	socket1.connect("received_matchmaker_matched", self, "_on_socket1_matchmaker_matched")
+	socket1.received_channel_message.connect(self._on_socket1_message)
+	socket1.received_matchmaker_matched.connect(self._on_socket1_matchmaker_matched)
 	var done = await socket1.connect_async(session1)
 	# Check that connection succeded
 	if assert_false(done.is_exception()):
@@ -34,10 +34,10 @@ func setup():
 		return
 
 	# Join room
-	var room1 = await socket1.join_chat_async("MyRoom", NakamaSocket.ChannelType.Room)
+	var room1 = await socket1.join_chat_async("MyRoom", socket1.ChannelType.Room)
 	if assert_false(room1.is_exception()):
 		return
-	var room2 = await socket2.join_chat_async("MyRoom", NakamaSocket.ChannelType.Room)
+	var room2 = await socket2.join_chat_async("MyRoom", socket2.ChannelType.Room)
 	if assert_false(room2.is_exception()):
 		return
 
