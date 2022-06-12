@@ -268,7 +268,7 @@ class MatchData extends NakamaAsyncResult:
 	const _SCHEMA = {
 		"match_id": {"name": "match_id", "type": TYPE_STRING, "required": true},
 		"presence": {"name": "presence", "type": "UserPresence", "required": false},
-		"op_code": {"name": "op_code", "type": TYPE_STRING, "required": false},
+		"op_code": {"name": "op_code", "type": TYPE_INT, "required": false},
 		"data": {"name": "data", "type": TYPE_STRING, "required": false}
 	}
 
