@@ -8,6 +8,7 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 ### Fixed
 
 - Fix NakamaSocket.add_matchmaker_party_async() and the tests for it
+- Fix MatchData.op_code type in schema to TYPE_INT
 
 ## [3.1.0] - 2022-04-28
 
