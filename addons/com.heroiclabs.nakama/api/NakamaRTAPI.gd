@@ -282,8 +282,26 @@ class MatchData extends NakamaAsyncResult:
 	# The user that sent this game state update.
 	var presence : UserPresence
 
-	# The byte contents of the state change.
-	var data : String
+	# The raw base64-encoded contents of the state change.
+	var base64_data : String
+
+	# The contents of the state change decoded as a UTF-8 string.
+	var _data
+	var data : String:
+		get:
+			if _data == null and base64_data != '':
+				_data = Marshalls.base64_to_utf8(base64_data)
+			return _data if _data != null else ''
+		set(v):
+			_data = v
+
+	# The contents of the state change decoded as binary data.
+	var _binary_data
+	var binary_data : PackedByteArray:
+		get:
+			if _binary_data == null and base64_data != '':
+				_binary_data = Marshalls.base64_to_raw(base64_data)
+			return _binary_data
 
 	func _init(p_ex = null):
 		super(p_ex)
@@ -293,9 +311,11 @@ class MatchData extends NakamaAsyncResult:
 		return "MatchData<match_id=%s, op_code=%s, presence=%s, data=%s>" % [match_id, op_code, presence, data]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> MatchData:
-		var out := _safe_ret(NakamaSerializer.deserialize(p_ns, "MatchData", p_dict), MatchData) as MatchData
-		if out.data: # Decode base64 received data
-			out.data = Marshalls.base64_to_utf8(out.data)
+		var out = _safe_ret(NakamaSerializer.deserialize(p_ns, "MatchData", p_dict), MatchData) as MatchData
+		# Store the base64 data, ready to be decoded when the developer requests it.
+		if out._data != null:
+			out.base64_data = out._data
+			out._data = null
 		return out
 
 	static func get_result_key() -> String:
