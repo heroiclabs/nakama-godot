@@ -282,8 +282,14 @@ class MatchData extends NakamaAsyncResult:
 	# The user that sent this game state update.
 	var presence : UserPresence
 
-	# The byte contents of the state change.
-	var data : String
+	# The contents of the state change decoded as a UTF-8 string.
+	var data : String setget , get_data
+
+	# The raw base64-encoded contents of the state change.
+	var base64_data : String
+
+	# The contents of the state change decoded as binary data.
+	var binary_data : PoolByteArray setget , get_binary_data
 
 	func _init(p_ex = null).(p_ex):
 		pass
@@ -294,12 +300,24 @@ class MatchData extends NakamaAsyncResult:
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> MatchData:
 		var out := _safe_ret(NakamaSerializer.deserialize(p_ns, "MatchData", p_dict), MatchData) as MatchData
-		if out.data: # Decode base64 received data
-			out.data = Marshalls.base64_to_utf8(out.data)
+		# Store the base64 data, ready to be decoded when the developer requests it.
+		if out.data:
+			out.base64_data = out.data
+			out.data = ''
 		return out
 
 	static func get_result_key() -> String:
 		return "match_data"
+
+	func get_data():
+		if not data and base64_data:
+			data = Marshalls.base64_to_utf8(base64_data)
+		return data
+
+	func get_binary_data():
+		if not binary_data and base64_data:
+			binary_data = Marshalls.base64_to_raw(base64_data)
+		return binary_data
 
 
 # A batch of join and leave presences for a match.
