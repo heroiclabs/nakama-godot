@@ -3342,6 +3342,9 @@ class ApiClient extends Reference:
 	func cancel_request(p_token):
 		if p_token:
 			_http_adapter.cancel_request(p_token)
+	
+	func create_empty_json_body() -> PoolByteArray:
+		return to_json({}).to_utf8()
 
 	# A healthcheck which load balancers can use to check the service.
 	func healthcheck_async(
@@ -4369,6 +4372,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+		content = create_empty_json_body()
 
 		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
@@ -4402,6 +4406,7 @@ class ApiClient extends Reference:
 		headers["Authorization"] = header
 
 		var content : PoolByteArray
+		content = create_empty_json_body()
 
 		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
