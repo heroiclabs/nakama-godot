@@ -588,3 +588,12 @@ func remove_party_member_async(p_party_id : String, p_presence):
 func send_party_data_async(p_party_id : String, p_op_code : int, p_data:String = ""):
 	var base64_data = null if p_data.is_empty() else Marshalls.utf8_to_base64(p_data)
 	return await _send_async(NakamaRTMessage.PartyDataSend.new(p_party_id, p_op_code, base64_data)).completed
+
+# Send data to a party.
+# @param p_party_id - Party ID to send to.
+# @param p_op_code - Op code value.
+# @param data - Data payload, if any.
+# Returns a task which represents the asynchronous operation.
+func send_party_data_raw_async(p_party_id : String, p_op_code : int, p_data:PackedByteArray):
+	var base64_data = null if p_data.is_empty() else Marshalls.raw_to_base64(p_data)
+	return await _send_async(NakamaRTMessage.PartyDataSend.new(p_party_id, p_op_code, base64_data)).completed
