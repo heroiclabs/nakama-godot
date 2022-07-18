@@ -374,7 +374,7 @@ class MatchmakerMatched extends NakamaAsyncResult:
 
 	# The other users matched with this user and the parameters they sent.
 	var users : Array # MatchmakerUser
-	
+
 	# The current user who matched with opponents.
 	var self_user : MatchmakerUser
 
@@ -829,8 +829,12 @@ class PartyData extends NakamaAsyncResult:
 	var presence : NakamaRTAPI.UserPresence
 	# Op code value.
 	var op_code : int
-	# Data payload, if any.
-	var data : String
+	# The contents of the state change decoded as a UTF-8 string.
+	var data : String setget , get_data
+	# The raw base64-encoded contents of the state change.
+	var base64_data : String
+	# The contents of the state change decoded as binary data.
+	var binary_data : PoolByteArray setget , get_binary_data
 
 	func _init(p_ex = null).(p_ex):
 		pass
@@ -844,12 +848,24 @@ class PartyData extends NakamaAsyncResult:
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> PartyData:
 		var out := _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyData", p_dict), PartyData) as PartyData
-		if out.data: # Decode base64 received data
-			out.data = Marshalls.base64_to_utf8(out.data)
+		# Store the base64 data, ready to be decoded when the developer requests it.
+		if out.data:
+			out.base64_data = out.data
+			out.data = ''
 		return out
 
 	static func get_result_key() -> String:
 		return "party_data"
+
+	func get_data():
+		if not data and base64_data:
+			data = Marshalls.base64_to_utf8(base64_data)
+		return data
+
+	func get_binary_data():
+		if not binary_data and base64_data:
+			binary_data = Marshalls.base64_to_raw(base64_data)
+		return binary_data
 
 # End a party, kicking all party members and closing it. (this is both a message and a result)
 class PartyClose extends NakamaAsyncResult:
