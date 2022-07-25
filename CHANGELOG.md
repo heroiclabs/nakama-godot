@@ -14,6 +14,7 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 
 - Add support for receiving binary data in "NakamaRTAPI.MatchState"
 - Add support for sending and receiving binary data in "NakamaRTAPI.PartyData"
+- Add NakamaMultiplayerBridge to integrate with Godot's High-Level Multiplayer API
 
 ## [3.1.0] - 2022-04-28
 
