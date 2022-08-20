@@ -147,7 +147,7 @@ static func escape_http(p_str : String) -> String:
 			(o >= '0' and o <= '9')):
 			out += o
 		else:
-			for b in o.to_utf8():
+			for b in o.to_utf8_buffer():
 				out += "%%%s" % to_hex(b)
 	return out
 
