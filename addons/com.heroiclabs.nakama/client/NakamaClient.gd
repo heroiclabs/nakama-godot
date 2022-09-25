@@ -377,6 +377,21 @@ func delete_storage_objects_async(p_session : NakamaSession, p_ids : Array) -> N
 func demote_group_users_async(p_session : NakamaSession, p_group_id : String, p_user_ids : Array):
 	return await _api_client.demote_group_users_async(p_session, p_group_id, p_user_ids)
 
+# Submit an event for processing in the server's registered runtime custom events handler.
+# @param p_session - The session of the user.
+# @param p_name - The name of the event.
+# @param p_properties - The properties of the event.
+# Returns a task which represents the asynchronous operation.
+func event_async(p_session : NakamaSession, p_name : String, p_properties : Dictionary = {}) -> NakamaAsyncResult:
+	return await _api_client.event_async(p_session, NakamaAPI.ApiEvent.create(
+		NakamaAPI,
+		{
+			"name": p_name,
+			"properties": p_properties,
+			"external": true,
+		}
+	))
+
 # Fetch the user account owned by the session.
 # @param p_session - The session of the user.
 # Returns a task which resolves to the account object.
