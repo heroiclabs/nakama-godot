@@ -77,18 +77,6 @@ class UserGroupListUserGroup extends NakamaAsyncResult:
 		output += "state: %s, " % _state
 		return output
 
-# Environment where the purchase took place
-# - UNKNOWN: Unknown environment.
-#  - SANDBOX: Sandbox/test environment.
-#  - PRODUCTION: Production environment.# [- UNKNOWN: Unknown environment.  - SANDBOX: Sandbox/test environment.  - PRODUCTION: Production environment.]
-enum ValidatedPurchaseEnvironment {UNKNOWN = 0,SANDBOX = 1,PRODUCTION = 2,}
-
-# Validation Provider
-# - APPLE_APP_STORE: Apple App Store
-#  - GOOGLE_PLAY_STORE: Google Play Store
-#  - HUAWEI_APP_GALLERY: Huawei App Gallery# [- APPLE_APP_STORE: Apple App Store  - GOOGLE_PLAY_STORE: Google Play Store  - HUAWEI_APP_GALLERY: Huawei App Gallery]
-enum ValidatedPurchaseStore {APPLE_APP_STORE = 0,GOOGLE_PLAY_STORE = 1,HUAWEI_APP_GALLERY = 2,}
-
 # Record values to write.
 class WriteLeaderboardRecordRequestLeaderboardRecordWrite extends NakamaAsyncResult:
 
@@ -1560,6 +1548,43 @@ class ApiLinkSteamRequest extends NakamaAsyncResult:
 		output += "sync: %s, " % _sync
 		return output
 
+# List user subscriptions.
+class ApiListSubscriptionsRequest extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"cursor": {"name": "_cursor", "type": TYPE_STRING, "required": false},
+		"limit": {"name": "_limit", "type": TYPE_INT, "required": false},
+	}
+
+	# 
+	var _cursor
+	var cursor : String:
+		get:
+			return "" if not _cursor is String else String(_cursor)
+
+	# 
+	var _limit
+	var limit : int:
+		get:
+			return 0 if not _limit is int else int(_limit)
+
+	func _init(p_exception = null):
+		super(p_exception)
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiListSubscriptionsRequest:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiListSubscriptionsRequest", p_dict), ApiListSubscriptionsRequest) as ApiListSubscriptionsRequest
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string() -> String:
+		if is_exception():
+			return get_exception()._to_string()
+		var output : String = ""
+		output += "cursor: %s, " % _cursor
+		output += "limit: %s, " % _limit
+		return output
+
 # Represents a realtime match.
 class ApiMatch extends NakamaAsyncResult:
 
@@ -2263,6 +2288,63 @@ class ApiStorageObjects extends NakamaAsyncResult:
 		output += "objects: %s, " % [_objects]
 		return output
 
+# Environment where a purchase/subscription took place,
+# - UNKNOWN: Unknown environment.
+#  - SANDBOX: Sandbox/test environment.
+#  - PRODUCTION: Production environment.# [- UNKNOWN: Unknown environment.  - SANDBOX: Sandbox/test environment.  - PRODUCTION: Production environment.]
+enum ApiStoreEnvironment {UNKNOWN = 0,SANDBOX = 1,PRODUCTION = 2,}
+
+# Validation Provider,
+# - APPLE_APP_STORE: Apple App Store
+#  - GOOGLE_PLAY_STORE: Google Play Store
+#  - HUAWEI_APP_GALLERY: Huawei App Gallery# [- APPLE_APP_STORE: Apple App Store  - GOOGLE_PLAY_STORE: Google Play Store  - HUAWEI_APP_GALLERY: Huawei App Gallery]
+enum ApiStoreProvider {APPLE_APP_STORE = 0,GOOGLE_PLAY_STORE = 1,HUAWEI_APP_GALLERY = 2,}
+
+# A list of validated subscriptions stored by Nakama.
+class ApiSubscriptionList extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"cursor": {"name": "_cursor", "type": TYPE_STRING, "required": false},
+		"prev_cursor": {"name": "_prev_cursor", "type": TYPE_STRING, "required": false},
+		"validated_subscriptions": {"name": "_validated_subscriptions", "type": TYPE_ARRAY, "required": false, "content": "ApiValidatedSubscription"},
+	}
+
+	# The cursor to send when retrieving the next page, if any.
+	var _cursor
+	var cursor : String:
+		get:
+			return "" if not _cursor is String else String(_cursor)
+
+	# The cursor to send when retrieving the previous page, if any.
+	var _prev_cursor
+	var prev_cursor : String:
+		get:
+			return "" if not _prev_cursor is String else String(_prev_cursor)
+
+	# Stored validated subscriptions.
+	var _validated_subscriptions
+	var validated_subscriptions : Array:
+		get:
+			return Array() if not _validated_subscriptions is Array else Array(_validated_subscriptions)
+
+	func _init(p_exception = null):
+		super(p_exception)
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiSubscriptionList:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiSubscriptionList", p_dict), ApiSubscriptionList) as ApiSubscriptionList
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string() -> String:
+		if is_exception():
+			return get_exception()._to_string()
+		var output : String = ""
+		output += "cursor: %s, " % _cursor
+		output += "prev_cursor: %s, " % _prev_cursor
+		output += "validated_subscriptions: %s, " % [_validated_subscriptions]
+		return output
+
 # A tournament on the server.
 class ApiTournament extends NakamaAsyncResult:
 
@@ -2899,8 +2981,15 @@ class ApiUsers extends NakamaAsyncResult:
 class ApiValidatePurchaseAppleRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
+		"persist": {"name": "_persist", "type": TYPE_BOOL, "required": false},
 		"receipt": {"name": "_receipt", "type": TYPE_STRING, "required": false},
 	}
+
+	# 
+	var _persist
+	var persist : bool:
+		get:
+			return false if not _persist is bool else bool(_persist)
 
 	# Base64 encoded Apple receipt data payload.
 	var _receipt
@@ -2921,6 +3010,7 @@ class ApiValidatePurchaseAppleRequest extends NakamaAsyncResult:
 		if is_exception():
 			return get_exception()._to_string()
 		var output : String = ""
+		output += "persist: %s, " % _persist
 		output += "receipt: %s, " % _receipt
 		return output
 
@@ -2928,8 +3018,15 @@ class ApiValidatePurchaseAppleRequest extends NakamaAsyncResult:
 class ApiValidatePurchaseGoogleRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
+		"persist": {"name": "_persist", "type": TYPE_BOOL, "required": false},
 		"purchase": {"name": "_purchase", "type": TYPE_STRING, "required": false},
 	}
+
+	# 
+	var _persist
+	var persist : bool:
+		get:
+			return false if not _persist is bool else bool(_persist)
 
 	# JSON encoded Google purchase payload.
 	var _purchase
@@ -2950,6 +3047,7 @@ class ApiValidatePurchaseGoogleRequest extends NakamaAsyncResult:
 		if is_exception():
 			return get_exception()._to_string()
 		var output : String = ""
+		output += "persist: %s, " % _persist
 		output += "purchase: %s, " % _purchase
 		return output
 
@@ -2957,9 +3055,16 @@ class ApiValidatePurchaseGoogleRequest extends NakamaAsyncResult:
 class ApiValidatePurchaseHuaweiRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
+		"persist": {"name": "_persist", "type": TYPE_BOOL, "required": false},
 		"purchase": {"name": "_purchase", "type": TYPE_STRING, "required": false},
 		"signature": {"name": "_signature", "type": TYPE_STRING, "required": false},
 	}
+
+	# 
+	var _persist
+	var persist : bool:
+		get:
+			return false if not _persist is bool else bool(_persist)
 
 	# JSON encoded Huawei InAppPurchaseData.
 	var _purchase
@@ -2986,11 +3091,12 @@ class ApiValidatePurchaseHuaweiRequest extends NakamaAsyncResult:
 		if is_exception():
 			return get_exception()._to_string()
 		var output : String = ""
+		output += "persist: %s, " % _persist
 		output += "purchase: %s, " % _purchase
 		output += "signature: %s, " % _signature
 		return output
 
-# 
+# Validate IAP response.
 class ApiValidatePurchaseResponse extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -3019,6 +3125,109 @@ class ApiValidatePurchaseResponse extends NakamaAsyncResult:
 		output += "validated_purchases: %s, " % [_validated_purchases]
 		return output
 
+# 
+class ApiValidateSubscriptionAppleRequest extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"persist": {"name": "_persist", "type": TYPE_BOOL, "required": false},
+		"receipt": {"name": "_receipt", "type": TYPE_STRING, "required": false},
+	}
+
+	# Persist the subscription.
+	var _persist
+	var persist : bool:
+		get:
+			return false if not _persist is bool else bool(_persist)
+
+	# Base64 encoded Apple receipt data payload.
+	var _receipt
+	var receipt : String:
+		get:
+			return "" if not _receipt is String else String(_receipt)
+
+	func _init(p_exception = null):
+		super(p_exception)
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidateSubscriptionAppleRequest:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidateSubscriptionAppleRequest", p_dict), ApiValidateSubscriptionAppleRequest) as ApiValidateSubscriptionAppleRequest
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string() -> String:
+		if is_exception():
+			return get_exception()._to_string()
+		var output : String = ""
+		output += "persist: %s, " % _persist
+		output += "receipt: %s, " % _receipt
+		return output
+
+# 
+class ApiValidateSubscriptionGoogleRequest extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"persist": {"name": "_persist", "type": TYPE_BOOL, "required": false},
+		"receipt": {"name": "_receipt", "type": TYPE_STRING, "required": false},
+	}
+
+	# Persist the subscription.
+	var _persist
+	var persist : bool:
+		get:
+			return false if not _persist is bool else bool(_persist)
+
+	# JSON encoded Google purchase payload.
+	var _receipt
+	var receipt : String:
+		get:
+			return "" if not _receipt is String else String(_receipt)
+
+	func _init(p_exception = null):
+		super(p_exception)
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidateSubscriptionGoogleRequest:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidateSubscriptionGoogleRequest", p_dict), ApiValidateSubscriptionGoogleRequest) as ApiValidateSubscriptionGoogleRequest
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string() -> String:
+		if is_exception():
+			return get_exception()._to_string()
+		var output : String = ""
+		output += "persist: %s, " % _persist
+		output += "receipt: %s, " % _receipt
+		return output
+
+# Validate Subscription response.
+class ApiValidateSubscriptionResponse extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"validated_subscription": {"name": "_validated_subscription", "type": "ApiValidatedSubscription", "required": false},
+	}
+
+	# 
+	var _validated_subscription
+	var validated_subscription : ApiValidatedSubscription:
+		get:
+			return _validated_subscription as ApiValidatedSubscription
+
+	func _init(p_exception = null):
+		super(p_exception)
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidateSubscriptionResponse:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidateSubscriptionResponse", p_dict), ApiValidateSubscriptionResponse) as ApiValidateSubscriptionResponse
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string() -> String:
+		if is_exception():
+			return get_exception()._to_string()
+		var output : String = ""
+		output += "validated_subscription: %s, " % _validated_subscription
+		return output
+
 # Validated Purchase stored by Nakama.
 class ApiValidatedPurchase extends NakamaAsyncResult:
 
@@ -3044,7 +3253,7 @@ class ApiValidatedPurchase extends NakamaAsyncResult:
 	var _environment
 	var environment : int:
 		get:
-			return ValidatedPurchaseEnvironment.values()[0] if not ValidatedPurchaseEnvironment.values().has(_environment) else _environment
+			return ApiStoreEnvironment.values()[0] if not ApiStoreEnvironment.values().has(_environment) else _environment
 
 	# Purchase Product ID.
 	var _product_id
@@ -3074,7 +3283,7 @@ class ApiValidatedPurchase extends NakamaAsyncResult:
 	var _store
 	var store : int:
 		get:
-			return ValidatedPurchaseStore.values()[0] if not ValidatedPurchaseStore.values().has(_store) else _store
+			return ApiStoreProvider.values()[0] if not ApiStoreProvider.values().has(_store) else _store
 
 	# Purchase Transaction ID.
 	var _transaction_id
@@ -3109,6 +3318,99 @@ class ApiValidatedPurchase extends NakamaAsyncResult:
 		output += "seen_before: %s, " % _seen_before
 		output += "store: %s, " % _store
 		output += "transaction_id: %s, " % _transaction_id
+		output += "update_time: %s, " % _update_time
+		return output
+
+# 
+class ApiValidatedSubscription extends NakamaAsyncResult:
+
+	const _SCHEMA = {
+		"active": {"name": "_active", "type": TYPE_BOOL, "required": false},
+		"create_time": {"name": "_create_time", "type": TYPE_STRING, "required": false},
+		"environment": {"name": "_environment", "type": TYPE_INT, "required": false},
+		"expiry_time": {"name": "_expiry_time", "type": TYPE_STRING, "required": false},
+		"original_transaction_id": {"name": "_original_transaction_id", "type": TYPE_STRING, "required": false},
+		"product_id": {"name": "_product_id", "type": TYPE_STRING, "required": false},
+		"purchase_time": {"name": "_purchase_time", "type": TYPE_STRING, "required": false},
+		"store": {"name": "_store", "type": TYPE_INT, "required": false},
+		"update_time": {"name": "_update_time", "type": TYPE_STRING, "required": false},
+	}
+
+	# Whether the subscription is currently active or not.
+	var _active
+	var active : bool:
+		get:
+			return false if not _active is bool else bool(_active)
+
+	# UNIX Timestamp when the receipt validation was stored in DB.
+	var _create_time
+	var create_time : String:
+		get:
+			return "" if not _create_time is String else String(_create_time)
+
+	# Whether the purchase was done in production or sandbox environment.
+	var _environment
+	var environment : int:
+		get:
+			return ApiStoreEnvironment.values()[0] if not ApiStoreEnvironment.values().has(_environment) else _environment
+
+	# Subscription expiration time. The subscription can still be auto-renewed to extend the expiration time further.
+	var _expiry_time
+	var expiry_time : String:
+		get:
+			return "" if not _expiry_time is String else String(_expiry_time)
+
+	# Purchase Original transaction ID (we only keep track of the original subscription, not subsequent renewals).
+	var _original_transaction_id
+	var original_transaction_id : String:
+		get:
+			return "" if not _original_transaction_id is String else String(_original_transaction_id)
+
+	# Purchase Product ID.
+	var _product_id
+	var product_id : String:
+		get:
+			return "" if not _product_id is String else String(_product_id)
+
+	# UNIX Timestamp when the purchase was done.
+	var _purchase_time
+	var purchase_time : String:
+		get:
+			return "" if not _purchase_time is String else String(_purchase_time)
+
+	# 
+	var _store
+	var store : int:
+		get:
+			return ApiStoreProvider.values()[0] if not ApiStoreProvider.values().has(_store) else _store
+
+	# UNIX Timestamp when the receipt validation was updated in DB.
+	var _update_time
+	var update_time : String:
+		get:
+			return "" if not _update_time is String else String(_update_time)
+
+	func _init(p_exception = null):
+		super(p_exception)
+
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidatedSubscription:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidatedSubscription", p_dict), ApiValidatedSubscription) as ApiValidatedSubscription
+
+	func serialize() -> Dictionary:
+		return NakamaSerializer.serialize(self)
+
+	func _to_string() -> String:
+		if is_exception():
+			return get_exception()._to_string()
+		var output : String = ""
+		output += "active: %s, " % _active
+		output += "create_time: %s, " % _create_time
+		output += "environment: %s, " % _environment
+		output += "expiry_time: %s, " % _expiry_time
+		output += "original_transaction_id: %s, " % _original_transaction_id
+		output += "product_id: %s, " % _product_id
+		output += "purchase_time: %s, " % _purchase_time
+		output += "store: %s, " % _store
 		output += "update_time: %s, " % _update_time
 		return output
 
@@ -4747,7 +5049,7 @@ class ApiClient extends RefCounted:
 	func demote_group_users_async(
 		p_session : NakamaSession
 		, p_group_id : String
-		, p_user_ids : PackedStringArray
+		, p_user_ids = null # : array
 	) -> NakamaAsyncResult:
 		var try_refresh = await _refresh_session(p_session)
 		if try_refresh != null:
@@ -4757,7 +5059,7 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/group/{groupId}/demote"
 		urlpath = urlpath.replace("{groupId}", NakamaSerializer.escape_http(p_group_id))
 		var query_params = ""
-		if true: # Hack for static checks
+		if p_user_ids != null:
 			for elem in p_user_ids:
 				query_params += "user_ids=%s&" % elem
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -5004,6 +5306,114 @@ class ApiClient extends RefCounted:
 		if result is NakamaException:
 			return ApiValidatePurchaseResponse.new(result)
 		var out : ApiValidatePurchaseResponse = NakamaSerializer.deserialize(_namespace, "ApiValidatePurchaseResponse", result)
+		return out
+
+	# List user's subscriptions.
+	func list_subscriptions_async(
+		p_session : NakamaSession
+		, p_body : ApiListSubscriptionsRequest
+	) -> ApiSubscriptionList:
+		var try_refresh = await _refresh_session(p_session)
+		if try_refresh != null:
+			if try_refresh.is_exception():
+				return ApiSubscriptionList.new(try_refresh.get_exception())
+			await p_session.refresh(try_refresh)
+		var urlpath : String = "/v2/iap/subscription"
+		var query_params = ""
+		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
+		var method = "POST"
+		var headers = {}
+		var header = "Bearer %s" % p_session.token
+		headers["Authorization"] = header
+
+		var content : PackedByteArray
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+
+		var result = await _http_adapter.send_async(method, uri, headers, content)
+		if result is NakamaException:
+			return ApiSubscriptionList.new(result)
+		var out : ApiSubscriptionList = NakamaSerializer.deserialize(_namespace, "ApiSubscriptionList", result)
+		return out
+
+	# Validate Apple Subscription Receipt
+	func validate_subscription_apple_async(
+		p_session : NakamaSession
+		, p_body : ApiValidateSubscriptionAppleRequest
+	) -> ApiValidateSubscriptionResponse:
+		var try_refresh = await _refresh_session(p_session)
+		if try_refresh != null:
+			if try_refresh.is_exception():
+				return ApiValidateSubscriptionResponse.new(try_refresh.get_exception())
+			await p_session.refresh(try_refresh)
+		var urlpath : String = "/v2/iap/subscription/apple"
+		var query_params = ""
+		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
+		var method = "POST"
+		var headers = {}
+		var header = "Bearer %s" % p_session.token
+		headers["Authorization"] = header
+
+		var content : PackedByteArray
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+
+		var result = await _http_adapter.send_async(method, uri, headers, content)
+		if result is NakamaException:
+			return ApiValidateSubscriptionResponse.new(result)
+		var out : ApiValidateSubscriptionResponse = NakamaSerializer.deserialize(_namespace, "ApiValidateSubscriptionResponse", result)
+		return out
+
+	# Validate Google Subscription Receipt
+	func validate_subscription_google_async(
+		p_session : NakamaSession
+		, p_body : ApiValidateSubscriptionGoogleRequest
+	) -> ApiValidateSubscriptionResponse:
+		var try_refresh = await _refresh_session(p_session)
+		if try_refresh != null:
+			if try_refresh.is_exception():
+				return ApiValidateSubscriptionResponse.new(try_refresh.get_exception())
+			await p_session.refresh(try_refresh)
+		var urlpath : String = "/v2/iap/subscription/google"
+		var query_params = ""
+		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
+		var method = "POST"
+		var headers = {}
+		var header = "Bearer %s" % p_session.token
+		headers["Authorization"] = header
+
+		var content : PackedByteArray
+		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+
+		var result = await _http_adapter.send_async(method, uri, headers, content)
+		if result is NakamaException:
+			return ApiValidateSubscriptionResponse.new(result)
+		var out : ApiValidateSubscriptionResponse = NakamaSerializer.deserialize(_namespace, "ApiValidateSubscriptionResponse", result)
+		return out
+
+	# Get subscription by product id.
+	func get_subscription_async(
+		p_session : NakamaSession
+		, p_product_id : String
+	) -> ApiValidatedSubscription:
+		var try_refresh = await _refresh_session(p_session)
+		if try_refresh != null:
+			if try_refresh.is_exception():
+				return ApiValidatedSubscription.new(try_refresh.get_exception())
+			await p_session.refresh(try_refresh)
+		var urlpath : String = "/v2/iap/subscription/{productId}"
+		urlpath = urlpath.replace("{productId}", NakamaSerializer.escape_http(p_product_id))
+		var query_params = ""
+		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
+		var method = "GET"
+		var headers = {}
+		var header = "Bearer %s" % p_session.token
+		headers["Authorization"] = header
+
+		var content : PackedByteArray
+
+		var result = await _http_adapter.send_async(method, uri, headers, content)
+		if result is NakamaException:
+			return ApiValidatedSubscription.new(result)
+		var out : ApiValidatedSubscription = NakamaSerializer.deserialize(_namespace, "ApiValidatedSubscription", result)
 		return out
 
 	# Delete a leaderboard record.

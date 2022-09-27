@@ -383,6 +383,13 @@ func demote_group_users_async(p_session : NakamaSession, p_group_id : String, p_
 func get_account_async(p_session : NakamaSession): # -> NakamaAPI.ApiAccount:
 	return await _api_client.get_account_async(p_session)
 
+# Get subscription by product id.
+# @param p_session - The session of the user.
+# @param p_product_id - The product id.
+# Returns a task which resolves to the subscription object.
+func get_subscription_async(p_session : NakamaSession, p_product_id : String): # -> ApiValidatedSubscription:
+	return await _api_client.get_subscription_async(p_session, p_product_id)
+
 # Fetch one or more users by id, usernames, and Facebook ids.
 # @param p_session - The session of the user.
 # @param p_ids - The IDs of the users to retrieve.
@@ -552,7 +559,7 @@ func link_steam_async(p_session : NakamaSession, p_token : String, p_sync : bool
 			}).serialize(),
 			"sync": p_sync
 		}
-		
+
 	))
 
 # List messages from a chat channel.
@@ -651,8 +658,21 @@ func list_notifications_async(p_session : NakamaSession, p_limit : int = 10, p_c
 # @param p_cursor - A cursor to paginate over the collection.
 # Returns a task which resolves to the storage object list.
 func list_storage_objects_async(p_session : NakamaSession, p_collection : String, p_user_id : String = "", p_limit : int = 10, p_cursor = null): # -> NakamaAPI.ApiStorageObjectList:
-# List tournament records around the owner.
 	return await _api_client.list_storage_objects_async(p_session, p_collection, p_user_id, p_limit, p_cursor)
+
+# List user's subscriptions.
+# @param p_session - The session of the user.
+# @param p_limit - The number of objects to list.
+# @param p_cursor - A cursor to paginate over the collection.
+# Returns a task which resolves to the subscription list.
+func list_subscriptions_async(p_session : NakamaSession, p_limit: int = 10, p_cursor = null): # -> NakamaAPI.ApiSubscriptionList:
+	return await _api_client.list_subscriptions_async(p_session, NakamaAPI.ApiListSubscriptionsRequest.create(
+		NakamaAPI,
+		{
+			"cursor": p_cursor,
+			"limit": p_limit,
+		}
+	))
 
 # List tournament records around the owner.
 # @param p_session - The session of the user.
@@ -953,6 +973,30 @@ func validate_purchase_huawei_async(p_session : NakamaSession, p_receipt : Strin
 			"signature": p_signature
 		}))
 
+# Validate Apple Subscription Receipt
+# @param p_session - The session of the user.
+# @param p_receipt - The purchase receipt to be validated.
+# @param p_persist - Whether or not to track the receipt in the Nakama database.
+# Returns a task which resolves to the validated subscription response.
+func validate_subscription_apple_async(p_session : NakamaSession, p_receipt : String, p_persist : bool = true): # -> NakamaAPI.ApiValidateSubscriptionResponse:
+	return await _api_client.validate_subscription_apple_async(p_session,
+		NakamaAPI.ApiValidateSubscriptionAppleRequest.create(NakamaAPI, {
+			"receipt": p_receipt,
+			"persist": p_persist,
+		}))
+
+# Validate Google Subscription Receipt
+# @param p_session - The session of the user.
+# @param p_receipt - The purchase receipt to be validated.
+# @param p_persist - Whether or not to track the receipt in the Nakama database.
+# Returns a task which resolves to the validated subscription response.
+func validate_subscription_google_async(p_session : NakamaSession, p_receipt : String, p_persist : bool = true): # -> NakamaAPI.ApiValidateSubscriptionResponse:
+	return await _api_client.validate_subscription_google_async(p_session,
+		NakamaAPI.ApiValidateSubscriptionGoogleRequest.create(NakamaAPI, {
+			"receipt": p_receipt,
+			"persist": p_persist,
+		}))
+
 # Write a record to a leaderboard.
 # @param p_session - The session for the user.
 # @param p_leaderboard_id - The ID of the leaderboard to write.
@@ -1016,3 +1060,4 @@ func write_tournament_record2_async(p_session : NakamaSession,
 			"score": str(p_score),
 			"subscore": str(p_subscore)
 		}))
+

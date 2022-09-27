@@ -7,6 +7,16 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 
 ### Fixed
 
+### Changed
+
+### Added
+
+- Add support for subscription validation APIs that were added in Nakama v3.13.0
+
+## [3.2.0] - 2022-08-30
+
+### Fixed
+
 - Fix NakamaSocket.add_matchmaker_party_async() and the tests for it
 - Fix MatchData.op_code type in schema to TYPE_INT
 
