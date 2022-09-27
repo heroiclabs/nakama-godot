@@ -9,6 +9,13 @@ This client implements the full API and socket options with the server. It's wri
 
 Full documentation is online - https://heroiclabs.com/docs
 
+## Godot 3 & 4
+
+You're currently looking at the Godot 4 version of the Nakama client for Godot.
+
+If you are using Godot 3, you need to use the ['master'
+branch](https://github.com/heroiclabs/nakama-godot/tree/godot-4) on GitHub.
+
 ## Getting Started
 
 You'll need to setup the server and database before you can connect with the client. The simplest way is to use Docker but have a look at the [server documentation](https://github.com/heroiclabs/nakama#getting-started) for other options.
@@ -117,6 +124,108 @@ func _on_socket_closed():
 func _on_socket_error(err):
 	printerr("Socket error %s" % err)
 ```
+
+## Integration with Godot's High-level Multiplayer API
+
+Godot provides a [High-level Multiplayer
+API](https://docs.godotengine.org/en/latest/tutorials/networking/high_level_multiplayer.html),
+allowing developers to make RPCs, calling functions that run on other peers in
+a multiplayer match.
+
+For example:
+
+```gdscript
+func _process(delta):
+	if not is_multiplayer_authority():
+		return
+
+	var input_vector = get_input_vector()
+
+	# Move the player locally.
+	velocity = input_vector * SPEED
+	move_and_slide()
+
+	# Then update the player's position on all other connected clients.
+	update_remote_position.rpc(position)
+
+@rpc(any_peer)
+func update_remote_position(new_position):
+	position = new_position
+```
+
+Godot provides a number of built-in backends for sending the RPCs, including:
+ENet, WebSockets, and WebRTC.
+
+However, you can also use the Nakama client as a backend! This can allow you to
+continue using Godot's familiar High-level Multiplayer API, but with the RPCs
+transparently sent over a realtime Nakama match.
+
+To do that, you need to use the `NakamaMultiplayerBridge` class:
+
+```gdscript
+var multiplayer_bridge
+
+func _ready():
+	# [...]
+	# You must have a working 'socket', created as described above.
+
+	multiplayer_bridge = NakamaMultiplayerBridge.new(socket)
+	multiplayer_bridge.match_join_error.connect(self._on_match_join_error)
+	multiplayer_bridge.match_joined.connect(self._on_match_joined)
+	get_tree().get_multiplayer().set_multiplayer_peer(multiplayer_bridge.multiplayer_peer)
+
+func _on_match_join_error(error):
+	print ("Unable to join match: ", error.message)
+
+func _on_match_join() -> void:
+	print ("Joined match with id: ", multiplayer_bridge.match_id)
+```
+
+You can also connect to any of the usual signals on `MultiplayerAPI`, for
+example:
+
+```gdscript
+	get_tree().get_multiplayer().peer_connected.connect(self._on_peer_connected)
+	get_tree().get_multiplayer().peer_disconnected.connect(self._on_peer_disconnected)
+
+func _on_peer_connected(peer_id):
+	print ("Peer joined match: ", peer_id)
+
+func _on_peer_disconnected(peer_id):
+	print ("Peer left match: ", peer_id)
+```
+
+Then you need to join a match, using one of the following methods:
+
+- Create a new private match, with your client as the host.
+  ```gdscript
+  multiplayer_bridge.create_match()
+  ```
+
+- Join a private match.
+  ```gdscript
+  multiplayer_bridge.join_match(match_id)
+  ```
+
+- Create or join a private match with the given name.
+  ```gdscript
+  multiplayer_bridge.join_named_match(match_name)
+  ```
+
+- Use the matchmaker to find and join a public match.
+  ```gdscript
+  var ticket = await socket.add_matchmaker_async()
+  if ticket.is_exception():
+	print ("Error joining matchmaking pool: ", ticket.get_exception().message)
+	return
+
+  multiplayer_bridge.start_matchmaking(ticket)
+  ```
+
+After the the "match_joined" signal is emitted, you can start sending RPCs as
+usual with the `rpc()` function, and calling any other functions associated with
+the High-level Multiplayer API, such as `get_tree().get_multiplayer().get_unique_id()`
+and `node.set_network_authority(peer_id)` and `node.is_network_authority()`.
 
 ## Mono / C#
 
