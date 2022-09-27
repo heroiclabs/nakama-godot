@@ -12,6 +12,7 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 ### Added
 
 - Add support for subscription validation APIs that were added in Nakama v3.13.0
+- Add support for sending events
 
 ## [3.2.0] - 2022-08-30
 
