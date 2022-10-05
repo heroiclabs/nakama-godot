@@ -41,8 +41,7 @@ func _end_tests():
 	get_tree().call_deferred("quit")
 
 func _expand(p_name, r_dirs):
-	var dir = Directory.new()
-	dir.open("res://")
+	var dir = DirAccess.open("res://")
 	if dir.change_dir(p_name) != OK:
 		print("Unable to chdir into: %s" % p_name)
 		return
