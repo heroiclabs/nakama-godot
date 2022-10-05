@@ -61,8 +61,8 @@ func _get_packet_peer() -> int:
 func _is_server() -> bool:
 	return _self_id == 1
 
-func _poll() -> int:
-	return OK
+func _poll() -> void:
+	pass
 
 func _get_unique_id() -> int:
 	return _self_id
