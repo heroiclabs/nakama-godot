@@ -6,8 +6,8 @@ var SCHEME = "http"
 var SERVER_KEY = "defaultkey"
 
 func _ready():
-	var f = File.new()
-	if f.open("res://settings.json", File.READ) != OK:
+	var f = FileAccess.open("res://settings.json", FileAccess.READ)
+	if not f:
 		return
 	var json = JSON.new()
 	var error = json.parse(f.get_as_text())
