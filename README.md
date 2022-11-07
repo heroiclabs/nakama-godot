@@ -227,9 +227,9 @@ usual with the `rpc()` function, and calling any other functions associated with
 the High-level Multiplayer API, such as `get_tree().get_multiplayer().get_unique_id()`
 and `node.set_network_authority(peer_id)` and `node.is_network_authority()`.
 
-## Mono / C#
+## .NET / C#
 
-If you're using the Mono version of Godot with C# support, you can use the
+If you're using the .NET version of Godot with C# support, you can use the
 [Nakama .NET client](https://github.com/heroiclabs/nakama-dotnet/), which can be
 installed via NuGet:
 
