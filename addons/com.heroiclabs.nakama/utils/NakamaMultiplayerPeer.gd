@@ -25,6 +25,12 @@ func _get_packet_script() -> PackedByteArray:
 		return PackedByteArray()
 	return _incoming_packets.pop_front().data
 
+func _get_packet_mode() -> int:
+	return TRANSFER_MODE_RELIABLE
+
+func _get_packet_channel() -> int:
+	return 0
+
 func _put_packet_script(p_buffer: PackedByteArray) -> int:
 	packet_generated.emit(_target_id, p_buffer)
 	return OK
@@ -81,26 +87,10 @@ func initialize(p_self_id: int) -> void:
 		return
 	_self_id = p_self_id
 	if _self_id == 1:
-		set_connection_status(CONNECTION_CONNECTED)
+		_connection_status = CONNECTION_CONNECTED
 
 func set_connection_status(p_connection_status: int) -> void:
-	if p_connection_status == _connection_status:
-		return
-
-	if p_connection_status == CONNECTION_CONNECTED:
-		_connection_status = p_connection_status
-		connection_succeeded.emit()
-	elif p_connection_status == CONNECTION_DISCONNECTED:
-		var old_connection_status = _connection_status
-		_connection_status = p_connection_status
-
-		if _self_id != 1:
-			if old_connection_status == CONNECTION_CONNECTING:
-				connection_failed.emit()
-			else:
-				server_disconnected.emit()
-	else:
-		_connection_status = p_connection_status
+	_connection_status = p_connection_status
 
 func deliver_packet(p_data: PackedByteArray, p_from_peer_id: int) -> void:
 	var packet = Packet.new(p_data, p_from_peer_id);
