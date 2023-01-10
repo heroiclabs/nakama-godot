@@ -143,7 +143,7 @@ class AsyncRequest:
 func send_async(p_method : String, p_uri : String, p_headers : Dictionary, p_body : PackedByteArray):
 	var req = HTTPRequest.new()
 	req.timeout = timeout
-	if OS.get_name() != 'HTML5':
+	if OS.get_name() != 'Web':
 		req.use_threads = true # Threads not available nor needed on the web.
 
 	# Parse method
