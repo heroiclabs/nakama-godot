@@ -18,15 +18,16 @@ func setup():
 		NakamaWriteStorageObject.new(COLLECTION, K1, 1, 1, to_json(V1), ""),
 		NakamaWriteStorageObject.new(COLLECTION, K2, 1, 1, to_json(V2), "")
 	]
-	var write = await client.write_storage_objects_async(session, objs)
+	var write : NakamaAPI.ApiStorageObjectAcks = await client.write_storage_objects_async(session, objs)
 	if assert_false(write.is_exception()):
 		return
 
 	var objs_ids = []
 	for a in write.acks:
+		#var obj : NakamaAPI.ApiStorageObjectAck = a
 		objs_ids.append(NakamaStorageObjectId.new(a.collection, a.key, a.user_id, a.version))
 
-	var read = await client.read_storage_objects_async(session, objs_ids)
+	var read : NakamaAPI.ApiStorageObjects = await client.read_storage_objects_async(session, objs_ids)
 	if assert_false(read.is_exception()):
 		return
 	if assert_equal(read.objects.size(), 2):
@@ -44,7 +45,7 @@ func setup():
 		return
 
 	# Confirm that one was deleted
-	var read2 = await client.read_storage_objects_async(session, objs_ids)
+	var read2 : NakamaAPI.ApiStorageObjects = await client.read_storage_objects_async(session, objs_ids)
 	if assert_false(read2.is_exception()):
 		return
 	if assert_equal(read2.objects.size(), 1):
@@ -62,8 +63,7 @@ func _process(_delta):
 	assert_time(3)
 
 func to_json(value) -> String:
-	var json = JSON.new()
-	return json.stringify(value)
+	return JSON.stringify(value)
 
 func parse_json(value):
 	var json = JSON.new()

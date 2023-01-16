@@ -3713,7 +3713,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -3731,17 +3731,9 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/apple"
 		var query_params = ""
 		if p_create != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_create
-			tmp = tmp
-			query_params += "create=%s&" % str(bool(tmp)).to_lower()
-			#query_params += "create=%s&" % str(bool(p_create)).to_lower()
+			query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_username
-			tmp = tmp
-			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
+			query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3750,7 +3742,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -3769,17 +3761,9 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/custom"
 		var query_params = ""
 		if p_create != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_create
-			tmp = tmp
-			query_params += "create=%s&" % str(bool(tmp)).to_lower()
-			#query_params += "create=%s&" % str(bool(p_create)).to_lower()
+			query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_username
-			tmp = tmp
-			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
+			query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3788,7 +3772,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -3807,17 +3791,9 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/device"
 		var query_params = ""
 		if p_create != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_create
-			tmp = tmp
-			query_params += "create=%s&" % str(bool(tmp)).to_lower()
-			#query_params += "create=%s&" % str(bool(p_create)).to_lower()
+			query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_username
-			tmp = tmp
-			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
+			query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3826,7 +3802,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -3845,17 +3821,9 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/email"
 		var query_params = ""
 		if p_create != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_create
-			tmp = tmp
-			query_params += "create=%s&" % str(bool(tmp)).to_lower()
-			#query_params += "create=%s&" % str(bool(p_create)).to_lower()
+			query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_username
-			tmp = tmp
-			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
+			query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3864,7 +3832,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -3884,23 +3852,11 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/facebook"
 		var query_params = ""
 		if p_create != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_create
-			tmp = tmp
-			query_params += "create=%s&" % str(bool(tmp)).to_lower()
-			#query_params += "create=%s&" % str(bool(p_create)).to_lower()
+			query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_username
-			tmp = tmp
-			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
+			query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
 		if p_sync != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_sync
-			tmp = tmp
-			query_params += "sync=%s&" % str(bool(tmp)).to_lower()
-			#query_params += "sync=%s&" % str(bool(p_sync)).to_lower()
+			query_params += "sync=%s&" % str(bool(p_sync)).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3909,7 +3865,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -3928,17 +3884,9 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/facebookinstantgame"
 		var query_params = ""
 		if p_create != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_create
-			tmp = tmp
-			query_params += "create=%s&" % str(bool(tmp)).to_lower()
-			#query_params += "create=%s&" % str(bool(p_create)).to_lower()
+			query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_username
-			tmp = tmp
-			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
+			query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3947,7 +3895,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -3966,17 +3914,9 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/gamecenter"
 		var query_params = ""
 		if p_create != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_create
-			tmp = tmp
-			query_params += "create=%s&" % str(bool(tmp)).to_lower()
-			#query_params += "create=%s&" % str(bool(p_create)).to_lower()
+			query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_username
-			tmp = tmp
-			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
+			query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -3985,7 +3925,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4004,17 +3944,9 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/google"
 		var query_params = ""
 		if p_create != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_create
-			tmp = tmp
-			query_params += "create=%s&" % str(bool(tmp)).to_lower()
-			#query_params += "create=%s&" % str(bool(p_create)).to_lower()
+			query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_username
-			tmp = tmp
-			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
+			query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -4023,7 +3955,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4043,23 +3975,11 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/authenticate/steam"
 		var query_params = ""
 		if p_create != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_create
-			tmp = tmp
-			query_params += "create=%s&" % str(bool(tmp)).to_lower()
-			#query_params += "create=%s&" % str(bool(p_create)).to_lower()
+			query_params += "create=%s&" % str(bool(p_create)).to_lower()
 		if p_username != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_username
-			tmp = tmp
-			query_params += "username=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
+			query_params += "username=%s&" % NakamaSerializer.escape_http(p_username)
 		if p_sync != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_sync
-			tmp = tmp
-			query_params += "sync=%s&" % str(bool(tmp)).to_lower()
-			#query_params += "sync=%s&" % str(bool(p_sync)).to_lower()
+			query_params += "sync=%s&" % str(bool(p_sync)).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -4068,7 +3988,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4095,7 +4015,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4121,7 +4041,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4147,7 +4067,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4173,7 +4093,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4194,11 +4114,7 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/account/link/facebook"
 		var query_params = ""
 		if p_sync != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_sync
-			tmp = tmp
-			query_params += "sync=%s&" % str(bool(tmp)).to_lower()
-			#query_params += "sync=%s&" % str(bool(p_sync)).to_lower()
+			query_params += "sync=%s&" % str(bool(p_sync)).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -4206,7 +4122,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4232,7 +4148,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4258,7 +4174,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4284,7 +4200,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4310,7 +4226,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4333,7 +4249,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4360,7 +4276,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4386,7 +4302,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4412,7 +4328,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4438,7 +4354,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4464,7 +4380,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4490,7 +4406,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4516,7 +4432,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4542,7 +4458,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4568,7 +4484,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4594,17 +4510,9 @@ class ApiClient extends RefCounted:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_forward != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_forward
-			tmp = tmp
-			query_params += "forward=%s&" % str(bool(tmp)).to_lower()
-			#query_params += "forward=%s&" % str(bool(p_forward)).to_lower()
+			query_params += "forward=%s&" % str(bool(p_forward)).to_lower()
 		if p_cursor != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_cursor
-			tmp = tmp
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -4638,7 +4546,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4696,11 +4604,7 @@ class ApiClient extends RefCounted:
 		if p_state != null:
 			query_params += "state=%d&" % p_state
 		if p_cursor != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_cursor
-			tmp = tmp
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -4793,11 +4697,7 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/friend/facebook"
 		var query_params = ""
 		if p_reset != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_reset
-			tmp = tmp
-			query_params += "reset=%s&" % str(bool(tmp)).to_lower()
-			#query_params += "reset=%s&" % str(bool(p_reset)).to_lower()
+			query_params += "reset=%s&" % str(bool(p_reset)).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -4805,7 +4705,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4826,11 +4726,7 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/friend/steam"
 		var query_params = ""
 		if p_reset != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_reset
-			tmp = tmp
-			query_params += "reset=%s&" % str(bool(tmp)).to_lower()
-			#query_params += "reset=%s&" % str(bool(p_reset)).to_lower()
+			query_params += "reset=%s&" % str(bool(p_reset)).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -4838,7 +4734,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4863,33 +4759,17 @@ class ApiClient extends RefCounted:
 		var urlpath : String = "/v2/group"
 		var query_params = ""
 		if p_name != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_name
-			tmp = tmp
-			query_params += "name=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "name=%s&" % NakamaSerializer.escape_http(p_name)
+			query_params += "name=%s&" % NakamaSerializer.escape_http(p_name)
 		if p_cursor != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_cursor
-			tmp = tmp
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_lang_tag != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_lang_tag
-			tmp = tmp
-			query_params += "lang_tag=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "lang_tag=%s&" % NakamaSerializer.escape_http(p_lang_tag)
+			query_params += "lang_tag=%s&" % NakamaSerializer.escape_http(p_lang_tag)
 		if p_members != null:
 			query_params += "members=%d&" % p_members
 		if p_open != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_open
-			tmp = tmp
-			query_params += "open=%s&" % str(bool(tmp)).to_lower()
-			#query_params += "open=%s&" % str(bool(p_open)).to_lower()
+			query_params += "open=%s&" % str(bool(p_open)).to_lower()
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -4923,7 +4803,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -4978,7 +4858,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -5208,11 +5088,7 @@ class ApiClient extends RefCounted:
 		if p_state != null:
 			query_params += "state=%d&" % p_state
 		if p_cursor != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_cursor
-			tmp = tmp
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5246,7 +5122,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -5273,7 +5149,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -5300,7 +5176,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -5327,7 +5203,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -5354,7 +5230,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -5381,7 +5257,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -5465,17 +5341,9 @@ class ApiClient extends RefCounted:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cursor != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_cursor
-			tmp = tmp
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
 		if p_expiry != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_expiry
-			tmp = tmp
-			query_params += "expiry=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "expiry=%s&" % NakamaSerializer.escape_http(p_expiry)
+			query_params += "expiry=%s&" % NakamaSerializer.escape_http(p_expiry)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5511,7 +5379,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -5539,11 +5407,7 @@ class ApiClient extends RefCounted:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_expiry != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_expiry
-			tmp = tmp
-			query_params += "expiry=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "expiry=%s&" % NakamaSerializer.escape_http(p_expiry)
+			query_params += "expiry=%s&" % NakamaSerializer.escape_http(p_expiry)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5578,27 +5442,15 @@ class ApiClient extends RefCounted:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_authoritative != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_authoritative
-			tmp = tmp
-			query_params += "authoritative=%s&" % str(bool(tmp)).to_lower()
-			#query_params += "authoritative=%s&" % str(bool(p_authoritative)).to_lower()
+			query_params += "authoritative=%s&" % str(bool(p_authoritative)).to_lower()
 		if p_label != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_label
-			tmp = tmp
-			query_params += "label=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "label=%s&" % NakamaSerializer.escape_http(p_label)
+			query_params += "label=%s&" % NakamaSerializer.escape_http(p_label)
 		if p_min_size != null:
 			query_params += "min_size=%d&" % p_min_size
 		if p_max_size != null:
 			query_params += "max_size=%d&" % p_max_size
 		if p_query != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_query
-			tmp = tmp
-			query_params += "query=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "query=%s&" % NakamaSerializer.escape_http(p_query)
+			query_params += "query=%s&" % NakamaSerializer.escape_http(p_query)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5657,11 +5509,7 @@ class ApiClient extends RefCounted:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cacheable_cursor != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_cacheable_cursor
-			tmp = tmp
-			query_params += "cacheable_cursor=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "cacheable_cursor=%s&" % NakamaSerializer.escape_http(p_cacheable_cursor)
+			query_params += "cacheable_cursor=%s&" % NakamaSerializer.escape_http(p_cacheable_cursor)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5687,17 +5535,9 @@ class ApiClient extends RefCounted:
 		urlpath = urlpath.replace("{id}", NakamaSerializer.escape_http(p_id))
 		var query_params = ""
 		if p_payload != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_payload
-			tmp = tmp
-			query_params += "payload=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "payload=%s&" % NakamaSerializer.escape_http(p_payload)
+			query_params += "payload=%s&" % NakamaSerializer.escape_http(p_payload)
 		if p_http_key != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_http_key
-			tmp = tmp
-			query_params += "http_key=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "http_key=%s&" % NakamaSerializer.escape_http(p_http_key)
+			query_params += "http_key=%s&" % NakamaSerializer.escape_http(p_http_key)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5724,11 +5564,7 @@ class ApiClient extends RefCounted:
 		urlpath = urlpath.replace("{id}", NakamaSerializer.escape_http(p_id))
 		var query_params = ""
 		if p_http_key != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_http_key
-			tmp = tmp
-			query_params += "http_key=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "http_key=%s&" % NakamaSerializer.escape_http(p_http_key)
+			query_params += "http_key=%s&" % NakamaSerializer.escape_http(p_http_key)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "POST"
 		var headers = {}
@@ -5737,7 +5573,7 @@ class ApiClient extends RefCounted:
 			headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body).to_utf8_buffer()
+		content = JSON.stringify(p_body).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -5764,7 +5600,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -5790,7 +5626,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -5817,7 +5653,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -5844,7 +5680,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -5868,19 +5704,11 @@ class ApiClient extends RefCounted:
 		urlpath = urlpath.replace("{collection}", NakamaSerializer.escape_http(p_collection))
 		var query_params = ""
 		if p_user_id != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_user_id
-			tmp = tmp
-			query_params += "user_id=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "user_id=%s&" % NakamaSerializer.escape_http(p_user_id)
+			query_params += "user_id=%s&" % NakamaSerializer.escape_http(p_user_id)
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cursor != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_cursor
-			tmp = tmp
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5915,11 +5743,7 @@ class ApiClient extends RefCounted:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cursor != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_cursor
-			tmp = tmp
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -5962,11 +5786,7 @@ class ApiClient extends RefCounted:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cursor != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_cursor
-			tmp = tmp
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -6004,17 +5824,9 @@ class ApiClient extends RefCounted:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_cursor != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_cursor
-			tmp = tmp
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
 		if p_expiry != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_expiry
-			tmp = tmp
-			query_params += "expiry=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "expiry=%s&" % NakamaSerializer.escape_http(p_expiry)
+			query_params += "expiry=%s&" % NakamaSerializer.escape_http(p_expiry)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -6050,7 +5862,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -6079,7 +5891,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
 
 		var content : PackedByteArray
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
 		if result is NakamaException:
@@ -6133,11 +5945,7 @@ class ApiClient extends RefCounted:
 		if p_limit != null:
 			query_params += "limit=%d&" % p_limit
 		if p_expiry != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_expiry
-			tmp = tmp
-			query_params += "expiry=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "expiry=%s&" % NakamaSerializer.escape_http(p_expiry)
+			query_params += "expiry=%s&" % NakamaSerializer.escape_http(p_expiry)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -6210,11 +6018,7 @@ class ApiClient extends RefCounted:
 		if p_state != null:
 			query_params += "state=%d&" % p_state
 		if p_cursor != null:
-			# Work around issue #53115 / #56217
-			var tmp = p_cursor
-			tmp = tmp
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
+			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}

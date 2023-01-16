@@ -12,15 +12,13 @@ func setup():
 	if assert_false(update.is_exception()):
 		return
 	# GET
-	var account = await client.get_account_async(session)
-	#var account : NakamaAPI.ApiAccount = await client.get_account_async(session)
+	var account : NakamaAPI.ApiAccount = await client.get_account_async(session)
 	if assert_false(account.is_exception()):
 		return
 	if assert_cond(account.user.username == username):
 		return
 	# POST - DELETE
-	#var group : NakamaAPI.ApiGroup = await client.create_group_async(session, "MyGroupName3")
-	var group = await client.create_group_async(session, "MyGroupName3")
+	var group : NakamaAPI.ApiGroup = await client.create_group_async(session, "MyGroupName3")
 	if assert_false(group.is_exception()):
 		return
 	var delete = await client.delete_group_async(session, group.id)

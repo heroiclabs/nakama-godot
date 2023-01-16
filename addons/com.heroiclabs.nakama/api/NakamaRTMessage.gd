@@ -448,9 +448,9 @@ class PartyPromote extends NakamaAsyncResult:
 	# Party ID to promote a new leader for.
 	var party_id : String
 	# The presence of an existing party member to promote as the new leader.
-	var presence
+	var presence : NakamaRTAPI.UserPresence
 
-	func _init(p_id : String, p_presence):
+	func _init(p_id : String, p_presence : NakamaRTAPI.UserPresence):
 		party_id = p_id
 		presence = p_presence
 
@@ -473,9 +473,9 @@ class PartyAccept extends NakamaAsyncResult:
 	# Party ID to accept a join request for.
 	var party_id : String
 	# The presence to accept as a party member.
-	var presence
+	var presence : NakamaRTAPI.UserPresence
 
-	func _init(p_id : String, p_presence):
+	func _init(p_id : String, p_presence : NakamaRTAPI.UserPresence):
 		party_id = p_id
 		presence = p_presence
 
@@ -498,9 +498,9 @@ class PartyRemove extends NakamaAsyncResult:
 	# Party ID to remove/reject from.
 	var party_id : String
 	# The presence to remove or reject.
-	var presence
+	var presence : NakamaRTAPI.UserPresence
 
-	func _init(p_id : String, p_presence):
+	func _init(p_id : String, p_presence : NakamaRTAPI.UserPresence):
 		party_id = p_id
 		presence = p_presence
 

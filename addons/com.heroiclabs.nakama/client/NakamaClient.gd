@@ -3,7 +3,7 @@ extends RefCounted
 # A client for the API in Nakama server.
 class_name NakamaClient
 
-var ChannelType = NakamaRTMessage.ChannelJoin.ChannelType
+const ChannelType = NakamaRTMessage.ChannelJoin.ChannelType
 
 # The host address of the server. Defaults to "127.0.0.1".
 var _host
@@ -779,8 +779,7 @@ func read_storage_objects_async(p_session : NakamaSession, p_ids : Array): # -> 
 func rpc_async(p_session : NakamaSession, p_id : String, p_payload = null): # -> NakamaAPI.ApiRpc:
 	if p_payload == null:
 		return await _api_client.rpc_func2_async(p_session.token, p_id)
-	# Use .call() as a work around for issue #53115 / #56217
-	return await _api_client.rpc_func_async.call(p_session.token, p_id, p_payload)
+	return await _api_client.rpc_func_async(p_session.token, p_id, p_payload)
 
 # Execute a function on the server without a session.
 # This function is usually used with server side code. DO NOT USE client side.
@@ -791,8 +790,7 @@ func rpc_async(p_session : NakamaSession, p_id : String, p_payload = null): # ->
 func rpc_async_with_key(p_http_key : String, p_id : String, p_payload = null): # -> NakamaAPI.ApiRpc:
 	if p_payload == null:
 		return await _api_client.rpc_func2_async("", p_id, null, p_http_key)
-	# Use .call() as a work around for issue #53115 / #56217
-	return await _api_client.rpc_func_async.call("", p_id, p_payload, p_http_key)
+	return await _api_client.rpc_func_async("", p_id, p_payload, p_http_key)
 
 # Log out a session which optionally invalidates the authorization and/or refresh tokens.
 # @param p_session - The session of the user.
