@@ -298,9 +298,9 @@ class ApiClient extends Reference:
             {{- $argument := $parameter.Name | prependParameter }}
             {{- if eq $parameter.In "body" }}
                 {{- if eq $parameter.Schema.Type "string" }}
-		content = JSON.print(p_body).to_utf8()
+		content = JSON.print({{ $argument }}).to_utf8()
                 {{- else }}
-		content = JSON.print(p_body.serialize()).to_utf8()
+		content = JSON.print({{ $argument }}.serialize()).to_utf8()
                 {{- end }}
             {{- end }}
             {{- end }}

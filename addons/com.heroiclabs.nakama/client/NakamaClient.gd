@@ -281,6 +281,12 @@ func create_group_async(p_session : NakamaSession, p_name : String, p_descriptio
 			"open": p_open
 		}))
 
+# Delete the current user's account on the server.
+# @param p_session - The session of the user.
+# Returns a task which represents the asynchronous operation.
+func delete_account_async(p_session : NakamaSession) -> NakamaAsyncResult:
+	return _api_client.delete_account_async(p_session)
+
 # Delete one more or users by id or username from friends.
 # @param p_session - The session of the user.
 # @param p_ids - The user ids to remove as friends.
@@ -595,11 +601,12 @@ func list_leaderboard_records_async(p_session : NakamaSession,
 # @param p_owner_id - The ID of the user to list around.
 # @param p_expiry - Expiry in seconds (since epoch) to begin fetching records from. Optional. 0 means from current time.
 # @param p_limit - The limit of the listings.
+# @param p_cursor - A cursor for the current position in the leaderboard records to list.
 # Returns a task which resolves to the leaderboard record objects.
 func list_leaderboard_records_around_owner_async(p_session : NakamaSession,
-		p_leaderboar_id : String, p_owner_id : String, p_expiry = null, p_limit : int = 10): # -> NakamaAPI.ApiLeaderboardRecordList:
+		p_leaderboar_id : String, p_owner_id : String, p_expiry = null, p_limit : int = 10, p_cursor = null): # -> NakamaAPI.ApiLeaderboardRecordList:
 	return _api_client.list_leaderboard_records_around_owner_async(p_session,
-		p_leaderboar_id, p_owner_id, p_limit, p_expiry)
+		p_leaderboar_id, p_owner_id, p_limit, p_expiry, p_cursor)
 
 # Fetch a list of matches active on the server.
 # @param p_session - The session of the user.
@@ -652,10 +659,11 @@ func list_subscriptions_async(p_session : NakamaSession, p_limit: int = 10, p_cu
 # @param p_owner_id - The ID of the owner to pivot around.
 # @param p_expiry - Expiry in seconds (since epoch) to begin fetching records from.
 # @param p_limit - The number of records to list.
+# @param p_cursor - An optional cursor for the next page of tournament records.
 # Returns a task which resolves to the tournament record list object.
 func list_tournament_records_around_owner_async(p_session : NakamaSession,
-		p_tournament_id : String, p_owner_id : String, p_limit : int = 10, p_expiry = null): # -> NakamaAPI.ApiTournamentRecordList:
-	return _api_client.list_tournament_records_around_owner_async(p_session, p_tournament_id, p_owner_id, p_limit, p_expiry)
+		p_tournament_id : String, p_owner_id : String, p_limit : int = 10, p_cursor = null, p_expiry = null): # -> NakamaAPI.ApiTournamentRecordList:
+	return _api_client.list_tournament_records_around_owner_async(p_session, p_tournament_id, p_owner_id, p_limit, p_expiry, p_cursor)
 
 # List records from a tournament.
 # @param p_session - The session of the user.
