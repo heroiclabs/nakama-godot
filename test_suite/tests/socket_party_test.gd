@@ -49,10 +49,9 @@ func setup():
 	if assert_false(join.is_exception()):
 		return
 
-func _on_party_join_request(party_join_request):
+func _on_party_join_request(party_join_request : NakamaRTAPI.PartyJoinRequest):
 	prints("_on_party_join_request", party_join_request)
-	#var requests : NakamaRTAPI.PartyJoinRequest = await socket1.list_party_join_requests_async(party_join_request.party_id)
-	var requests = await socket1.list_party_join_requests_async(party_join_request.party_id)
+	var requests : NakamaRTAPI.PartyJoinRequest = await socket1.list_party_join_requests_async(party_join_request.party_id)
 	if assert_false(requests.is_exception()):
 		return
 	if assert_cond(requests.presences.size() == 1):
@@ -67,20 +66,20 @@ func _on_party(party):
 func _on_party_close(party_close):
 	prints("_on_party_close", party_close)
 
-func _on_party_data(data):
+func _on_party_data(data : NakamaRTAPI.PartyData):
 	prints("_on_party_data", data)
 	var left = await socket1.leave_party_async(data.party_id)
 	if assert_false(left.is_exception()):
 		return
 
-func _on_party_leader(party_leader):
+func _on_party_leader(party_leader : NakamaRTAPI.PartyLeader):
 	prints("_on_party_leader", party_leader)
 	var ticket = await socket2.add_matchmaker_party_async(party_leader.party_id)
 	if assert_false(ticket.is_exception()):
 		return
 	_on_party_ticket(ticket)
 
-func _on_party_ticket(ticket):
+func _on_party_ticket(ticket : NakamaRTAPI.PartyMatchmakerTicket):
 	prints("_on_party_ticket", ticket)
 	var removed = await socket2.remove_matchmaker_party_async(ticket.party_id, ticket.ticket)
 	if assert_false(removed.is_exception()):
@@ -89,7 +88,7 @@ func _on_party_ticket(ticket):
 	if assert_false(sent.is_exception()):
 		return
 
-func _on_party_presence(party_presence):
+func _on_party_presence(party_presence : NakamaRTAPI.PartyPresenceEvent):
 	prints("_on_party_presence", party_presence)
 	var left = party_presence.leaves.size() == 1
 	if left:

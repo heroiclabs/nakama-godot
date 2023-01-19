@@ -124,7 +124,7 @@ class AsyncRequest:
 			else:
 				error = str(parsed)
 			if typeof(error) == TYPE_DICTIONARY:
-				error = json.stringify(error)
+				error = JSON.stringify(error)
 			logger.debug("Request %d returned response code: %d, RPC code: %d, error: %s" % [
 				id, response_code, code, error
 			])

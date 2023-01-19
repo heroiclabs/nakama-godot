@@ -34,10 +34,10 @@ func setup():
 		return
 
 	# Join room
-	var room1 = await socket1.join_chat_async("MyRoom", socket1.ChannelType.Room)
+	var room1 = await socket1.join_chat_async("MyRoom", NakamaSocket.ChannelType.Room)
 	if assert_false(room1.is_exception()):
 		return
-	var room2 = await socket2.join_chat_async("MyRoom", socket2.ChannelType.Room)
+	var room2 = await socket2.join_chat_async("MyRoom", NakamaSocket.ChannelType.Room)
 	if assert_false(room2.is_exception()):
 		return
 
@@ -54,21 +54,19 @@ func setup():
 		return
 
 func _on_socket1_message(msg):
-	var json = JSON.new()
-	if assert_equal(msg.content, json.stringify(content)):
+	if assert_equal(msg.content, JSON.stringify(content)):
 		return
 	got_msg = true
 	check_end()
 
 func _on_socket1_matchmaker_matched(p_matchmaker_matched):
-	var json = JSON.new()
-	if assert_equal(json.stringify(p_matchmaker_matched.users[0].string_properties), json.stringify(match_string_props)):
+	if assert_equal(JSON.stringify(p_matchmaker_matched.users[0].string_properties), JSON.stringify(match_string_props)):
 		return
-	if assert_equal(json.stringify(p_matchmaker_matched.users[0].numeric_properties), json.stringify(match_numeric_props)):
+	if assert_equal(JSON.stringify(p_matchmaker_matched.users[0].numeric_properties), JSON.stringify(match_numeric_props)):
 		return
-	if assert_equal(json.stringify(p_matchmaker_matched.users[1].string_properties), json.stringify(match_string_props)):
+	if assert_equal(JSON.stringify(p_matchmaker_matched.users[1].string_properties), JSON.stringify(match_string_props)):
 		return
-	if assert_equal(json.stringify(p_matchmaker_matched.users[1].numeric_properties), json.stringify(match_numeric_props)):
+	if assert_equal(JSON.stringify(p_matchmaker_matched.users[1].numeric_properties), JSON.stringify(match_numeric_props)):
 		return
 	got_match = true
 	check_end()

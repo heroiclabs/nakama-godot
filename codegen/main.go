@@ -259,17 +259,9 @@ class ApiClient extends RefCounted:
                 {{- if eq $parameter.Type "integer" }}
 			query_params += "{{- $snakecase }}=%d&" % {{ $argument }}
                 {{- else if eq $parameter.Type "string" }}
-			# Work around issue #53115 / #56217
-			var tmp = {{ $argument }}
-			tmp = tmp
-			query_params += "{{- $snakecase }}=%s&" % NakamaSerializer.escape_http(tmp)
-			#query_params += "{{- $snakecase }}=%s&" % NakamaSerializer.escape_http({{ $argument }})
+			query_params += "{{- $snakecase }}=%s&" % NakamaSerializer.escape_http({{ $argument }})
                 {{- else if eq $parameter.Type "boolean" }}
-			# Work around issue #53115 / #56217
-			var tmp = {{ $argument }}
-			tmp = tmp
-			query_params += "{{- $snakecase }}=%s&" % str(bool(tmp)).to_lower()
-			#query_params += "{{- $snakecase }}=%s&" % str(bool({{ $argument }})).to_lower()
+			query_params += "{{- $snakecase }}=%s&" % str(bool({{ $argument }})).to_lower()
                 {{- else if eq $parameter.Type "array" }}
 			for elem in {{ $argument }}:
 				query_params += "{{- $snakecase }}=%s&" % elem
@@ -305,9 +297,9 @@ class ApiClient extends RefCounted:
             {{- $argument := $parameter.Name | prependParameter }}
             {{- if eq $parameter.In "body" }}
                 {{- if eq $parameter.Schema.Type "string" }}
-		content = JSON.new().stringify(p_body).to_utf8_buffer()
+		content = JSON.stringify(p_body).to_utf8_buffer()
                 {{- else }}
-		content = JSON.new().stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
                 {{- end }}
             {{- end }}
             {{- end }}

@@ -232,10 +232,8 @@ func _host_add_peer(presence) -> void:
 	var peer_id = _generate_id(presence.session_id)
 	_map_id_to_session(peer_id, presence.session_id)
 
-	var json = JSON.new()
-
 	# Tell them we are the host.
-	_nakama_socket.send_match_state_async(_match_id, meta_op_code, json.stringify({
+	_nakama_socket.send_match_state_async(_match_id, meta_op_code, JSON.stringify({
 		type = MetaMessageType.CLAIM_HOST,
 	}), [presence])
 
@@ -244,14 +242,14 @@ func _host_add_peer(presence) -> void:
 		var other_session_id = _id_map[other_peer_id]
 		if other_session_id == presence.session_id or other_session_id == _my_session_id:
 			continue
-		_nakama_socket.send_match_state_async(_match_id, meta_op_code, json.stringify({
+		_nakama_socket.send_match_state_async(_match_id, meta_op_code, JSON.stringify({
 			type = MetaMessageType.ASSIGN_PEER_ID,
 			session_id = other_session_id,
 			peer_id = other_peer_id,
 		}), [presence])
 
 	# Assign them a peer_id (tell everyone about it).
-	_nakama_socket.send_match_state_async(_match_id, meta_op_code, json.stringify({
+	_nakama_socket.send_match_state_async(_match_id, meta_op_code, JSON.stringify({
 		type = MetaMessageType.ASSIGN_PEER_ID,
 		session_id = presence.session_id,
 		peer_id = peer_id,
