@@ -14,6 +14,8 @@ var auto_retry : bool = true
 # The maximum number of time a request will be retried when auto_retry is true
 var auto_retry_count : int = 3
 var auto_retry_backoff_base : int = 10
+# Whether or not to use threads when making HTTP requests.
+var use_threads : bool = true
 
 var _pending = {}
 var id : int = 0
@@ -137,7 +139,7 @@ class AsyncRequest:
 func send_async(p_method : String, p_uri : String, p_headers : Dictionary, p_body : PoolByteArray):
 	var req = HTTPRequest.new()
 	req.timeout = timeout
-	if OS.get_name() != 'HTML5':
+	if use_threads and OS.get_name() != 'HTML5':
 		req.use_threads = true # Threads not available nor needed on the web.
 
 	# Parse method
