@@ -297,9 +297,9 @@ class ApiClient extends RefCounted:
             {{- $argument := $parameter.Name | prependParameter }}
             {{- if eq $parameter.In "body" }}
                 {{- if eq $parameter.Schema.Type "string" }}
-		content = JSON.stringify(p_body).to_utf8_buffer()
+		content = JSON.stringify({{ $argument }}).to_utf8_buffer()
                 {{- else }}
-		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
+		content = JSON.stringify({{ $argument }}.serialize()).to_utf8_buffer()
                 {{- end }}
             {{- end }}
             {{- end }}
