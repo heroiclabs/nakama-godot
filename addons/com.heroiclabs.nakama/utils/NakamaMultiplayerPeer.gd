@@ -4,7 +4,7 @@ class_name NakamaMultiplayerPeer
 const MAX_PACKET_SIZE := 1 << 24
 
 var _self_id := 0
-var _connection_status: int = CONNECTION_DISCONNECTED
+var _connection_status: ConnectionStatus = CONNECTION_DISCONNECTED
 var _refusing_new_connections := false
 var _target_id := 0
 
@@ -47,10 +47,10 @@ func _set_transfer_channel(p_channel) -> void:
 func _get_transfer_channel() -> int:
 	return 0
 
-func _set_transfer_mode(p_mode: int) -> void:
+func _set_transfer_mode(p_mode: TransferMode) -> void:
 	pass
 
-func _get_transfer_mode() -> int:
+func _get_transfer_mode() -> TransferMode:
 	return TRANSFER_MODE_RELIABLE
 
 func _set_target_peer(p_peer_id: int) -> void:
@@ -79,7 +79,7 @@ func _set_refuse_new_connections(p_enable: bool) -> void:
 func _is_refusing_new_connections() -> bool:
 	return _refusing_new_connections
 
-func _get_connection_status() -> int:
+func _get_connection_status() -> ConnectionStatus:
 	return _connection_status
 
 func initialize(p_self_id: int) -> void:
