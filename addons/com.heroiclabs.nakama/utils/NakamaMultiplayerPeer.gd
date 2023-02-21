@@ -31,7 +31,7 @@ func _get_packet_mode() -> int:
 func _get_packet_channel() -> int:
 	return 0
 
-func _put_packet_script(p_buffer: PackedByteArray) -> int:
+func _put_packet_script(p_buffer: PackedByteArray) -> Error:
 	packet_generated.emit(_target_id, p_buffer)
 	return OK
 
