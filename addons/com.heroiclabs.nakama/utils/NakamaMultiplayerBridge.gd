@@ -135,8 +135,15 @@ func _on_nakama_socket_received_matchmaker_matched(matchmaker_matched) -> void:
 
 	# Get a list of sorted session ids.
 	var session_ids := []
+	# Attempt to find powerful host
 	for matchmaker_user in matchmaker_matched.users:
-		session_ids.append(matchmaker_user.presence.session_id)
+		var os = matchmaker_user.string_properties.get("os")
+		if os and os.to_lower() in ["windows", "macos"]:
+			session_ids.append(matchmaker_user.presence.session_id)
+	# if not find anything
+	if session_ids.is_empty():
+		for matchmaker_user in matchmaker_matched.users:
+			session_ids.append(matchmaker_user.presence.session_id)
 	session_ids.sort()
 
 	var res = await _nakama_socket.join_matched_async(matchmaker_matched)
@@ -314,7 +321,8 @@ func _on_nakama_socket_received_match_state(data) -> void:
 			return
 
 		# Ensure that any meta messages are coming from the host!
-		if data.presence.session_id != _id_map[1]:
+		var server_session = _id_map.get(1)
+		if server_session and data.presence.session_id != server_session:
 			push_error("Received meta message from user %s who isn't the host: %s" % [data.presence.session_id, content])
 			return
 
