@@ -60,7 +60,7 @@ static func serialize(p_obj : Object) -> Dictionary:
 	return out
 
 static func deserialize(p_ns : GDScript, p_cls_name : String, p_dict : Dictionary) -> Object:
-	var cls : GDScript = p_ns.get(p_cls_name)
+	var cls : GDScript = p_ns.get_script_constant_map().get(p_cls_name)
 	var schema = cls.get("_SCHEMA")
 	if schema == null:
 		return NakamaException.new() # No schema defined
