@@ -68,7 +68,7 @@ class AsyncRequest:
 		return await make_request()
 
 	func make_request():
-		var err = request.request(uri, headers, true, method, body.get_string_from_utf8())
+		var err = request.request(uri, headers, method, body.get_string_from_utf8())
 		if err != OK:
 			await request.get_tree().process_frame
 			result = HTTPRequest.RESULT_CANT_CONNECT
