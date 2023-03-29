@@ -27,7 +27,7 @@ func _to_string():
 	return "NakamaAsyncResult<>"
 
 static func _safe_ret(p_obj, p_type : GDScript):
-	if p_obj is p_type:
+	if is_instance_of(p_obj, p_type):
 		return p_obj # Correct type
 	elif p_obj is NakamaException:
 		return p_type.new(p_obj) # It's an exception. Incapsulate it
