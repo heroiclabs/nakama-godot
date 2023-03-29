@@ -68,7 +68,7 @@ namespace Nakama {
                 index++;
             }
 
-            string body_string = System.Text.Encoding.UTF8.GetString(body);
+            string body_string = body != null ? System.Text.Encoding.UTF8.GetString(body) : "";
 
             AddChild(req);
             req.Request(uri.ToString(), headers_array, true, godot_method, body_string);
