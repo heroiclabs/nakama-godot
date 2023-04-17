@@ -3,6 +3,12 @@ All notable changes to this project are documented below.
 
 The format is based on [keep a changelog](http://keepachangelog.com/) and this project uses [semantic versioning](http://semver.org/).
 
+## [3.3.1] - 2023-04-17
+
+### Fixed
+
+- Fix null byte array error in GodotHttpAdapter for C#
+
 ## [3.3.0] - 2023-01-30
 
 ### Added
