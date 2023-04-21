@@ -351,7 +351,7 @@ func pascalToSnake(input string) (output string) {
 }
 
 func apiFuncName(input string) (output string) {
-	output = pascalToSnake(input[7:])
+	output = pascalToSnake(strings.Split(input, "_")[1])
 	return
 }
 
