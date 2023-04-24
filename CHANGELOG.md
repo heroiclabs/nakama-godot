@@ -7,6 +7,9 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 
 ### Fixed
 
+- Fix arguments for HTTPRequest.request() for beta17
+- Fix typehints for enums in Godot 4.0-rc1
+- Fix type check and typehint for Godot 4.0-rc3
 - Fix null byte array error in GodotHttpAdapter for C#
 
 ## [3.3.0] - 2023-01-30

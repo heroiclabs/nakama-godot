@@ -3,7 +3,7 @@
 END_STRING="======= TESTS END"
 PROJECT_PATH="test_suite/"
 GODOT_BIN="test_suite/bin/godot.elf"
-OUT=`$GODOT_BIN --debug --path test_suite/ -s res://runner.gd`
+OUT=`$GODOT_BIN --headless --debug --path test_suite/ -s res://runner.gd`
 RUN=`echo $OUT | grep "$END_STRING"`
 RES=`echo $OUT | grep FAILURE`
 

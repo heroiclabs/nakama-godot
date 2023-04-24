@@ -7,10 +7,10 @@ const V1 = {"question": "Ultimate question"}
 const V2 = {"answer": "42"}
 
 func setup():
-	var username = str(rand_range(1000, 100000))
+	var username = str(randi_range(1000, 100000))
 	var client = Nakama.create_client(Config.SERVER_KEY, Config.HOST, Config.PORT, Config.SCHEME)
 
-	var session = yield(client.authenticate_custom_async("MyIdentifier"), "completed")
+	var session = await client.authenticate_custom_async("MyIdentifier")
 	if assert_cond(session.is_valid()):
 		return
 
@@ -18,16 +18,16 @@ func setup():
 		NakamaWriteStorageObject.new(COLLECTION, K1, 1, 1, to_json(V1), ""),
 		NakamaWriteStorageObject.new(COLLECTION, K2, 1, 1, to_json(V2), "")
 	]
-	var write : NakamaAPI.ApiStorageObjectAcks = yield(client.write_storage_objects_async(session, objs), "completed")
+	var write : NakamaAPI.ApiStorageObjectAcks = await client.write_storage_objects_async(session, objs)
 	if assert_false(write.is_exception()):
 		return
 
 	var objs_ids = []
 	for a in write.acks:
-		var obj : NakamaAPI.ApiStorageObjectAck = a
+		#var obj : NakamaAPI.ApiStorageObjectAck = a
 		objs_ids.append(NakamaStorageObjectId.new(a.collection, a.key, a.user_id, a.version))
 
-	var read : NakamaAPI.ApiStorageObjects = yield(client.read_storage_objects_async(session, objs_ids), "completed")
+	var read : NakamaAPI.ApiStorageObjects = await client.read_storage_objects_async(session, objs_ids)
 	if assert_false(read.is_exception()):
 		return
 	if assert_equal(read.objects.size(), 2):
@@ -40,12 +40,12 @@ func setup():
 		return
 
 	# Delete one
-	var del = yield(client.delete_storage_objects_async(session, [objs_ids[0]]), "completed")
+	var del = await client.delete_storage_objects_async(session, [objs_ids[0]])
 	if assert_false(del.is_exception()):
 		return
 
 	# Confirm that one was deleted
-	var read2 : NakamaAPI.ApiStorageObjects = yield(client.read_storage_objects_async(session, objs_ids), "completed")
+	var read2 : NakamaAPI.ApiStorageObjects = await client.read_storage_objects_async(session, objs_ids)
 	if assert_false(read2.is_exception()):
 		return
 	if assert_equal(read2.objects.size(), 1):
@@ -61,3 +61,12 @@ func setup():
 
 func _process(_delta):
 	assert_time(3)
+
+func to_json(value) -> String:
+	return JSON.stringify(value)
+
+func parse_json(value):
+	var json = JSON.new()
+	if json.parse(value) != OK:
+		return null
+	return json.get_data()
