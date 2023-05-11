@@ -411,13 +411,6 @@ func get_account_async(p_session : NakamaSession): # -> NakamaAPI.ApiAccount:
 func get_subscription_async(p_session : NakamaSession, p_product_id : String): # -> ApiValidatedSubscription:
 	return await _api_client.get_subscription_async(p_session, p_product_id)
 
-# Get subscription by product id.
-# @param p_session - The session of the user.
-# @param p_product_id - The product id.
-# Returns a task which resolves to the subscription object.
-func get_subscription_async(p_session : NakamaSession, p_product_id : String): # -> ApiValidatedSubscription:
-	return _api_client.get_subscription_async(p_session, p_product_id)
-
 # Fetch one or more users by id, usernames, and Facebook ids.
 # @param p_session - The session of the user.
 # @param p_ids - The IDs of the users to retrieve.
@@ -696,20 +689,6 @@ func list_storage_objects_async(p_session : NakamaSession, p_collection : String
 # Returns a task which resolves to the subscription list.
 func list_subscriptions_async(p_session : NakamaSession, p_limit: int = 10, p_cursor = null): # -> NakamaAPI.ApiSubscriptionList:
 	return await _api_client.list_subscriptions_async(p_session, NakamaAPI.ApiListSubscriptionsRequest.create(
-		NakamaAPI,
-		{
-			"cursor": p_cursor,
-			"limit": p_limit,
-		}
-	))
-
-# List user's subscriptions.
-# @param p_session - The session of the user.
-# @param p_limit - The number of objects to list.
-# @param p_cursor - A cursor to paginate over the collection.
-# Returns a task which resolves to the subscription list.
-func list_subscriptions_async(p_session : NakamaSession, p_limit: int = 10, p_cursor = null): # -> NakamaAPI.ApiSubscriptionList:
-	return _api_client.list_subscriptions_async(p_session, NakamaAPI.ApiListSubscriptionsRequest.create(
 		NakamaAPI,
 		{
 			"cursor": p_cursor,
