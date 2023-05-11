@@ -15,8 +15,9 @@ class Log:
 
 	static func __log(lvl, msg, data):
 		print("======= %s: %s" % [_s(lvl), msg])
-		if not data.empty():
-			print(JSON.print(data, "    ", true))
+		if not data.is_empty():
+			var json = JSON.new()
+			print(json.stringify(data, "    ", true))
 
 	static func error(msg, data={}):
 		__log(ERROR, msg, data)
@@ -60,7 +61,7 @@ func _ready():
 		done()
 		Log.info("SKIP: %s" % __get_source(self))
 		return
-	_start_time = OS.get_ticks_usec()
+	_start_time = Time.get_ticks_usec()
 	Log.info("RUNNING: %s" % __get_source(self))
 	setup()
 
@@ -84,7 +85,7 @@ func __get_caller():
 
 func __get_assertion():
 	var stack = get_stack()
-	stack.invert()
+	stack.reverse()
 	for s in stack:
 		if __me.resource_path == s.source:
 			return s
@@ -102,7 +103,7 @@ func __assert(v1, v2):
 	return true
 
 func assert_time(max_time):
-	__assert(max_time > float(OS.get_ticks_usec() - _start_time) / 1000.0 / 1000.0, true)
+	__assert(max_time > float(Time.get_ticks_usec() - _start_time) / 1000.0 / 1000.0, true)
 
 ### Returns true if the assertion failed, so you can do:
 ### if assert_cond(cond):
