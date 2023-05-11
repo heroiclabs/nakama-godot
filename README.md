@@ -13,8 +13,8 @@ Full documentation is online - https://heroiclabs.com/docs
 
 You're currently looking at the Godot 3 version of the Nakama client for Godot.
 
-There is an unreleased Godot 4 version you can find in the ['godot-4'
-branch](https://github.com/heroiclabs/nakama-godot/tree/godot-4) on GitHub.
+If you are using Godot 4, you need to use the ['master'
+branch](https://github.com/heroiclabs/nakama-godot/tree/master) on GitHub.
 
 ## Getting Started
 
