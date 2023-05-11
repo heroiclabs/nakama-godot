@@ -3289,12 +3289,6 @@ class ApiValidatedPurchase extends NakamaAsyncResult:
 		get:
 			return "" if not _refund_time is String else String(_refund_time)
 
-	# 
-	var refund_time : String setget , _get_refund_time
-	var _refund_time = null
-	func _get_refund_time() -> String:
-		return "" if not _refund_time is String else String(_refund_time)
-
 	# Whether the purchase had already been validated by Nakama before.
 	var _seen_before
 	var seen_before : bool:
@@ -3751,31 +3745,6 @@ class ApiClient extends RefCounted:
 		var content : PackedByteArray
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
-		if result is NakamaException:
-			return NakamaAsyncResult.new(result)
-		return NakamaAsyncResult.new()
-
-	# Delete the current user's account.
-	func delete_account_async(
-		p_session : NakamaSession
-	) -> NakamaAsyncResult:
-		var should_refresh = _refresh_session(p_session)
-		if should_refresh != null:
-			var session = yield(should_refresh, "completed")
-			if session.is_exception():
-				return NakamaAsyncResult.new(session.get_exception())
-			p_session.refresh(session)
-		var urlpath : String = "/v2/account"
-		var query_params = ""
-		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
-		var method = "DELETE"
-		var headers = {}
-		var header = "Bearer %s" % p_session.token
-		headers["Authorization"] = header
-
-		var content : PoolByteArray
-
-		var result = yield(_http_adapter.send_async(method, uri, headers, content), "completed")
 		if result is NakamaException:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()

@@ -321,16 +321,6 @@ class MatchData extends NakamaAsyncResult:
 	static func get_result_key() -> String:
 		return "match_data"
 
-	func get_data():
-		if not data and base64_data:
-			data = Marshalls.base64_to_utf8(base64_data)
-		return data
-
-	func get_binary_data():
-		if not binary_data and base64_data:
-			binary_data = Marshalls.base64_to_raw(base64_data)
-		return binary_data
-
 
 # A batch of join and leave presences for a match.
 class MatchPresenceEvent extends NakamaAsyncResult:
@@ -883,16 +873,6 @@ class PartyData extends NakamaAsyncResult:
 
 	static func get_result_key() -> String:
 		return "party_data"
-
-	func get_data():
-		if not data and base64_data:
-			data = Marshalls.base64_to_utf8(base64_data)
-		return data
-
-	func get_binary_data():
-		if not binary_data and base64_data:
-			binary_data = Marshalls.base64_to_raw(base64_data)
-		return binary_data
 
 # End a party, kicking all party members and closing it. (this is both a message and a result)
 class PartyClose extends NakamaAsyncResult:
