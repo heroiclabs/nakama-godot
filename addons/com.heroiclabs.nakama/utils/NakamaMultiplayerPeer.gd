@@ -25,7 +25,7 @@ func _get_packet_script() -> PackedByteArray:
 		return PackedByteArray()
 	return _incoming_packets.pop_front().data
 
-func _get_packet_mode() -> int:
+func _get_packet_mode() -> TransferMode:
 	return TRANSFER_MODE_RELIABLE
 
 func _get_packet_channel() -> int:
