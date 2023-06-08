@@ -105,8 +105,8 @@ class AsyncRequest:
 
 		var json_error = json.parse(response_body.get_string_from_utf8())
 		if json_error != OK:
-			logger.debug("Unable to parse request %d response. JSON error: %d, response code: %d" % [
-				id, json.error, response_code
+			logger.debug("Unable to parse request %d response. JSON error: %d, JSON error message: %s, response code: %d" % [
+				id, json_error, json.get_error_message(), response_code
 			])
 			return NakamaException.new("Failed to decode JSON response", response_code)
 
