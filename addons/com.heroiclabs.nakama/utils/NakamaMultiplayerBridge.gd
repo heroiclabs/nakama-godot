@@ -157,7 +157,7 @@ func _on_nakama_socket_received_matchmaker_matched(matchmaker_matched) -> void:
 				_host_add_peer(presence)
 
 func _on_nakama_socket_closed() -> void:
-	match_state = MatchState.SOCKET_CLOSED
+	_match_state = MatchState.SOCKET_CLOSED
 	_cleanup()
 
 func get_user_presence_for_peer(peer_id: int) -> NakamaRTAPI.UserPresence:
