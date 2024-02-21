@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"strings"
 	"text/template"
@@ -115,21 +114,23 @@ class {{ $classname }} extends NakamaAsyncResult:
 		if is_exception():
 			return get_exception()._to_string()
 		var output : String = ""
+		var map_string : String = ""
             {{- range $propname, $property := $definition.Properties }}
             {{- $fieldname := $propname | pascalToSnake }}
             {{- $_field := printf "_%s" $fieldname }}
             {{- if eq $property.Type "array" }}
 		output += "{{ $fieldname }}: %s, " % [{{ $_field }}]
             {{- else if eq $property.Type "object" }}
-		var map_string : String = ""
 		if typeof({{ $_field }}) == TYPE_DICTIONARY:
 			for k in {{ $_field }}:
 				map_string += "{%s=%s}, " % [k, {{ $_field }}[k]]
 		output += "{{ $fieldname }}: [%s], " % map_string
+		map_string = ""
             {{- else }}
 		output += "{{ $fieldname }}: %s, " % {{ $_field }}
             {{- end }}
             {{- end }}
+		output += map_string
 		return output
     {{- end }}
 {{- end }}
@@ -173,13 +174,6 @@ class ApiClient extends RefCounted:
 		_http_adapter.timeout = p_timeout
 		_namespace = p_namespace
 		_server_key = p_server_key
-
-	func _refresh_session(p_session : NakamaSession):
-		if auto_refresh and p_session.is_valid() and p_session.refresh_token and not p_session.is_refresh_expired() and p_session.would_expire_in(auto_refresh_time):
-			var request = ApiSessionRefreshRequest.new()
-			request._token = p_session.refresh_token
-			return await session_refresh_async(_server_key, "", request)
-		return null
 
 	func cancel_request(p_token):
 		if p_token:
@@ -231,13 +225,6 @@ class ApiClient extends RefCounted:
         {{- $classname := "NakamaAsyncResult" }}
         {{- if $operation.Responses.Ok.Schema.Ref }}
           {{- $classname = $operation.Responses.Ok.Schema.Ref | cleanRef }}
-        {{- end }}
-        {{- if not $operation.Security }}
-		var try_refresh = await _refresh_session(p_session)
-		if try_refresh != null:
-			if try_refresh.is_exception():
-				return {{ $classname }}.new(try_refresh.get_exception())
-			await p_session.refresh(try_refresh)
         {{- end }}
 		var urlpath : String = "{{- $url }}"
             {{- range $parameter := $operation.Parameters }}
@@ -292,7 +279,7 @@ class ApiClient extends RefCounted:
 		headers["Authorization"] = header
             {{- end }}
 
-		var content : PackedByteArray
+		var content : PackedByteArray = PackedByteArray()
             {{- range $parameter := $operation.Parameters }}
             {{- $argument := $parameter.Name | prependParameter }}
             {{- if eq $parameter.In "body" }}
@@ -532,6 +519,14 @@ func godotClassUtils(p_name string) string {
 	return ""
 }
 
+func commentLines(description string) string {
+	lines := strings.Split(description, "\n")
+	for i, line := range lines {
+		lines[i] = "\t# " + line
+	}
+	return strings.Join(lines, "\n")
+}
+
 func main() {
 	// Argument flags
 	var output = flag.String("output", "", "The output for generated code.")
@@ -652,12 +647,4 @@ func main() {
 	writer := bufio.NewWriter(f)
 	tmpl.Execute(writer, schema)
 	writer.Flush()
-}
-
-func commentLines(description string) string {
-	lines := strings.Split(description, "\n")
-	for i, line := range lines {
-		lines[i] = "\t# " + line
-	}
-	return strings.Join(lines, "\n")
 }
