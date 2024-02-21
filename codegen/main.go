@@ -25,9 +25,8 @@ import (
 	"text/template"
 )
 
-var utilities = map[string]string {
-	"ApiAccount":
-`
+var utilities = map[string]string{
+	"ApiAccount": `
 
 	var _wallet_dict = null
 	var wallet_dict : Dictionary:
@@ -359,37 +358,37 @@ func godotType(p_type string, p_ref string, p_item_type string, p_extra string, 
 	is_array := false
 	is_dict := false
 	switch p_type {
-		case "integer":
+	case "integer":
+		out = "int"
+	case "string":
+		out = "String"
+	case "boolean":
+		out = "bool"
+	case "array":
+		is_array = true
+	case "object":
+		is_dict = true
+	default:
+		if p_is_enum {
 			out = "int"
-		case "string":
-			out = "String"
-		case "boolean":
-			out = "bool"
-		case "array":
-			is_array = true
-		case "object":
-			is_dict = true
-		default:
-			if p_is_enum {
-				out = "int"
-			} else {
-				out = convertRefToClassName(p_ref)
-			}
+		} else {
+			out = convertRefToClassName(p_ref)
+		}
 	}
 
 	if is_array {
 		switch p_item_type {
-			case "integer":
-				out = "PackedIntArray"
-				return
-			case "string":
-				out = "PackedStringArray"
-				return
-			case "boolean":
-				out = "PackedIntArray"
-				return
-			default:
-				out = "Array"
+		case "integer":
+			out = "PackedIntArray"
+			return
+		case "string":
+			out = "PackedStringArray"
+			return
+		case "boolean":
+			out = "PackedIntArray"
+			return
+		default:
+			out = "Array"
 		}
 	}
 	if is_dict {
@@ -399,39 +398,54 @@ func godotType(p_type string, p_ref string, p_item_type string, p_extra string, 
 }
 
 func godotDef(p_type string) (out string) {
-	switch(p_type) {
-		case "bool": out = "false"
-		case "int": out = "0"
-		case "String": out = "\"\""
-		case "PackedIntArray": out = "PackedIntArray()"
-		case "PackedStringArray": out = "PackedStringArray()"
-		case "Array": out = "Array()"
-		case "Dictionary": out = "Dictionary()"
+	switch p_type {
+	case "bool":
+		out = "false"
+	case "int":
+		out = "0"
+	case "String":
+		out = "\"\""
+	case "PackedIntArray":
+		out = "PackedIntArray()"
+	case "PackedStringArray":
+		out = "PackedStringArray()"
+	case "Array":
+		out = "Array()"
+	case "Dictionary":
+		out = "Dictionary()"
 	}
 	return
 }
 
 func godotLooseType(p_type string) (out string) {
-	switch(p_type) {
-		case "PackedStringArray", "PackedIntArray":
-			out = "Array"
-		default:
-			out = p_type
+	switch p_type {
+	case "PackedStringArray", "PackedIntArray":
+		out = "Array"
+	default:
+		out = p_type
 	}
 	return
 }
 
 func godotSchemaType(p_type string) (out string) {
 	out = "TYPE_"
-	switch(p_type) {
-		case "bool": out += "BOOL"
-		case "int": out += "INT"
-		case "String": out += "STRING"
-		case "PackedIntArray": out += "ARRAY"
-		case "PackedStringArray": out += "ARRAY"
-		case "Array": out += "ARRAY"
-		case "Dictionary": out += "DICTIONARY"
-		default: out = "\"" + p_type + "\""
+	switch p_type {
+	case "bool":
+		out += "BOOL"
+	case "int":
+		out += "INT"
+	case "String":
+		out += "STRING"
+	case "PackedIntArray":
+		out += "ARRAY"
+	case "PackedStringArray":
+		out += "ARRAY"
+	case "Array":
+		out += "ARRAY"
+	case "Dictionary":
+		out += "DICTIONARY"
+	default:
+		out = "\"" + p_type + "\""
 	}
 	return
 }
@@ -560,7 +574,7 @@ func main() {
 					Type string
 					Ref  string `json:"$ref"`
 				}
-                Format   string // used with type "boolean"
+				Format string // used with type "boolean"
 			}
 			Security []map[string][]struct {
 			}
@@ -574,17 +588,17 @@ func main() {
 	}
 
 	fmap := template.FuncMap{
-		"cleanRef": convertRefToClassName,
-		"stripNewlines": stripNewlines,
-		"title": strings.Title,
-		"uppercase": strings.ToUpper,
+		"cleanRef":         convertRefToClassName,
+		"stripNewlines":    stripNewlines,
+		"title":            strings.Title,
+		"uppercase":        strings.ToUpper,
 		"prependParameter": prependParameter,
-		"pascalToSnake": pascalToSnake,
-		"apiFuncName": apiFuncName,
-		"godotType": godotType,
-		"godotLooseType": godotLooseType,
-		"godotSchemaType": godotSchemaType,
-		"godotDef": godotDef,
+		"pascalToSnake":    pascalToSnake,
+		"apiFuncName":      apiFuncName,
+		"godotType":        godotType,
+		"godotLooseType":   godotLooseType,
+		"godotSchemaType":  godotSchemaType,
+		"godotDef":         godotDef,
 		"isRefToEnum": func(ref string) bool {
 			if len(ref) == 0 {
 				return false
@@ -613,7 +627,7 @@ func main() {
 		},
 		"enumDescriptions": enumDescriptions,
 		"enumSummary":      enumSummary,
-		"godotClassUtils": godotClassUtils,
+		"godotClassUtils":  godotClassUtils,
 	}
 	tmpl, err := template.New(input).Funcs(fmap).Parse(codeTemplate)
 	if err != nil {
