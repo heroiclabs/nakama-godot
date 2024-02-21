@@ -81,8 +81,9 @@ class {{ $classname }} extends NakamaAsyncResult:
         {{- $_field := printf "_%s" $fieldname }}
         {{- $gdType := godotType $property.Type $property.Ref $property.Items.Type $property.Items.Ref (isRefToEnum (cleanRef $property.Ref)) }}
 	{{- $gdDef := $gdType | godotDef }}
-
-	# {{ $property.Description }}
+	{{ "\n" }}
+	{{- $commentedDescription := commentLines $property.Description }}
+	{{- $commentedDescription }}
 	var {{ $_field }}
 	var {{ $fieldname }} : {{ $gdType }}:
 		get:
@@ -588,6 +589,7 @@ func main() {
 	}
 
 	fmap := template.FuncMap{
+		"commentLines":     commentLines,
 		"cleanRef":         convertRefToClassName,
 		"stripNewlines":    stripNewlines,
 		"title":            strings.Title,
@@ -650,4 +652,12 @@ func main() {
 	writer := bufio.NewWriter(f)
 	tmpl.Execute(writer, schema)
 	writer.Flush()
+}
+
+func commentLines(description string) string {
+	lines := strings.Split(description, "\n")
+	for i, line := range lines {
+		lines[i] = "\t# " + line
+	}
+	return strings.Join(lines, "\n")
 }
