@@ -549,6 +549,10 @@ func main() {
 	input := inputs[0]
 	className := inputs[1]
 	content, err := os.ReadFile(input)
+	if err != nil {
+		fmt.Printf("Unable to read file: %s\n", err)
+		return
+	}
 
 	var schema struct {
 		Paths map[string]map[string]struct {
