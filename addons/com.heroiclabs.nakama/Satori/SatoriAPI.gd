@@ -4,7 +4,7 @@ extends RefCounted
 class_name SatoriAPI
 
 # Log out a session, invalidate a refresh token, or log out all sessions/refresh tokens for a user.
-class ApiAuthenticateLogoutRequest extends NakamaAsyncResult:
+class ApiAuthenticateLogoutRequest extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"refresh_token": {"name": "_refresh_token", "type": TYPE_STRING, "required": false},
@@ -27,10 +27,10 @@ class ApiAuthenticateLogoutRequest extends NakamaAsyncResult:
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAuthenticateLogoutRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAuthenticateLogoutRequest", p_dict), ApiAuthenticateLogoutRequest) as ApiAuthenticateLogoutRequest
+		return _safe_ret(SatoriSerializer.deserialize(p_ns, "ApiAuthenticateLogoutRequest", p_dict), ApiAuthenticateLogoutRequest) as ApiAuthenticateLogoutRequest
 
 	func serialize() -> Dictionary:
-		return NakamaSerializer.serialize(self)
+		return SatoriSerializer.serialize(self)
 
 	func _to_string() -> String:
 		if is_exception():
@@ -43,7 +43,7 @@ class ApiAuthenticateLogoutRequest extends NakamaAsyncResult:
 		return output
 
 # Authenticate against the server with a refresh token.
-class ApiAuthenticateRefreshRequest extends NakamaAsyncResult:
+class ApiAuthenticateRefreshRequest extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"refresh_token": {"name": "_refresh_token", "type": TYPE_STRING, "required": false},
@@ -59,10 +59,10 @@ class ApiAuthenticateRefreshRequest extends NakamaAsyncResult:
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAuthenticateRefreshRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAuthenticateRefreshRequest", p_dict), ApiAuthenticateRefreshRequest) as ApiAuthenticateRefreshRequest
+		return _safe_ret(SatoriSerializer.deserialize(p_ns, "ApiAuthenticateRefreshRequest", p_dict), ApiAuthenticateRefreshRequest) as ApiAuthenticateRefreshRequest
 
 	func serialize() -> Dictionary:
-		return NakamaSerializer.serialize(self)
+		return SatoriSerializer.serialize(self)
 
 	func _to_string() -> String:
 		if is_exception():
@@ -74,7 +74,7 @@ class ApiAuthenticateRefreshRequest extends NakamaAsyncResult:
 		return output
 
 # 
-class ApiAuthenticateRequest extends NakamaAsyncResult:
+class ApiAuthenticateRequest extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"custom": {"name": "_custom", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
@@ -91,7 +91,6 @@ class ApiAuthenticateRequest extends NakamaAsyncResult:
 	
 	# Optional default properties to update with this call.
 	# If not set, properties are left as they are on the server.
-	# Third line.
 	var _default
 	var default : Dictionary:
 		get:
@@ -108,10 +107,10 @@ class ApiAuthenticateRequest extends NakamaAsyncResult:
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAuthenticateRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAuthenticateRequest", p_dict), ApiAuthenticateRequest) as ApiAuthenticateRequest
+		return _safe_ret(SatoriSerializer.deserialize(p_ns, "ApiAuthenticateRequest", p_dict), ApiAuthenticateRequest) as ApiAuthenticateRequest
 
 	func serialize() -> Dictionary:
-		return NakamaSerializer.serialize(self)
+		return SatoriSerializer.serialize(self)
 
 	func _to_string() -> String:
 		if is_exception():
@@ -133,7 +132,7 @@ class ApiAuthenticateRequest extends NakamaAsyncResult:
 		return output
 
 # A single event. Usually, but not necessarily, part of a batch.
-class ApiEvent extends NakamaAsyncResult:
+class ApiEvent extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"id": {"name": "_id", "type": TYPE_STRING, "required": false},
@@ -178,10 +177,10 @@ class ApiEvent extends NakamaAsyncResult:
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiEvent:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiEvent", p_dict), ApiEvent) as ApiEvent
+		return _safe_ret(SatoriSerializer.deserialize(p_ns, "ApiEvent", p_dict), ApiEvent) as ApiEvent
 
 	func serialize() -> Dictionary:
-		return NakamaSerializer.serialize(self)
+		return SatoriSerializer.serialize(self)
 
 	func _to_string() -> String:
 		if is_exception():
@@ -201,7 +200,7 @@ class ApiEvent extends NakamaAsyncResult:
 		return output
 
 # 
-class ApiEventRequest extends NakamaAsyncResult:
+class ApiEventRequest extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"events": {"name": "_events", "type": TYPE_ARRAY, "required": false, "content": TYPE_DICTIONARY},
@@ -217,10 +216,10 @@ class ApiEventRequest extends NakamaAsyncResult:
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiEventRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiEventRequest", p_dict), ApiEventRequest) as ApiEventRequest
+		return _safe_ret(SatoriSerializer.deserialize(p_ns, "ApiEventRequest", p_dict), ApiEventRequest) as ApiEventRequest
 
 	func serialize() -> Dictionary:
-		return NakamaSerializer.serialize(self)
+		return SatoriSerializer.serialize(self)
 
 	func _to_string() -> String:
 		if is_exception():
@@ -232,7 +231,7 @@ class ApiEventRequest extends NakamaAsyncResult:
 		return output
 
 # An experiment that this user is partaking.
-class ApiExperiment extends NakamaAsyncResult:
+class ApiExperiment extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"name": {"name": "_name", "type": TYPE_STRING, "required": false},
@@ -255,10 +254,10 @@ class ApiExperiment extends NakamaAsyncResult:
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiExperiment:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiExperiment", p_dict), ApiExperiment) as ApiExperiment
+		return _safe_ret(SatoriSerializer.deserialize(p_ns, "ApiExperiment", p_dict), ApiExperiment) as ApiExperiment
 
 	func serialize() -> Dictionary:
-		return NakamaSerializer.serialize(self)
+		return SatoriSerializer.serialize(self)
 
 	func _to_string() -> String:
 		if is_exception():
@@ -271,7 +270,7 @@ class ApiExperiment extends NakamaAsyncResult:
 		return output
 
 # All experiments that this identity is involved with.
-class ApiExperimentList extends NakamaAsyncResult:
+class ApiExperimentList extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"experiments": {"name": "_experiments", "type": TYPE_ARRAY, "required": false, "content": TYPE_DICTIONARY},
@@ -287,10 +286,10 @@ class ApiExperimentList extends NakamaAsyncResult:
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiExperimentList:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiExperimentList", p_dict), ApiExperimentList) as ApiExperimentList
+		return _safe_ret(SatoriSerializer.deserialize(p_ns, "ApiExperimentList", p_dict), ApiExperimentList) as ApiExperimentList
 
 	func serialize() -> Dictionary:
-		return NakamaSerializer.serialize(self)
+		return SatoriSerializer.serialize(self)
 
 	func _to_string() -> String:
 		if is_exception():
@@ -302,7 +301,7 @@ class ApiExperimentList extends NakamaAsyncResult:
 		return output
 
 # Feature flag available to the identity.
-class ApiFlag extends NakamaAsyncResult:
+class ApiFlag extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"condition_changed": {"name": "_condition_changed", "type": TYPE_BOOL, "required": false},
@@ -332,10 +331,10 @@ class ApiFlag extends NakamaAsyncResult:
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiFlag:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiFlag", p_dict), ApiFlag) as ApiFlag
+		return _safe_ret(SatoriSerializer.deserialize(p_ns, "ApiFlag", p_dict), ApiFlag) as ApiFlag
 
 	func serialize() -> Dictionary:
-		return NakamaSerializer.serialize(self)
+		return SatoriSerializer.serialize(self)
 
 	func _to_string() -> String:
 		if is_exception():
@@ -349,7 +348,7 @@ class ApiFlag extends NakamaAsyncResult:
 		return output
 
 # 
-class ApiFlagList extends NakamaAsyncResult:
+class ApiFlagList extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"flags": {"name": "_flags", "type": TYPE_ARRAY, "required": false, "content": TYPE_DICTIONARY},
@@ -365,10 +364,10 @@ class ApiFlagList extends NakamaAsyncResult:
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiFlagList:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiFlagList", p_dict), ApiFlagList) as ApiFlagList
+		return _safe_ret(SatoriSerializer.deserialize(p_ns, "ApiFlagList", p_dict), ApiFlagList) as ApiFlagList
 
 	func serialize() -> Dictionary:
-		return NakamaSerializer.serialize(self)
+		return SatoriSerializer.serialize(self)
 
 	func _to_string() -> String:
 		if is_exception():
@@ -380,7 +379,7 @@ class ApiFlagList extends NakamaAsyncResult:
 		return output
 
 # A response containing all the messages for an identity.
-class ApiGetMessageListResponse extends NakamaAsyncResult:
+class ApiGetMessageListResponse extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"cacheable_cursor": {"name": "_cacheable_cursor", "type": TYPE_STRING, "required": false},
@@ -417,10 +416,10 @@ class ApiGetMessageListResponse extends NakamaAsyncResult:
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiGetMessageListResponse:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiGetMessageListResponse", p_dict), ApiGetMessageListResponse) as ApiGetMessageListResponse
+		return _safe_ret(SatoriSerializer.deserialize(p_ns, "ApiGetMessageListResponse", p_dict), ApiGetMessageListResponse) as ApiGetMessageListResponse
 
 	func serialize() -> Dictionary:
-		return NakamaSerializer.serialize(self)
+		return SatoriSerializer.serialize(self)
 
 	func _to_string() -> String:
 		if is_exception():
@@ -435,7 +434,7 @@ class ApiGetMessageListResponse extends NakamaAsyncResult:
 		return output
 
 # Enrich/replace the current session with a new ID.
-class ApiIdentifyRequest extends NakamaAsyncResult:
+class ApiIdentifyRequest extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"custom": {"name": "_custom", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
@@ -467,10 +466,10 @@ class ApiIdentifyRequest extends NakamaAsyncResult:
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiIdentifyRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiIdentifyRequest", p_dict), ApiIdentifyRequest) as ApiIdentifyRequest
+		return _safe_ret(SatoriSerializer.deserialize(p_ns, "ApiIdentifyRequest", p_dict), ApiIdentifyRequest) as ApiIdentifyRequest
 
 	func serialize() -> Dictionary:
-		return NakamaSerializer.serialize(self)
+		return SatoriSerializer.serialize(self)
 
 	func _to_string() -> String:
 		if is_exception():
@@ -492,7 +491,7 @@ class ApiIdentifyRequest extends NakamaAsyncResult:
 		return output
 
 # A single live event.
-class ApiLiveEvent extends NakamaAsyncResult:
+class ApiLiveEvent extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"active_end_time_sec": {"name": "_active_end_time_sec", "type": TYPE_STRING, "required": false},
@@ -543,10 +542,10 @@ class ApiLiveEvent extends NakamaAsyncResult:
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiLiveEvent:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiLiveEvent", p_dict), ApiLiveEvent) as ApiLiveEvent
+		return _safe_ret(SatoriSerializer.deserialize(p_ns, "ApiLiveEvent", p_dict), ApiLiveEvent) as ApiLiveEvent
 
 	func serialize() -> Dictionary:
-		return NakamaSerializer.serialize(self)
+		return SatoriSerializer.serialize(self)
 
 	func _to_string() -> String:
 		if is_exception():
@@ -563,7 +562,7 @@ class ApiLiveEvent extends NakamaAsyncResult:
 		return output
 
 # List of Live events.
-class ApiLiveEventList extends NakamaAsyncResult:
+class ApiLiveEventList extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"live_events": {"name": "_live_events", "type": TYPE_ARRAY, "required": false, "content": TYPE_DICTIONARY},
@@ -579,10 +578,10 @@ class ApiLiveEventList extends NakamaAsyncResult:
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiLiveEventList:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiLiveEventList", p_dict), ApiLiveEventList) as ApiLiveEventList
+		return _safe_ret(SatoriSerializer.deserialize(p_ns, "ApiLiveEventList", p_dict), ApiLiveEventList) as ApiLiveEventList
 
 	func serialize() -> Dictionary:
-		return NakamaSerializer.serialize(self)
+		return SatoriSerializer.serialize(self)
 
 	func _to_string() -> String:
 		if is_exception():
@@ -594,7 +593,7 @@ class ApiLiveEventList extends NakamaAsyncResult:
 		return output
 
 # A scheduled message.
-class ApiMessage extends NakamaAsyncResult:
+class ApiMessage extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"consume_time": {"name": "_consume_time", "type": TYPE_STRING, "required": false},
@@ -659,10 +658,10 @@ class ApiMessage extends NakamaAsyncResult:
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiMessage:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiMessage", p_dict), ApiMessage) as ApiMessage
+		return _safe_ret(SatoriSerializer.deserialize(p_ns, "ApiMessage", p_dict), ApiMessage) as ApiMessage
 
 	func serialize() -> Dictionary:
-		return NakamaSerializer.serialize(self)
+		return SatoriSerializer.serialize(self)
 
 	func _to_string() -> String:
 		if is_exception():
@@ -685,7 +684,7 @@ class ApiMessage extends NakamaAsyncResult:
 		return output
 
 # Properties associated with an identity.
-class ApiProperties extends NakamaAsyncResult:
+class ApiProperties extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"computed": {"name": "_computed", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
@@ -715,10 +714,10 @@ class ApiProperties extends NakamaAsyncResult:
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiProperties:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiProperties", p_dict), ApiProperties) as ApiProperties
+		return _safe_ret(SatoriSerializer.deserialize(p_ns, "ApiProperties", p_dict), ApiProperties) as ApiProperties
 
 	func serialize() -> Dictionary:
-		return NakamaSerializer.serialize(self)
+		return SatoriSerializer.serialize(self)
 
 	func _to_string() -> String:
 		if is_exception():
@@ -744,7 +743,7 @@ class ApiProperties extends NakamaAsyncResult:
 		return output
 
 # A session.
-class ApiSession extends NakamaAsyncResult:
+class ApiSession extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"properties": {"name": "_properties", "type": "ApiProperties", "required": false},
@@ -774,10 +773,10 @@ class ApiSession extends NakamaAsyncResult:
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiSession:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiSession", p_dict), ApiSession) as ApiSession
+		return _safe_ret(SatoriSerializer.deserialize(p_ns, "ApiSession", p_dict), ApiSession) as ApiSession
 
 	func serialize() -> Dictionary:
-		return NakamaSerializer.serialize(self)
+		return SatoriSerializer.serialize(self)
 
 	func _to_string() -> String:
 		if is_exception():
@@ -791,7 +790,7 @@ class ApiSession extends NakamaAsyncResult:
 		return output
 
 # Update Properties associated with this identity.
-class ApiUpdatePropertiesRequest extends NakamaAsyncResult:
+class ApiUpdatePropertiesRequest extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"custom": {"name": "_custom", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
@@ -821,10 +820,10 @@ class ApiUpdatePropertiesRequest extends NakamaAsyncResult:
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiUpdatePropertiesRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiUpdatePropertiesRequest", p_dict), ApiUpdatePropertiesRequest) as ApiUpdatePropertiesRequest
+		return _safe_ret(SatoriSerializer.deserialize(p_ns, "ApiUpdatePropertiesRequest", p_dict), ApiUpdatePropertiesRequest) as ApiUpdatePropertiesRequest
 
 	func serialize() -> Dictionary:
-		return NakamaSerializer.serialize(self)
+		return SatoriSerializer.serialize(self)
 
 	func _to_string() -> String:
 		if is_exception():
@@ -846,7 +845,7 @@ class ApiUpdatePropertiesRequest extends NakamaAsyncResult:
 		return output
 
 # 
-class ProtobufAny extends NakamaAsyncResult:
+class ProtobufAny extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"type": {"name": "_type", "type": TYPE_STRING, "required": false},
@@ -862,10 +861,10 @@ class ProtobufAny extends NakamaAsyncResult:
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ProtobufAny:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ProtobufAny", p_dict), ProtobufAny) as ProtobufAny
+		return _safe_ret(SatoriSerializer.deserialize(p_ns, "ProtobufAny", p_dict), ProtobufAny) as ProtobufAny
 
 	func serialize() -> Dictionary:
-		return NakamaSerializer.serialize(self)
+		return SatoriSerializer.serialize(self)
 
 	func _to_string() -> String:
 		if is_exception():
@@ -877,7 +876,7 @@ class ProtobufAny extends NakamaAsyncResult:
 		return output
 
 # 
-class RpcStatus extends NakamaAsyncResult:
+class RpcStatus extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"code": {"name": "_code", "type": TYPE_INT, "required": false},
@@ -907,10 +906,10 @@ class RpcStatus extends NakamaAsyncResult:
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> RpcStatus:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "RpcStatus", p_dict), RpcStatus) as RpcStatus
+		return _safe_ret(SatoriSerializer.deserialize(p_ns, "RpcStatus", p_dict), RpcStatus) as RpcStatus
 
 	func serialize() -> Dictionary:
-		return NakamaSerializer.serialize(self)
+		return SatoriSerializer.serialize(self)
 
 	func _to_string() -> String:
 		if is_exception():
@@ -963,14 +962,27 @@ class ApiClient extends RefCounted:
 		_namespace = p_namespace
 		_server_key = p_server_key
 
+		
+	func _refresh_session(p_session : SatoriSession):
+		if auto_refresh and p_session.is_valid() and p_session.refresh_token and not p_session.is_refresh_expired() and p_session.would_expire_in(auto_refresh_time):
+			var request = ApiAuthenticateRefreshRequest.new()
+			request._token = p_session.refresh_token
+			return await authenticate_refresh_async(_server_key, "", request)
+		return null
+
 	func cancel_request(p_token):
 		if p_token:
 			_http_adapter.cancel_request(p_token)
 
 	# A healthcheck which load balancers can use to check the service.
 	func healthcheck_async(
-		p_session : NakamaSession
-	) -> NakamaAsyncResult:
+		p_session : SatoriSession
+	) -> SatoriAsyncResult:
+		var try_refresh = await _refresh_session(p_session)
+		if try_refresh != null:
+			if try_refresh.is_exception():
+				return SatoriAsyncResult.new(try_refresh.get_exception())
+			await p_session.refresh(try_refresh)
 		var urlpath : String = "/healthcheck"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -982,14 +994,19 @@ class ApiClient extends RefCounted:
 		var content : PackedByteArray = PackedByteArray()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
-		if result is NakamaException:
-			return NakamaAsyncResult.new(result)
-		return NakamaAsyncResult.new()
+		if result is SatoriException:
+			return SatoriAsyncResult.new(result)
+		return SatoriAsyncResult.new()
 
 	# A readycheck which load balancers can use to check the service.
 	func readycheck_async(
-		p_session : NakamaSession
-	) -> NakamaAsyncResult:
+		p_session : SatoriSession
+	) -> SatoriAsyncResult:
+		var try_refresh = await _refresh_session(p_session)
+		if try_refresh != null:
+			if try_refresh.is_exception():
+				return SatoriAsyncResult.new(try_refresh.get_exception())
+			await p_session.refresh(try_refresh)
 		var urlpath : String = "/readycheck"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -1001,9 +1018,9 @@ class ApiClient extends RefCounted:
 		var content : PackedByteArray = PackedByteArray()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
-		if result is NakamaException:
-			return NakamaAsyncResult.new(result)
-		return NakamaAsyncResult.new()
+		if result is SatoriException:
+			return SatoriAsyncResult.new(result)
+		return SatoriAsyncResult.new()
 
 	# Authenticate against the server.
 	func authenticate_async(
@@ -1024,16 +1041,21 @@ class ApiClient extends RefCounted:
 		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
-		if result is NakamaException:
+		if result is SatoriException:
 			return ApiSession.new(result)
-		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
+		var out : ApiSession = SatoriSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
 	# Log out a session, invalidate a refresh token, or log out all sessions/refresh tokens for a user.
 	func authenticate_logout_async(
-		p_session : NakamaSession
+		p_session : SatoriSession
 		, p_body : ApiAuthenticateLogoutRequest
-	) -> NakamaAsyncResult:
+	) -> SatoriAsyncResult:
+		var try_refresh = await _refresh_session(p_session)
+		if try_refresh != null:
+			if try_refresh.is_exception():
+				return SatoriAsyncResult.new(try_refresh.get_exception())
+			await p_session.refresh(try_refresh)
 		var urlpath : String = "/v1/authenticate/logout"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -1046,9 +1068,9 @@ class ApiClient extends RefCounted:
 		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
-		if result is NakamaException:
-			return NakamaAsyncResult.new(result)
-		return NakamaAsyncResult.new()
+		if result is SatoriException:
+			return SatoriAsyncResult.new(result)
+		return SatoriAsyncResult.new()
 
 	# Refresh a user's session using a refresh token retrieved from a previous authentication request.
 	func authenticate_refresh_async(
@@ -1069,16 +1091,21 @@ class ApiClient extends RefCounted:
 		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
-		if result is NakamaException:
+		if result is SatoriException:
 			return ApiSession.new(result)
-		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
+		var out : ApiSession = SatoriSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
 	# Publish an event for this session.
 	func event_async(
-		p_session : NakamaSession
+		p_session : SatoriSession
 		, p_body : ApiEventRequest
-	) -> NakamaAsyncResult:
+	) -> SatoriAsyncResult:
+		var try_refresh = await _refresh_session(p_session)
+		if try_refresh != null:
+			if try_refresh.is_exception():
+				return SatoriAsyncResult.new(try_refresh.get_exception())
+			await p_session.refresh(try_refresh)
 		var urlpath : String = "/v1/event"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -1091,15 +1118,20 @@ class ApiClient extends RefCounted:
 		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
-		if result is NakamaException:
-			return NakamaAsyncResult.new(result)
-		return NakamaAsyncResult.new()
+		if result is SatoriException:
+			return SatoriAsyncResult.new(result)
+		return SatoriAsyncResult.new()
 
 	# Get or list all available experiments for this identity.
 	func get_experiments_async(
-		p_session : NakamaSession
+		p_session : SatoriSession
 		, p_names = null # : array
 	) -> ApiExperimentList:
+		var try_refresh = await _refresh_session(p_session)
+		if try_refresh != null:
+			if try_refresh.is_exception():
+				return ApiExperimentList.new(try_refresh.get_exception())
+			await p_session.refresh(try_refresh)
 		var urlpath : String = "/v1/experiment"
 		var query_params = ""
 		if p_names != null:
@@ -1114,9 +1146,9 @@ class ApiClient extends RefCounted:
 		var content : PackedByteArray = PackedByteArray()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
-		if result is NakamaException:
+		if result is SatoriException:
 			return ApiExperimentList.new(result)
-		var out : ApiExperimentList = NakamaSerializer.deserialize(_namespace, "ApiExperimentList", result)
+		var out : ApiExperimentList = SatoriSerializer.deserialize(_namespace, "ApiExperimentList", result)
 		return out
 
 	# List all available flags for this identity.
@@ -1139,16 +1171,21 @@ class ApiClient extends RefCounted:
 		var content : PackedByteArray = PackedByteArray()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
-		if result is NakamaException:
+		if result is SatoriException:
 			return ApiFlagList.new(result)
-		var out : ApiFlagList = NakamaSerializer.deserialize(_namespace, "ApiFlagList", result)
+		var out : ApiFlagList = SatoriSerializer.deserialize(_namespace, "ApiFlagList", result)
 		return out
 
 	# Enrich/replace the current session with new identifier.
 	func identify_async(
-		p_session : NakamaSession
+		p_session : SatoriSession
 		, p_body : ApiIdentifyRequest
 	) -> ApiSession:
+		var try_refresh = await _refresh_session(p_session)
+		if try_refresh != null:
+			if try_refresh.is_exception():
+				return ApiSession.new(try_refresh.get_exception())
+			await p_session.refresh(try_refresh)
 		var urlpath : String = "/v1/identify"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -1161,15 +1198,20 @@ class ApiClient extends RefCounted:
 		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
-		if result is NakamaException:
+		if result is SatoriException:
 			return ApiSession.new(result)
-		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
+		var out : ApiSession = SatoriSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
 	# Delete the caller's identity and associated data.
 	func delete_identity_async(
-		p_session : NakamaSession
-	) -> NakamaAsyncResult:
+		p_session : SatoriSession
+	) -> SatoriAsyncResult:
+		var try_refresh = await _refresh_session(p_session)
+		if try_refresh != null:
+			if try_refresh.is_exception():
+				return SatoriAsyncResult.new(try_refresh.get_exception())
+			await p_session.refresh(try_refresh)
 		var urlpath : String = "/v1/identity"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -1181,15 +1223,20 @@ class ApiClient extends RefCounted:
 		var content : PackedByteArray = PackedByteArray()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
-		if result is NakamaException:
-			return NakamaAsyncResult.new(result)
-		return NakamaAsyncResult.new()
+		if result is SatoriException:
+			return SatoriAsyncResult.new(result)
+		return SatoriAsyncResult.new()
 
 	# List available live events.
 	func get_live_events_async(
-		p_session : NakamaSession
+		p_session : SatoriSession
 		, p_names = null # : array
 	) -> ApiLiveEventList:
+		var try_refresh = await _refresh_session(p_session)
+		if try_refresh != null:
+			if try_refresh.is_exception():
+				return ApiLiveEventList.new(try_refresh.get_exception())
+			await p_session.refresh(try_refresh)
 		var urlpath : String = "/v1/live-event"
 		var query_params = ""
 		if p_names != null:
@@ -1204,18 +1251,23 @@ class ApiClient extends RefCounted:
 		var content : PackedByteArray = PackedByteArray()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
-		if result is NakamaException:
+		if result is SatoriException:
 			return ApiLiveEventList.new(result)
-		var out : ApiLiveEventList = NakamaSerializer.deserialize(_namespace, "ApiLiveEventList", result)
+		var out : ApiLiveEventList = SatoriSerializer.deserialize(_namespace, "ApiLiveEventList", result)
 		return out
 
 	# Get the list of messages for the identity.
 	func get_message_list_async(
-		p_session : NakamaSession
+		p_session : SatoriSession
 		, p_limit = null # : integer
 		, p_forward = null # : boolean
 		, p_cursor = null # : string
 	) -> ApiGetMessageListResponse:
+		var try_refresh = await _refresh_session(p_session)
+		if try_refresh != null:
+			if try_refresh.is_exception():
+				return ApiGetMessageListResponse.new(try_refresh.get_exception())
+			await p_session.refresh(try_refresh)
 		var urlpath : String = "/v1/message"
 		var query_params = ""
 		if p_limit != null:
@@ -1223,7 +1275,7 @@ class ApiClient extends RefCounted:
 		if p_forward != null:
 			query_params += "forward=%s&" % str(bool(p_forward)).to_lower()
 		if p_cursor != null:
-			query_params += "cursor=%s&" % NakamaSerializer.escape_http(p_cursor)
+			query_params += "cursor=%s&" % SatoriSerializer.escape_http(p_cursor)
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "GET"
 		var headers = {}
@@ -1233,18 +1285,23 @@ class ApiClient extends RefCounted:
 		var content : PackedByteArray = PackedByteArray()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
-		if result is NakamaException:
+		if result is SatoriException:
 			return ApiGetMessageListResponse.new(result)
-		var out : ApiGetMessageListResponse = NakamaSerializer.deserialize(_namespace, "ApiGetMessageListResponse", result)
+		var out : ApiGetMessageListResponse = SatoriSerializer.deserialize(_namespace, "ApiGetMessageListResponse", result)
 		return out
 
 	# Deletes a message for an identity.
 	func delete_message_async(
-		p_session : NakamaSession
+		p_session : SatoriSession
 		, p_id : String
-	) -> NakamaAsyncResult:
+	) -> SatoriAsyncResult:
+		var try_refresh = await _refresh_session(p_session)
+		if try_refresh != null:
+			if try_refresh.is_exception():
+				return SatoriAsyncResult.new(try_refresh.get_exception())
+			await p_session.refresh(try_refresh)
 		var urlpath : String = "/v1/message/{id}"
-		urlpath = urlpath.replace("{id}", NakamaSerializer.escape_http(p_id))
+		urlpath = urlpath.replace("{id}", SatoriSerializer.escape_http(p_id))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "DELETE"
@@ -1255,18 +1312,23 @@ class ApiClient extends RefCounted:
 		var content : PackedByteArray = PackedByteArray()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
-		if result is NakamaException:
-			return NakamaAsyncResult.new(result)
-		return NakamaAsyncResult.new()
+		if result is SatoriException:
+			return SatoriAsyncResult.new(result)
+		return SatoriAsyncResult.new()
 
 	# Updates a message for an identity.
 	func update_message_async(
-		p_session : NakamaSession
+		p_session : SatoriSession
 		, p_id : String
 		, p_body : 
-	) -> NakamaAsyncResult:
+	) -> SatoriAsyncResult:
+		var try_refresh = await _refresh_session(p_session)
+		if try_refresh != null:
+			if try_refresh.is_exception():
+				return SatoriAsyncResult.new(try_refresh.get_exception())
+			await p_session.refresh(try_refresh)
 		var urlpath : String = "/v1/message/{id}"
-		urlpath = urlpath.replace("{id}", NakamaSerializer.escape_http(p_id))
+		urlpath = urlpath.replace("{id}", SatoriSerializer.escape_http(p_id))
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "PUT"
@@ -1278,14 +1340,19 @@ class ApiClient extends RefCounted:
 		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
-		if result is NakamaException:
-			return NakamaAsyncResult.new(result)
-		return NakamaAsyncResult.new()
+		if result is SatoriException:
+			return SatoriAsyncResult.new(result)
+		return SatoriAsyncResult.new()
 
 	# List properties associated with this identity.
 	func list_properties_async(
-		p_session : NakamaSession
+		p_session : SatoriSession
 	) -> ApiProperties:
+		var try_refresh = await _refresh_session(p_session)
+		if try_refresh != null:
+			if try_refresh.is_exception():
+				return ApiProperties.new(try_refresh.get_exception())
+			await p_session.refresh(try_refresh)
 		var urlpath : String = "/v1/properties"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -1297,16 +1364,21 @@ class ApiClient extends RefCounted:
 		var content : PackedByteArray = PackedByteArray()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
-		if result is NakamaException:
+		if result is SatoriException:
 			return ApiProperties.new(result)
-		var out : ApiProperties = NakamaSerializer.deserialize(_namespace, "ApiProperties", result)
+		var out : ApiProperties = SatoriSerializer.deserialize(_namespace, "ApiProperties", result)
 		return out
 
 	# Update identity properties.
 	func update_properties_async(
-		p_session : NakamaSession
+		p_session : SatoriSession
 		, p_body : ApiUpdatePropertiesRequest
-	) -> NakamaAsyncResult:
+	) -> SatoriAsyncResult:
+		var try_refresh = await _refresh_session(p_session)
+		if try_refresh != null:
+			if try_refresh.is_exception():
+				return SatoriAsyncResult.new(try_refresh.get_exception())
+			await p_session.refresh(try_refresh)
 		var urlpath : String = "/v1/properties"
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
@@ -1319,6 +1391,6 @@ class ApiClient extends RefCounted:
 		content = JSON.stringify(p_body.serialize()).to_utf8_buffer()
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
-		if result is NakamaException:
-			return NakamaAsyncResult.new(result)
-		return NakamaAsyncResult.new()
+		if result is SatoriException:
+			return SatoriAsyncResult.new(result)
+		return SatoriAsyncResult.new()
