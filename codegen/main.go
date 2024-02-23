@@ -175,6 +175,22 @@ class ApiClient extends RefCounted:
 		_namespace = p_namespace
 		_server_key = p_server_key
 
+		{{ range $url, $path := .Paths }}
+		{{- range $method, $operation := $path}}
+			{{- if hasSuffix $operation.OperationId "Refresh" }}
+	func _refresh_session(p_session : {{.ClassName}}Session):
+		if auto_refresh and p_session.is_valid() and p_session.refresh_token and not p_session.is_refresh_expired() and p_session.would_expire_in(auto_refresh_time):
+		{{- $operationId := $operation.OperationId }}
+		{{- range $parameter := $operation.Parameters }}
+			var request = {{ $parameter.Schema.Ref | cleanRef }}.new()
+			request._token = p_session.refresh_token
+			return await {{ $operationId | apiFuncName }}_async(_server_key, "", request)
+		{{- end }}
+		return null
+			{{- end }}
+		{{- end }}
+	{{- end }}
+
 	func cancel_request(p_token):
 		if p_token:
 			_http_adapter.cancel_request(p_token)
@@ -201,7 +217,7 @@ class ApiClient extends RefCounted:
             {{- end }}
         {{- end }}
         {{- else }}
-		p_session : NakamaSession
+		p_session : {{.ClassName}}Session
         {{- end }}
 
         {{- range $parameter := $operation.Parameters }}
@@ -225,6 +241,13 @@ class ApiClient extends RefCounted:
         {{- $classname := "NakamaAsyncResult" }}
         {{- if $operation.Responses.Ok.Schema.Ref }}
           {{- $classname = $operation.Responses.Ok.Schema.Ref | cleanRef }}
+        {{- end }}
+        {{- if not $operation.Security }}
+		var try_refresh = await _refresh_session(p_session)
+		if try_refresh != null:
+			if try_refresh.is_exception():
+				return {{ $classname }}.new(try_refresh.get_exception())
+			await p_session.refresh(try_refresh)
         {{- end }}
 		var urlpath : String = "{{- $url }}"
             {{- range $parameter := $operation.Parameters }}
@@ -592,6 +615,7 @@ func main() {
 
 	fmap := template.FuncMap{
 		"commentLines":     commentLines,
+		"hasSuffix":        strings.HasSuffix,
 		"cleanRef":         convertRefToClassName,
 		"stripNewlines":    stripNewlines,
 		"title":            strings.Title,
