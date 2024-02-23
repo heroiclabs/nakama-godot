@@ -58,7 +58,7 @@ enum {{ $classname | title }} { {{- range $idx, $enum := $definition.Enum }}{{ $
 {{- else }}
 
 # {{ $definition.Description | stripNewlines }}
-class {{ $classname }} extends NakamaAsyncResult:
+class {{ $classname }} extends {{.ClassName}}AsyncResult:
 
 	const _SCHEMA = {
 		{{- range $propname, $property := $definition.Properties }}
@@ -105,10 +105,10 @@ class {{ $classname }} extends NakamaAsyncResult:
 		super(p_exception)
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> {{ $classname }}:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "{{ $classname }}", p_dict), {{ $classname }}) as {{ $classname }}
+		return _safe_ret({{.ClassName}}Serializer.deserialize(p_ns, "{{ $classname }}", p_dict), {{ $classname }}) as {{ $classname }}
 
 	func serialize() -> Dictionary:
-		return NakamaSerializer.serialize(self)
+		return {{.ClassName}}Serializer.serialize(self)
 
 	func _to_string() -> String:
 		if is_exception():
@@ -236,9 +236,9 @@ class ApiClient extends RefCounted:
 	{{- end }}
 	)
 	{{- if $operation.Responses.Ok.Schema.Ref }} -> {{ $operation.Responses.Ok.Schema.Ref | cleanRef }}
-	{{- else }} -> NakamaAsyncResult
+	{{- else }} -> {{.ClassName}}AsyncResult
 	{{- end }}:
-        {{- $classname := "NakamaAsyncResult" }}
+        {{- $classname := "{{.ClassName}}AsyncResult" }}
         {{- if $operation.Responses.Ok.Schema.Ref }}
           {{- $classname = $operation.Responses.Ok.Schema.Ref | cleanRef }}
         {{- end }}
@@ -253,7 +253,7 @@ class ApiClient extends RefCounted:
             {{- range $parameter := $operation.Parameters }}
             {{- $argument := $parameter.Name | prependParameter }}
             {{- if eq $parameter.In "path" }}
-		urlpath = urlpath.replace("{{- print "{" $parameter.Name "}"}}", NakamaSerializer.escape_http({{ $argument }}))
+		urlpath = urlpath.replace("{{- print "{" $parameter.Name "}"}}", {{.ClassName}}Serializer.escape_http({{ $argument }}))
             {{- end }}
             {{- end }}
 		var query_params = ""
@@ -269,7 +269,7 @@ class ApiClient extends RefCounted:
                 {{- if eq $parameter.Type "integer" }}
 			query_params += "{{- $snakecase }}=%d&" % {{ $argument }}
                 {{- else if eq $parameter.Type "string" }}
-			query_params += "{{- $snakecase }}=%s&" % NakamaSerializer.escape_http({{ $argument }})
+			query_params += "{{- $snakecase }}=%s&" % {{.ClassName}}Serializer.escape_http({{ $argument }})
                 {{- else if eq $parameter.Type "boolean" }}
 			query_params += "{{- $snakecase }}=%s&" % str(bool({{ $argument }})).to_lower()
                 {{- else if eq $parameter.Type "array" }}
@@ -315,14 +315,14 @@ class ApiClient extends RefCounted:
             {{- end }}
 
 		var result = await _http_adapter.send_async(method, uri, headers, content)
-		if result is NakamaException:
+		if result is {{.ClassName}}Exception:
 			return {{ $classname }}.new(result)
 
             {{- if $operation.Responses.Ok.Schema.Ref }}
-		var out : {{ $classname }} = NakamaSerializer.deserialize(_namespace, "{{ $classname }}", result)
+		var out : {{ $classname }} = {{.ClassName}}Serializer.deserialize(_namespace, "{{ $classname }}", result)
 		return out
             {{- else }}
-		return NakamaAsyncResult.new()
+		return {{.ClassName}}AsyncResult.new()
             {{- end}}
 {{- end }}
 {{- end }}
