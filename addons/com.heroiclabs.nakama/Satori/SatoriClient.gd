@@ -62,3 +62,37 @@ func _init(p_adapter : SatoriHTTPAdapter,
 	_api_client = SatoriAPI.ApiClient.new(_scheme + "://" + _host + ":" + str(_port), p_adapter, SatoriAPI, api_key, p_timeout)
 
 #endregion
+
+#region Client APIs
+
+## Authenticate against the server.
+## [id]: An optional user id.
+## [default_properties]: Optional default properties to update with this call.
+## If not set, properties are left as they are on the server.
+## [custom_roperties]: Optional custom properties to update with this call.
+## If not set, properties are left as they are on the server.
+func authenticate_async(id: String, default_properties: Dictionary = {}, custom_properties: Dictionary = {}) -> SatoriSession:
+	return _parse_session(await _api_client.authenticate_async(api_key, "",
+		SatoriAPI.ApiAuthenticateRequest.create(SatoriAPI, {
+			"id": id,
+			"default": default_properties,
+			"custom": custom_properties
+		})))
+
+## Log out a session, invalidate a refresh token, or log out all sessions/refresh tokens for a user.
+## [p_session]: The session of the user.
+func authenticate_logout_async(p_session: SatoriSession) -> SatoriAsyncResult:
+	return await _api_client.authenticate_logout_async(p_session,
+		SatoriAPI.ApiAuthenticateLogoutRequest.create(SatoriAPI, {
+			"refresh_token": p_session.refresh_token,
+			"token": p_session.token
+		}))
+
+# Parses the Satori API session and returns a SatoriSession object.
+func _parse_session(p_session: SatoriAPI.ApiSession) -> SatoriSession:
+	if p_session.is_exception():
+		return SatoriSession.new(null, null, p_session.get_exception())
+	
+	return SatoriSession.new(p_session.token, p_session.refresh_token)
+
+#endregion
