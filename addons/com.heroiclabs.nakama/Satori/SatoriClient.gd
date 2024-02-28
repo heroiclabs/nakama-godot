@@ -164,4 +164,10 @@ func get_flag_async(p_session: SatoriSession, p_name: String, p_default: String 
 func get_flags_async(p_session: SatoriSession, p_names: Array) -> SatoriAPI.ApiFlagList:
 	return await _api_client.get_flags_async(p_session.token, p_names)
 
+## List available live events.
+## [p_session]: The session of the user.
+## [p_names]: Live event names, if null or empty all live events are returned.
+func get_live_events_async(p_session: SatoriSession, p_names: Array = []) -> SatoriAPI.ApiLiveEventList:
+	return await _api_client.get_live_events_async(p_session, p_names)
+
 #endregion
