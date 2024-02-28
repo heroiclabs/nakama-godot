@@ -136,4 +136,32 @@ func get_all_experiments_async(p_session: SatoriSession) -> SatoriAsyncResult:
 func get_experiments_async(p_session: SatoriSession, p_names: Array) -> SatoriAPI.ApiExperimentList:
 	return await _api_client.get_experiments_async(p_session, p_names)
 
+## Get a single flag for this identity.
+## This method will return the default value
+## specified and will not raise an exception if the network is unavailable
+## [p_session]: The session of the user.
+## [p_name]: The name of the flag.
+## [p_default]: The default value if the server is unreachable.
+func get_flag_async(p_session: SatoriSession, p_name: String, p_default: String = "") -> SatoriAPI.ApiFlag:
+	var p_names = [p_name]
+	var flags = await get_flags_async(p_session, p_names)
+
+	if flags.is_exception():
+		return SatoriAPI.ApiFlag.create(SatoriAPI, {
+			"name": p_name,
+			"value": p_default
+		})
+	
+	for flag in flags.flags:
+		if flag.name == p_name:
+			return flag
+	
+	return null
+
+## List all available flags for this identity.
+## [p_session]: The session of the user.
+## [p_names]: Flag names, if empty all flags will be returned.
+func get_flags_async(p_session: SatoriSession, p_names: Array) -> SatoriAPI.ApiFlagList:
+	return await _api_client.get_flags_async(p_session.token, p_names)
+
 #endregion
