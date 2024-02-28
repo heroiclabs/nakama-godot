@@ -21,10 +21,11 @@ static func serialize(p_obj : Object) -> Dictionary:
 				out[k] = serialize(val)
 			TYPE_ARRAY: # Array of objects
 				var arr = []
-				for e in val:
-					if typeof(e) != TYPE_OBJECT:
-						continue
-					arr.append(serialize(e))
+				if val.size() > 0 and typeof(val[0]) == TYPE_OBJECT: # Array of objects
+					for e in val:
+						arr.append(serialize(e))
+				else:
+					arr = val
 				out[k] = arr
 			TYPE_PACKED_INT32_ARRAY, TYPE_PACKED_STRING_ARRAY: # Array of ints, bools, or strings
 				var arr = []
@@ -114,7 +115,9 @@ static func deserialize(p_ns : GDScript, p_cls_name : String, p_dict : Dictionar
 					TYPE_STRING: v = PackedStringArray()
 					_: v = Array()
 				for e in val:
-					if typeof(content) == TYPE_STRING:
+					if typeof(e) == TYPE_DICTIONARY: 
+						v.append(e) # Avoid deserialization if e is already a dictionary
+					elif typeof(content) == TYPE_STRING:
 						v.append(deserialize(p_ns, content, e))
 					elif content == TYPE_FLOAT:
 						v.append(float(e))
