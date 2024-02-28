@@ -98,9 +98,9 @@ func _parse_session(p_session: SatoriAPI.ApiSession) -> SatoriSession:
 ## Refresh a user's session using a refresh token retrieved from a previous authentication request.
 ## [p_sesison]: The session of the user.
 func session_refresh_async(p_session : SatoriSession) -> SatoriSession:
-	return _parse_session(await _api_client.session_refresh_async(p_session, "",
+	return _parse_session(await _api_client.authenticate_refresh_async(api_key, "",
 		SatoriAPI.ApiAuthenticateRefreshRequest.create(SatoriAPI, {
-			"token": p_session.refresh_token,
+			"refresh_token": p_session.refresh_token,
 		})
 	))
 
