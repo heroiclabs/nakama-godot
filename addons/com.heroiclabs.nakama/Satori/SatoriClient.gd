@@ -104,7 +104,6 @@ func session_refresh_async(p_session : SatoriSession) -> SatoriSession:
 		})
 	))
 
-
 ## Send an event for this session.
 ## [p_session]: The session of the user.
 ## [p_event]: The event which will be sent.
@@ -125,5 +124,16 @@ func events_async(p_session: SatoriSession, p_events: Array) -> SatoriAsyncResul
 	var req = SatoriAPI.ApiEventRequest.create(SatoriAPI, p_dict)
 	return await _api_client.event_async(p_session,
 		req)
+
+## Get all experiments data.
+## [p_session]: The session of the user.
+func get_all_experiments_async(p_session: SatoriSession) -> SatoriAsyncResult:
+	return await _api_client.get_experiments_async(p_session)
+
+## Get specific experiments data.
+## [p_session]: The session of the user.
+## [p_names]: Experiment names.
+func get_experiments_async(p_session: SatoriSession, p_names: Array) -> SatoriAPI.ApiExperimentList:
+	return await _api_client.get_experiments_async(p_session, p_names)
 
 #endregion
