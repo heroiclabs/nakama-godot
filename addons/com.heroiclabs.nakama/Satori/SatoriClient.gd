@@ -110,7 +110,7 @@ func session_refresh_async(p_session : SatoriSession) -> SatoriSession:
 ## [p_event]: The event which will be sent.
 func event_async(p_session: SatoriSession, p_event: Event) -> SatoriAsyncResult:
 	return await events_async(p_session, [
-		p_event.to_api_event_dict()
+		p_event
 	])
 
 ## Send a batch of events for this session.
