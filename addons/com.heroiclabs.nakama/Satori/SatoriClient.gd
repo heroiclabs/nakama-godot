@@ -104,4 +104,26 @@ func session_refresh_async(p_session : SatoriSession) -> SatoriSession:
 		})
 	))
 
+
+## Send an event for this session.
+## [p_session]: The session of the user.
+## [p_event]: The event which will be sent.
+func event_async(p_session: SatoriSession, p_event: Event) -> SatoriAsyncResult:
+	return await events_async(p_session, [
+		p_event.to_api_event_dict()
+	])
+
+## Send a batch of events for this session.
+## [p_session]: The session of the user.
+## [p_events]: The batch of events which will be sent.
+func events_async(p_session: SatoriSession, p_events: Array) -> SatoriAsyncResult:
+	var p_dict = {
+		"events": p_events.map(func(e):
+			return e.to_api_event_dict())
+	}
+	
+	var req = SatoriAPI.ApiEventRequest.create(SatoriAPI, p_dict)
+	return await _api_client.event_async(p_session,
+		req)
+
 #endregion
