@@ -46,7 +46,7 @@ class Channel extends NakamaAsyncResult:
 		]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> Channel:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "Channel", p_dict), Channel) as Channel
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "Channel", p_dict), Channel)
 
 	static func get_result_key() -> String:
 		return "channel"
@@ -111,7 +111,7 @@ class ChannelMessageAck extends NakamaAsyncResult:
 		]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ChannelMessageAck:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ChannelMessageAck", p_dict), ChannelMessageAck) as ChannelMessageAck
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ChannelMessageAck", p_dict), ChannelMessageAck)
 
 	static func get_result_key() -> String:
 		return "channel_message_ack"
@@ -161,7 +161,7 @@ class ChannelPresenceEvent extends NakamaAsyncResult:
 		]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ChannelPresenceEvent:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ChannelPresenceEvent", p_dict), ChannelPresenceEvent) as ChannelPresenceEvent
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ChannelPresenceEvent", p_dict), ChannelPresenceEvent)
 
 	static func get_result_key() -> String:
 		return "channel_presence_event"
@@ -213,7 +213,7 @@ class Error extends NakamaAsyncResult:
 		return "Error<code=%s, messages=%s, context=%s>" % [code, message, context]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> Error:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "Error", p_dict), Error) as Error
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "Error", p_dict), Error)
 
 	static func get_result_key() -> String:
 		return "error"
@@ -252,8 +252,8 @@ class Match extends NakamaAsyncResult:
 	func _init(p_ex = null).(p_ex):
 		pass
 
-	static func create(p_ns : GDScript, p_dict : Dictionary):
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "Match", p_dict), Match) as Match
+	static func create(p_ns : GDScript, p_dict : Dictionary) -> Match:
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "Match", p_dict), Match)
 
 	func _to_string():
 		if is_exception(): return get_exception()._to_string()
@@ -299,7 +299,7 @@ class MatchData extends NakamaAsyncResult:
 		return "MatchData<match_id=%s, op_code=%s, presence=%s, data=%s>" % [match_id, op_code, presence, data]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> MatchData:
-		var out := _safe_ret(NakamaSerializer.deserialize(p_ns, "MatchData", p_dict), MatchData) as MatchData
+		var out = _safe_ret(NakamaSerializer.deserialize(p_ns, "MatchData", p_dict), MatchData)
 		# Store the base64 data, ready to be decoded when the developer requests it.
 		if out.data:
 			out.base64_data = out.data
@@ -345,7 +345,7 @@ class MatchPresenceEvent extends NakamaAsyncResult:
 		return "MatchPresenceEvent<match_id=%s, joins=%s, leaves=%s>" % [match_id, joins, leaves]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> MatchPresenceEvent:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "MatchPresenceEvent", p_dict), MatchPresenceEvent) as MatchPresenceEvent
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "MatchPresenceEvent", p_dict), MatchPresenceEvent)
 
 	static func get_result_key() -> String:
 		return "match_presence_event"
@@ -388,7 +388,7 @@ class MatchmakerMatched extends NakamaAsyncResult:
 		]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> MatchmakerMatched:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "MatchmakerMatched", p_dict), MatchmakerMatched) as MatchmakerMatched
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "MatchmakerMatched", p_dict), MatchmakerMatched)
 
 	static func get_result_key() -> String:
 		return "matchmaker_matched"
@@ -408,7 +408,7 @@ class MatchmakerTicket extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> MatchmakerTicket:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "MatchmakerTicket", p_dict), MatchmakerTicket) as MatchmakerTicket
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "MatchmakerTicket", p_dict), MatchmakerTicket)
 
 	func _to_string():
 		if is_exception(): return get_exception()._to_string()
@@ -449,7 +449,7 @@ class MatchmakerUser extends NakamaAsyncResult:
 			presence, numeric_properties, string_properties]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> MatchmakerUser:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "MatchmakerUser", p_dict), MatchmakerUser) as MatchmakerUser
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "MatchmakerUser", p_dict), MatchmakerUser)
 
 	static func get_result_key() -> String:
 		return "matchmaker_user"
@@ -469,7 +469,7 @@ class Status extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> Status:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "Status", p_dict), Status) as Status
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "Status", p_dict), Status)
 
 	func _to_string():
 		if is_exception(): return get_exception()._to_string()
@@ -502,7 +502,7 @@ class StatusPresenceEvent extends NakamaAsyncResult:
 		return "StatusPresenceEvent<joins=%s, leaves=%s>" % [joins, leaves]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> StatusPresenceEvent:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "StatusPresenceEvent", p_dict), StatusPresenceEvent) as StatusPresenceEvent
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "StatusPresenceEvent", p_dict), StatusPresenceEvent)
 
 	static func get_result_key() -> String:
 		return "status_presence_event"
@@ -538,7 +538,7 @@ class Stream extends NakamaAsyncResult:
 		return "Stream<mode=%s, subject=%s, subcontext=%s, label=%s>" % [mode, subject, subcontext, label]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> Stream:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "Stream", p_dict), Stream) as Stream
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "Stream", p_dict), Stream)
 
 	static func get_result_key() -> String:
 		return "stream"
@@ -568,7 +568,7 @@ class StreamPresenceEvent extends NakamaAsyncResult:
 		return "StreamPresenceEvent<stream=%s, joins=%s, leaves=%s>" % [stream, joins, leaves]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> StreamPresenceEvent:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "StreamPresenceEvent", p_dict), StreamPresenceEvent) as StreamPresenceEvent
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "StreamPresenceEvent", p_dict), StreamPresenceEvent)
 
 	static func get_result_key() -> String:
 		return "stream_presence_event"
@@ -601,7 +601,7 @@ class StreamData extends NakamaAsyncResult:
 		return "StreamData<sender=%s, state=%s, stream=%s>" % [sender, state, stream]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> StreamData:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "StreamData", p_dict), StreamData) as StreamData
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "StreamData", p_dict), StreamData)
 
 	static func get_result_key() -> String:
 		return "stream_data"
@@ -647,7 +647,7 @@ class UserPresence extends NakamaAsyncResult:
 			persistence, session_id, status, username, user_id]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> UserPresence:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "UserPresence", p_dict), UserPresence) as UserPresence
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "UserPresence", p_dict), UserPresence)
 
 	static func get_result_key() -> String:
 		return "user_presence"
@@ -694,7 +694,7 @@ class Party extends NakamaAsyncResult:
 			party_id, open, max_size, self_presence, leader, presences]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> Party:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "Party", p_dict), Party) as Party
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "Party", p_dict), Party)
 
 	static func get_result_key() -> String:
 		return "party"
@@ -725,7 +725,7 @@ class PartyPresenceEvent extends NakamaAsyncResult:
 		return "PartyPresenceEvent<party_id=%s, joins=%s, leaves=%s>" % [party_id, joins, leaves]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> PartyPresenceEvent:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyPresenceEvent", p_dict), PartyPresenceEvent) as PartyPresenceEvent
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyPresenceEvent", p_dict), PartyPresenceEvent)
 
 	static func get_result_key() -> String:
 		return "party_presence_event"
@@ -753,7 +753,7 @@ class PartyLeader extends NakamaAsyncResult:
 		return "PartyLeader<party_id=%s, presence=%s>" % [party_id, presence]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> PartyLeader:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyLeader", p_dict), PartyLeader) as PartyLeader
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyLeader", p_dict), PartyLeader)
 
 	static func get_result_key() -> String:
 		return "party_leader"
@@ -781,7 +781,7 @@ class PartyJoinRequest extends NakamaAsyncResult:
 		return "PartyJoinRequest<party_id=%s, presences=%s>" % [party_id, presences]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> PartyJoinRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyJoinRequest", p_dict), PartyJoinRequest) as PartyJoinRequest
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyJoinRequest", p_dict), PartyJoinRequest)
 
 	static func get_result_key() -> String:
 		return "party_join_request"
@@ -809,7 +809,7 @@ class PartyMatchmakerTicket extends NakamaAsyncResult:
 		return "PartyMatchmakerTicket<party_id=%s, ticket=%s>" % [party_id, ticket]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> PartyMatchmakerTicket:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyMatchmakerTicket", p_dict), PartyMatchmakerTicket) as PartyMatchmakerTicket
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyMatchmakerTicket", p_dict), PartyMatchmakerTicket)
 
 	static func get_result_key() -> String:
 		return "party_matchmaker_ticket"
@@ -847,7 +847,7 @@ class PartyData extends NakamaAsyncResult:
 		return "PartyData<party_id=%s, presence=%s, op_code=%d, data%s>" % [party_id, presence, op_code, data]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> PartyData:
-		var out := _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyData", p_dict), PartyData) as PartyData
+		var out = _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyData", p_dict), PartyData)
 		# Store the base64 data, ready to be decoded when the developer requests it.
 		if out.data:
 			out.base64_data = out.data
@@ -889,7 +889,7 @@ class PartyClose extends NakamaAsyncResult:
 		return "PartyClose<party_id=%s>" % [party_id]
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> PartyClose:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyClose", p_dict), PartyClose) as PartyClose
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "PartyClose", p_dict), PartyClose)
 
 	static func get_result_key() -> String:
 		return "party_close"

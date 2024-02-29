@@ -27,7 +27,7 @@ class GroupUserListGroupUser extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> GroupUserListGroupUser:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "GroupUserListGroupUser", p_dict), GroupUserListGroupUser) as GroupUserListGroupUser
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "GroupUserListGroupUser", p_dict), GroupUserListGroupUser)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -64,7 +64,7 @@ class UserGroupListUserGroup extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> UserGroupListUserGroup:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "UserGroupListUserGroup", p_dict), UserGroupListUserGroup) as UserGroupListUserGroup
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "UserGroupListUserGroup", p_dict), UserGroupListUserGroup)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -115,7 +115,7 @@ class WriteLeaderboardRecordRequestLeaderboardRecordWrite extends NakamaAsyncRes
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> WriteLeaderboardRecordRequestLeaderboardRecordWrite:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "WriteLeaderboardRecordRequestLeaderboardRecordWrite", p_dict), WriteLeaderboardRecordRequestLeaderboardRecordWrite) as WriteLeaderboardRecordRequestLeaderboardRecordWrite
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "WriteLeaderboardRecordRequestLeaderboardRecordWrite", p_dict), WriteLeaderboardRecordRequestLeaderboardRecordWrite)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -168,7 +168,7 @@ class WriteTournamentRecordRequestTournamentRecordWrite extends NakamaAsyncResul
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> WriteTournamentRecordRequestTournamentRecordWrite:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "WriteTournamentRecordRequestTournamentRecordWrite", p_dict), WriteTournamentRecordRequestTournamentRecordWrite) as WriteTournamentRecordRequestTournamentRecordWrite
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "WriteTournamentRecordRequestTournamentRecordWrite", p_dict), WriteTournamentRecordRequestTournamentRecordWrite)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -252,7 +252,7 @@ class ApiAccount extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccount:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccount", p_dict), ApiAccount) as ApiAccount
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccount", p_dict), ApiAccount)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -294,7 +294,7 @@ class ApiAccountApple extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccountApple:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccountApple", p_dict), ApiAccountApple) as ApiAccountApple
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccountApple", p_dict), ApiAccountApple)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -335,7 +335,7 @@ class ApiAccountCustom extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccountCustom:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccountCustom", p_dict), ApiAccountCustom) as ApiAccountCustom
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccountCustom", p_dict), ApiAccountCustom)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -376,7 +376,7 @@ class ApiAccountDevice extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccountDevice:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccountDevice", p_dict), ApiAccountDevice) as ApiAccountDevice
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccountDevice", p_dict), ApiAccountDevice)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -424,7 +424,7 @@ class ApiAccountEmail extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccountEmail:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccountEmail", p_dict), ApiAccountEmail) as ApiAccountEmail
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccountEmail", p_dict), ApiAccountEmail)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -466,7 +466,7 @@ class ApiAccountFacebook extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccountFacebook:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccountFacebook", p_dict), ApiAccountFacebook) as ApiAccountFacebook
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccountFacebook", p_dict), ApiAccountFacebook)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -507,7 +507,7 @@ class ApiAccountFacebookInstantGame extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccountFacebookInstantGame:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccountFacebookInstantGame", p_dict), ApiAccountFacebookInstantGame) as ApiAccountFacebookInstantGame
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccountFacebookInstantGame", p_dict), ApiAccountFacebookInstantGame)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -583,7 +583,7 @@ class ApiAccountGameCenter extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccountGameCenter:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccountGameCenter", p_dict), ApiAccountGameCenter) as ApiAccountGameCenter
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccountGameCenter", p_dict), ApiAccountGameCenter)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -629,7 +629,7 @@ class ApiAccountGoogle extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccountGoogle:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccountGoogle", p_dict), ApiAccountGoogle) as ApiAccountGoogle
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccountGoogle", p_dict), ApiAccountGoogle)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -670,7 +670,7 @@ class ApiAccountSteam extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiAccountSteam:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccountSteam", p_dict), ApiAccountSteam) as ApiAccountSteam
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiAccountSteam", p_dict), ApiAccountSteam)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -788,7 +788,7 @@ class ApiChannelMessage extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiChannelMessage:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiChannelMessage", p_dict), ApiChannelMessage) as ApiChannelMessage
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiChannelMessage", p_dict), ApiChannelMessage)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -850,7 +850,7 @@ class ApiChannelMessageList extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiChannelMessageList:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiChannelMessageList", p_dict), ApiChannelMessageList) as ApiChannelMessageList
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiChannelMessageList", p_dict), ApiChannelMessageList)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -917,7 +917,7 @@ class ApiCreateGroupRequest extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiCreateGroupRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiCreateGroupRequest", p_dict), ApiCreateGroupRequest) as ApiCreateGroupRequest
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiCreateGroupRequest", p_dict), ApiCreateGroupRequest)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -965,7 +965,7 @@ class ApiDeleteStorageObjectId extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiDeleteStorageObjectId:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiDeleteStorageObjectId", p_dict), ApiDeleteStorageObjectId) as ApiDeleteStorageObjectId
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiDeleteStorageObjectId", p_dict), ApiDeleteStorageObjectId)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -996,7 +996,7 @@ class ApiDeleteStorageObjectsRequest extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiDeleteStorageObjectsRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiDeleteStorageObjectsRequest", p_dict), ApiDeleteStorageObjectsRequest) as ApiDeleteStorageObjectsRequest
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiDeleteStorageObjectsRequest", p_dict), ApiDeleteStorageObjectsRequest)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -1046,7 +1046,7 @@ class ApiEvent extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiEvent:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiEvent", p_dict), ApiEvent) as ApiEvent
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiEvent", p_dict), ApiEvent)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -1096,7 +1096,7 @@ class ApiFriend extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiFriend:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiFriend", p_dict), ApiFriend) as ApiFriend
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiFriend", p_dict), ApiFriend)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -1134,7 +1134,7 @@ class ApiFriendList extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiFriendList:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiFriendList", p_dict), ApiFriendList) as ApiFriendList
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiFriendList", p_dict), ApiFriendList)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -1241,7 +1241,7 @@ class ApiGroup extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiGroup:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiGroup", p_dict), ApiGroup) as ApiGroup
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiGroup", p_dict), ApiGroup)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -1288,7 +1288,7 @@ class ApiGroupList extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiGroupList:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiGroupList", p_dict), ApiGroupList) as ApiGroupList
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiGroupList", p_dict), ApiGroupList)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -1325,7 +1325,7 @@ class ApiGroupUserList extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiGroupUserList:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiGroupUserList", p_dict), ApiGroupUserList) as ApiGroupUserList
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiGroupUserList", p_dict), ApiGroupUserList)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -1432,7 +1432,7 @@ class ApiLeaderboardRecord extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiLeaderboardRecord:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiLeaderboardRecord", p_dict), ApiLeaderboardRecord) as ApiLeaderboardRecord
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiLeaderboardRecord", p_dict), ApiLeaderboardRecord)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -1493,7 +1493,7 @@ class ApiLeaderboardRecordList extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiLeaderboardRecordList:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiLeaderboardRecordList", p_dict), ApiLeaderboardRecordList) as ApiLeaderboardRecordList
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiLeaderboardRecordList", p_dict), ApiLeaderboardRecordList)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -1532,7 +1532,7 @@ class ApiLinkSteamRequest extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiLinkSteamRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiLinkSteamRequest", p_dict), ApiLinkSteamRequest) as ApiLinkSteamRequest
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiLinkSteamRequest", p_dict), ApiLinkSteamRequest)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -1569,7 +1569,7 @@ class ApiListSubscriptionsRequest extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiListSubscriptionsRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiListSubscriptionsRequest", p_dict), ApiListSubscriptionsRequest) as ApiListSubscriptionsRequest
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiListSubscriptionsRequest", p_dict), ApiListSubscriptionsRequest)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -1634,7 +1634,7 @@ class ApiMatch extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiMatch:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiMatch", p_dict), ApiMatch) as ApiMatch
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiMatch", p_dict), ApiMatch)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -1668,7 +1668,7 @@ class ApiMatchList extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiMatchList:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiMatchList", p_dict), ApiMatchList) as ApiMatchList
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiMatchList", p_dict), ApiMatchList)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -1739,7 +1739,7 @@ class ApiNotification extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiNotification:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiNotification", p_dict), ApiNotification) as ApiNotification
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiNotification", p_dict), ApiNotification)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -1781,7 +1781,7 @@ class ApiNotificationList extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiNotificationList:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiNotificationList", p_dict), ApiNotificationList) as ApiNotificationList
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiNotificationList", p_dict), ApiNotificationList)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -1833,7 +1833,7 @@ class ApiReadStorageObjectId extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiReadStorageObjectId:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiReadStorageObjectId", p_dict), ApiReadStorageObjectId) as ApiReadStorageObjectId
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiReadStorageObjectId", p_dict), ApiReadStorageObjectId)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -1864,7 +1864,7 @@ class ApiReadStorageObjectsRequest extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiReadStorageObjectsRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiReadStorageObjectsRequest", p_dict), ApiReadStorageObjectsRequest) as ApiReadStorageObjectsRequest
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiReadStorageObjectsRequest", p_dict), ApiReadStorageObjectsRequest)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -1907,7 +1907,7 @@ class ApiRpc extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiRpc:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiRpc", p_dict), ApiRpc) as ApiRpc
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiRpc", p_dict), ApiRpc)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -1952,7 +1952,7 @@ class ApiSession extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiSession:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiSession", p_dict), ApiSession) as ApiSession
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiSession", p_dict), ApiSession)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -1990,7 +1990,7 @@ class ApiSessionLogoutRequest extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiSessionLogoutRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiSessionLogoutRequest", p_dict), ApiSessionLogoutRequest) as ApiSessionLogoutRequest
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiSessionLogoutRequest", p_dict), ApiSessionLogoutRequest)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -2027,7 +2027,7 @@ class ApiSessionRefreshRequest extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiSessionRefreshRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiSessionRefreshRequest", p_dict), ApiSessionRefreshRequest) as ApiSessionRefreshRequest
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiSessionRefreshRequest", p_dict), ApiSessionRefreshRequest)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -2117,7 +2117,7 @@ class ApiStorageObject extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiStorageObject:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiStorageObject", p_dict), ApiStorageObject) as ApiStorageObject
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiStorageObject", p_dict), ApiStorageObject)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -2175,7 +2175,7 @@ class ApiStorageObjectAck extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiStorageObjectAck:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiStorageObjectAck", p_dict), ApiStorageObjectAck) as ApiStorageObjectAck
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiStorageObjectAck", p_dict), ApiStorageObjectAck)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -2207,7 +2207,7 @@ class ApiStorageObjectAcks extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiStorageObjectAcks:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiStorageObjectAcks", p_dict), ApiStorageObjectAcks) as ApiStorageObjectAcks
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiStorageObjectAcks", p_dict), ApiStorageObjectAcks)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -2243,7 +2243,7 @@ class ApiStorageObjectList extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiStorageObjectList:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiStorageObjectList", p_dict), ApiStorageObjectList) as ApiStorageObjectList
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiStorageObjectList", p_dict), ApiStorageObjectList)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -2273,7 +2273,7 @@ class ApiStorageObjects extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiStorageObjects:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiStorageObjects", p_dict), ApiStorageObjects) as ApiStorageObjects
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiStorageObjects", p_dict), ApiStorageObjects)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -2328,7 +2328,7 @@ class ApiSubscriptionList extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiSubscriptionList:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiSubscriptionList", p_dict), ApiSubscriptionList) as ApiSubscriptionList
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiSubscriptionList", p_dict), ApiSubscriptionList)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -2492,7 +2492,7 @@ class ApiTournament extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiTournament:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiTournament", p_dict), ApiTournament) as ApiTournament
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiTournament", p_dict), ApiTournament)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -2547,7 +2547,7 @@ class ApiTournamentList extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiTournamentList:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiTournamentList", p_dict), ApiTournamentList) as ApiTournamentList
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiTournamentList", p_dict), ApiTournamentList)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -2598,7 +2598,7 @@ class ApiTournamentRecordList extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiTournamentRecordList:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiTournamentRecordList", p_dict), ApiTournamentRecordList) as ApiTournamentRecordList
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiTournamentRecordList", p_dict), ApiTournamentRecordList)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -2665,7 +2665,7 @@ class ApiUpdateAccountRequest extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiUpdateAccountRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiUpdateAccountRequest", p_dict), ApiUpdateAccountRequest) as ApiUpdateAccountRequest
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiUpdateAccountRequest", p_dict), ApiUpdateAccountRequest)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -2734,7 +2734,7 @@ class ApiUpdateGroupRequest extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiUpdateGroupRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiUpdateGroupRequest", p_dict), ApiUpdateGroupRequest) as ApiUpdateGroupRequest
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiUpdateGroupRequest", p_dict), ApiUpdateGroupRequest)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -2887,7 +2887,7 @@ class ApiUser extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiUser:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiUser", p_dict), ApiUser) as ApiUser
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiUser", p_dict), ApiUser)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -2940,7 +2940,7 @@ class ApiUserGroupList extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiUserGroupList:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiUserGroupList", p_dict), ApiUserGroupList) as ApiUserGroupList
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiUserGroupList", p_dict), ApiUserGroupList)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -2970,7 +2970,7 @@ class ApiUsers extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiUsers:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiUsers", p_dict), ApiUsers) as ApiUsers
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiUsers", p_dict), ApiUsers)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -3006,7 +3006,7 @@ class ApiValidatePurchaseAppleRequest extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidatePurchaseAppleRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidatePurchaseAppleRequest", p_dict), ApiValidatePurchaseAppleRequest) as ApiValidatePurchaseAppleRequest
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidatePurchaseAppleRequest", p_dict), ApiValidatePurchaseAppleRequest)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -3043,7 +3043,7 @@ class ApiValidatePurchaseGoogleRequest extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidatePurchaseGoogleRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidatePurchaseGoogleRequest", p_dict), ApiValidatePurchaseGoogleRequest) as ApiValidatePurchaseGoogleRequest
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidatePurchaseGoogleRequest", p_dict), ApiValidatePurchaseGoogleRequest)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -3087,7 +3087,7 @@ class ApiValidatePurchaseHuaweiRequest extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidatePurchaseHuaweiRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidatePurchaseHuaweiRequest", p_dict), ApiValidatePurchaseHuaweiRequest) as ApiValidatePurchaseHuaweiRequest
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidatePurchaseHuaweiRequest", p_dict), ApiValidatePurchaseHuaweiRequest)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -3118,7 +3118,7 @@ class ApiValidatePurchaseResponse extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidatePurchaseResponse:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidatePurchaseResponse", p_dict), ApiValidatePurchaseResponse) as ApiValidatePurchaseResponse
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidatePurchaseResponse", p_dict), ApiValidatePurchaseResponse)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -3154,7 +3154,7 @@ class ApiValidateSubscriptionAppleRequest extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidateSubscriptionAppleRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidateSubscriptionAppleRequest", p_dict), ApiValidateSubscriptionAppleRequest) as ApiValidateSubscriptionAppleRequest
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidateSubscriptionAppleRequest", p_dict), ApiValidateSubscriptionAppleRequest)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -3191,7 +3191,7 @@ class ApiValidateSubscriptionGoogleRequest extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidateSubscriptionGoogleRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidateSubscriptionGoogleRequest", p_dict), ApiValidateSubscriptionGoogleRequest) as ApiValidateSubscriptionGoogleRequest
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidateSubscriptionGoogleRequest", p_dict), ApiValidateSubscriptionGoogleRequest)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -3221,7 +3221,7 @@ class ApiValidateSubscriptionResponse extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidateSubscriptionResponse:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidateSubscriptionResponse", p_dict), ApiValidateSubscriptionResponse) as ApiValidateSubscriptionResponse
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidateSubscriptionResponse", p_dict), ApiValidateSubscriptionResponse)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -3320,7 +3320,7 @@ class ApiValidatedPurchase extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidatedPurchase:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidatedPurchase", p_dict), ApiValidatedPurchase) as ApiValidatedPurchase
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidatedPurchase", p_dict), ApiValidatedPurchase)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -3443,7 +3443,7 @@ class ApiValidatedSubscription extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiValidatedSubscription:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidatedSubscription", p_dict), ApiValidatedSubscription) as ApiValidatedSubscription
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiValidatedSubscription", p_dict), ApiValidatedSubscription)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -3519,7 +3519,7 @@ class ApiWriteStorageObject extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiWriteStorageObject:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiWriteStorageObject", p_dict), ApiWriteStorageObject) as ApiWriteStorageObject
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiWriteStorageObject", p_dict), ApiWriteStorageObject)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -3553,7 +3553,7 @@ class ApiWriteStorageObjectsRequest extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ApiWriteStorageObjectsRequest:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiWriteStorageObjectsRequest", p_dict), ApiWriteStorageObjectsRequest) as ApiWriteStorageObjectsRequest
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ApiWriteStorageObjectsRequest", p_dict), ApiWriteStorageObjectsRequest)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -3589,7 +3589,7 @@ class ProtobufAny extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> ProtobufAny:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ProtobufAny", p_dict), ProtobufAny) as ProtobufAny
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "ProtobufAny", p_dict), ProtobufAny)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
@@ -3633,7 +3633,7 @@ class RpcStatus extends NakamaAsyncResult:
 		pass
 
 	static func create(p_ns : GDScript, p_dict : Dictionary) -> RpcStatus:
-		return _safe_ret(NakamaSerializer.deserialize(p_ns, "RpcStatus", p_dict), RpcStatus) as RpcStatus
+		return _safe_ret(NakamaSerializer.deserialize(p_ns, "RpcStatus", p_dict), RpcStatus)
 
 	func serialize() -> Dictionary:
 		return NakamaSerializer.serialize(self)
