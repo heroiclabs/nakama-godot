@@ -3,3 +3,7 @@
 test_suite/addons
 test_suite/addons/*
 test_suite/.import/*
+*.cfg
+*.cache
+.vscode
+.godot
