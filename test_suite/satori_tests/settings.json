@@ -1,0 +1,8 @@
+
+{
+	"HOST": "127.0.0.1",
+	"PORT": 7450,
+	"SCHEME": "http",
+	"API_KEY": "apiKey",
+	"TIMEOUT": 5
+}

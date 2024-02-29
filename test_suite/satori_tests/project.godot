@@ -1,0 +1,20 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="satori-tests"
+run/main_scene="res://tester.tscn"
+config/features=PackedStringArray("4.2")
+
+[autoload]
+
+Satori="*res://addons/com.heroiclabs.nakama/Satori.gd"
+SatoriConfig="*res://utils/config.gd"
