@@ -28,7 +28,7 @@ var refresh_expire_time: int:
 var _identity_id: String = ""
 var identity_id: String:
     get:
-        return identity_id
+        return _identity_id
 
 var _valid : bool = false
 var valid : bool:
