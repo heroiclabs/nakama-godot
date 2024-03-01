@@ -186,4 +186,9 @@ func identify_async(p_session: SatoriSession, p_id: String, p_default_properties
 	})
 	return _parse_session(await _api_client.identify_async(p_session, req))
 
+## List properties associated with this identity.
+## [p_session]: The session of the user.
+func list_properties_async(p_session: SatoriSession) -> SatoriAsyncResult:
+	return await _api_client.list_properties_async(p_session)
+
 #endregion
