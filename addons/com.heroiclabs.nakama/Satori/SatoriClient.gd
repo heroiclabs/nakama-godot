@@ -67,16 +67,16 @@ func _init(p_adapter : SatoriHTTPAdapter,
 
 ## Authenticate against the server.
 ## [id]: An optional user id.
-## [default_properties]: Optional default properties to update with this call.
+## [p_default_properties]: Optional default properties to update with this call.
 ## If not set, properties are left as they are on the server.
-## [custom_roperties]: Optional custom properties to update with this call.
+## [p_custom_properties]: Optional custom properties to update with this call.
 ## If not set, properties are left as they are on the server.
-func authenticate_async(id: String, default_properties: Dictionary = {}, custom_properties: Dictionary = {}) -> SatoriSession:
+func authenticate_async(id: String, p_default_properties: Dictionary = {}, p_custom_properties: Dictionary = {}) -> SatoriSession:
 	return _parse_session(await _api_client.authenticate_async(api_key, "",
 		SatoriAPI.ApiAuthenticateRequest.create(SatoriAPI, {
 			"id": id,
-			"default": default_properties,
-			"custom": custom_properties
+			"default": p_default_properties,
+			"custom": p_custom_properties
 		})))
 
 ## Log out a session, invalidate a refresh token, or log out all sessions/refresh tokens for a user.
