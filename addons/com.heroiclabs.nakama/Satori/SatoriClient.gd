@@ -66,15 +66,15 @@ func _init(p_adapter : SatoriHTTPAdapter,
 #region Client APIs
 
 ## Authenticate against the server.
-## [id]: An optional user id.
+## [p_id]: An optional user id.
 ## [p_default_properties]: Optional default properties to update with this call.
 ## If not set, properties are left as they are on the server.
 ## [p_custom_properties]: Optional custom properties to update with this call.
 ## If not set, properties are left as they are on the server.
-func authenticate_async(id: String, p_default_properties: Dictionary = {}, p_custom_properties: Dictionary = {}) -> SatoriSession:
+func authenticate_async(p_id: String, p_default_properties: Dictionary = {}, p_custom_properties: Dictionary = {}) -> SatoriSession:
 	return _parse_session(await _api_client.authenticate_async(api_key, "",
 		SatoriAPI.ApiAuthenticateRequest.create(SatoriAPI, {
-			"id": id,
+			"id": p_id,
 			"default": p_default_properties,
 			"custom": p_custom_properties
 		})))
