@@ -170,4 +170,20 @@ func get_flags_async(p_session: SatoriSession, p_names: Array) -> SatoriAPI.ApiF
 func get_live_events_async(p_session: SatoriSession, p_names: Array = []) -> SatoriAPI.ApiLiveEventList:
 	return await _api_client.get_live_events_async(p_session, p_names)
 
+## Identify a session with a new ID.
+## [p_session]: The session of the user.
+## [p_id]: Identity ID to enrich the current session and return a new session.
+## The old session will no longer be usable.
+## Must be between eight and 128 characters (inclusive).
+## Must be an alphanumeric string with only underscores and hyphens allowed.
+## [p_default_properties]: The default properties.
+## [p_custom_properties]: The custom event properties.
+func identify_async(p_session: SatoriSession, p_id: String, p_default_properties: Dictionary = {}, p_custom_properties: Dictionary = {}) -> SatoriSession:
+	var req = SatoriAPI.ApiIdentifyRequest.create(SatoriAPI, {
+		"id": p_id,
+		"default": p_default_properties,
+		"custom": p_custom_properties
+	})
+	return _parse_session(await _api_client.identify_async(p_session, req))
+
 #endregion
