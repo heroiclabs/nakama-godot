@@ -191,4 +191,17 @@ func identify_async(p_session: SatoriSession, p_id: String, p_default_properties
 func list_properties_async(p_session: SatoriSession) -> SatoriAsyncResult:
 	return await _api_client.list_properties_async(p_session)
 
+## Update properties associated with this identity.
+## [p_session]: The session of the user.
+## [p_default_properties]: The default properties to update.
+## [p_custom_properties]: The custom properties to update.
+## [p_recompute]: Whether or not to recompute the user's audience membership immediately after property update.
+func update_properties_async(p_session: SatoriSession, p_default_properties: Dictionary, p_custom_properties: Dictionary, p_recompute: bool = false) -> SatoriAsyncResult:
+	var req = SatoriAPI.ApiUpdatePropertiesRequest.create(SatoriAPI, {
+		"default": p_default_properties,
+		"custom": p_custom_properties,
+		"recompute": p_recompute
+	})
+	return await _api_client.update_properties_async(p_session, req)
+
 #endregion
