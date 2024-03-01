@@ -204,4 +204,9 @@ func update_properties_async(p_session: SatoriSession, p_default_properties: Dic
 	})
 	return await _api_client.update_properties_async(p_session, req)
 
+## Delete the caller's identity and associated data.
+## [p_session]: The session of the user.
+func delete_identity_async(p_session: SatoriSession) -> SatoriAsyncResult:
+	return await _api_client.delete_identity_async(p_session)
+
 #endregion
