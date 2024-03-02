@@ -9,6 +9,10 @@ codegen
 go run main.go "$GOPATH/src/github.com/heroiclabs/nakama/apigrpc/apigrpc.swagger.json" > ../addons/com.heroiclabs.nakama/api/NakamaAPI.gd
 ```
 
+```shell
+go run main.go "https://raw.githubusercontent.com/heroiclabs/nakama/master/apigrpc/apigrpc.swagger.json" > ../addons/com.heroiclabs.nakama/api/NakamaAPI.gd
+```
+
 ### Rationale
 
 We want to maintain a simple lean low level client within our GDScript client which has minimal dependencies so we built our own. This gives us complete control over the dependencies required and structure of the code generated.
