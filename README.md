@@ -295,7 +295,7 @@ Full documentation is online - https://heroiclabs.com/docs/satori/client-librari
 
 Add the `Satori.gd` singleton (in `addons/com.heroiclabs.nakama/`) as an [autoload in Godot](https://docs.godotengine.org/en/stable/getting_started/step_by_step/singletons_autoload.html).
 
-Create a client object that accepts the API you were given as a Satori customer.
+Create a client object that accepts the API key you were given as a Satori customer.
 
 ```gdscript
 extends Node
