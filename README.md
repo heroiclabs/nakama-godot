@@ -283,6 +283,56 @@ Here's an example of how to use them:
 
 **Note:** _The out-of-the-box Nakama .NET client will work fine with desktop builds of your game! However, it won't work with HTML5 builds, unless you use the `GodotHttpAdapter` and `GodotWebSocketAdapter` classes._
 
+# Satori
+
+Satori is a liveops server for games that powers actionable analytics, A/B testing and remote configuration. Use the Satori Godot Client to communicate with Satori from within your Godot game.
+
+Satori is only compatible with Godot 4.
+
+Full documentation is online - https://heroiclabs.com/docs/satori/client-libraries/godot/index.html
+
+## Getting Started
+
+Add the `Satori.gd` singleton (in `addons/com.heroiclabs.nakama/`) as an [autoload in Godot](https://docs.godotengine.org/en/stable/getting_started/step_by_step/singletons_autoload.html).
+
+Create a client object that accepts the API you were given as a Satori customer.
+
+```gdscript
+extends Node
+
+func ready():
+	var scheme = "http"
+	var host = "127.0.0.1"
+	var port: Int = 7450
+	var apiKey = "apiKey"
+	var client := Satori.create_client(apiKey, host, port, scheme)
+```
+
+Then authenticate with the server to obtain your session.
+
+```gdscript
+// Authenticate with the Satori server.
+var session = await _client.authenticate_async("your-id")
+if session.is_exception():
+	print("Error authenticating: " + session.get_exception()._message)
+else:
+	print("Authenticated successfully.")
+```
+
+Using the client you can get any experiments or feature flags, the user belongs to.
+
+```gdscript
+var experiments = await _client.get_experiments_async(session, ["experiment1", "Experiment2"])
+var flag = await _client.get_flag_async(session, "FlagName")
+```
+
+You can also send arbitrary events to the server:
+
+```gdscript
+var _event = Event.new("gameFinished", Time.get_unix_time_from_system())
+await _client.event_async(session, _event)
+```
+
 ## Contribute
 
 The development roadmap is managed as GitHub issues and pull requests are welcome. If you're interested to improve the code please open an issue to discuss the changes or drop in and discuss it in the [community forum](https://forum.heroiclabs.com).
