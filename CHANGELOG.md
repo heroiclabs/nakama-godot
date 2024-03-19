@@ -9,16 +9,16 @@ The format is based on [keep a changelog](http://keepachangelog.com/) and this p
 - Satori: Adds the Satori Godot SDK for Godot 4. Satori is our liveops server for game studios. Read more about it in the [documentation](https://heroiclabs.com/docs/satori/concepts/introduction/).
 
 ### Fixed
-- Fixed code which causes Godot 3 to report memory leaks.
-- Fixed links to Nakama documentation.
-- Fixed naming of `HttpRequest` to match Godot's new naming.
-- Fixed number of arguments passed to `HttpRequest.Request`.
-- Fixed JSON `json_error` typo in `NakamaHTTPAdapter`.
-- Removed some leftover Godot 3 code from master.
+- Nakama: Fixed code which causes Godot 3 to report memory leaks.
+- Nakama: Fixed links to Nakama server documentation.
+- Nakama: Fixed naming of `HttpRequest` to match Godot's new naming.
+- Nakama: Fixed number of arguments passed to `HttpRequest.Request`.
+- Nakama: Fixed JSON `json_error` typo in `NakamaHTTPAdapter`.
+- Nakama: Removed some leftover Godot 3 code from master.
 
 ### Changed
-- Godot 4 support is now on master. Godot 3 support can now be found on the `godot-3` branch.
-- Changed return type from `int` to `TransferMode` in `_get_packet_mode` of the `NakamaMultiplayerPeer`.
+- Nakama: Godot 4 support is now on master. Godot 3 support can now be found on the `godot-3` branch.
+- Nakama: Changed return type from `int` to `TransferMode` in `_get_packet_mode` of the `NakamaMultiplayerPeer`.
 
 ## [3.3.1] - 2023-04-17
 
