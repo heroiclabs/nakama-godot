@@ -133,10 +133,11 @@ func _init(p_adapter : NakamaHTTPAdapter,
 
 # Restore a session from the auth token.
 # A `null` or empty authentication token will return `null`.
-# @param authToken - The authentication token to restore as a session.
+# @param auth_token - The authentication token to restore as a session.
+# @param refresh_token - The refresh token to refresh an expired session's tokens.
 # Returns a session.
-static func restore_session(auth_token : String):
-	return NakamaSession.new(auth_token, false)
+static func restore_session(auth_token : String, refresh_token: String):
+	return NakamaSession.new(auth_token, false, refresh_token)
 
 func _to_string():
 	return "Client(Host='%s', Port=%s, Scheme='%s', ServerKey='%s', Timeout=%s)" % [
