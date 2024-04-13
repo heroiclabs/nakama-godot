@@ -136,7 +136,7 @@ func _init(p_adapter : NakamaHTTPAdapter,
 # @param auth_token - The authentication token to restore as a session.
 # @param refresh_token - The refresh token to refresh an expired session's tokens.
 # Returns a session.
-static func restore_session(auth_token : String, refresh_token: String):
+static func restore_session(auth_token : String, refresh_token: String = ""):
 	return NakamaSession.new(auth_token, false, refresh_token)
 
 func _to_string():
