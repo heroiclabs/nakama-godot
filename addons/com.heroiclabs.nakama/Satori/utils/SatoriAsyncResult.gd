@@ -12,16 +12,16 @@ var _ex = null
 func _init(p_ex = null):
 	_ex = p_ex
 
-func is_exception():
+func is_exception() -> bool:
 	return get_exception() != null
 
-func was_cancelled():
+func was_cancelled() -> bool:
 	return is_exception() and get_exception().cancelled
 
 func get_exception() -> SatoriException:
 	return _ex as SatoriException
 
-func _to_string():
+func _to_string() -> String:
 	if is_exception():
 		return get_exception()._to_string()
 	return "SatoriAsyncResult<>"

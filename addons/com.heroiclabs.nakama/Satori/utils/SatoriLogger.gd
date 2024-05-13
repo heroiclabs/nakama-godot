@@ -22,17 +22,17 @@ func _log(level : int, msg):
 					break
 			print(what + str(msg))
 
-func error(msg):
+func error(msg) -> void:
 	_log(LOG_LEVEL.ERROR, msg)
 
-func warning(msg):
+func warning(msg) -> void:
 	_log(LOG_LEVEL.WARNING, msg)
 
-func info(msg):
+func info(msg) -> void:
 	_log(LOG_LEVEL.INFO, msg)
 
-func verbose(msg):
+func verbose(msg) -> void:
 	_log(LOG_LEVEL.VERBOSE, msg)
 
-func debug(msg):
+func debug(msg) -> void:
 	_log(LOG_LEVEL.DEBUG, msg)

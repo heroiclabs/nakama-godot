@@ -18,7 +18,7 @@ class Packet extends RefCounted:
 
 var _incoming_packets := []
 
-signal packet_generated (peer_id, buffer)
+signal packet_generated (peer_id: int, buffer: PackedByteArray)
 
 func _get_packet_script() -> PackedByteArray:
 	if _incoming_packets.size() == 0:
