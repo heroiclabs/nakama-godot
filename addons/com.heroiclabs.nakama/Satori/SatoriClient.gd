@@ -37,10 +37,10 @@ var auto_refresh : bool = false:
 	get:
 		return get_auto_refresh()
 
-func get_auto_refresh():
+func get_auto_refresh() -> bool:
 	return _api_client.auto_refresh
 
-func set_auto_refresh(p_value):
+func set_auto_refresh(p_value) -> void:
 	_api_client.auto_refresh = p_value
 
 #endregion

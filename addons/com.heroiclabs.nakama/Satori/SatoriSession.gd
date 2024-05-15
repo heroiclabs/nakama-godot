@@ -76,7 +76,7 @@ func _update(p_token, p_refresh_token):
     _identity_id = str(decoded.get("iid", ""))
     _refresh_expire_time = int(_jwt_unpack(refresh_token).get("exp", 0)) if !refresh_token.is_empty() else 0
 
-func _to_string():
+func _to_string() -> String:
     if is_exception():
         return get_exception()._to_string()
     

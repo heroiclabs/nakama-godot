@@ -178,7 +178,7 @@ func send_async(p_method : String, p_uri : String, p_headers : Dictionary, p_bod
 
 	return await _send_async(id, _pending)
 
-func get_last_token():
+func get_last_token() -> int:
 	return id
 
 func cancel_request(p_token):
