@@ -57,7 +57,7 @@ There's a variety of ways to [authenticate](https://heroiclabs.com/docs/nakama/c
 
 ### Sessions
 
-When authenticated the server responds with an auth token (JWT) which contains useful properties and gets deserialized into a `NakamaSession` object.
+When authenticated the server responds with an auth token (JWT) which contains useful properties and gets deserialized into a `NakamaSession` object. A refresh token is included with the session which can be used to renew the session with a new set of tokens.
 
 ```gdscript
 	print(session.token) # raw JWT token
@@ -65,18 +65,23 @@ When authenticated the server responds with an auth token (JWT) which contains u
 	print(session.username)
 	print("Session has expired: %s" % session.expired)
 	print("Session expires at: %s" % session.expire_time)
+	print(session.refresh_token)
+	print("Session refresh token expires at: %s" % session.refresh_expire_time)
 ```
 
-It is recommended to store the auth token from the session and check at startup if it has expired. If the token has expired you must reauthenticate. The expiry time of the token can be changed as a setting in the server.
+It is recommended to store the auth token and refresh token from the session and check at startup if it has expired. If the token has expired you can use the refresh token to refresh the session, after which you can save the new tokens. If both tokens have expired, you must reauthenticate. The expiry time of the tokens can be changed as a setting in the server.
 
 ```gdscript
 	var authtoken = "restored from somewhere"
-	var session2 = NakamaClient.restore_session(authtoken)
+	var refreshtoken = "also restored from somewhere"
+	var session2 = NakamaClient.restore_session(authtoken, refreshtoken)
 	if session2.expired:
-		print("Session has expired. Must reauthenticate!")
+		session2 = await client.session_refresh_async(session2)
+		if session2.is_exception():
+			print("Session has expired and cannot be refreshed. Must reauthenticate!")
 ```
 
-NOTE: The length of the lifetime of a session can be changed on the server with the `--session.token_expiry_sec` command flag argument.
+NOTE: The length of the lifetime of a session can be changed on the server with the `--session.token_expiry_sec` command flag argument. The refresh token expiry can be changed with `--session.refresh_token_expiry_sec`.
 
 ### Requests
 
