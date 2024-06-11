@@ -17,7 +17,7 @@ signal connected()
 signal closed()
 
 # A signal emitted when the socket has an error when connecting.
-signal received_error(p_exception)
+signal connection_error(p_exception)
 
 # A signal emitted when the socket receives a message.
 signal received(p_bytes) # PackedByteArray
@@ -43,7 +43,7 @@ func connect_to_host(p_uri : String, p_timeout : int) -> void:
 	var err = _ws.connect_to_url(p_uri)
 	if err != OK:
 		logger.debug("Error connecting to host %s" % p_uri)
-		call_deferred("emit_signal", "received_error", err)
+		call_deferred("emit_signal", "connection_error", err)
 		return
 	_ws_last_state = WebSocketPeer.STATE_CLOSED
 
@@ -68,7 +68,7 @@ func _process(delta: float) -> void:
 	if state == WebSocketPeer.STATE_CONNECTING:
 		if _start + _timeout < Time.get_unix_time_from_system():
 			logger.debug("Timeout when connecting to socket")
-			received_error.emit(ERR_TIMEOUT)
+			connection_error.emit(ERR_TIMEOUT)
 			_ws.close()
 
 	while _ws.get_ready_state() == WebSocketPeer.STATE_OPEN and _ws.get_available_packet_count():
