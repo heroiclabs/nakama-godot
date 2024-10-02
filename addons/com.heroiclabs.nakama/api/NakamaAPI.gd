@@ -3,7 +3,7 @@
 extends RefCounted
 class_name NakamaAPI
 
-# A single user-role pair.
+## A single user-role pair.
 class GroupUserListGroupUser extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -11,14 +11,14 @@ class GroupUserListGroupUser extends NakamaAsyncResult:
 		"user": {"name": "_user", "type": "ApiUser", "required": false},
 	}
 
-	# Their relationship to the group.
 	var _state
+	## Their relationship to the group.
 	var state : int:
 		get:
 			return 0 if not _state is int else int(_state)
 
-	# User.
 	var _user
+	## User.
 	var user : ApiUser:
 		get:
 			return _user as ApiUser
@@ -40,7 +40,7 @@ class GroupUserListGroupUser extends NakamaAsyncResult:
 		output += "user: %s, " % _user
 		return output
 
-# A single group-role pair.
+## A single group-role pair.
 class UserGroupListUserGroup extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -48,14 +48,14 @@ class UserGroupListUserGroup extends NakamaAsyncResult:
 		"state": {"name": "_state", "type": TYPE_INT, "required": false},
 	}
 
-	# Group.
 	var _group
+	## Group.
 	var group : ApiGroup:
 		get:
 			return _group as ApiGroup
 
-	# The user's relationship to the group.
 	var _state
+	## The user's relationship to the group.
 	var state : int:
 		get:
 			return 0 if not _state is int else int(_state)
@@ -77,7 +77,7 @@ class UserGroupListUserGroup extends NakamaAsyncResult:
 		output += "state: %s, " % _state
 		return output
 
-# Record values to write.
+## Record values to write.
 class WriteLeaderboardRecordRequestLeaderboardRecordWrite extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -87,26 +87,26 @@ class WriteLeaderboardRecordRequestLeaderboardRecordWrite extends NakamaAsyncRes
 		"subscore": {"name": "_subscore", "type": TYPE_STRING, "required": false},
 	}
 
-	# Optional record metadata.
 	var _metadata
+	## Optional record metadata.
 	var metadata : String:
 		get:
 			return "" if not _metadata is String else String(_metadata)
 
-	# Operator override.
 	var _operator
+	## Operator override.
 	var operator : int:
 		get:
 			return ApiOperator.values()[0] if not ApiOperator.values().has(_operator) else _operator
 
-	# The score value to submit.
 	var _score
+	## The score value to submit.
 	var score : String:
 		get:
 			return "" if not _score is String else String(_score)
 
-	# An optional secondary value.
 	var _subscore
+	## An optional secondary value.
 	var subscore : String:
 		get:
 			return "" if not _subscore is String else String(_subscore)
@@ -130,7 +130,7 @@ class WriteLeaderboardRecordRequestLeaderboardRecordWrite extends NakamaAsyncRes
 		output += "subscore: %s, " % _subscore
 		return output
 
-# Record values to write.
+## Record values to write.
 class WriteTournamentRecordRequestTournamentRecordWrite extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -140,26 +140,26 @@ class WriteTournamentRecordRequestTournamentRecordWrite extends NakamaAsyncResul
 		"subscore": {"name": "_subscore", "type": TYPE_STRING, "required": false},
 	}
 
-	# A JSON object of additional properties (optional).
 	var _metadata
+	## A JSON object of additional properties (optional).
 	var metadata : String:
 		get:
 			return "" if not _metadata is String else String(_metadata)
 
-	# Operator override.
 	var _operator
+	## Operator override.
 	var operator : int:
 		get:
 			return ApiOperator.values()[0] if not ApiOperator.values().has(_operator) else _operator
 
-	# The score value to submit.
 	var _score
+	## The score value to submit.
 	var score : String:
 		get:
 			return "" if not _score is String else String(_score)
 
-	# An optional secondary value.
 	var _subscore
+	## An optional secondary value.
 	var subscore : String:
 		get:
 			return "" if not _subscore is String else String(_subscore)
@@ -183,7 +183,7 @@ class WriteTournamentRecordRequestTournamentRecordWrite extends NakamaAsyncResul
 		output += "subscore: %s, " % _subscore
 		return output
 
-# A user with additional account details. Always the current user.
+## A user with additional account details. Always the current user.
 class ApiAccount extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -196,44 +196,44 @@ class ApiAccount extends NakamaAsyncResult:
 		"wallet": {"name": "_wallet", "type": TYPE_STRING, "required": false},
 	}
 
-	# The custom id in the user's account.
 	var _custom_id
+	## The custom id in the user's account.
 	var custom_id : String:
 		get:
 			return "" if not _custom_id is String else String(_custom_id)
 
-	# The devices which belong to the user's account.
 	var _devices
+	## The devices which belong to the user's account.
 	var devices : Array:
 		get:
 			return Array() if not _devices is Array else Array(_devices)
 
-	# The UNIX time when the user's account was disabled/banned.
 	var _disable_time
+	## The UNIX time when the user's account was disabled/banned.
 	var disable_time : String:
 		get:
 			return "" if not _disable_time is String else String(_disable_time)
 
-	# The email address of the user.
 	var _email
+	## The email address of the user.
 	var email : String:
 		get:
 			return "" if not _email is String else String(_email)
 
-	# The user object.
 	var _user
+	## The user object.
 	var user : ApiUser:
 		get:
 			return _user as ApiUser
 
-	# The UNIX time when the user's email was verified.
 	var _verify_time
+	## The UNIX time when the user's email was verified.
 	var verify_time : String:
 		get:
 			return "" if not _verify_time is String else String(_verify_time)
 
-	# The user's wallet data.
 	var _wallet
+	## The user's wallet data.
 	var wallet : String:
 		get:
 			return "" if not _wallet is String else String(_wallet)
@@ -273,7 +273,7 @@ class ApiAccount extends NakamaAsyncResult:
 		output += "wallet: %s, " % _wallet
 		return output
 
-# Send a Apple Sign In token to the server. Used with authenticate/link/unlink.
+## Send a Apple Sign In token to the server. Used with authenticate/link/unlink.
 class ApiAccountApple extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -281,14 +281,14 @@ class ApiAccountApple extends NakamaAsyncResult:
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
 
-	# The ID token received from Apple to validate.
 	var _token
+	## The ID token received from Apple to validate.
 	var token : String:
 		get:
 			return "" if not _token is String else String(_token)
 
-	# Extra information that will be bundled in the session token.
 	var _vars
+	## Extra information that will be bundled in the session token.
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
@@ -314,7 +314,7 @@ class ApiAccountApple extends NakamaAsyncResult:
 		output += "vars: [%s], " % map_string
 		return output
 
-# Send a custom ID to the server. Used with authenticate/link/unlink.
+## Send a custom ID to the server. Used with authenticate/link/unlink.
 class ApiAccountCustom extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -322,14 +322,14 @@ class ApiAccountCustom extends NakamaAsyncResult:
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
 
-	# A custom identifier.
 	var _id
+	## A custom identifier.
 	var id : String:
 		get:
 			return "" if not _id is String else String(_id)
 
-	# Extra information that will be bundled in the session token.
 	var _vars
+	## Extra information that will be bundled in the session token.
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
@@ -355,7 +355,7 @@ class ApiAccountCustom extends NakamaAsyncResult:
 		output += "vars: [%s], " % map_string
 		return output
 
-# Send a device to the server. Used with authenticate/link/unlink and user.
+## Send a device to the server. Used with authenticate/link/unlink and user.
 class ApiAccountDevice extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -363,14 +363,14 @@ class ApiAccountDevice extends NakamaAsyncResult:
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
 
-	# A device identifier. Should be obtained by a platform-specific device API.
 	var _id
+	## A device identifier. Should be obtained by a platform-specific device API.
 	var id : String:
 		get:
 			return "" if not _id is String else String(_id)
 
-	# Extra information that will be bundled in the session token.
 	var _vars
+	## Extra information that will be bundled in the session token.
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
@@ -396,7 +396,7 @@ class ApiAccountDevice extends NakamaAsyncResult:
 		output += "vars: [%s], " % map_string
 		return output
 
-# Send an email with password to the server. Used with authenticate/link/unlink.
+## Send an email with password to the server. Used with authenticate/link/unlink.
 class ApiAccountEmail extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -405,20 +405,20 @@ class ApiAccountEmail extends NakamaAsyncResult:
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
 
-	# A valid RFC-5322 email address.
 	var _email
+	## A valid RFC-5322 email address.
 	var email : String:
 		get:
 			return "" if not _email is String else String(_email)
 
-	# A password for the user account.
 	var _password
+	## A password for the user account.
 	var password : String:
 		get:
 			return "" if not _password is String else String(_password)
 
-	# Extra information that will be bundled in the session token.
 	var _vars
+	## Extra information that will be bundled in the session token.
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
@@ -445,7 +445,7 @@ class ApiAccountEmail extends NakamaAsyncResult:
 		output += "vars: [%s], " % map_string
 		return output
 
-# Send a Facebook token to the server. Used with authenticate/link/unlink.
+## Send a Facebook token to the server. Used with authenticate/link/unlink.
 class ApiAccountFacebook extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -453,14 +453,14 @@ class ApiAccountFacebook extends NakamaAsyncResult:
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
 
-	# The OAuth token received from Facebook to access their profile API.
 	var _token
+	## The OAuth token received from Facebook to access their profile API.
 	var token : String:
 		get:
 			return "" if not _token is String else String(_token)
 
-	# Extra information that will be bundled in the session token.
 	var _vars
+	## Extra information that will be bundled in the session token.
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
@@ -486,7 +486,7 @@ class ApiAccountFacebook extends NakamaAsyncResult:
 		output += "vars: [%s], " % map_string
 		return output
 
-# Send a Facebook Instant Game token to the server. Used with authenticate/link/unlink.
+## Send a Facebook Instant Game token to the server. Used with authenticate/link/unlink.
 class ApiAccountFacebookInstantGame extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -494,14 +494,13 @@ class ApiAccountFacebookInstantGame extends NakamaAsyncResult:
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
 
-	#
 	var _signed_player_info
 	var signed_player_info : String:
 		get:
 			return "" if not _signed_player_info is String else String(_signed_player_info)
 
-	# Extra information that will be bundled in the session token.
 	var _vars
+	## Extra information that will be bundled in the session token.
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
@@ -527,7 +526,7 @@ class ApiAccountFacebookInstantGame extends NakamaAsyncResult:
 		output += "vars: [%s], " % map_string
 		return output
 
-# Send Apple's Game Center account credentials to the server. Used with authenticate/link/unlink.
+## Send Apple's Game Center account credentials to the server. Used with authenticate/link/unlink.
 class ApiAccountGameCenter extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -540,44 +539,44 @@ class ApiAccountGameCenter extends NakamaAsyncResult:
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
 
-	# Bundle ID (generated by GameCenter).
 	var _bundle_id
+	## Bundle ID (generated by GameCenter).
 	var bundle_id : String:
 		get:
 			return "" if not _bundle_id is String else String(_bundle_id)
 
-	# Player ID (generated by GameCenter).
 	var _player_id
+	## Player ID (generated by GameCenter).
 	var player_id : String:
 		get:
 			return "" if not _player_id is String else String(_player_id)
 
-	# The URL for the public encryption key.
 	var _public_key_url
+	## The URL for the public encryption key.
 	var public_key_url : String:
 		get:
 			return "" if not _public_key_url is String else String(_public_key_url)
 
-	# A random "NSString" used to compute the hash and keep it randomized.
 	var _salt
+	## A random "NSString" used to compute the hash and keep it randomized.
 	var salt : String:
 		get:
 			return "" if not _salt is String else String(_salt)
 
-	# The verification signature data generated.
 	var _signature
+	## The verification signature data generated.
 	var signature : String:
 		get:
 			return "" if not _signature is String else String(_signature)
 
-	# Time since UNIX epoch when the signature was created.
 	var _timestamp_seconds
+	## Time since UNIX epoch when the signature was created.
 	var timestamp_seconds : String:
 		get:
 			return "" if not _timestamp_seconds is String else String(_timestamp_seconds)
 
-	# Extra information that will be bundled in the session token.
 	var _vars
+	## Extra information that will be bundled in the session token.
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
@@ -608,7 +607,7 @@ class ApiAccountGameCenter extends NakamaAsyncResult:
 		output += "vars: [%s], " % map_string
 		return output
 
-# Send a Google token to the server. Used with authenticate/link/unlink.
+## Send a Google token to the server. Used with authenticate/link/unlink.
 class ApiAccountGoogle extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -616,14 +615,14 @@ class ApiAccountGoogle extends NakamaAsyncResult:
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
 
-	# The OAuth token received from Google to access their profile API.
 	var _token
+	## The OAuth token received from Google to access their profile API.
 	var token : String:
 		get:
 			return "" if not _token is String else String(_token)
 
-	# Extra information that will be bundled in the session token.
 	var _vars
+	## Extra information that will be bundled in the session token.
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
@@ -649,7 +648,7 @@ class ApiAccountGoogle extends NakamaAsyncResult:
 		output += "vars: [%s], " % map_string
 		return output
 
-# Send a Steam token to the server. Used with authenticate/link/unlink.
+## Send a Steam token to the server. Used with authenticate/link/unlink.
 class ApiAccountSteam extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -657,14 +656,14 @@ class ApiAccountSteam extends NakamaAsyncResult:
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
 
-	# The account token received from Steam to access their profile API.
 	var _token
+	## The account token received from Steam to access their profile API.
 	var token : String:
 		get:
 			return "" if not _token is String else String(_token)
 
-	# Extra information that will be bundled in the session token.
 	var _vars
+	## Extra information that will be bundled in the session token.
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
@@ -690,7 +689,7 @@ class ApiAccountSteam extends NakamaAsyncResult:
 		output += "vars: [%s], " % map_string
 		return output
 
-# A message sent on a channel.
+## A message sent on a channel.
 class ApiChannelMessage extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -709,56 +708,56 @@ class ApiChannelMessage extends NakamaAsyncResult:
 		"username": {"name": "_username", "type": TYPE_STRING, "required": false},
 	}
 
-	# The channel this message belongs to.
 	var _channel_id
+	## The channel this message belongs to.
 	var channel_id : String:
 		get:
 			return "" if not _channel_id is String else String(_channel_id)
 
-	# The code representing a message type or category.
 	var _code
+	## The code representing a message type or category.
 	var code : int:
 		get:
 			return 0 if not _code is int else int(_code)
 
-	# The content payload.
 	var _content
+	## The content payload.
 	var content : String:
 		get:
 			return "" if not _content is String else String(_content)
 
-	# The UNIX time when the message was created.
 	var _create_time
+	## The UNIX time when the message was created.
 	var create_time : String:
 		get:
 			return "" if not _create_time is String else String(_create_time)
 
-	# The ID of the group, or an empty string if this message was not sent through a group channel.
 	var _group_id
+	## The ID of the group, or an empty string if this message was not sent through a group channel.
 	var group_id : String:
 		get:
 			return "" if not _group_id is String else String(_group_id)
 
-	# The unique ID of this message.
 	var _message_id
+	## The unique ID of this message.
 	var message_id : String:
 		get:
 			return "" if not _message_id is String else String(_message_id)
 
-	# True if the message was persisted to the channel's history, false otherwise.
 	var _persistent
+	## True if the message was persisted to the channel's history, false otherwise.
 	var persistent : bool:
 		get:
 			return false if not _persistent is bool else bool(_persistent)
 
-	# The name of the chat room, or an empty string if this message was not sent through a chat room.
 	var _room_name
+	## The name of the chat room, or an empty string if this message was not sent through a chat room.
 	var room_name : String:
 		get:
 			return "" if not _room_name is String else String(_room_name)
 
-	# Message sender, usually a user ID.
 	var _sender_id
+	## Message sender, usually a user ID.
 	var sender_id : String:
 		get:
 			return "" if not _sender_id is String else String(_sender_id)
@@ -769,20 +768,20 @@ class ApiChannelMessage extends NakamaAsyncResult:
 		get:
 			return "" if not _update_time is String else String(_update_time)
 
-	# The ID of the first DM user, or an empty string if this message was not sent through a DM chat.
 	var _user_id_one
+	## The ID of the first DM user, or an empty string if this message was not sent through a DM chat.
 	var user_id_one : String:
 		get:
 			return "" if not _user_id_one is String else String(_user_id_one)
 
-	# The ID of the second DM user, or an empty string if this message was not sent through a DM chat.
 	var _user_id_two
+	## The ID of the second DM user, or an empty string if this message was not sent through a DM chat.
 	var user_id_two : String:
 		get:
 			return "" if not _user_id_two is String else String(_user_id_two)
 
-	# The username of the message sender, if any.
 	var _username
+	## The username of the message sender, if any.
 	var username : String:
 		get:
 			return "" if not _username is String else String(_username)
@@ -815,7 +814,7 @@ class ApiChannelMessage extends NakamaAsyncResult:
 		output += "username: %s, " % _username
 		return output
 
-# A list of channel messages, usually a result of a list operation.
+## A list of channel messages, usually a result of a list operation.
 class ApiChannelMessageList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -825,26 +824,26 @@ class ApiChannelMessageList extends NakamaAsyncResult:
 		"prev_cursor": {"name": "_prev_cursor", "type": TYPE_STRING, "required": false},
 	}
 
-	# Cacheable cursor to list newer messages. Durable and designed to be stored, unlike next/prev cursors.
 	var _cacheable_cursor
+	## Cacheable cursor to list newer messages. Durable and designed to be stored, unlike next/prev cursors.
 	var cacheable_cursor : String:
 		get:
 			return "" if not _cacheable_cursor is String else String(_cacheable_cursor)
 
-	# A list of messages.
 	var _messages
+	## A list of messages.
 	var messages : Array:
 		get:
 			return Array() if not _messages is Array else Array(_messages)
 
-	# The cursor to send when retrieving the next page, if any.
 	var _next_cursor
+	## The cursor to send when retrieving the next page, if any.
 	var next_cursor : String:
 		get:
 			return "" if not _next_cursor is String else String(_next_cursor)
 
-	# The cursor to send when retrieving the previous page, if any.
 	var _prev_cursor
+	## The cursor to send when retrieving the previous page, if any.
 	var prev_cursor : String:
 		get:
 			return "" if not _prev_cursor is String else String(_prev_cursor)
@@ -868,7 +867,7 @@ class ApiChannelMessageList extends NakamaAsyncResult:
 		output += "prev_cursor: %s, " % _prev_cursor
 		return output
 
-# Create a group with the current user as owner.
+## Create a group with the current user as owner.
 class ApiCreateGroupRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -880,38 +879,38 @@ class ApiCreateGroupRequest extends NakamaAsyncResult:
 		"open": {"name": "_open", "type": TYPE_BOOL, "required": false},
 	}
 
-	# A URL for an avatar image.
 	var _avatar_url
+	## A URL for an avatar image.
 	var avatar_url : String:
 		get:
 			return "" if not _avatar_url is String else String(_avatar_url)
 
-	# A description for the group.
 	var _description
+	## A description for the group.
 	var description : String:
 		get:
 			return "" if not _description is String else String(_description)
 
-	# The language expected to be a tag which follows the BCP-47 spec.
 	var _lang_tag
+	## The language expected to be a tag which follows the BCP-47 spec.
 	var lang_tag : String:
 		get:
 			return "" if not _lang_tag is String else String(_lang_tag)
 
-	# Maximum number of group members.
 	var _max_count
+	## Maximum number of group members.
 	var max_count : int:
 		get:
 			return 0 if not _max_count is int else int(_max_count)
 
-	# A unique name for the group.
 	var _name
+	## A unique name for the group.
 	var name : String:
 		get:
 			return "" if not _name is String else String(_name)
 
-	# Mark a group as open or not where only admins can accept members.
 	var _open
+	## Mark a group as open or not where only admins can accept members.
 	var open : bool:
 		get:
 			return false if not _open is bool else bool(_open)
@@ -937,7 +936,7 @@ class ApiCreateGroupRequest extends NakamaAsyncResult:
 		output += "open: %s, " % _open
 		return output
 
-# Storage objects to delete.
+## Storage objects to delete.
 class ApiDeleteStorageObjectId extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -946,19 +945,19 @@ class ApiDeleteStorageObjectId extends NakamaAsyncResult:
 		"version": {"name": "_version", "type": TYPE_STRING, "required": false},
 	}
 
-	# The collection which stores the object.
 	var _collection
+	## The collection which stores the object.
 	var collection : String:
 		get:
 			return "" if not _collection is String else String(_collection)
 
-	# The key of the object within the collection.
 	var _key
+	## The key of the object within the collection.
 	var key : String:
 		get:
 			return "" if not _key is String else String(_key)
 
-	# The version hash of the object.
+	## The version hash of the object.
 	var _version
 	var version : String:
 		get:
@@ -982,15 +981,15 @@ class ApiDeleteStorageObjectId extends NakamaAsyncResult:
 		output += "version: %s, " % _version
 		return output
 
-# Batch delete storage objects.
+## Batch delete storage objects.
 class ApiDeleteStorageObjectsRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"object_ids": {"name": "_object_ids", "type": TYPE_ARRAY, "required": false, "content": "ApiDeleteStorageObjectId"},
 	}
 
-	# Batch of storage objects.
 	var _object_ids
+	## Batch of storage objects.
 	var object_ids : Array:
 		get:
 			return Array() if not _object_ids is Array else Array(_object_ids)
@@ -1011,7 +1010,7 @@ class ApiDeleteStorageObjectsRequest extends NakamaAsyncResult:
 		output += "object_ids: %s, " % [_object_ids]
 		return output
 
-# Represents an event to be passed through the server to registered event handlers.
+## Represents an event to be passed through the server to registered event handlers.
 class ApiEvent extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1021,26 +1020,26 @@ class ApiEvent extends NakamaAsyncResult:
 		"timestamp": {"name": "_timestamp", "type": TYPE_STRING, "required": false},
 	}
 
-	# True if the event came directly from a client call, false otherwise.
 	var _external
+	## True if the event came directly from a client call, false otherwise.
 	var external : bool:
 		get:
 			return false if not _external is bool else bool(_external)
 
-	# An event name, type, category, or identifier.
 	var _name
+	## An event name, type, category, or identifier.
 	var name : String:
 		get:
 			return "" if not _name is String else String(_name)
 
-	# Arbitrary event property values.
 	var _properties
+	## Arbitrary event property values.
 	var properties : Dictionary:
 		get:
 			return Dictionary() if not _properties is Dictionary else _properties.duplicate()
 
-	# The time when the event was triggered.
 	var _timestamp
+	## The time when the event was triggered.
 	var timestamp : String:
 		get:
 			return "" if not _timestamp is String else String(_timestamp)
@@ -1068,7 +1067,7 @@ class ApiEvent extends NakamaAsyncResult:
 		output += "timestamp: %s, " % _timestamp
 		return output
 
-# A friend of a user.
+## A friend of a user.
 class ApiFriend extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1077,20 +1076,20 @@ class ApiFriend extends NakamaAsyncResult:
 		"user": {"name": "_user", "type": "ApiUser", "required": false},
 	}
 
-	# The friend status.
 	var _state
+	## The friend status.
 	var state : int:
 		get:
 			return 0 if not _state is int else int(_state)
 
-	# Time of the latest relationship update.
 	var _update_time
+	## Time of the latest relationship update.
 	var update_time : String:
 		get:
 			return "" if not _update_time is String else String(_update_time)
 
-	# The user object.
 	var _user
+	## The user object.
 	var user : ApiUser:
 		get:
 			return _user as ApiUser
@@ -1113,7 +1112,7 @@ class ApiFriend extends NakamaAsyncResult:
 		output += "user: %s, " % _user
 		return output
 
-# A collection of zero or more friends of the user.
+## A collection of zero or more friends of the user.
 class ApiFriendList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1121,14 +1120,14 @@ class ApiFriendList extends NakamaAsyncResult:
 		"friends": {"name": "_friends", "type": TYPE_ARRAY, "required": false, "content": "ApiFriend"},
 	}
 
-	# Cursor for the next page of results, if any.
 	var _cursor
+	## Cursor for the next page of results, if any.
 	var cursor : String:
 		get:
 			return "" if not _cursor is String else String(_cursor)
 
-	# The Friend objects.
 	var _friends
+	## The Friend objects.
 	var friends : Array:
 		get:
 			return Array() if not _friends is Array else Array(_friends)
@@ -1150,7 +1149,7 @@ class ApiFriendList extends NakamaAsyncResult:
 		output += "friends: %s, " % [_friends]
 		return output
 
-# A group in the server.
+## A group in the server.
 class ApiGroup extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1168,74 +1167,74 @@ class ApiGroup extends NakamaAsyncResult:
 		"update_time": {"name": "_update_time", "type": TYPE_STRING, "required": false},
 	}
 
-	# A URL for an avatar image.
 	var _avatar_url
+	## A URL for an avatar image.
 	var avatar_url : String:
 		get:
 			return "" if not _avatar_url is String else String(_avatar_url)
 
-	# The UNIX time when the group was created.
 	var _create_time
+	## The UNIX time when the group was created.
 	var create_time : String:
 		get:
 			return "" if not _create_time is String else String(_create_time)
 
-	# The id of the user who created the group.
 	var _creator_id
+	## The id of the user who created the group.
 	var creator_id : String:
 		get:
 			return "" if not _creator_id is String else String(_creator_id)
 
-	# A description for the group.
 	var _description
+	## A description for the group.
 	var description : String:
 		get:
 			return "" if not _description is String else String(_description)
 
-	# The current count of all members in the group.
 	var _edge_count
+	## The current count of all members in the group.
 	var edge_count : int:
 		get:
 			return 0 if not _edge_count is int else int(_edge_count)
 
-	# The id of a group.
 	var _id
+	## The id of a group.
 	var id : String:
 		get:
 			return "" if not _id is String else String(_id)
 
-	# The language expected to be a tag which follows the BCP-47 spec.
 	var _lang_tag
+	## The language expected to be a tag which follows the BCP-47 spec.
 	var lang_tag : String:
 		get:
 			return "" if not _lang_tag is String else String(_lang_tag)
 
-	# The maximum number of members allowed.
+	## The maximum number of members allowed.
 	var _max_count
 	var max_count : int:
 		get:
 			return 0 if not _max_count is int else int(_max_count)
 
-	# Additional information stored as a JSON object.
 	var _metadata
+	## Additional information stored as a JSON object.
 	var metadata : String:
 		get:
 			return "" if not _metadata is String else String(_metadata)
 
-	# The unique name of the group.
 	var _name
+	## The unique name of the group.
 	var name : String:
 		get:
 			return "" if not _name is String else String(_name)
 
-	# Anyone can join open groups, otherwise only admins can accept members.
 	var _open
+	## Anyone can join open groups, otherwise only admins can accept members.
 	var open : bool:
 		get:
 			return false if not _open is bool else bool(_open)
 
-	# The UNIX time when the group was last updated.
 	var _update_time
+	## The UNIX time when the group was last updated.
 	var update_time : String:
 		get:
 			return "" if not _update_time is String else String(_update_time)
@@ -1267,7 +1266,7 @@ class ApiGroup extends NakamaAsyncResult:
 		output += "update_time: %s, " % _update_time
 		return output
 
-# One or more groups returned from a listing operation.
+## One or more groups returned from a listing operation.
 class ApiGroupList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1275,14 +1274,14 @@ class ApiGroupList extends NakamaAsyncResult:
 		"groups": {"name": "_groups", "type": TYPE_ARRAY, "required": false, "content": "ApiGroup"},
 	}
 
-	# A cursor used to get the next page.
 	var _cursor
+	## A cursor used to get the next page.
 	var cursor : String:
 		get:
 			return "" if not _cursor is String else String(_cursor)
 
-	# One or more groups.
 	var _groups
+	## One or more groups.
 	var groups : Array:
 		get:
 			return Array() if not _groups is Array else Array(_groups)
@@ -1304,7 +1303,7 @@ class ApiGroupList extends NakamaAsyncResult:
 		output += "groups: %s, " % [_groups]
 		return output
 
-# A list of users belonging to a group, along with their role.
+## A list of users belonging to a group, along with their role.
 class ApiGroupUserList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1312,14 +1311,14 @@ class ApiGroupUserList extends NakamaAsyncResult:
 		"group_users": {"name": "_group_users", "type": TYPE_ARRAY, "required": false, "content": "GroupUserListGroupUser"},
 	}
 
-	# Cursor for the next page of results, if any.
 	var _cursor
+	## Cursor for the next page of results, if any.
 	var cursor : String:
 		get:
 			return "" if not _cursor is String else String(_cursor)
 
-	# User-role pairs for a group.
 	var _group_users
+	## User-role pairs for a group.
 	var group_users : Array:
 		get:
 			return Array() if not _group_users is Array else Array(_group_users)
@@ -1341,7 +1340,7 @@ class ApiGroupUserList extends NakamaAsyncResult:
 		output += "group_users: %s, " % [_group_users]
 		return output
 
-# Represents a complete leaderboard record with all scores and associated metadata.
+## Represents a complete leaderboard record with all scores and associated metadata.
 class ApiLeaderboardRecord extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1359,74 +1358,74 @@ class ApiLeaderboardRecord extends NakamaAsyncResult:
 		"username": {"name": "_username", "type": TYPE_STRING, "required": false},
 	}
 
-	# The UNIX time when the leaderboard record was created.
 	var _create_time
+	## The UNIX time when the leaderboard record was created.
 	var create_time : String:
 		get:
 			return "" if not _create_time is String else String(_create_time)
 
-	# The UNIX time when the leaderboard record expires.
 	var _expiry_time
+	## The UNIX time when the leaderboard record expires.
 	var expiry_time : String:
 		get:
 			return "" if not _expiry_time is String else String(_expiry_time)
 
-	# The ID of the leaderboard this score belongs to.
 	var _leaderboard_id
+	## The ID of the leaderboard this score belongs to.
 	var leaderboard_id : String:
 		get:
 			return "" if not _leaderboard_id is String else String(_leaderboard_id)
 
-	# The maximum number of score updates allowed by the owner.
 	var _max_num_score
+	## The maximum number of score updates allowed by the owner.
 	var max_num_score : int:
 		get:
 			return 0 if not _max_num_score is int else int(_max_num_score)
 
-	# Metadata.
 	var _metadata
+	## Metadata.
 	var metadata : String:
 		get:
 			return "" if not _metadata is String else String(_metadata)
 
-	# The number of submissions to this score record.
 	var _num_score
+	## The number of submissions to this score record.
 	var num_score : int:
 		get:
 			return 0 if not _num_score is int else int(_num_score)
 
-	# The ID of the score owner, usually a user or group.
 	var _owner_id
+	## The ID of the score owner, usually a user or group.
 	var owner_id : String:
 		get:
 			return "" if not _owner_id is String else String(_owner_id)
 
-	# The rank of this record.
 	var _rank
+	## The rank of this record.
 	var rank : String:
 		get:
 			return "" if not _rank is String else String(_rank)
 
-	# The score value.
 	var _score
+	## The score value.
 	var score : String:
 		get:
 			return "" if not _score is String else String(_score)
 
-	# An optional subscore value.
 	var _subscore
+	## An optional subscore value.
 	var subscore : String:
 		get:
 			return "" if not _subscore is String else String(_subscore)
 
-	# The UNIX time when the leaderboard record was updated.
 	var _update_time
+	## The UNIX time when the leaderboard record was updated.
 	var update_time : String:
 		get:
 			return "" if not _update_time is String else String(_update_time)
 
-	# The username of the score owner, if the owner is a user.
 	var _username
+	## The username of the score owner, if the owner is a user.
 	var username : String:
 		get:
 			return "" if not _username is String else String(_username)
@@ -1458,7 +1457,7 @@ class ApiLeaderboardRecord extends NakamaAsyncResult:
 		output += "username: %s, " % _username
 		return output
 
-# A set of leaderboard records, may be part of a leaderboard records page or a batch of individual records.
+## A set of leaderboard records, may be part of a leaderboard records page or a batch of individual records.
 class ApiLeaderboardRecordList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1468,26 +1467,26 @@ class ApiLeaderboardRecordList extends NakamaAsyncResult:
 		"records": {"name": "_records", "type": TYPE_ARRAY, "required": false, "content": "ApiLeaderboardRecord"},
 	}
 
-	# The cursor to send when retrieving the next page, if any.
 	var _next_cursor
+	## The cursor to send when retrieving the next page, if any.
 	var next_cursor : String:
 		get:
 			return "" if not _next_cursor is String else String(_next_cursor)
 
-	# A batched set of leaderboard records belonging to specified owners.
 	var _owner_records
+	## A batched set of leaderboard records belonging to specified owners.
 	var owner_records : Array:
 		get:
 			return Array() if not _owner_records is Array else Array(_owner_records)
 
-	# The cursor to send when retrieving the previous page, if any.
 	var _prev_cursor
+	## The cursor to send when retrieving the previous page, if any.
 	var prev_cursor : String:
 		get:
 			return "" if not _prev_cursor is String else String(_prev_cursor)
 
-	# A list of leaderboard records.
 	var _records
+	## A list of leaderboard records.
 	var records : Array:
 		get:
 			return Array() if not _records is Array else Array(_records)
@@ -1511,7 +1510,7 @@ class ApiLeaderboardRecordList extends NakamaAsyncResult:
 		output += "records: %s, " % [_records]
 		return output
 
-# Link Steam to the current user's account.
+## Link Steam to the current user's account.
 class ApiLinkSteamRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1519,14 +1518,14 @@ class ApiLinkSteamRequest extends NakamaAsyncResult:
 		"sync": {"name": "_sync", "type": TYPE_BOOL, "required": false},
 	}
 
-	# The Facebook account details.
 	var _account
+	## The Facebook account details.
 	var account : ApiAccountSteam:
 		get:
 			return _account as ApiAccountSteam
 
-	# Import Steam friends for the user.
 	var _sync
+	## Import Steam friends for the user.
 	var sync : bool:
 		get:
 			return false if not _sync is bool else bool(_sync)
@@ -1548,7 +1547,7 @@ class ApiLinkSteamRequest extends NakamaAsyncResult:
 		output += "sync: %s, " % _sync
 		return output
 
-# List user subscriptions.
+## List user subscriptions.
 class ApiListSubscriptionsRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1556,13 +1555,11 @@ class ApiListSubscriptionsRequest extends NakamaAsyncResult:
 		"limit": {"name": "_limit", "type": TYPE_INT, "required": false},
 	}
 
-	#
 	var _cursor
 	var cursor : String:
 		get:
 			return "" if not _cursor is String else String(_cursor)
 
-	#
 	var _limit
 	var limit : int:
 		get:
@@ -1585,7 +1582,7 @@ class ApiListSubscriptionsRequest extends NakamaAsyncResult:
 		output += "limit: %s, " % _limit
 		return output
 
-# Represents a realtime match.
+## Represents a realtime match.
 class ApiMatch extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1597,37 +1594,35 @@ class ApiMatch extends NakamaAsyncResult:
 		"tick_rate": {"name": "_tick_rate", "type": TYPE_INT, "required": false},
 	}
 
-	# True if it's an server-managed authoritative match, false otherwise.
 	var _authoritative
+	## True if it's an server-managed authoritative match, false otherwise.
 	var authoritative : bool:
 		get:
 			return false if not _authoritative is bool else bool(_authoritative)
 
-	#
 	var _handler_name
 	var handler_name : String:
 		get:
 			return "" if not _handler_name is String else String(_handler_name)
 
-	# Match label, if any.
 	var _label
+	## Match label, if any.
 	var label : String:
 		get:
 			return "" if not _label is String else String(_label)
 
-	# The ID of the match, can be used to join.
 	var _match_id
+	## The ID of the match, can be used to join.
 	var match_id : String:
 		get:
 			return "" if not _match_id is String else String(_match_id)
 
-	# Current number of users in the match.
 	var _size
+	## Current number of users in the match.
 	var size : int:
 		get:
 			return 0 if not _size is int else int(_size)
 
-	#
 	var _tick_rate
 	var tick_rate : int:
 		get:
@@ -1654,15 +1649,15 @@ class ApiMatch extends NakamaAsyncResult:
 		output += "tick_rate: %s, " % _tick_rate
 		return output
 
-# A list of realtime matches.
+## A list of realtime matches.
 class ApiMatchList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"matches": {"name": "_matches", "type": TYPE_ARRAY, "required": false, "content": "ApiMatch"},
 	}
 
-	# A number of matches corresponding to a list operation.
 	var _matches
+	## A number of matches corresponding to a list operation.
 	var matches : Array:
 		get:
 			return Array() if not _matches is Array else Array(_matches)
@@ -1683,7 +1678,7 @@ class ApiMatchList extends NakamaAsyncResult:
 		output += "matches: %s, " % [_matches]
 		return output
 
-# A notification in the server.
+## A notification in the server.
 class ApiNotification extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1696,44 +1691,44 @@ class ApiNotification extends NakamaAsyncResult:
 		"subject": {"name": "_subject", "type": TYPE_STRING, "required": false},
 	}
 
-	# Category code for this notification.
 	var _code
+	## Category code for this notification.
 	var code : int:
 		get:
 			return 0 if not _code is int else int(_code)
 
-	# Content of the notification in JSON.
 	var _content
+	## Content of the notification in JSON.
 	var content : String:
 		get:
 			return "" if not _content is String else String(_content)
 
-	# The UNIX time when the notification was created.
 	var _create_time
+	## The UNIX time when the notification was created.
 	var create_time : String:
 		get:
 			return "" if not _create_time is String else String(_create_time)
 
-	# ID of the Notification.
 	var _id
+	## ID of the Notification.
 	var id : String:
 		get:
 			return "" if not _id is String else String(_id)
 
-	# True if this notification was persisted to the database.
 	var _persistent
+	## True if this notification was persisted to the database.
 	var persistent : bool:
 		get:
 			return false if not _persistent is bool else bool(_persistent)
 
-	# ID of the sender, if a user. Otherwise 'null'.
 	var _sender_id
+	## ID of the sender, if a user. Otherwise 'null'.
 	var sender_id : String:
 		get:
 			return "" if not _sender_id is String else String(_sender_id)
 
-	# Subject of the notification.
 	var _subject
+	## Subject of the notification.
 	var subject : String:
 		get:
 			return "" if not _subject is String else String(_subject)
@@ -1760,22 +1755,21 @@ class ApiNotification extends NakamaAsyncResult:
 		output += "subject: %s, " % _subject
 		return output
 
-# A collection of zero or more notifications.
+## A collection of zero or more notifications.
 class ApiNotificationList extends NakamaAsyncResult:
-
 	const _SCHEMA = {
 		"cacheable_cursor": {"name": "_cacheable_cursor", "type": TYPE_STRING, "required": false},
 		"notifications": {"name": "_notifications", "type": TYPE_ARRAY, "required": false, "content": "ApiNotification"},
 	}
 
-	# Use this cursor to paginate notifications. Cache this to catch up to new notifications.
 	var _cacheable_cursor
+	## Use this cursor to paginate notifications. Cache this to catch up to new notifications.
 	var cacheable_cursor : String:
 		get:
 			return "" if not _cacheable_cursor is String else String(_cacheable_cursor)
 
-	# Collection of notifications.
 	var _notifications
+	## Collection of notifications.
 	var notifications : Array:
 		get:
 			return Array() if not _notifications is Array else Array(_notifications)
@@ -1797,15 +1791,21 @@ class ApiNotificationList extends NakamaAsyncResult:
 		output += "notifications: %s, " % [_notifications]
 		return output
 
-# Operator that can be used to override the one set in the leaderboard.
-#  - NO_OVERRIDE: Do not override the leaderboard operator.
-#  - BEST: Override the leaderboard operator with BEST.
-#  - SET: Override the leaderboard operator with SET.
-#  - INCREMENT: Override the leaderboard operator with INCREMENT.
-#  - DECREMENT: Override the leaderboard operator with DECREMENT.# [ - NO_OVERRIDE: Do not override the leaderboard operator.  - BEST: Override the leaderboard operator with BEST.  - SET: Override the leaderboard operator with SET.  - INCREMENT: Override the leaderboard operator with INCREMENT.  - DECREMENT: Override the leaderboard operator with DECREMENT.]
-enum ApiOperator {NO_OVERRIDE = 0,BEST = 1,SET = 2,INCREMENT = 3,DECREMENT = 4,}
+## Operator that can be used to override the one set in the leaderboard.
+enum ApiOperator {
+	## Do not override the leaderboard operator.
+	NO_OVERRIDE = 0,
+	## Override the leaderboard operator with BEST
+	BEST = 1,
+	## Override the leaderboard operator with SET.
+	SET = 2,
+	## Override the leaderboard operator with INCREMENT.
+	INCREMENT = 3,
+	## Override the leaderboard operator with DECREMENT.
+	DECREMENT = 4,
+}
 
-# Storage objects to get.
+## Storage objects to get.
 class ApiReadStorageObjectId extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1814,20 +1814,20 @@ class ApiReadStorageObjectId extends NakamaAsyncResult:
 		"user_id": {"name": "_user_id", "type": TYPE_STRING, "required": false},
 	}
 
-	# The collection which stores the object.
 	var _collection
+	## The collection which stores the object.
 	var collection : String:
 		get:
 			return "" if not _collection is String else String(_collection)
 
-	# The key of the object within the collection.
 	var _key
+	## The key of the object within the collection.
 	var key : String:
 		get:
 			return "" if not _key is String else String(_key)
 
-	# The user owner of the object.
 	var _user_id
+	## The user owner of the object.
 	var user_id : String:
 		get:
 			return "" if not _user_id is String else String(_user_id)
@@ -1850,15 +1850,15 @@ class ApiReadStorageObjectId extends NakamaAsyncResult:
 		output += "user_id: %s, " % _user_id
 		return output
 
-# Batch get storage objects.
+## Batch get storage objects.
 class ApiReadStorageObjectsRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"object_ids": {"name": "_object_ids", "type": TYPE_ARRAY, "required": false, "content": "ApiReadStorageObjectId"},
 	}
 
-	# Batch of storage objects.
 	var _object_ids
+	## Batch of storage objects.
 	var object_ids : Array:
 		get:
 			return Array() if not _object_ids is Array else Array(_object_ids)
@@ -1879,7 +1879,7 @@ class ApiReadStorageObjectsRequest extends NakamaAsyncResult:
 		output += "object_ids: %s, " % [_object_ids]
 		return output
 
-# Execute an Lua function on the server.
+## Execute an Lua function on the server.
 class ApiRpc extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1888,20 +1888,20 @@ class ApiRpc extends NakamaAsyncResult:
 		"payload": {"name": "_payload", "type": TYPE_STRING, "required": false},
 	}
 
-	# The authentication key used when executed as a non-client HTTP request.
 	var _http_key
+	## The authentication key used when executed as a non-client HTTP request.
 	var http_key : String:
 		get:
 			return "" if not _http_key is String else String(_http_key)
 
-	# The identifier of the function.
 	var _id
+	## The identifier of the function.
 	var id : String:
 		get:
 			return "" if not _id is String else String(_id)
 
-	# The payload of the function which must be a JSON object.
 	var _payload
+	## The payload of the function which must be a JSON object.
 	var payload : String:
 		get:
 			return "" if not _payload is String else String(_payload)
@@ -1924,7 +1924,7 @@ class ApiRpc extends NakamaAsyncResult:
 		output += "payload: %s, " % _payload
 		return output
 
-# A user's session used to authenticate messages.
+## A user's session used to authenticate messages.
 class ApiSession extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1933,20 +1933,20 @@ class ApiSession extends NakamaAsyncResult:
 		"token": {"name": "_token", "type": TYPE_STRING, "required": false},
 	}
 
-	# True if the corresponding account was just created, false otherwise.
 	var _created
+	## True if the corresponding account was just created, false otherwise.
 	var created : bool:
 		get:
 			return false if not _created is bool else bool(_created)
 
-	# Refresh token that can be used for session token renewal.
 	var _refresh_token
+	## Refresh token that can be used for session token renewal.
 	var refresh_token : String:
 		get:
 			return "" if not _refresh_token is String else String(_refresh_token)
 
-	# Authentication credentials.
 	var _token
+	## Authentication credentials.
 	var token : String:
 		get:
 			return "" if not _token is String else String(_token)
@@ -1969,7 +1969,7 @@ class ApiSession extends NakamaAsyncResult:
 		output += "token: %s, " % _token
 		return output
 
-# Log out a session, invalidate a refresh token, or log out all sessions/refresh tokens for a user.
+## Log out a session, invalidate a refresh token, or log out all sessions/refresh tokens for a user.
 class ApiSessionLogoutRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -1977,14 +1977,14 @@ class ApiSessionLogoutRequest extends NakamaAsyncResult:
 		"token": {"name": "_token", "type": TYPE_STRING, "required": false},
 	}
 
-	# Refresh token to invalidate.
 	var _refresh_token
+	## Refresh token to invalidate.
 	var refresh_token : String:
 		get:
 			return "" if not _refresh_token is String else String(_refresh_token)
 
-	# Session token to log out.
 	var _token
+	## Session token to log out.
 	var token : String:
 		get:
 			return "" if not _token is String else String(_token)
@@ -2006,7 +2006,7 @@ class ApiSessionLogoutRequest extends NakamaAsyncResult:
 		output += "token: %s, " % _token
 		return output
 
-# Authenticate against the server with a refresh token.
+## Authenticate against the server with a refresh token.
 class ApiSessionRefreshRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2014,14 +2014,14 @@ class ApiSessionRefreshRequest extends NakamaAsyncResult:
 		"vars": {"name": "_vars", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
 
-	# Refresh token.
 	var _token
+	## Refresh token.
 	var token : String:
 		get:
 			return "" if not _token is String else String(_token)
 
-	# Extra information that will be bundled in the session token.
 	var _vars
+	## Extra information that will be bundled in the session token.
 	var vars : Dictionary:
 		get:
 			return Dictionary() if not _vars is Dictionary else _vars.duplicate()
@@ -2047,7 +2047,7 @@ class ApiSessionRefreshRequest extends NakamaAsyncResult:
 		output += "vars: [%s], " % map_string
 		return output
 
-# An object within the storage engine.
+## An object within the storage engine.
 class ApiStorageObject extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2062,56 +2062,56 @@ class ApiStorageObject extends NakamaAsyncResult:
 		"version": {"name": "_version", "type": TYPE_STRING, "required": false},
 	}
 
-	# The collection which stores the object.
 	var _collection
+	## The collection which stores the object.
 	var collection : String:
 		get:
 			return "" if not _collection is String else String(_collection)
 
-	# The UNIX time when the object was created.
 	var _create_time
+	## The UNIX time when the object was created.
 	var create_time : String:
 		get:
 			return "" if not _create_time is String else String(_create_time)
 
-	# The key of the object within the collection.
 	var _key
+	## The key of the object within the collection.
 	var key : String:
 		get:
 			return "" if not _key is String else String(_key)
 
-	# The read access permissions for the object.
 	var _permission_read
+	## The read access permissions for the object.
 	var permission_read : int:
 		get:
 			return 0 if not _permission_read is int else int(_permission_read)
 
-	# The write access permissions for the object.
 	var _permission_write
+	## The write access permissions for the object.
 	var permission_write : int:
 		get:
 			return 0 if not _permission_write is int else int(_permission_write)
 
-	# The UNIX time when the object was last updated.
 	var _update_time
+	## The UNIX time when the object was last updated.
 	var update_time : String:
 		get:
 			return "" if not _update_time is String else String(_update_time)
 
-	# The user owner of the object.
 	var _user_id
+	## The user owner of the object.
 	var user_id : String:
 		get:
 			return "" if not _user_id is String else String(_user_id)
 
-	# The value of the object.
 	var _value
+	## The value of the object.
 	var value : String:
 		get:
 			return "" if not _value is String else String(_value)
 
-	# The version hash of the object.
 	var _version
+	## The version hash of the object.
 	var version : String:
 		get:
 			return "" if not _version is String else String(_version)
@@ -2140,7 +2140,7 @@ class ApiStorageObject extends NakamaAsyncResult:
 		output += "version: %s, " % _version
 		return output
 
-# A storage acknowledgement.
+## A storage acknowledgement.
 class ApiStorageObjectAck extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2150,20 +2150,20 @@ class ApiStorageObjectAck extends NakamaAsyncResult:
 		"version": {"name": "_version", "type": TYPE_STRING, "required": false},
 	}
 
-	# The collection which stores the object.
 	var _collection
+	## The collection which stores the object.
 	var collection : String:
 		get:
 			return "" if not _collection is String else String(_collection)
 
-	# The key of the object within the collection.
 	var _key
+	## The key of the object within the collection.
 	var key : String:
 		get:
 			return "" if not _key is String else String(_key)
 
-	# The owner of the object.
 	var _user_id
+	## The owner of the object.
 	var user_id : String:
 		get:
 			return "" if not _user_id is String else String(_user_id)
@@ -2193,15 +2193,15 @@ class ApiStorageObjectAck extends NakamaAsyncResult:
 		output += "version: %s, " % _version
 		return output
 
-# Batch of acknowledgements for the storage object write.
+## Batch of acknowledgements for the storage object write.
 class ApiStorageObjectAcks extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"acks": {"name": "_acks", "type": TYPE_ARRAY, "required": false, "content": "ApiStorageObjectAck"},
 	}
 
-	# Batch of storage write acknowledgements.
 	var _acks
+	## Batch of storage write acknowledgements.
 	var acks : Array:
 		get:
 			return Array() if not _acks is Array else Array(_acks)
@@ -2222,7 +2222,7 @@ class ApiStorageObjectAcks extends NakamaAsyncResult:
 		output += "acks: %s, " % [_acks]
 		return output
 
-# List of storage objects.
+## List of storage objects.
 class ApiStorageObjectList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2230,14 +2230,14 @@ class ApiStorageObjectList extends NakamaAsyncResult:
 		"objects": {"name": "_objects", "type": TYPE_ARRAY, "required": false, "content": "ApiStorageObject"},
 	}
 
-	# The cursor for the next page of results, if any.
 	var _cursor
+	## The cursor for the next page of results, if any.
 	var cursor : String:
 		get:
 			return "" if not _cursor is String else String(_cursor)
 
-	# The list of storage objects.
 	var _objects
+	## The list of storage objects.
 	var objects : Array:
 		get:
 			return Array() if not _objects is Array else Array(_objects)
@@ -2259,15 +2259,15 @@ class ApiStorageObjectList extends NakamaAsyncResult:
 		output += "objects: %s, " % [_objects]
 		return output
 
-# Batch of storage objects.
+## Batch of storage objects.
 class ApiStorageObjects extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"objects": {"name": "_objects", "type": TYPE_ARRAY, "required": false, "content": "ApiStorageObject"},
 	}
 
-	# The batch of storage objects.
 	var _objects
+	## The batch of storage objects.
 	var objects : Array:
 		get:
 			return Array() if not _objects is Array else Array(_objects)
@@ -2288,19 +2288,27 @@ class ApiStorageObjects extends NakamaAsyncResult:
 		output += "objects: %s, " % [_objects]
 		return output
 
-# Environment where a purchase/subscription took place,
-# - UNKNOWN: Unknown environment.
-#  - SANDBOX: Sandbox/test environment.
-#  - PRODUCTION: Production environment.# [- UNKNOWN: Unknown environment.  - SANDBOX: Sandbox/test environment.  - PRODUCTION: Production environment.]
-enum ApiStoreEnvironment {UNKNOWN = 0,SANDBOX = 1,PRODUCTION = 2,}
+## Environment where a purchase/subscription took place,
+enum ApiStoreEnvironment {
+	## Unknown environment.
+	UNKNOWN = 0,
+	## Sandbox/test environment.
+	SANDBOX = 1,
+	## Production environment.
+	PRODUCTION = 2,
+}
 
-# Validation Provider,
-# - APPLE_APP_STORE: Apple App Store
-#  - GOOGLE_PLAY_STORE: Google Play Store
-#  - HUAWEI_APP_GALLERY: Huawei App Gallery# [- APPLE_APP_STORE: Apple App Store  - GOOGLE_PLAY_STORE: Google Play Store  - HUAWEI_APP_GALLERY: Huawei App Gallery]
-enum ApiStoreProvider {APPLE_APP_STORE = 0,GOOGLE_PLAY_STORE = 1,HUAWEI_APP_GALLERY = 2,}
+## Validation Provider,
+enum ApiStoreProvider {
+	## Apple App Store
+	APPLE_APP_STORE = 0,
+	## Google Play Store
+	GOOGLE_PLAY_STORE = 1,
+	## Huawei App Gallery
+	HUAWEI_APP_GALLERY = 2,
+}
 
-# A list of validated subscriptions stored by Nakama.
+## A list of validated subscriptions stored by Nakama.
 class ApiSubscriptionList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2309,20 +2317,20 @@ class ApiSubscriptionList extends NakamaAsyncResult:
 		"validated_subscriptions": {"name": "_validated_subscriptions", "type": TYPE_ARRAY, "required": false, "content": "ApiValidatedSubscription"},
 	}
 
-	# The cursor to send when retrieving the next page, if any.
 	var _cursor
+	## The cursor to send when retrieving the next page, if any.
 	var cursor : String:
 		get:
 			return "" if not _cursor is String else String(_cursor)
 
-	# The cursor to send when retrieving the previous page, if any.
 	var _prev_cursor
+	## The cursor to send when retrieving the previous page, if any.
 	var prev_cursor : String:
 		get:
 			return "" if not _prev_cursor is String else String(_prev_cursor)
 
-	# Stored validated subscriptions.
 	var _validated_subscriptions
+	## Stored validated subscriptions.
 	var validated_subscriptions : Array:
 		get:
 			return Array() if not _validated_subscriptions is Array else Array(_validated_subscriptions)
@@ -2345,7 +2353,7 @@ class ApiSubscriptionList extends NakamaAsyncResult:
 		output += "validated_subscriptions: %s, " % [_validated_subscriptions]
 		return output
 
-# A tournament on the server.
+## A tournament on the server.
 class ApiTournament extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2371,38 +2379,38 @@ class ApiTournament extends NakamaAsyncResult:
 		"title": {"name": "_title", "type": TYPE_STRING, "required": false},
 	}
 
-	# Whether the leaderboard was created authoritatively or not.
 	var _authoritative
+	## Whether the leaderboard was created authoritatively or not.
 	var authoritative : bool:
 		get:
 			return false if not _authoritative is bool else bool(_authoritative)
 
-	# True if the tournament is active and can enter. A computed value.
 	var _can_enter
+	## True if the tournament is active and can enter. A computed value.
 	var can_enter : bool:
 		get:
 			return false if not _can_enter is bool else bool(_can_enter)
 
-	# The category of the tournament. e.g. "vip" could be category 1.
 	var _category
+	## The category of the tournament. e.g. "vip" could be category 1.
 	var category : int:
 		get:
 			return 0 if not _category is int else int(_category)
 
-	# The UNIX time when the tournament was created.
 	var _create_time
+	## The UNIX time when the tournament was created.
 	var create_time : String:
 		get:
 			return "" if not _create_time is String else String(_create_time)
 
-	# The description of the tournament. May be blank.
 	var _description
+	## The description of the tournament. May be blank.
 	var description : String:
 		get:
 			return "" if not _description is String else String(_description)
 
-	# Duration of the tournament in seconds.
 	var _duration
+	## Duration of the tournament in seconds.
 	var duration : int:
 		get:
 			return 0 if not _duration is int else int(_duration)
@@ -2413,80 +2421,80 @@ class ApiTournament extends NakamaAsyncResult:
 		get:
 			return 0 if not _end_active is int else int(_end_active)
 
-	# The UNIX time when the tournament will be stopped.
 	var _end_time
+	## The UNIX time when the tournament will be stopped.
 	var end_time : String:
 		get:
 			return "" if not _end_time is String else String(_end_time)
 
-	# The ID of the tournament.
 	var _id
+	## The ID of the tournament.
 	var id : String:
 		get:
 			return "" if not _id is String else String(_id)
 
-	# The maximum score updates allowed per player for the current tournament.
 	var _max_num_score
+	## The maximum score updates allowed per player for the current tournament.
 	var max_num_score : int:
 		get:
 			return 0 if not _max_num_score is int else int(_max_num_score)
 
-	# The maximum number of players for the tournament.
 	var _max_size
+	## The maximum number of players for the tournament.
 	var max_size : int:
 		get:
 			return 0 if not _max_size is int else int(_max_size)
 
-	# Additional information stored as a JSON object.
 	var _metadata
+	## Additional information stored as a JSON object.
 	var metadata : String:
 		get:
 			return "" if not _metadata is String else String(_metadata)
 
-	# The UNIX time when the tournament is next playable. A computed value.
 	var _next_reset
+	## The UNIX time when the tournament is next playable. A computed value.
 	var next_reset : int:
 		get:
 			return 0 if not _next_reset is int else int(_next_reset)
 
-	# Operator.
 	var _operator
+	## Operator.
 	var operator : int:
 		get:
 			return ApiOperator.values()[0] if not ApiOperator.values().has(_operator) else _operator
 
-	# The UNIX time when the tournament was last reset. A computed value.
 	var _prev_reset
+	## The UNIX time when the tournament was last reset. A computed value.
 	var prev_reset : int:
 		get:
 			return 0 if not _prev_reset is int else int(_prev_reset)
 
-	# The current number of players in the tournament.
 	var _size
+	## The current number of players in the tournament.
 	var size : int:
 		get:
 			return 0 if not _size is int else int(_size)
 
-	# ASC (0) or DESC (1) sort mode of scores in the tournament.
 	var _sort_order
+	## ASC (0) or DESC (1) sort mode of scores in the tournament.
 	var sort_order : int:
 		get:
 			return 0 if not _sort_order is int else int(_sort_order)
 
-	# The UNIX time when the tournament start being active. A computed value.
 	var _start_active
+	## The UNIX time when the tournament start being active. A computed value.
 	var start_active : int:
 		get:
 			return 0 if not _start_active is int else int(_start_active)
 
-	# The UNIX time when the tournament will start.
 	var _start_time
+	## The UNIX time when the tournament will start.
 	var start_time : String:
 		get:
 			return "" if not _start_time is String else String(_start_time)
 
-	# The title for the tournament.
 	var _title
+	## The title for the tournament.
 	var title : String:
 		get:
 			return "" if not _title is String else String(_title)
@@ -2526,7 +2534,7 @@ class ApiTournament extends NakamaAsyncResult:
 		output += "title: %s, " % _title
 		return output
 
-# A list of tournaments.
+## A list of tournaments.
 class ApiTournamentList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2534,14 +2542,14 @@ class ApiTournamentList extends NakamaAsyncResult:
 		"tournaments": {"name": "_tournaments", "type": TYPE_ARRAY, "required": false, "content": "ApiTournament"},
 	}
 
-	# A pagination cursor (optional).
 	var _cursor
+	## A pagination cursor (optional).
 	var cursor : String:
 		get:
 			return "" if not _cursor is String else String(_cursor)
 
-	# The list of tournaments returned.
 	var _tournaments
+	## The list of tournaments returned.
 	var tournaments : Array:
 		get:
 			return Array() if not _tournaments is Array else Array(_tournaments)
@@ -2563,7 +2571,7 @@ class ApiTournamentList extends NakamaAsyncResult:
 		output += "tournaments: %s, " % [_tournaments]
 		return output
 
-# A set of tournament records which may be part of a tournament records page or a batch of individual records.
+## A set of tournament records which may be part of a tournament records page or a batch of individual records.
 class ApiTournamentRecordList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2573,26 +2581,26 @@ class ApiTournamentRecordList extends NakamaAsyncResult:
 		"records": {"name": "_records", "type": TYPE_ARRAY, "required": false, "content": "ApiLeaderboardRecord"},
 	}
 
-	# The cursor to send when retireving the next page (optional).
 	var _next_cursor
+	## The cursor to send when retireving the next page (optional).
 	var next_cursor : String:
 		get:
 			return "" if not _next_cursor is String else String(_next_cursor)
 
-	# A batched set of tournament records belonging to specified owners.
 	var _owner_records
+	## A batched set of tournament records belonging to specified owners.
 	var owner_records : Array:
 		get:
 			return Array() if not _owner_records is Array else Array(_owner_records)
 
-	# The cursor to send when retrieving the previous page (optional).
 	var _prev_cursor
+	## The cursor to send when retrieving the previous page (optional).
 	var prev_cursor : String:
 		get:
 			return "" if not _prev_cursor is String else String(_prev_cursor)
 
-	# A list of tournament records.
 	var _records
+	## A list of tournament records.
 	var records : Array:
 		get:
 			return Array() if not _records is Array else Array(_records)
@@ -2616,7 +2624,7 @@ class ApiTournamentRecordList extends NakamaAsyncResult:
 		output += "records: %s, " % [_records]
 		return output
 
-# Update a user's account details.
+## Update a user's account details.
 class ApiUpdateAccountRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2628,38 +2636,38 @@ class ApiUpdateAccountRequest extends NakamaAsyncResult:
 		"username": {"name": "_username", "type": TYPE_STRING, "required": false},
 	}
 
-	# A URL for an avatar image.
 	var _avatar_url
+	## A URL for an avatar image.
 	var avatar_url : String:
 		get:
 			return "" if not _avatar_url is String else String(_avatar_url)
 
-	# The display name of the user.
 	var _display_name
+	## The display name of the user.
 	var display_name : String:
 		get:
 			return "" if not _display_name is String else String(_display_name)
 
-	# The language expected to be a tag which follows the BCP-47 spec.
 	var _lang_tag
+	## The language expected to be a tag which follows the BCP-47 spec.
 	var lang_tag : String:
 		get:
 			return "" if not _lang_tag is String else String(_lang_tag)
 
-	# The location set by the user.
 	var _location
+	## The location set by the user.
 	var location : String:
 		get:
 			return "" if not _location is String else String(_location)
 
-	# The timezone set by the user.
 	var _timezone
+	## The timezone set by the user.
 	var timezone : String:
 		get:
 			return "" if not _timezone is String else String(_timezone)
 
-	# The username of the user's account.
 	var _username
+	## The username of the user's account.
 	var username : String:
 		get:
 			return "" if not _username is String else String(_username)
@@ -2685,7 +2693,7 @@ class ApiUpdateAccountRequest extends NakamaAsyncResult:
 		output += "username: %s, " % _username
 		return output
 
-# Update fields in a given group.
+## Update fields in a given group.
 class ApiUpdateGroupRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2697,38 +2705,38 @@ class ApiUpdateGroupRequest extends NakamaAsyncResult:
 		"open": {"name": "_open", "type": TYPE_BOOL, "required": false},
 	}
 
-	# Avatar URL.
 	var _avatar_url
+	## Avatar URL.
 	var avatar_url : String:
 		get:
 			return "" if not _avatar_url is String else String(_avatar_url)
 
-	# Description string.
 	var _description
+	## Description string.
 	var description : String:
 		get:
 			return "" if not _description is String else String(_description)
 
-	# The ID of the group to update.
 	var _group_id
+	## The ID of the group to update.
 	var group_id : String:
 		get:
 			return "" if not _group_id is String else String(_group_id)
 
-	# Lang tag.
 	var _lang_tag
+	## Lang tag.
 	var lang_tag : String:
 		get:
 			return "" if not _lang_tag is String else String(_lang_tag)
 
-	# Name.
 	var _name
+	## Name.
 	var name : String:
 		get:
 			return "" if not _name is String else String(_name)
 
-	# Open is true if anyone should be allowed to join, or false if joins must be approved by a group admin.
 	var _open
+	## Open is true if anyone should be allowed to join, or false if joins must be approved by a group admin.
 	var open : bool:
 		get:
 			return false if not _open is bool else bool(_open)
@@ -2754,7 +2762,7 @@ class ApiUpdateGroupRequest extends NakamaAsyncResult:
 		output += "open: %s, " % _open
 		return output
 
-# A user in the server.
+## A user in the server.
 class ApiUser extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2778,110 +2786,110 @@ class ApiUser extends NakamaAsyncResult:
 		"username": {"name": "_username", "type": TYPE_STRING, "required": false},
 	}
 
-	# The Apple Sign In ID in the user's account.
 	var _apple_id
+	## The Apple Sign In ID in the user's account.
 	var apple_id : String:
 		get:
 			return "" if not _apple_id is String else String(_apple_id)
 
-	# A URL for an avatar image.
 	var _avatar_url
+	## A URL for an avatar image.
 	var avatar_url : String:
 		get:
 			return "" if not _avatar_url is String else String(_avatar_url)
 
-	# The UNIX time when the user was created.
 	var _create_time
+	## The UNIX time when the user was created.
 	var create_time : String:
 		get:
 			return "" if not _create_time is String else String(_create_time)
 
-	# The display name of the user.
 	var _display_name
+	## The display name of the user.
 	var display_name : String:
 		get:
 			return "" if not _display_name is String else String(_display_name)
 
-	# Number of related edges to this user.
 	var _edge_count
+	## Number of related edges to this user.
 	var edge_count : int:
 		get:
 			return 0 if not _edge_count is int else int(_edge_count)
 
-	# The Facebook id in the user's account.
 	var _facebook_id
+	## The Facebook id in the user's account.
 	var facebook_id : String:
 		get:
 			return "" if not _facebook_id is String else String(_facebook_id)
 
-	# The Facebook Instant Game ID in the user's account.
 	var _facebook_instant_game_id
+	## The Facebook Instant Game ID in the user's account.
 	var facebook_instant_game_id : String:
 		get:
 			return "" if not _facebook_instant_game_id is String else String(_facebook_instant_game_id)
 
-	# The Apple Game Center in of the user's account.
 	var _gamecenter_id
+	## The Apple Game Center in of the user's account.
 	var gamecenter_id : String:
 		get:
 			return "" if not _gamecenter_id is String else String(_gamecenter_id)
 
-	# The Google id in the user's account.
 	var _google_id
+	## The Google id in the user's account.
 	var google_id : String:
 		get:
 			return "" if not _google_id is String else String(_google_id)
 
-	# The id of the user's account.
 	var _id
+	## The id of the user's account.
 	var id : String:
 		get:
 			return "" if not _id is String else String(_id)
 
-	# The language expected to be a tag which follows the BCP-47 spec.
 	var _lang_tag
+	## The language expected to be a tag which follows the BCP-47 spec.
 	var lang_tag : String:
 		get:
 			return "" if not _lang_tag is String else String(_lang_tag)
 
-	# The location set by the user.
 	var _location
+	## The location set by the user.
 	var location : String:
 		get:
 			return "" if not _location is String else String(_location)
 
-	# Additional information stored as a JSON object.
 	var _metadata
+	## Additional information stored as a JSON object.
 	var metadata : String:
 		get:
 			return "" if not _metadata is String else String(_metadata)
 
-	# Indicates whether the user is currently online.
 	var _online
+	## Indicates whether the user is currently online.
 	var online : bool:
 		get:
 			return false if not _online is bool else bool(_online)
 
-	# The Steam id in the user's account.
 	var _steam_id
+	## The Steam id in the user's account.
 	var steam_id : String:
 		get:
 			return "" if not _steam_id is String else String(_steam_id)
 
-	# The timezone set by the user.
 	var _timezone
+	## The timezone set by the user.
 	var timezone : String:
 		get:
 			return "" if not _timezone is String else String(_timezone)
 
-	# The UNIX time when the user was last updated.
 	var _update_time
+	## The UNIX time when the user was last updated.
 	var update_time : String:
 		get:
 			return "" if not _update_time is String else String(_update_time)
 
-	# The username of the user's account.
 	var _username
+	## The username of the user's account.
 	var username : String:
 		get:
 			return "" if not _username is String else String(_username)
@@ -2919,7 +2927,7 @@ class ApiUser extends NakamaAsyncResult:
 		output += "username: %s, " % _username
 		return output
 
-# A list of groups belonging to a user, along with the user's role in each group.
+## A list of groups belonging to a user, along with the user's role in each group.
 class ApiUserGroupList extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2927,14 +2935,14 @@ class ApiUserGroupList extends NakamaAsyncResult:
 		"user_groups": {"name": "_user_groups", "type": TYPE_ARRAY, "required": false, "content": "UserGroupListUserGroup"},
 	}
 
-	# Cursor for the next page of results, if any.
 	var _cursor
+	## Cursor for the next page of results, if any.
 	var cursor : String:
 		get:
 			return "" if not _cursor is String else String(_cursor)
 
-	# Group-role pairs for a user.
 	var _user_groups
+	## Group-role pairs for a user.
 	var user_groups : Array:
 		get:
 			return Array() if not _user_groups is Array else Array(_user_groups)
@@ -2956,15 +2964,15 @@ class ApiUserGroupList extends NakamaAsyncResult:
 		output += "user_groups: %s, " % [_user_groups]
 		return output
 
-# A collection of zero or more users.
+## A collection of zero or more users.
 class ApiUsers extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"users": {"name": "_users", "type": TYPE_ARRAY, "required": false, "content": "ApiUser"},
 	}
 
-	# The User objects.
 	var _users
+	## The User objects.
 	var users : Array:
 		get:
 			return Array() if not _users is Array else Array(_users)
@@ -2985,7 +2993,6 @@ class ApiUsers extends NakamaAsyncResult:
 		output += "users: %s, " % [_users]
 		return output
 
-#
 class ApiValidatePurchaseAppleRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -2999,8 +3006,8 @@ class ApiValidatePurchaseAppleRequest extends NakamaAsyncResult:
 		get:
 			return false if not _persist is bool else bool(_persist)
 
-	# Base64 encoded Apple receipt data payload.
 	var _receipt
+	## Base64 encoded Apple receipt data payload.
 	var receipt : String:
 		get:
 			return "" if not _receipt is String else String(_receipt)
@@ -3022,7 +3029,6 @@ class ApiValidatePurchaseAppleRequest extends NakamaAsyncResult:
 		output += "receipt: %s, " % _receipt
 		return output
 
-#
 class ApiValidatePurchaseGoogleRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -3030,14 +3036,13 @@ class ApiValidatePurchaseGoogleRequest extends NakamaAsyncResult:
 		"purchase": {"name": "_purchase", "type": TYPE_STRING, "required": false},
 	}
 
-	#
 	var _persist
 	var persist : bool:
 		get:
 			return false if not _persist is bool else bool(_persist)
 
-	# JSON encoded Google purchase payload.
 	var _purchase
+	## JSON encoded Google purchase payload.
 	var purchase : String:
 		get:
 			return "" if not _purchase is String else String(_purchase)
@@ -3059,7 +3064,6 @@ class ApiValidatePurchaseGoogleRequest extends NakamaAsyncResult:
 		output += "purchase: %s, " % _purchase
 		return output
 
-#
 class ApiValidatePurchaseHuaweiRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -3068,14 +3072,13 @@ class ApiValidatePurchaseHuaweiRequest extends NakamaAsyncResult:
 		"signature": {"name": "_signature", "type": TYPE_STRING, "required": false},
 	}
 
-	#
 	var _persist
 	var persist : bool:
 		get:
 			return false if not _persist is bool else bool(_persist)
 
-	# JSON encoded Huawei InAppPurchaseData.
 	var _purchase
+	## JSON encoded Huawei InAppPurchaseData.
 	var purchase : String:
 		get:
 			return "" if not _purchase is String else String(_purchase)
@@ -3104,15 +3107,15 @@ class ApiValidatePurchaseHuaweiRequest extends NakamaAsyncResult:
 		output += "signature: %s, " % _signature
 		return output
 
-# Validate IAP response.
+## Validate IAP response.
 class ApiValidatePurchaseResponse extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"validated_purchases": {"name": "_validated_purchases", "type": TYPE_ARRAY, "required": false, "content": "ApiValidatedPurchase"},
 	}
 
-	# Newly seen validated purchases.
 	var _validated_purchases
+	## Newly seen validated purchases.
 	var validated_purchases : Array:
 		get:
 			return Array() if not _validated_purchases is Array else Array(_validated_purchases)
@@ -3133,7 +3136,6 @@ class ApiValidatePurchaseResponse extends NakamaAsyncResult:
 		output += "validated_purchases: %s, " % [_validated_purchases]
 		return output
 
-#
 class ApiValidateSubscriptionAppleRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -3141,14 +3143,14 @@ class ApiValidateSubscriptionAppleRequest extends NakamaAsyncResult:
 		"receipt": {"name": "_receipt", "type": TYPE_STRING, "required": false},
 	}
 
-	# Persist the subscription.
 	var _persist
+	## Persist the subscription.
 	var persist : bool:
 		get:
 			return false if not _persist is bool else bool(_persist)
 
-	# Base64 encoded Apple receipt data payload.
 	var _receipt
+	## Base64 encoded Apple receipt data payload.
 	var receipt : String:
 		get:
 			return "" if not _receipt is String else String(_receipt)
@@ -3170,7 +3172,6 @@ class ApiValidateSubscriptionAppleRequest extends NakamaAsyncResult:
 		output += "receipt: %s, " % _receipt
 		return output
 
-#
 class ApiValidateSubscriptionGoogleRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -3178,14 +3179,14 @@ class ApiValidateSubscriptionGoogleRequest extends NakamaAsyncResult:
 		"receipt": {"name": "_receipt", "type": TYPE_STRING, "required": false},
 	}
 
-	# Persist the subscription.
 	var _persist
+	## Persist the subscription.
 	var persist : bool:
 		get:
 			return false if not _persist is bool else bool(_persist)
 
-	# JSON encoded Google purchase payload.
 	var _receipt
+	## JSON encoded Google purchase payload.
 	var receipt : String:
 		get:
 			return "" if not _receipt is String else String(_receipt)
@@ -3207,14 +3208,13 @@ class ApiValidateSubscriptionGoogleRequest extends NakamaAsyncResult:
 		output += "receipt: %s, " % _receipt
 		return output
 
-# Validate Subscription response.
+## Validate Subscription response.
 class ApiValidateSubscriptionResponse extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"validated_subscription": {"name": "_validated_subscription", "type": "ApiValidatedSubscription", "required": false},
 	}
 
-	#
 	var _validated_subscription
 	var validated_subscription : ApiValidatedSubscription:
 		get:
@@ -3236,7 +3236,7 @@ class ApiValidateSubscriptionResponse extends NakamaAsyncResult:
 		output += "validated_subscription: %s, " % _validated_subscription
 		return output
 
-# Validated Purchase stored by Nakama.
+## Validated Purchase stored by Nakama.
 class ApiValidatedPurchase extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -3253,56 +3253,54 @@ class ApiValidatedPurchase extends NakamaAsyncResult:
 		"user_id": {"name": "_user_id", "type": TYPE_STRING, "required": false},
 	}
 
-	# Timestamp when the receipt validation was stored in DB.
 	var _create_time
+	## Timestamp when the receipt validation was stored in DB.
 	var create_time : String:
 		get:
 			return "" if not _create_time is String else String(_create_time)
 
-	# Whether the purchase was done in production or sandbox environment.
 	var _environment
+	## Whether the purchase was done in production or sandbox environment.
 	var environment : int:
 		get:
 			return ApiStoreEnvironment.values()[0] if not ApiStoreEnvironment.values().has(_environment) else _environment
 
-	# Purchase Product ID.
 	var _product_id
+	## Purchase Product ID.
 	var product_id : String:
 		get:
 			return "" if not _product_id is String else String(_product_id)
 
-	# Raw provider validation response.
 	var _provider_response
+	## Raw provider validation response.
 	var provider_response : String:
 		get:
 			return "" if not _provider_response is String else String(_provider_response)
 
-	# Timestamp when the purchase was done.
 	var _purchase_time
+	## Timestamp when the purchase was done.
 	var purchase_time : String:
 		get:
 			return "" if not _purchase_time is String else String(_purchase_time)
 
-	#
 	var _refund_time
 	var refund_time : String:
 		get:
 			return "" if not _refund_time is String else String(_refund_time)
 
-	# Whether the purchase had already been validated by Nakama before.
 	var _seen_before
+	## Whether the purchase had already been validated by Nakama before.
 	var seen_before : bool:
 		get:
 			return false if not _seen_before is bool else bool(_seen_before)
 
-	#
 	var _store
 	var store : int:
 		get:
 			return ApiStoreProvider.values()[0] if not ApiStoreProvider.values().has(_store) else _store
 
-	# Purchase Transaction ID.
 	var _transaction_id
+	## Purchase Transaction ID.
 	var transaction_id : String:
 		get:
 			return "" if not _transaction_id is String else String(_transaction_id)
@@ -3313,8 +3311,8 @@ class ApiValidatedPurchase extends NakamaAsyncResult:
 		get:
 			return "" if not _update_time is String else String(_update_time)
 
-	# Purchase User ID.
 	var _user_id
+	## Purchase User ID.
 	var user_id : String:
 		get:
 			return "" if not _user_id is String else String(_user_id)
@@ -3345,7 +3343,6 @@ class ApiValidatedPurchase extends NakamaAsyncResult:
 		output += "user_id: %s, " % _user_id
 		return output
 
-#
 class ApiValidatedSubscription extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -3364,50 +3361,50 @@ class ApiValidatedSubscription extends NakamaAsyncResult:
 		"user_id": {"name": "_user_id", "type": TYPE_STRING, "required": false},
 	}
 
-	# Whether the subscription is currently active or not.
 	var _active
+	## Whether the subscription is currently active or not.
 	var active : bool:
 		get:
 			return false if not _active is bool else bool(_active)
 
-	# UNIX Timestamp when the receipt validation was stored in DB.
 	var _create_time
+	## UNIX Timestamp when the receipt validation was stored in DB.
 	var create_time : String:
 		get:
 			return "" if not _create_time is String else String(_create_time)
 
-	# Whether the purchase was done in production or sandbox environment.
 	var _environment
+	## Whether the purchase was done in production or sandbox environment.
 	var environment : int:
 		get:
 			return ApiStoreEnvironment.values()[0] if not ApiStoreEnvironment.values().has(_environment) else _environment
 
-	# Subscription expiration time. The subscription can still be auto-renewed to extend the expiration time further.
 	var _expiry_time
+	## Subscription expiration time. The subscription can still be auto-renewed to extend the expiration time further.
 	var expiry_time : String:
 		get:
 			return "" if not _expiry_time is String else String(_expiry_time)
 
-	# Purchase Original transaction ID (we only keep track of the original subscription, not subsequent renewals).
 	var _original_transaction_id
+	## Purchase Original transaction ID (we only keep track of the original subscription, not subsequent renewals).
 	var original_transaction_id : String:
 		get:
 			return "" if not _original_transaction_id is String else String(_original_transaction_id)
 
-	# Purchase Product ID.
 	var _product_id
+	## Purchase Product ID.
 	var product_id : String:
 		get:
 			return "" if not _product_id is String else String(_product_id)
 
-	# Raw provider notification body.
 	var _provider_notification
+	## Raw provider notification body.
 	var provider_notification : String:
 		get:
 			return "" if not _provider_notification is String else String(_provider_notification)
 
-	# Raw provider validation response body.
 	var _provider_response
+	## Raw provider validation response body.
 	var provider_response : String:
 		get:
 			return "" if not _provider_response is String else String(_provider_response)
@@ -3418,26 +3415,25 @@ class ApiValidatedSubscription extends NakamaAsyncResult:
 		get:
 			return "" if not _purchase_time is String else String(_purchase_time)
 
-	# Subscription refund time. If this time is set, the subscription was refunded.
 	var _refund_time
+	## Subscription refund time. If this time is set, the subscription was refunded.
 	var refund_time : String:
 		get:
 			return "" if not _refund_time is String else String(_refund_time)
 
-	#
 	var _store
 	var store : int:
 		get:
 			return ApiStoreProvider.values()[0] if not ApiStoreProvider.values().has(_store) else _store
 
-	# UNIX Timestamp when the receipt validation was updated in DB.
 	var _update_time
+	## UNIX Timestamp when the receipt validation was updated in DB.
 	var update_time : String:
 		get:
 			return "" if not _update_time is String else String(_update_time)
 
-	# Subscription User ID.
 	var _user_id
+	## Subscription User ID.
 	var user_id : String:
 		get:
 			return "" if not _user_id is String else String(_user_id)
@@ -3470,7 +3466,7 @@ class ApiValidatedSubscription extends NakamaAsyncResult:
 		output += "user_id: %s, " % _user_id
 		return output
 
-# The object to store.
+## The object to store.
 class ApiWriteStorageObject extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -3482,32 +3478,32 @@ class ApiWriteStorageObject extends NakamaAsyncResult:
 		"version": {"name": "_version", "type": TYPE_STRING, "required": false},
 	}
 
-	# The collection to store the object.
 	var _collection
+	## The collection to store the object.
 	var collection : String:
 		get:
 			return "" if not _collection is String else String(_collection)
 
-	# The key for the object within the collection.
 	var _key
+	## The key for the object within the collection.
 	var key : String:
 		get:
 			return "" if not _key is String else String(_key)
 
-	# The read access permissions for the object.
 	var _permission_read
+	## The read access permissions for the object.
 	var permission_read : int:
 		get:
 			return 0 if not _permission_read is int else int(_permission_read)
 
-	# The write access permissions for the object.
 	var _permission_write
+	## The write access permissions for the object.
 	var permission_write : int:
 		get:
 			return 0 if not _permission_write is int else int(_permission_write)
 
-	# The value of the object.
 	var _value
+	## The value of the object.
 	var value : String:
 		get:
 			return "" if not _value is String else String(_value)
@@ -3539,15 +3535,15 @@ class ApiWriteStorageObject extends NakamaAsyncResult:
 		output += "version: %s, " % _version
 		return output
 
-# Write objects to the storage engine.
+## Write objects to the storage engine.
 class ApiWriteStorageObjectsRequest extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"objects": {"name": "_objects", "type": TYPE_ARRAY, "required": false, "content": "ApiWriteStorageObject"},
 	}
 
-	# The objects to store on the server.
 	var _objects
+	## The objects to store on the server.
 	var objects : Array:
 		get:
 			return Array() if not _objects is Array else Array(_objects)
@@ -3568,7 +3564,6 @@ class ApiWriteStorageObjectsRequest extends NakamaAsyncResult:
 		output += "objects: %s, " % [_objects]
 		return output
 
-# 
 class ProtobufAny extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -3576,13 +3571,11 @@ class ProtobufAny extends NakamaAsyncResult:
 		"value": {"name": "_value", "type": TYPE_STRING, "required": false},
 	}
 
-	# 
 	var _type_url
 	var type_url : String:
 		get:
 			return "" if not _type_url is String else String(_type_url)
 
-	# 
 	var _value
 	var value : String:
 		get:
@@ -3605,7 +3598,6 @@ class ProtobufAny extends NakamaAsyncResult:
 		output += "value: %s, " % _value
 		return output
 
-#
 class RpcStatus extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -3614,19 +3606,16 @@ class RpcStatus extends NakamaAsyncResult:
 		"message": {"name": "_message", "type": TYPE_STRING, "required": false},
 	}
 
-	#
 	var _code
 	var code : int:
 		get:
 			return 0 if not _code is int else int(_code)
 
-	#
 	var _details
 	var details : Array:
 		get:
 			return Array() if not _details is Array else Array(_details)
 
-	#
 	var _message
 	var message : String:
 		get:
@@ -3650,7 +3639,7 @@ class RpcStatus extends NakamaAsyncResult:
 		output += "message: %s, " % _message
 		return output
 
-# The low level client for the Nakama API.
+## The low level client for the Nakama API.
 class ApiClient extends RefCounted:
 
 	var _base_uri : String
@@ -3701,7 +3690,7 @@ class ApiClient extends RefCounted:
 		if p_token:
 			_http_adapter.cancel_request(p_token)
 
-	# A healthcheck which load balancers can use to check the service.
+	## A healthcheck which load balancers can use to check the service.
 	func healthcheck_async(
 		p_session : NakamaSession
 	) -> NakamaAsyncResult:
@@ -3725,7 +3714,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Delete the current user's account.
+	## Delete the current user's account.
 	func delete_account_async(
 		p_session : NakamaSession
 	) -> NakamaAsyncResult:
@@ -3749,7 +3738,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Fetch the current user's account.
+	## Fetch the current user's account.
 	func get_account_async(
 		p_session : NakamaSession
 	) -> ApiAccount:
@@ -3774,7 +3763,7 @@ class ApiClient extends RefCounted:
 		var out : ApiAccount = NakamaSerializer.deserialize(_namespace, "ApiAccount", result)
 		return out
 
-	# Update fields in the current user's account.
+	## Update fields in the current user's account.
 	func update_account_async(
 		p_session : NakamaSession
 		, p_body : ApiUpdateAccountRequest
@@ -3800,7 +3789,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Authenticate a user with an Apple ID against the server.
+	## Authenticate a user with an Apple ID against the server.
 	func authenticate_apple_async(
 		p_basic_auth_username : String
 		, p_basic_auth_password : String
@@ -3830,7 +3819,7 @@ class ApiClient extends RefCounted:
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
-	# Authenticate a user with a custom id against the server.
+	## Authenticate a user with a custom id against the server.
 	func authenticate_custom_async(
 		p_basic_auth_username : String
 		, p_basic_auth_password : String
@@ -3860,7 +3849,7 @@ class ApiClient extends RefCounted:
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
-	# Authenticate a user with a device id against the server.
+	## Authenticate a user with a device id against the server.
 	func authenticate_device_async(
 		p_basic_auth_username : String
 		, p_basic_auth_password : String
@@ -3890,7 +3879,7 @@ class ApiClient extends RefCounted:
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
-	# Authenticate a user with an email+password against the server.
+	## Authenticate a user with an email+password against the server.
 	func authenticate_email_async(
 		p_basic_auth_username : String
 		, p_basic_auth_password : String
@@ -3920,7 +3909,7 @@ class ApiClient extends RefCounted:
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
-	# Authenticate a user with a Facebook OAuth token against the server.
+	## Authenticate a user with a Facebook OAuth token against the server.
 	func authenticate_facebook_async(
 		p_basic_auth_username : String
 		, p_basic_auth_password : String
@@ -3953,7 +3942,7 @@ class ApiClient extends RefCounted:
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
-	# Authenticate a user with a Facebook Instant Game token against the server.
+	## Authenticate a user with a Facebook Instant Game token against the server.
 	func authenticate_facebook_instant_game_async(
 		p_basic_auth_username : String
 		, p_basic_auth_password : String
@@ -3983,7 +3972,7 @@ class ApiClient extends RefCounted:
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
-	# Authenticate a user with Apple's GameCenter against the server.
+	## Authenticate a user with Apple's GameCenter against the server.
 	func authenticate_game_center_async(
 		p_basic_auth_username : String
 		, p_basic_auth_password : String
@@ -4013,7 +4002,7 @@ class ApiClient extends RefCounted:
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
-	# Authenticate a user with Google against the server.
+	## Authenticate a user with Google against the server.
 	func authenticate_google_async(
 		p_basic_auth_username : String
 		, p_basic_auth_password : String
@@ -4043,7 +4032,7 @@ class ApiClient extends RefCounted:
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
-	# Authenticate a user with Steam against the server.
+	## Authenticate a user with Steam against the server.
 	func authenticate_steam_async(
 		p_basic_auth_username : String
 		, p_basic_auth_password : String
@@ -4076,7 +4065,7 @@ class ApiClient extends RefCounted:
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
-	# Add an Apple ID to the social profiles on the current user's account.
+	## Add an Apple ID to the social profiles on the current user's account.
 	func link_apple_async(
 		p_session : NakamaSession
 		, p_body : ApiAccountApple
@@ -4102,7 +4091,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Add a custom ID to the social profiles on the current user's account.
+	## Add a custom ID to the social profiles on the current user's account.
 	func link_custom_async(
 		p_session : NakamaSession
 		, p_body : ApiAccountCustom
@@ -4128,7 +4117,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Add a device ID to the social profiles on the current user's account.
+	## Add a device ID to the social profiles on the current user's account.
 	func link_device_async(
 		p_session : NakamaSession
 		, p_body : ApiAccountDevice
@@ -4154,7 +4143,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Add an email+password to the social profiles on the current user's account.
+	## Add an email+password to the social profiles on the current user's account.
 	func link_email_async(
 		p_session : NakamaSession
 		, p_body : ApiAccountEmail
@@ -4180,7 +4169,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Add Facebook to the social profiles on the current user's account.
+	## Add Facebook to the social profiles on the current user's account.
 	func link_facebook_async(
 		p_session : NakamaSession
 		, p_account : ApiAccountFacebook
@@ -4209,7 +4198,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Add Facebook Instant Game to the social profiles on the current user's account.
+	## Add Facebook Instant Game to the social profiles on the current user's account.
 	func link_facebook_instant_game_async(
 		p_session : NakamaSession
 		, p_body : ApiAccountFacebookInstantGame
@@ -4235,7 +4224,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Add Apple's GameCenter to the social profiles on the current user's account.
+	## Add Apple's GameCenter to the social profiles on the current user's account.
 	func link_game_center_async(
 		p_session : NakamaSession
 		, p_body : ApiAccountGameCenter
@@ -4261,7 +4250,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Add Google to the social profiles on the current user's account.
+	## Add Google to the social profiles on the current user's account.
 	func link_google_async(
 		p_session : NakamaSession
 		, p_body : ApiAccountGoogle
@@ -4287,7 +4276,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Add Steam to the social profiles on the current user's account.
+	## Add Steam to the social profiles on the current user's account.
 	func link_steam_async(
 		p_session : NakamaSession
 		, p_body : ApiLinkSteamRequest
@@ -4313,7 +4302,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Refresh a user's session using a refresh token retrieved from a previous authentication request.
+	## Refresh a user's session using a refresh token retrieved from a previous authentication request.
 	func session_refresh_async(
 		p_basic_auth_username : String
 		, p_basic_auth_password : String
@@ -4337,7 +4326,7 @@ class ApiClient extends RefCounted:
 		var out : ApiSession = NakamaSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
-	# Remove the Apple ID from the social profiles on the current user's account.
+	## Remove the Apple ID from the social profiles on the current user's account.
 	func unlink_apple_async(
 		p_session : NakamaSession
 		, p_body : ApiAccountApple
@@ -4363,7 +4352,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Remove the custom ID from the social profiles on the current user's account.
+	## Remove the custom ID from the social profiles on the current user's account.
 	func unlink_custom_async(
 		p_session : NakamaSession
 		, p_body : ApiAccountCustom
@@ -4389,7 +4378,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Remove the device ID from the social profiles on the current user's account.
+	## Remove the device ID from the social profiles on the current user's account.
 	func unlink_device_async(
 		p_session : NakamaSession
 		, p_body : ApiAccountDevice
@@ -4415,7 +4404,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Remove the email+password from the social profiles on the current user's account.
+	## Remove the email+password from the social profiles on the current user's account.
 	func unlink_email_async(
 		p_session : NakamaSession
 		, p_body : ApiAccountEmail
@@ -4441,7 +4430,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Remove Facebook from the social profiles on the current user's account.
+	## Remove Facebook from the social profiles on the current user's account.
 	func unlink_facebook_async(
 		p_session : NakamaSession
 		, p_body : ApiAccountFacebook
@@ -4467,7 +4456,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Remove Facebook Instant Game profile from the social profiles on the current user's account.
+	## Remove Facebook Instant Game profile from the social profiles on the current user's account.
 	func unlink_facebook_instant_game_async(
 		p_session : NakamaSession
 		, p_body : ApiAccountFacebookInstantGame
@@ -4493,7 +4482,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Remove Apple's GameCenter from the social profiles on the current user's account.
+	## Remove Apple's GameCenter from the social profiles on the current user's account.
 	func unlink_game_center_async(
 		p_session : NakamaSession
 		, p_body : ApiAccountGameCenter
@@ -4519,7 +4508,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Remove Google from the social profiles on the current user's account.
+	## Remove Google from the social profiles on the current user's account.
 	func unlink_google_async(
 		p_session : NakamaSession
 		, p_body : ApiAccountGoogle
@@ -4545,7 +4534,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Remove Steam from the social profiles on the current user's account.
+	## Remove Steam from the social profiles on the current user's account.
 	func unlink_steam_async(
 		p_session : NakamaSession
 		, p_body : ApiAccountSteam
@@ -4571,7 +4560,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# List a channel's message history.
+	## List a channel's message history.
 	func list_channel_messages_async(
 		p_session : NakamaSession
 		, p_channel_id : String
@@ -4607,7 +4596,7 @@ class ApiClient extends RefCounted:
 		var out : ApiChannelMessageList = NakamaSerializer.deserialize(_namespace, "ApiChannelMessageList", result)
 		return out
 
-	# Submit an event for processing in the server's registered runtime custom events handler.
+	## Submit an event for processing in the server's registered runtime custom events handler.
 	func event_async(
 		p_session : NakamaSession
 		, p_body : ApiEvent
@@ -4633,7 +4622,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Delete one or more users by ID or username.
+	## Delete one or more users by ID or username.
 	func delete_friends_async(
 		p_session : NakamaSession
 		, p_ids = null # : array
@@ -4665,7 +4654,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# List all friends for the current user.
+	## List all friends for the current user.
 	func list_friends_async(
 		p_session : NakamaSession
 		, p_limit = null # : integer
@@ -4699,7 +4688,7 @@ class ApiClient extends RefCounted:
 		var out : ApiFriendList = NakamaSerializer.deserialize(_namespace, "ApiFriendList", result)
 		return out
 
-	# Add friends by ID or username to a user's account.
+	## Add friends by ID or username to a user's account.
 	func add_friends_async(
 		p_session : NakamaSession
 		, p_ids = null # : array
@@ -4731,7 +4720,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Block one or more users by ID or username.
+	## Block one or more users by ID or username.
 	func block_friends_async(
 		p_session : NakamaSession
 		, p_ids = null # : array
@@ -4763,7 +4752,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Import Facebook friends and add them to a user's account.
+	## Import Facebook friends and add them to a user's account.
 	func import_facebook_friends_async(
 		p_session : NakamaSession
 		, p_account : ApiAccountFacebook
@@ -4792,7 +4781,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Import Steam friends and add them to a user's account.
+	## Import Steam friends and add them to a user's account.
 	func import_steam_friends_async(
 		p_session : NakamaSession
 		, p_account : ApiAccountSteam
@@ -4821,7 +4810,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# List groups based on given filters.
+	## List groups based on given filters.
 	func list_groups_async(
 		p_session : NakamaSession
 		, p_name = null # : string
@@ -4864,7 +4853,7 @@ class ApiClient extends RefCounted:
 		var out : ApiGroupList = NakamaSerializer.deserialize(_namespace, "ApiGroupList", result)
 		return out
 
-	# Create a new group with the current user as the owner.
+	## Create a new group with the current user as the owner.
 	func create_group_async(
 		p_session : NakamaSession
 		, p_body : ApiCreateGroupRequest
@@ -4891,7 +4880,7 @@ class ApiClient extends RefCounted:
 		var out : ApiGroup = NakamaSerializer.deserialize(_namespace, "ApiGroup", result)
 		return out
 
-	# Delete a group by ID.
+	## Delete a group by ID.
 	func delete_group_async(
 		p_session : NakamaSession
 		, p_group_id : String
@@ -4917,7 +4906,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Update fields in a given group.
+	## Update fields in a given group.
 	func update_group_async(
 		p_session : NakamaSession
 		, p_group_id : String
@@ -4945,7 +4934,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Add users to a group.
+	## Add users to a group.
 	func add_group_users_async(
 		p_session : NakamaSession
 		, p_group_id : String
@@ -4975,7 +4964,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Ban a set of users from a group.
+	## Ban a set of users from a group.
 	func ban_group_users_async(
 		p_session : NakamaSession
 		, p_group_id : String
@@ -5005,7 +4994,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Demote a set of users in a group to the next role down.
+	## Demote a set of users in a group to the next role down.
 	func demote_group_users_async(
 		p_session : NakamaSession
 		, p_group_id : String
@@ -5035,7 +5024,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Immediately join an open group, or request to join a closed one.
+	## Immediately join an open group, or request to join a closed one.
 	func join_group_async(
 		p_session : NakamaSession
 		, p_group_id : String
@@ -5061,7 +5050,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Kick a set of users from a group.
+	## Kick a set of users from a group.
 	func kick_group_users_async(
 		p_session : NakamaSession
 		, p_group_id : String
@@ -5091,7 +5080,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Leave a group the user is a member of.
+	## Leave a group the user is a member of.
 	func leave_group_async(
 		p_session : NakamaSession
 		, p_group_id : String
@@ -5117,7 +5106,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Promote a set of users in a group to the next role up.
+	## Promote a set of users in a group to the next role up.
 	func promote_group_users_async(
 		p_session : NakamaSession
 		, p_group_id : String
@@ -5147,7 +5136,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# List all users that are part of a group.
+	## List all users that are part of a group.
 	func list_group_users_async(
 		p_session : NakamaSession
 		, p_group_id : String
@@ -5183,7 +5172,7 @@ class ApiClient extends RefCounted:
 		var out : ApiGroupUserList = NakamaSerializer.deserialize(_namespace, "ApiGroupUserList", result)
 		return out
 
-	# Validate Apple IAP Receipt
+	## Validate Apple IAP Receipt
 	func validate_purchase_apple_async(
 		p_session : NakamaSession
 		, p_body : ApiValidatePurchaseAppleRequest
@@ -5210,7 +5199,7 @@ class ApiClient extends RefCounted:
 		var out : ApiValidatePurchaseResponse = NakamaSerializer.deserialize(_namespace, "ApiValidatePurchaseResponse", result)
 		return out
 
-	# Validate Google IAP Receipt
+	## Validate Google IAP Receipt
 	func validate_purchase_google_async(
 		p_session : NakamaSession
 		, p_body : ApiValidatePurchaseGoogleRequest
@@ -5237,7 +5226,7 @@ class ApiClient extends RefCounted:
 		var out : ApiValidatePurchaseResponse = NakamaSerializer.deserialize(_namespace, "ApiValidatePurchaseResponse", result)
 		return out
 
-	# Validate Huawei IAP Receipt
+	## Validate Huawei IAP Receipt
 	func validate_purchase_huawei_async(
 		p_session : NakamaSession
 		, p_body : ApiValidatePurchaseHuaweiRequest
@@ -5264,7 +5253,7 @@ class ApiClient extends RefCounted:
 		var out : ApiValidatePurchaseResponse = NakamaSerializer.deserialize(_namespace, "ApiValidatePurchaseResponse", result)
 		return out
 
-	# List user's subscriptions.
+	## List user's subscriptions.
 	func list_subscriptions_async(
 		p_session : NakamaSession
 		, p_body : ApiListSubscriptionsRequest
@@ -5291,7 +5280,7 @@ class ApiClient extends RefCounted:
 		var out : ApiSubscriptionList = NakamaSerializer.deserialize(_namespace, "ApiSubscriptionList", result)
 		return out
 
-	# Validate Apple Subscription Receipt
+	## Validate Apple Subscription Receipt
 	func validate_subscription_apple_async(
 		p_session : NakamaSession
 		, p_body : ApiValidateSubscriptionAppleRequest
@@ -5318,7 +5307,7 @@ class ApiClient extends RefCounted:
 		var out : ApiValidateSubscriptionResponse = NakamaSerializer.deserialize(_namespace, "ApiValidateSubscriptionResponse", result)
 		return out
 
-	# Validate Google Subscription Receipt
+	## Validate Google Subscription Receipt
 	func validate_subscription_google_async(
 		p_session : NakamaSession
 		, p_body : ApiValidateSubscriptionGoogleRequest
@@ -5345,7 +5334,7 @@ class ApiClient extends RefCounted:
 		var out : ApiValidateSubscriptionResponse = NakamaSerializer.deserialize(_namespace, "ApiValidateSubscriptionResponse", result)
 		return out
 
-	# Get subscription by product id.
+	## Get subscription by product id.
 	func get_subscription_async(
 		p_session : NakamaSession
 		, p_product_id : String
@@ -5372,7 +5361,7 @@ class ApiClient extends RefCounted:
 		var out : ApiValidatedSubscription = NakamaSerializer.deserialize(_namespace, "ApiValidatedSubscription", result)
 		return out
 
-	# Delete a leaderboard record.
+	## Delete a leaderboard record.
 	func delete_leaderboard_record_async(
 		p_session : NakamaSession
 		, p_leaderboard_id : String
@@ -5398,7 +5387,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# List leaderboard records.
+	## List leaderboard records.
 	func list_leaderboard_records_async(
 		p_session : NakamaSession
 		, p_leaderboard_id : String
@@ -5438,7 +5427,7 @@ class ApiClient extends RefCounted:
 		var out : ApiLeaderboardRecordList = NakamaSerializer.deserialize(_namespace, "ApiLeaderboardRecordList", result)
 		return out
 
-	# Write a record to a leaderboard.
+	## Write a record to a leaderboard.
 	func write_leaderboard_record_async(
 		p_session : NakamaSession
 		, p_leaderboard_id : String
@@ -5467,7 +5456,7 @@ class ApiClient extends RefCounted:
 		var out : ApiLeaderboardRecord = NakamaSerializer.deserialize(_namespace, "ApiLeaderboardRecord", result)
 		return out
 
-	# List leaderboard records that belong to a user.
+	## List leaderboard records that belong to a user.
 	func list_leaderboard_records_around_owner_async(
 		p_session : NakamaSession
 		, p_leaderboard_id : String
@@ -5505,7 +5494,7 @@ class ApiClient extends RefCounted:
 		var out : ApiLeaderboardRecordList = NakamaSerializer.deserialize(_namespace, "ApiLeaderboardRecordList", result)
 		return out
 
-	# Fetch list of running matches.
+	## Fetch list of running matches.
 	func list_matches_async(
 		p_session : NakamaSession
 		, p_limit = null # : integer
@@ -5548,7 +5537,7 @@ class ApiClient extends RefCounted:
 		var out : ApiMatchList = NakamaSerializer.deserialize(_namespace, "ApiMatchList", result)
 		return out
 
-	# Delete one or more notifications for the current user.
+	## Delete one or more notifications for the current user.
 	func delete_notifications_async(
 		p_session : NakamaSession
 		, p_ids = null # : array
@@ -5576,7 +5565,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Fetch list of notifications.
+	## Fetch list of notifications.
 	func list_notifications_async(
 		p_session : NakamaSession
 		, p_limit = null # : integer
@@ -5607,7 +5596,7 @@ class ApiClient extends RefCounted:
 		var out : ApiNotificationList = NakamaSerializer.deserialize(_namespace, "ApiNotificationList", result)
 		return out
 
-	# Execute a Lua function on the server.
+	## Execute a Lua function on the server.
 	func rpc_func2_async(
 		p_bearer_token : String
 		, p_id : String
@@ -5636,7 +5625,7 @@ class ApiClient extends RefCounted:
 		var out : ApiRpc = NakamaSerializer.deserialize(_namespace, "ApiRpc", result)
 		return out
 
-	# Execute a Lua function on the server.
+	## Execute a Lua function on the server.
 	func rpc_func_async(
 		p_bearer_token : String
 		, p_id : String
@@ -5664,7 +5653,7 @@ class ApiClient extends RefCounted:
 		var out : ApiRpc = NakamaSerializer.deserialize(_namespace, "ApiRpc", result)
 		return out
 
-	# Log out a session, invalidate a refresh token, or log out all sessions/refresh tokens for a user.
+	## Log out a session, invalidate a refresh token, or log out all sessions/refresh tokens for a user.
 	func session_logout_async(
 		p_session : NakamaSession
 		, p_body : ApiSessionLogoutRequest
@@ -5690,7 +5679,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# Get storage objects.
+	## Get storage objects.
 	func read_storage_objects_async(
 		p_session : NakamaSession
 		, p_body : ApiReadStorageObjectsRequest
@@ -5717,7 +5706,7 @@ class ApiClient extends RefCounted:
 		var out : ApiStorageObjects = NakamaSerializer.deserialize(_namespace, "ApiStorageObjects", result)
 		return out
 
-	# Write objects into the storage engine.
+	## Write objects into the storage engine.
 	func write_storage_objects_async(
 		p_session : NakamaSession
 		, p_body : ApiWriteStorageObjectsRequest
@@ -5744,7 +5733,7 @@ class ApiClient extends RefCounted:
 		var out : ApiStorageObjectAcks = NakamaSerializer.deserialize(_namespace, "ApiStorageObjectAcks", result)
 		return out
 
-	# Delete one or more objects by ID or username.
+	## Delete one or more objects by ID or username.
 	func delete_storage_objects_async(
 		p_session : NakamaSession
 		, p_body : ApiDeleteStorageObjectsRequest
@@ -5770,7 +5759,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# List publicly readable storage objects in a given collection.
+	## List publicly readable storage objects in a given collection.
 	func list_storage_objects_async(
 		p_session : NakamaSession
 		, p_collection : String
@@ -5806,7 +5795,7 @@ class ApiClient extends RefCounted:
 		var out : ApiStorageObjectList = NakamaSerializer.deserialize(_namespace, "ApiStorageObjectList", result)
 		return out
 
-	# List publicly readable storage objects in a given collection.
+	## List publicly readable storage objects in a given collection.
 	func list_storage_objects2_async(
 		p_session : NakamaSession
 		, p_collection : String
@@ -5841,7 +5830,7 @@ class ApiClient extends RefCounted:
 		var out : ApiStorageObjectList = NakamaSerializer.deserialize(_namespace, "ApiStorageObjectList", result)
 		return out
 
-	# List current or upcoming tournaments.
+	## List current or upcoming tournaments.
 	func list_tournaments_async(
 		p_session : NakamaSession
 		, p_category_start = null # : integer
@@ -5884,7 +5873,7 @@ class ApiClient extends RefCounted:
 		var out : ApiTournamentList = NakamaSerializer.deserialize(_namespace, "ApiTournamentList", result)
 		return out
 
-	# List tournament records.
+	## List tournament records.
 	func list_tournament_records_async(
 		p_session : NakamaSession
 		, p_tournament_id : String
@@ -5924,7 +5913,7 @@ class ApiClient extends RefCounted:
 		var out : ApiTournamentRecordList = NakamaSerializer.deserialize(_namespace, "ApiTournamentRecordList", result)
 		return out
 
-	# Write a record to a tournament.
+	## Write a record to a tournament.
 	func write_tournament_record2_async(
 		p_session : NakamaSession
 		, p_tournament_id : String
@@ -5953,7 +5942,7 @@ class ApiClient extends RefCounted:
 		var out : ApiLeaderboardRecord = NakamaSerializer.deserialize(_namespace, "ApiLeaderboardRecord", result)
 		return out
 
-	# Write a record to a tournament.
+	## Write a record to a tournament.
 	func write_tournament_record_async(
 		p_session : NakamaSession
 		, p_tournament_id : String
@@ -5982,7 +5971,7 @@ class ApiClient extends RefCounted:
 		var out : ApiLeaderboardRecord = NakamaSerializer.deserialize(_namespace, "ApiLeaderboardRecord", result)
 		return out
 
-	# Attempt to join an open and running tournament.
+	## Attempt to join an open and running tournament.
 	func join_tournament_async(
 		p_session : NakamaSession
 		, p_tournament_id : String
@@ -6008,7 +5997,7 @@ class ApiClient extends RefCounted:
 			return NakamaAsyncResult.new(result)
 		return NakamaAsyncResult.new()
 
-	# List tournament records for a given owner.
+	## List tournament records for a given owner.
 	func list_tournament_records_around_owner_async(
 		p_session : NakamaSession
 		, p_tournament_id : String
@@ -6046,7 +6035,7 @@ class ApiClient extends RefCounted:
 		var out : ApiTournamentRecordList = NakamaSerializer.deserialize(_namespace, "ApiTournamentRecordList", result)
 		return out
 
-	# Fetch zero or more users by ID and/or username.
+	## Fetch zero or more users by ID and/or username.
 	func get_users_async(
 		p_session : NakamaSession
 		, p_ids = null # : array
@@ -6083,7 +6072,7 @@ class ApiClient extends RefCounted:
 		var out : ApiUsers = NakamaSerializer.deserialize(_namespace, "ApiUsers", result)
 		return out
 
-	# List groups the current user belongs to.
+	## List groups the current user belongs to.
 	func list_user_groups_async(
 		p_session : NakamaSession
 		, p_user_id : String

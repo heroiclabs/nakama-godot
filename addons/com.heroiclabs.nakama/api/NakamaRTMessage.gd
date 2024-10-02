@@ -1,7 +1,7 @@
 extends RefCounted
 class_name NakamaRTMessage
 
-# Send a channel join message to the server.
+## Send a channel join message to the server.
 class ChannelJoin:
 
 	const _SCHEMA = {
@@ -12,11 +12,11 @@ class ChannelJoin:
 	}
 
 	enum ChannelType {
-		# A chat room which can be created dynamically with a name.
+		## A chat room which can be created dynamically with a name.
 		Room = 1,
-		# A private chat between two users.
+		## A private chat between two users.
 		DirectMessage = 2,
-		# A chat within a group on the server.
+		## A chat within a group on the server.
 		Group = 3
 	}
 
@@ -41,12 +41,13 @@ class ChannelJoin:
 		return "ChannelJoin<persistence=%s, hidden=%s, target=%s, type=%d>" % [persistence, hidden, target, type]
 
 
-# A leave message for a match on the server.
+## A leave message for a match on the server.
 class ChannelLeave extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"channel_id": {"name": "channel_id", "type": TYPE_STRING, "required": true}
 	}
+	
 	var channel_id : String
 
 	func _init(p_channel_id : String):
@@ -86,7 +87,7 @@ class ChannelMessageRemove extends NakamaAsyncResult:
 		return "ChannelMessageRemove<channel_id=%s, message_id=%s>" % [channel_id, message_id]
 
 
-# Send a chat message to a channel on the server.
+## Send a chat message to a channel on the server.
 class ChannelMessageSend extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -138,7 +139,7 @@ class ChannelMessageUpdate extends NakamaAsyncResult:
 		return "ChannelMessageUpdate<channel_id=%s, message_id=%s, content=%s>" % [channel_id, message_id, content]
 
 
-# A create message for a match on the server.
+## A create message for a match on the server.
 class MatchCreate extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -160,7 +161,7 @@ class MatchCreate extends NakamaAsyncResult:
 		return "MatchCreate<name=%s>" % [name]
 
 
-# A join message for a match on the server.
+## A join message for a match on the server.
 class MatchJoin extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -169,7 +170,7 @@ class MatchJoin extends NakamaAsyncResult:
 		"metadata": {"name": "metadata", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
 
-	# These two are mutually exclusive and set manually by socket for now, so use null.
+	## These two are mutually exclusive and set manually by socket for now, so use null.
 	var match_id = null
 	var token = null
 	var metadata = null
@@ -187,7 +188,7 @@ class MatchJoin extends NakamaAsyncResult:
 		return "MatchJoin<match_id=%s, token=%s, metadata=%s>" % [match_id, token, metadata]
 
 
-# A leave message for a match on the server.
+## A leave message for a match on the server.
 class MatchLeave extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -208,7 +209,7 @@ class MatchLeave extends NakamaAsyncResult:
 		return "MatchLeave<match_id=%s>" % [match_id]
 
 
-# Send new state to a match on the server.
+## Send new state to a match on the server.
 class MatchDataSend extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -239,7 +240,7 @@ class MatchDataSend extends NakamaAsyncResult:
 		return "MatchDataSend<match_id=%s, op_code=%s, presences=%s, data=%s>" % [match_id, op_code, presences, data]
 
 
-# Add the user to the matchmaker pool with properties.
+## Add the user to the matchmaker pool with properties.
 class MatchmakerAdd extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -278,7 +279,7 @@ class MatchmakerAdd extends NakamaAsyncResult:
 		return "MatchmakerAdd<query=%s, max_count=%d, min_count=%d, numeric_properties=%s, string_properties=%s, count_multiple=%s>" % [query, max_count, min_count, numeric_properties, string_properties, count_multiple]
 
 
-# Remove the user from the matchmaker pool by ticket.
+## Remove the user from the matchmaker pool by ticket.
 class MatchmakerRemove extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -300,7 +301,7 @@ class MatchmakerRemove extends NakamaAsyncResult:
 		return "MatchmakerRemove<ticket=%s>" % [ticket]
 
 
-# Follow one or more other users for status updates.
+## Follow one or more other users for status updates.
 class StatusFollow extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -325,7 +326,7 @@ class StatusFollow extends NakamaAsyncResult:
 		return "StatusFollow<user_ids=%s, usernames=%s>" % [user_ids, usernames]
 
 
-# Unfollow one or more users on the server.
+## Unfollow one or more users on the server.
 class StatusUnfollow extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -347,7 +348,7 @@ class StatusUnfollow extends NakamaAsyncResult:
 		return "StatusUnfollow<user_ids=%s>" % [user_ids]
 
 
-# Unfollow one or more users on the server.
+## Unfollow one or more users on the server.
 class StatusUpdate extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -368,16 +369,18 @@ class StatusUpdate extends NakamaAsyncResult:
 	func _to_string():
 		return "StatusUpdate<status=%s>" % [status]
 
-# Create a party.
+## Create a party.
 class PartyCreate extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"open": {"name": "open", "type": TYPE_BOOL, "required": true},
 		"max_size": {"name": "max_size", "type": TYPE_INT, "required": true},
 	}
-	# Whether or not the party will require join requests to be approved by the party leader.
+	
+	## Whether or not the party will require join requests to be approved by the party leader.
 	var open : bool
-	# Maximum number of party members.
+	
+	## Maximum number of party members.
 	var max_size : int
 
 	func _init(p_open : bool, p_max_size : int):
@@ -394,13 +397,14 @@ class PartyCreate extends NakamaAsyncResult:
 		return "PartyCreate<open=%s, max_size=%d>" % [open, max_size]
 
 
-# Join a party, or request to join if the party is not open.
+## Join a party, or request to join if the party is not open.
 class PartyJoin extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 	}
-	# Party ID to join.
+	
+	## Party ID to join.
 	var party_id : String
 
 	func _init(p_id : String):
@@ -416,13 +420,14 @@ class PartyJoin extends NakamaAsyncResult:
 		return "PartyJoin<party_id=%s>" % [party_id]
 
 
-# Leave a party.
+## Leave a party.
 class PartyLeave extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 	}
-	# Party ID to leave.
+	
+	## Party ID to leave.
 	var party_id : String
 
 	func _init(p_id : String):
@@ -438,16 +443,18 @@ class PartyLeave extends NakamaAsyncResult:
 		return "PartyLeave<party_id=%s>" % [party_id]
 
 
-# Promote a new party leader.
+## Promote a new party leader.
 class PartyPromote extends NakamaAsyncResult:
 
 	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 		"presence": {"name": "presence", "type": "UserPresence", "required": true},
 	}
-	# Party ID to promote a new leader for.
+	
+	## Party ID to promote a new leader for.
 	var party_id : String
-	# The presence of an existing party member to promote as the new leader.
+	
+	## The presence of an existing party member to promote as the new leader.
 	var presence : NakamaRTAPI.UserPresence
 
 	func _init(p_id : String, p_presence : NakamaRTAPI.UserPresence):
@@ -464,15 +471,17 @@ class PartyPromote extends NakamaAsyncResult:
 		return "PartyPromote<party_id=%s, presence=%s>" % [party_id, presence]
 
 
-# Accept a request to join.
+## Accept a request to join.
 class PartyAccept extends NakamaAsyncResult:
 	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 		"presence": {"name": "presence", "type": "UserPresence", "required": true},
 	}
-	# Party ID to accept a join request for.
+	
+	## Party ID to accept a join request for.
 	var party_id : String
-	# The presence to accept as a party member.
+	
+	## The presence to accept as a party member.
 	var presence : NakamaRTAPI.UserPresence
 
 	func _init(p_id : String, p_presence : NakamaRTAPI.UserPresence):
@@ -489,15 +498,17 @@ class PartyAccept extends NakamaAsyncResult:
 		return "PartyAccept<party_id=%s, presence=%s>" % [party_id, presence]
 
 
-# Kick a party member, or decline a request to join.
+## Kick a party member, or decline a request to join.
 class PartyRemove extends NakamaAsyncResult:
 	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 		"presence": {"name": "presence", "type": "UserPresence", "required": true},
 	}
-	# Party ID to remove/reject from.
+	
+	## Party ID to remove/reject from.
 	var party_id : String
-	# The presence to remove or reject.
+	
+	## The presence to remove or reject.
 	var presence : NakamaRTAPI.UserPresence
 
 	func _init(p_id : String, p_presence : NakamaRTAPI.UserPresence):
@@ -514,14 +525,15 @@ class PartyRemove extends NakamaAsyncResult:
 		return "PartyRemove<party_id=%s, presence=%s>" % [party_id, presence]
 
 
-# Request a list of pending join requests for a party.
+## Request a list of pending join requests for a party.
 class PartyJoinRequestList extends NakamaAsyncResult:
 	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 	}
-	# Party ID to get a list of join requests for.
+	
+	## Party ID to get a list of join requests for.
 	var party_id : String
-
+	
 	func _init(p_id : String):
 		party_id = p_id
 
@@ -535,7 +547,7 @@ class PartyJoinRequestList extends NakamaAsyncResult:
 		return "PartyJoinRequestList<party_id=%s>" % [party_id]
 
 
-# Begin matchmaking as a party.
+## Begin matchmaking as a party.
 class PartyMatchmakerAdd extends NakamaAsyncResult:
 
 	const _SCHEMA = {
@@ -547,19 +559,25 @@ class PartyMatchmakerAdd extends NakamaAsyncResult:
 		"numeric_properties": {"name": "numeric_properties", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_FLOAT},
 	}
 
-	# Party ID.
+	## Party ID.
 	var party_id : String
-	# Minimum total user count to match together.
+	
+	## Minimum total user count to match together.
 	var min_count : int
-	# Maximum total user count to match together.
+	
+	## Maximum total user count to match together.
 	var max_count : int
-	# Filter query used to identify suitable users.
+	
+	## Filter query used to identify suitable users.
 	var query : String
-	# String properties.
+	
+	## String properties.
 	var string_properties : Dictionary
-	# Numeric properties.
+	
+	## Numeric properties.
 	var numeric_properties : Dictionary
-	# Optional multiple of the count that must be satisfied.
+	
+	## Optional multiple of the count that must be satisfied.
 	var count_multiple
 
 	func _init(p_id : String, p_min_count : int, p_max_count : int, p_query : String, p_string_properties = null, p_numeric_properties = null, p_count_multiple = null):
@@ -581,15 +599,17 @@ class PartyMatchmakerAdd extends NakamaAsyncResult:
 		return "PartyMatchmakerAdd<party_id=%s, min_count=%d, max_count=%d, query=%s, string_properties=%s, numeric_properties=%s, count_multiple=%s>" % [party_id, min_count, max_count, query, string_properties, numeric_properties, count_multiple]
 
 
-# Cancel a party matchmaking process using a ticket.
+## Cancel a party matchmaking process using a ticket.
 class PartyMatchmakerRemove extends NakamaAsyncResult:
 	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 		"ticket": {"name": "ticket", "type": TYPE_STRING, "required": true},
 	}
-	# Party ID.
+	
+	## Party ID.
 	var party_id : String
-	# The ticket to cancel.
+	
+	## The ticket to cancel.
 	var ticket : String
 
 	func _init(p_id : String, p_ticket : String):
@@ -606,18 +626,21 @@ class PartyMatchmakerRemove extends NakamaAsyncResult:
 		return "PartyMatchmakerRemove<party_id=%s, ticket=%s>" % [party_id, ticket]
 
 
-# Send data to a party.
+## Send data to a party.
 class PartyDataSend extends NakamaAsyncResult:
 	const _SCHEMA = {
 		"party_id": {"name": "party_id", "type": TYPE_STRING, "required": true},
 		"op_code": {"name": "op_code", "type": TYPE_INT, "required": true},
 		"data": {"name": "data", "type": TYPE_STRING, "required": false}
 	}
-	# Party ID to send to.
+	
+	## Party ID to send to.
 	var party_id : String
-	# Op code value.
+	
+	## Op code value.
 	var op_code : int
-	# Data payload, if any.
+	
+	## Data payload, if any.
 	var data = null
 
 	func _init(p_id : String, p_op_code : int, p_data = null):

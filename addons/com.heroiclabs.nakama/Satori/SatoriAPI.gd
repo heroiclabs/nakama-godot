@@ -3,7 +3,7 @@
 extends RefCounted
 class_name SatoriAPI
 
-# Log out a session, invalidate a refresh token, or log out all sessions/refresh tokens for a user.
+## Log out a session, invalidate a refresh token, or log out all sessions/refresh tokens for a user.
 class ApiAuthenticateLogoutRequest extends SatoriAsyncResult:
 
 	const _SCHEMA = {
@@ -11,14 +11,14 @@ class ApiAuthenticateLogoutRequest extends SatoriAsyncResult:
 		"token": {"name": "_token", "type": TYPE_STRING, "required": false},
 	}
 	
-	# Refresh token to invalidate.
 	var _refresh_token
+	## Refresh token to invalidate.
 	var refresh_token : String:
 		get:
 			return "" if not _refresh_token is String else String(_refresh_token)
 	
-	# Session token to log out.
 	var _token
+	## Session token to log out.
 	var token : String:
 		get:
 			return "" if not _token is String else String(_token)
@@ -42,15 +42,15 @@ class ApiAuthenticateLogoutRequest extends SatoriAsyncResult:
 		output += map_string
 		return output
 
-# Authenticate against the server with a refresh token.
+## Authenticate against the server with a refresh token.
 class ApiAuthenticateRefreshRequest extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"refresh_token": {"name": "_refresh_token", "type": TYPE_STRING, "required": false},
 	}
 	
-	# Refresh token.
 	var _refresh_token
+	## Refresh token.
 	var refresh_token : String:
 		get:
 			return "" if not _refresh_token is String else String(_refresh_token)
@@ -73,7 +73,6 @@ class ApiAuthenticateRefreshRequest extends SatoriAsyncResult:
 		output += map_string
 		return output
 
-# 
 class ApiAuthenticateRequest extends SatoriAsyncResult:
 
 	const _SCHEMA = {
@@ -82,23 +81,23 @@ class ApiAuthenticateRequest extends SatoriAsyncResult:
 		"id": {"name": "_id", "type": TYPE_STRING, "required": false},
 	}
 	
-	# Optional custom properties to update with this call.
-	# If not set, properties are left as they are on the server.
 	var _custom
+	## Optional custom properties to update with this call. [br]
+	## If not set, properties are left as they are on the server.
 	var custom : Dictionary:
 		get:
 			return Dictionary() if not _custom is Dictionary else _custom.duplicate()
 	
-	# Optional default properties to update with this call.
-	# If not set, properties are left as they are on the server.
 	var _default
+	## Optional default properties to update with this call. [br]
+	## If not set, properties are left as they are on the server.
 	var default : Dictionary:
 		get:
 			return Dictionary() if not _default is Dictionary else _default.duplicate()
 	
-	# Identity ID. Must be between eight and 128 characters (inclusive).
-	# Must be an alphanumeric string with only underscores and hyphens allowed.
 	var _id
+	## Identity ID. Must be between eight and 128 characters (inclusive). [br]
+	## Must be an alphanumeric string with only underscores and hyphens allowed.
 	var id : String:
 		get:
 			return "" if not _id is String else String(_id)
@@ -131,7 +130,7 @@ class ApiAuthenticateRequest extends SatoriAsyncResult:
 		output += map_string
 		return output
 
-# A single event. Usually, but not necessarily, part of a batch.
+## A single event. Usually, but not necessarily, part of a batch.
 class ApiEvent extends SatoriAsyncResult:
 
 	const _SCHEMA = {
@@ -142,33 +141,33 @@ class ApiEvent extends SatoriAsyncResult:
 		"value": {"name": "_value", "type": TYPE_STRING, "required": false},
 	}
 	
-	# Optional event ID assigned by the client, used to de-duplicate in retransmission scenarios.
-	# If not supplied the server will assign a randomly generated unique event identifier.
 	var _id
+	## Optional event ID assigned by the client, used to de-duplicate in retransmission scenarios. [br]
+	## If not supplied the server will assign a randomly generated unique event identifier.
 	var id : String:
 		get:
 			return "" if not _id is String else String(_id)
 	
-	# Event metadata, if any.
 	var _metadata
+	## Event metadata, if any.
 	var metadata : Dictionary:
 		get:
 			return Dictionary() if not _metadata is Dictionary else _metadata.duplicate()
 	
-	# Event name.
 	var _name
+	## Event name.
 	var name : String:
 		get:
 			return "" if not _name is String else String(_name)
 	
-	# The time when the event was triggered on the producer side.
 	var _timestamp
+	## The time when the event was triggered on the producer side.
 	var timestamp : String:
 		get:
 			return "" if not _timestamp is String else String(_timestamp)
 	
-	# Optional value.
 	var _value
+	## Optional value.
 	var value : String:
 		get:
 			return "" if not _value is String else String(_value)
@@ -199,15 +198,14 @@ class ApiEvent extends SatoriAsyncResult:
 		output += map_string
 		return output
 
-# 
 class ApiEventRequest extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"events": {"name": "_events", "type": TYPE_ARRAY, "required": false, "content": TYPE_DICTIONARY},
 	}
 	
-	# Some number of events produced by a client.
 	var _events
+	## Some number of events produced by a client.
 	var events : Array:
 		get:
 			return Array() if not _events is Array else Array(_events)
@@ -230,7 +228,7 @@ class ApiEventRequest extends SatoriAsyncResult:
 		output += map_string
 		return output
 
-# An experiment that this user is partaking.
+## An experiment that this user is partaking.
 class ApiExperiment extends SatoriAsyncResult:
 
 	const _SCHEMA = {
@@ -244,8 +242,8 @@ class ApiExperiment extends SatoriAsyncResult:
 		get:
 			return "" if not _name is String else String(_name)
 	
-	# Value associated with this Experiment.
 	var _value
+	## Value associated with this Experiment.
 	var value : String:
 		get:
 			return "" if not _value is String else String(_value)
@@ -269,15 +267,15 @@ class ApiExperiment extends SatoriAsyncResult:
 		output += map_string
 		return output
 
-# All experiments that this identity is involved with.
+## All experiments that this identity is involved with.
 class ApiExperimentList extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"experiments": {"name": "_experiments", "type": TYPE_ARRAY, "required": false, "content": TYPE_DICTIONARY},
 	}
 	
-	# All experiments for this identity.
 	var _experiments
+	## All experiments for this identity.
 	var experiments : Array:
 		get:
 			return Array() if not _experiments is Array else Array(_experiments)
@@ -300,7 +298,7 @@ class ApiExperimentList extends SatoriAsyncResult:
 		output += map_string
 		return output
 
-# Feature flag available to the identity.
+## Feature flag available to the identity.
 class ApiFlag extends SatoriAsyncResult:
 
 	const _SCHEMA = {
@@ -309,8 +307,8 @@ class ApiFlag extends SatoriAsyncResult:
 		"value": {"name": "_value", "type": TYPE_STRING, "required": false},
 	}
 	
-	# Whether the value for this flag has conditionally changed from the default state.
 	var _condition_changed
+	## Whether the value for this flag has conditionally changed from the default state.
 	var condition_changed : bool:
 		get:
 			return false if not _condition_changed is bool else bool(_condition_changed)
@@ -321,8 +319,8 @@ class ApiFlag extends SatoriAsyncResult:
 		get:
 			return "" if not _name is String else String(_name)
 	
-	# Value associated with this flag.
 	var _value
+	## Value associated with this flag.
 	var value : String:
 		get:
 			return "" if not _value is String else String(_value)
@@ -347,14 +345,12 @@ class ApiFlag extends SatoriAsyncResult:
 		output += map_string
 		return output
 
-# 
 class ApiFlagList extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"flags": {"name": "_flags", "type": TYPE_ARRAY, "required": false, "content": TYPE_DICTIONARY},
 	}
 	
-	# 
 	var _flags
 	var flags : Array:
 		get:
@@ -378,7 +374,7 @@ class ApiFlagList extends SatoriAsyncResult:
 		output += map_string
 		return output
 
-# A response containing all the messages for an identity.
+## A response containing all the messages for an identity.
 class ApiGetMessageListResponse extends SatoriAsyncResult:
 
 	const _SCHEMA = {
@@ -388,26 +384,26 @@ class ApiGetMessageListResponse extends SatoriAsyncResult:
 		"prev_cursor": {"name": "_prev_cursor", "type": TYPE_STRING, "required": false},
 	}
 	
-	# Cacheable cursor to list newer messages. Durable and designed to be stored, unlike next/prev cursors.
 	var _cacheable_cursor
+	## Cacheable cursor to list newer messages. Durable and designed to be stored, unlike next/prev cursors.
 	var cacheable_cursor : String:
 		get:
 			return "" if not _cacheable_cursor is String else String(_cacheable_cursor)
 	
-	# The list of messages.
 	var _messages
+	## The list of messages.
 	var messages : Array:
 		get:
 			return Array() if not _messages is Array else Array(_messages)
 	
-	# The cursor to send when retrieving the next page, if any.
 	var _next_cursor
+	## The cursor to send when retrieving the next page, if any.
 	var next_cursor : String:
 		get:
 			return "" if not _next_cursor is String else String(_next_cursor)
 	
-	# The cursor to send when retrieving the previous page, if any.
 	var _prev_cursor
+	## The cursor to send when retrieving the previous page, if any.
 	var prev_cursor : String:
 		get:
 			return "" if not _prev_cursor is String else String(_prev_cursor)
@@ -433,7 +429,7 @@ class ApiGetMessageListResponse extends SatoriAsyncResult:
 		output += map_string
 		return output
 
-# Enrich/replace the current session with a new ID.
+## Enrich/replace the current session with a new ID.
 class ApiIdentifyRequest extends SatoriAsyncResult:
 
 	const _SCHEMA = {
@@ -442,22 +438,22 @@ class ApiIdentifyRequest extends SatoriAsyncResult:
 		"id": {"name": "_id", "type": TYPE_STRING, "required": false},
 	}
 	
-	# Optional custom properties to update with this call.
-	# If not set, properties are left as they are on the server.
 	var _custom
+	## Optional custom properties to update with this call. [br]
+	## If not set, properties are left as they are on the server.
 	var custom : Dictionary:
 		get:
 			return Dictionary() if not _custom is Dictionary else _custom.duplicate()
 	
-	# Optional default properties to update with this call.
-	# If not set, properties are left as they are on the server.
 	var _default
+	## Optional default properties to update with this call. [br]
+	## If not set, properties are left as they are on the server.
 	var default : Dictionary:
 		get:
 			return Dictionary() if not _default is Dictionary else _default.duplicate()
 	
-	# Identity ID to enrich the current session and return a new session. Old session will no longer be usable.
 	var _id
+	## Identity ID to enrich the current session and return a new session. Old session will no longer be usable.
 	var id : String:
 		get:
 			return "" if not _id is String else String(_id)
@@ -490,7 +486,7 @@ class ApiIdentifyRequest extends SatoriAsyncResult:
 		output += map_string
 		return output
 
-# A single live event.
+## A single live event.
 class ApiLiveEvent extends SatoriAsyncResult:
 
 	const _SCHEMA = {
@@ -502,38 +498,38 @@ class ApiLiveEvent extends SatoriAsyncResult:
 		"value": {"name": "_value", "type": TYPE_STRING, "required": false},
 	}
 	
-	# End time of current event run.
 	var _active_end_time_sec
+	## End time of current event run.
 	var active_end_time_sec : String:
 		get:
 			return "" if not _active_end_time_sec is String else String(_active_end_time_sec)
 	
-	# Start time of current event run.
 	var _active_start_time_sec
+	## Start time of current event run.
 	var active_start_time_sec : String:
 		get:
 			return "" if not _active_start_time_sec is String else String(_active_start_time_sec)
 	
-	# Description.
 	var _description
+	## Description.
 	var description : String:
 		get:
 			return "" if not _description is String else String(_description)
 	
-	# The live event identifier.
 	var _id
+	## The live event identifier.
 	var id : String:
 		get:
 			return "" if not _id is String else String(_id)
 	
-	# Name.
 	var _name
+	## Name.
 	var name : String:
 		get:
 			return "" if not _name is String else String(_name)
 	
-	# Event value.
 	var _value
+	## Event value.
 	var value : String:
 		get:
 			return "" if not _value is String else String(_value)
@@ -561,15 +557,15 @@ class ApiLiveEvent extends SatoriAsyncResult:
 		output += map_string
 		return output
 
-# List of Live events.
+## List of Live events.
 class ApiLiveEventList extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"live_events": {"name": "_live_events", "type": TYPE_ARRAY, "required": false, "content": TYPE_DICTIONARY},
 	}
 	
-	# Live events.
 	var _live_events
+	## Live events.
 	var live_events : Array:
 		get:
 			return Array() if not _live_events is Array else Array(_live_events)
@@ -592,7 +588,7 @@ class ApiLiveEventList extends SatoriAsyncResult:
 		output += map_string
 		return output
 
-# A scheduled message.
+## A scheduled message.
 class ApiMessage extends SatoriAsyncResult:
 
 	const _SCHEMA = {
@@ -606,50 +602,50 @@ class ApiMessage extends SatoriAsyncResult:
 		"update_time": {"name": "_update_time", "type": TYPE_STRING, "required": false},
 	}
 	
-	# The time the message was consumed by the identity.
 	var _consume_time
+	## The time the message was consumed by the identity.
 	var consume_time : String:
 		get:
 			return "" if not _consume_time is String else String(_consume_time)
 	
-	# The time the message was created.
 	var _create_time
+	## The time the message was created.
 	var create_time : String:
 		get:
 			return "" if not _create_time is String else String(_create_time)
 	
-	# A key-value pairs of metadata.
 	var _metadata
+	## A key-value pairs of metadata.
 	var metadata : Dictionary:
 		get:
 			return Dictionary() if not _metadata is Dictionary else _metadata.duplicate()
 	
-	# The time the message was read by the client.
 	var _read_time
+	## The time the message was read by the client.
 	var read_time : String:
 		get:
 			return "" if not _read_time is String else String(_read_time)
 	
-	# The identifier of the schedule.
 	var _schedule_id
+	## The identifier of the schedule.
 	var schedule_id : String:
 		get:
 			return "" if not _schedule_id is String else String(_schedule_id)
 	
-	# The send time for the message.
 	var _send_time
+	## The send time for the message.
 	var send_time : String:
 		get:
 			return "" if not _send_time is String else String(_send_time)
 	
-	# The message's text.
 	var _text
+	## The message's text.
 	var text : String:
 		get:
 			return "" if not _text is String else String(_text)
 	
-	# The time the message was updated.
 	var _update_time
+	## The time the message was updated.
 	var update_time : String:
 		get:
 			return "" if not _update_time is String else String(_update_time)
@@ -683,7 +679,7 @@ class ApiMessage extends SatoriAsyncResult:
 		output += map_string
 		return output
 
-# Properties associated with an identity.
+## Properties associated with an identity.
 class ApiProperties extends SatoriAsyncResult:
 
 	const _SCHEMA = {
@@ -692,20 +688,20 @@ class ApiProperties extends SatoriAsyncResult:
 		"default": {"name": "_default", "type": TYPE_DICTIONARY, "required": false, "content": TYPE_STRING},
 	}
 	
-	# Event computed properties.
 	var _computed
+	## Event computed properties.
 	var computed : Dictionary:
 		get:
 			return Dictionary() if not _computed is Dictionary else _computed.duplicate()
 	
-	# Event custom properties.
 	var _custom
+	## Event custom properties.
 	var custom : Dictionary:
 		get:
 			return Dictionary() if not _custom is Dictionary else _custom.duplicate()
 	
-	# Event default properties.
 	var _default
+	## Event default properties.
 	var default : Dictionary:
 		get:
 			return Dictionary() if not _default is Dictionary else _default.duplicate()
@@ -742,7 +738,7 @@ class ApiProperties extends SatoriAsyncResult:
 		output += map_string
 		return output
 
-# A session.
+## A session.
 class ApiSession extends SatoriAsyncResult:
 
 	const _SCHEMA = {
@@ -751,20 +747,20 @@ class ApiSession extends SatoriAsyncResult:
 		"token": {"name": "_token", "type": TYPE_STRING, "required": false},
 	}
 	
-	# Properties associated with this identity.
 	var _properties
+	## Properties associated with this identity.
 	var properties : ApiProperties:
 		get:
 			return _properties as ApiProperties
 	
-	# Refresh token.
 	var _refresh_token
+	## Refresh token.
 	var refresh_token : String:
 		get:
 			return "" if not _refresh_token is String else String(_refresh_token)
 	
-	# Token credential.
 	var _token
+	## Token credential.
 	var token : String:
 		get:
 			return "" if not _token is String else String(_token)
@@ -789,7 +785,7 @@ class ApiSession extends SatoriAsyncResult:
 		output += map_string
 		return output
 
-# Update Properties associated with this identity.
+## Update Properties associated with this identity.
 class ApiUpdatePropertiesRequest extends SatoriAsyncResult:
 
 	const _SCHEMA = {
@@ -798,20 +794,20 @@ class ApiUpdatePropertiesRequest extends SatoriAsyncResult:
 		"recompute": {"name": "_recompute", "type": TYPE_BOOL, "required": false},
 	}
 	
-	# Event custom properties.
 	var _custom
+	## Event custom properties.
 	var custom : Dictionary:
 		get:
 			return Dictionary() if not _custom is Dictionary else _custom.duplicate()
 	
-	# Event default properties.
 	var _default
+	## Event default properties.
 	var default : Dictionary:
 		get:
 			return Dictionary() if not _default is Dictionary else _default.duplicate()
 	
-	# Informs the server to recompute the audience membership of the identity.
 	var _recompute
+	## Informs the server to recompute the audience membership of the identity.
 	var recompute : bool:
 		get:
 			return false if not _recompute is bool else bool(_recompute)
@@ -844,14 +840,12 @@ class ApiUpdatePropertiesRequest extends SatoriAsyncResult:
 		output += map_string
 		return output
 
-# 
 class ProtobufAny extends SatoriAsyncResult:
 
 	const _SCHEMA = {
 		"type": {"name": "_type", "type": TYPE_STRING, "required": false},
 	}
 	
-	# 
 	var _type
 	var type : String:
 		get:
@@ -875,7 +869,6 @@ class ProtobufAny extends SatoriAsyncResult:
 		output += map_string
 		return output
 
-# 
 class RpcStatus extends SatoriAsyncResult:
 
 	const _SCHEMA = {
@@ -884,19 +877,16 @@ class RpcStatus extends SatoriAsyncResult:
 		"message": {"name": "_message", "type": TYPE_STRING, "required": false},
 	}
 	
-	# 
 	var _code
 	var code : int:
 		get:
 			return 0 if not _code is int else int(_code)
 	
-	# 
 	var _details
 	var details : Array:
 		get:
 			return Array() if not _details is Array else Array(_details)
 	
-	# 
 	var _message
 	var message : String:
 		get:
@@ -922,7 +912,7 @@ class RpcStatus extends SatoriAsyncResult:
 		output += map_string
 		return output
 
-# The low level client for the Satori API.
+## The low level client for the Satori API.
 class ApiClient extends RefCounted:
 
 	var _base_uri : String
@@ -974,7 +964,7 @@ class ApiClient extends RefCounted:
 		if p_token:
 			_http_adapter.cancel_request(p_token)
 
-	# A healthcheck which load balancers can use to check the service.
+	## A healthcheck which load balancers can use to check the service.
 	func healthcheck_async(
 		p_session : SatoriSession
 	) -> SatoriAsyncResult:
@@ -998,7 +988,7 @@ class ApiClient extends RefCounted:
 			return SatoriAsyncResult.new(result)
 		return SatoriAsyncResult.new()
 
-	# A readycheck which load balancers can use to check the service.
+	## A readycheck which load balancers can use to check the service.
 	func readycheck_async(
 		p_session : SatoriSession
 	) -> SatoriAsyncResult:
@@ -1022,7 +1012,7 @@ class ApiClient extends RefCounted:
 			return SatoriAsyncResult.new(result)
 		return SatoriAsyncResult.new()
 
-	# Authenticate against the server.
+	## Authenticate against the server.
 	func authenticate_async(
 		p_basic_auth_username : String
 		, p_basic_auth_password : String
@@ -1046,7 +1036,7 @@ class ApiClient extends RefCounted:
 		var out : ApiSession = SatoriSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
-	# Log out a session, invalidate a refresh token, or log out all sessions/refresh tokens for a user.
+	## Log out a session, invalidate a refresh token, or log out all sessions/refresh tokens for a user.
 	func authenticate_logout_async(
 		p_session : SatoriSession
 		, p_body : ApiAuthenticateLogoutRequest
@@ -1072,7 +1062,7 @@ class ApiClient extends RefCounted:
 			return SatoriAsyncResult.new(result)
 		return SatoriAsyncResult.new()
 
-	# Refresh a user's session using a refresh token retrieved from a previous authentication request.
+	## Refresh a user's session using a refresh token retrieved from a previous authentication request.
 	func authenticate_refresh_async(
 		p_basic_auth_username : String
 		, p_basic_auth_password : String
@@ -1096,7 +1086,7 @@ class ApiClient extends RefCounted:
 		var out : ApiSession = SatoriSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
-	# Publish an event for this session.
+	## Publish an event for this session.
 	func event_async(
 		p_session : SatoriSession
 		, p_body : ApiEventRequest
@@ -1122,7 +1112,7 @@ class ApiClient extends RefCounted:
 			return SatoriAsyncResult.new(result)
 		return SatoriAsyncResult.new()
 
-	# Get or list all available experiments for this identity.
+	## Get or list all available experiments for this identity.
 	func get_experiments_async(
 		p_session : SatoriSession
 		, p_names = null # : array
@@ -1151,7 +1141,7 @@ class ApiClient extends RefCounted:
 		var out : ApiExperimentList = SatoriSerializer.deserialize(_namespace, "ApiExperimentList", result)
 		return out
 
-	# List all available flags for this identity.
+	## List all available flags for this identity.
 	func get_flags_async(
 		p_bearer_token : String
 		, p_names = null # : array
@@ -1176,7 +1166,7 @@ class ApiClient extends RefCounted:
 		var out : ApiFlagList = SatoriSerializer.deserialize(_namespace, "ApiFlagList", result)
 		return out
 
-	# Enrich/replace the current session with new identifier.
+	## Enrich/replace the current session with new identifier.
 	func identify_async(
 		p_session : SatoriSession
 		, p_body : ApiIdentifyRequest
@@ -1203,7 +1193,7 @@ class ApiClient extends RefCounted:
 		var out : ApiSession = SatoriSerializer.deserialize(_namespace, "ApiSession", result)
 		return out
 
-	# Delete the caller's identity and associated data.
+	## Delete the caller's identity and associated data.
 	func delete_identity_async(
 		p_session : SatoriSession
 	) -> SatoriAsyncResult:
@@ -1227,7 +1217,7 @@ class ApiClient extends RefCounted:
 			return SatoriAsyncResult.new(result)
 		return SatoriAsyncResult.new()
 
-	# List available live events.
+	## List available live events.
 	func get_live_events_async(
 		p_session : SatoriSession
 		, p_names = null # : array
@@ -1256,7 +1246,7 @@ class ApiClient extends RefCounted:
 		var out : ApiLiveEventList = SatoriSerializer.deserialize(_namespace, "ApiLiveEventList", result)
 		return out
 
-	# Get the list of messages for the identity.
+	## Get the list of messages for the identity.
 	func get_message_list_async(
 		p_session : SatoriSession
 		, p_limit = null # : integer
@@ -1290,7 +1280,7 @@ class ApiClient extends RefCounted:
 		var out : ApiGetMessageListResponse = SatoriSerializer.deserialize(_namespace, "ApiGetMessageListResponse", result)
 		return out
 
-	# Deletes a message for an identity.
+	## Deletes a message for an identity.
 	func delete_message_async(
 		p_session : SatoriSession
 		, p_id : String
@@ -1316,7 +1306,7 @@ class ApiClient extends RefCounted:
 			return SatoriAsyncResult.new(result)
 		return SatoriAsyncResult.new()
 
-	# Updates a message for an identity.
+	## Updates a message for an identity.
 	func update_message_async(
 		p_session : SatoriSession
 		, p_id : String
@@ -1344,7 +1334,7 @@ class ApiClient extends RefCounted:
 			return SatoriAsyncResult.new(result)
 		return SatoriAsyncResult.new()
 
-	# List properties associated with this identity.
+	## List properties associated with this identity.
 	func list_properties_async(
 		p_session : SatoriSession
 	) -> ApiProperties:
@@ -1369,7 +1359,7 @@ class ApiClient extends RefCounted:
 		var out : ApiProperties = SatoriSerializer.deserialize(_namespace, "ApiProperties", result)
 		return out
 
-	# Update identity properties.
+	## Update identity properties.
 	func update_properties_async(
 		p_session : SatoriSession
 		, p_body : ApiUpdatePropertiesRequest
