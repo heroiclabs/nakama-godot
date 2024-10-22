@@ -1300,8 +1300,7 @@ class ApiClient extends RefCounted:
 			if try_refresh.is_exception():
 				return SatoriAsyncResult.new(try_refresh.get_exception())
 			await p_session.refresh(try_refresh)
-		var urlpath : String = "/v1/message/{id}"
-		urlpath = urlpath.replace("{id}", SatoriSerializer.escape_http(p_id))
+		var urlpath : String = "/v1/message/%s" % SatoriSerializer.escape_http(p_id)
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "DELETE"
@@ -1327,8 +1326,7 @@ class ApiClient extends RefCounted:
 			if try_refresh.is_exception():
 				return SatoriAsyncResult.new(try_refresh.get_exception())
 			await p_session.refresh(try_refresh)
-		var urlpath : String = "/v1/message/{id}"
-		urlpath = urlpath.replace("{id}", SatoriSerializer.escape_http(p_id))
+		var urlpath : String = "/v1/message/%s" % SatoriSerializer.escape_http(p_id)
 		var query_params = ""
 		var uri = "%s%s%s" % [_base_uri, urlpath, "?" + query_params if query_params else ""]
 		var method = "PUT"
