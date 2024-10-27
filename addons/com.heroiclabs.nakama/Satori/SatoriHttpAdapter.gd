@@ -2,10 +2,10 @@
 extends Node
 
 # An adapter which implements the HTTP protocol.
-class_name NakamaHTTPAdapter
+class_name SatoriHTTPAdapter
 
 # The logger to use with the adapter.
-var logger : RefCounted = NakamaLogger.new()
+var logger : RefCounted = SatoriLogger.new()
 
 # The timeout for requests
 var timeout : int = 3
@@ -29,7 +29,7 @@ class AsyncRequest:
 	var body : PackedByteArray
 	var retry_count := 3
 	var backoff_time := 10
-	var logger : NakamaLogger
+	var logger : SatoriLogger
 
 	var cancelled = false
 	var result : int = HTTPRequest.RESULT_NO_RESPONSE
@@ -41,7 +41,7 @@ class AsyncRequest:
 
 	func _init(p_id : int, p_request : HTTPRequest, p_uri : String,
 			p_method : int, p_headers : PackedStringArray, p_body : PackedByteArray,
-			p_retry_count : int, p_backoff_time : int, p_logger : NakamaLogger):
+			p_retry_count : int, p_backoff_time : int, p_logger : SatoriLogger):
 		rng.seed = Time.get_ticks_usec()
 		id = p_id
 		request = p_request
@@ -81,7 +81,7 @@ class AsyncRequest:
 		response_body = args[3]
 
 	func backoff(p_time : int):
-		timer = request.get_tree().create_timer(p_time / 1000)
+		timer = request.get_tree().create_timer(p_time / 1000.0)
 		await timer.timeout
 		timer = null
 
@@ -95,11 +95,11 @@ class AsyncRequest:
 
 	func parse_result():
 		if cancelled:
-			return NakamaException.new("Request cancelled", -1, -1, true)
+			return SatoriException.new("Request cancelled", -1, -1, true)
 		elif result != HTTPRequest.RESULT_SUCCESS:
 			if result == null:
 				result = 0
-			return NakamaException.new("HTTPRequest failed!", result)
+			return SatoriException.new("HTTPRequest failed!", result)
 
 		var json = JSON.new()
 
@@ -108,7 +108,7 @@ class AsyncRequest:
 			logger.debug("Unable to parse request %d response. JSON error: %d, JSON error message: %s, response code: %d" % [
 				id, json_error, json.get_error_message(), response_code
 			])
-			return NakamaException.new("Failed to decode JSON response", response_code)
+			return SatoriException.new("Failed to decode JSON response", response_code)
 
 		var parsed = json.get_data()
 
@@ -130,7 +130,7 @@ class AsyncRequest:
 			logger.debug("Request %d returned response code: %d, RPC code: %d, error: %s" % [
 				id, response_code, code, error
 			])
-			return NakamaException.new(error, response_code, code)
+			return SatoriException.new(error, response_code, code)
 
 		return parsed
 
@@ -178,7 +178,7 @@ func send_async(p_method : String, p_uri : String, p_headers : Dictionary, p_bod
 
 	return await _send_async(id, _pending)
 
-func get_last_token():
+func get_last_token() -> int:
 	return id
 
 func cancel_request(p_token):

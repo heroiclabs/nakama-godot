@@ -13,14 +13,14 @@ Full documentation is online - https://heroiclabs.com/docs
 
 You're currently looking at the Godot 4 version of the Nakama client for Godot.
 
-If you are using Godot 3, you need to use the ['master'
-branch](https://github.com/heroiclabs/nakama-godot/tree/godot-4) on GitHub.
+If you are using Godot 3, you need to use the ['godot-3'
+branch](https://github.com/heroiclabs/nakama-godot/tree/godot-3) on GitHub.
 
 ## Getting Started
 
 You'll need to setup the server and database before you can connect with the client. The simplest way is to use Docker but have a look at the [server documentation](https://github.com/heroiclabs/nakama#getting-started) for other options.
 
-1. Install and run the servers. Follow these [instructions](https://heroiclabs.com/docs/install-docker-quickstart).
+1. Install and run the servers. Follow these [instructions](https://heroiclabs.com/docs/nakama/getting-started/install/docker/).
 
 2. Download the client from the [releases page](https://github.com/heroiclabs/nakama-godot/releases) and import it into your project. You can also [download it from the asset repository](#asset-repository).
 
@@ -45,7 +45,7 @@ The client object has many methods to execute various features in the server or 
 
 ### Authenticate
 
-There's a variety of ways to [authenticate](https://heroiclabs.com/docs/authentication) with the server. Authentication can create a user if they don't already exist with those credentials. It's also easy to authenticate with a social profile from Google Play Games, Facebook, Game Center, etc.
+There's a variety of ways to [authenticate](https://heroiclabs.com/docs/nakama/concepts/authentication/) with the server. Authentication can create a user if they don't already exist with those credentials. It's also easy to authenticate with a social profile from Google Play Games, Facebook, Game Center, etc.
 
 ```gdscript
 	var email = "super@heroes.com"
@@ -283,13 +283,63 @@ Here's an example of how to use them:
 
 **Note:** _The out-of-the-box Nakama .NET client will work fine with desktop builds of your game! However, it won't work with HTML5 builds, unless you use the `GodotHttpAdapter` and `GodotWebSocketAdapter` classes._
 
+# Satori
+
+Satori is a liveops server for games that powers actionable analytics, A/B testing and remote configuration. Use the Satori Godot Client to communicate with Satori from within your Godot game.
+
+Satori is only compatible with Godot 4.
+
+Full documentation is online - https://heroiclabs.com/docs/satori/client-libraries/godot/index.html
+
+## Getting Started
+
+Add the `Satori.gd` singleton (in `addons/com.heroiclabs.nakama/`) as an [autoload in Godot](https://docs.godotengine.org/en/stable/getting_started/step_by_step/singletons_autoload.html).
+
+Create a client object that accepts the API key you were given as a Satori customer.
+
+```gdscript
+extends Node
+
+func ready():
+	var scheme = "http"
+	var host = "127.0.0.1"
+	var port: Int = 7450
+	var apiKey = "apiKey"
+	var client := Satori.create_client(apiKey, host, port, scheme)
+```
+
+Then authenticate with the server to obtain your session.
+
+```gdscript
+// Authenticate with the Satori server.
+var session = await _client.authenticate_async("your-id")
+if session.is_exception():
+	print("Error authenticating: " + session.get_exception()._message)
+else:
+	print("Authenticated successfully.")
+```
+
+Using the client you can get any experiments or feature flags, the user belongs to.
+
+```gdscript
+var experiments = await _client.get_experiments_async(session, ["experiment1", "Experiment2"])
+var flag = await _client.get_flag_async(session, "FlagName")
+```
+
+You can also send arbitrary events to the server:
+
+```gdscript
+var _event = Event.new("gameFinished", Time.get_unix_time_from_system())
+await _client.event_async(session, _event)
+```
+
 ## Contribute
 
 The development roadmap is managed as GitHub issues and pull requests are welcome. If you're interested to improve the code please open an issue to discuss the changes or drop in and discuss it in the [community forum](https://forum.heroiclabs.com).
 
 ### Run Tests
 
-To run tests you will need to run the server and database. Most tests are written as integration tests which execute against the server. A quick approach we use with our test workflow is to use the Docker compose file described in the [documentation](https://heroiclabs.com/docs/install-docker-quickstart).
+To run tests you will need to run the server and database. Most tests are written as integration tests which execute against the server. A quick approach we use with our test workflow is to use the Docker compose file described in the [documentation](https://heroiclabs.com/docs/nakama/getting-started/install/docker/).
 
 Additionally, you will need to copy (or symlink) the `addons` folder inside the `test_suite` folder. You can now run the `test_suite` project from the Godot Editor.
 

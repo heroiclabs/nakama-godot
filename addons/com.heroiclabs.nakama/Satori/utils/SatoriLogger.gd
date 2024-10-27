@@ -1,16 +1,16 @@
 extends RefCounted
-class_name NakamaLogger
+class_name SatoriLogger
 
 enum LOG_LEVEL {NONE, ERROR, WARNING, INFO, VERBOSE, DEBUG}
 
 var _level = LOG_LEVEL.ERROR
-var _module = "Nakama"
+var _module = "Satori"
 
-func _init(p_module : String = "Nakama", p_level : int = LOG_LEVEL.ERROR):
+func _init(p_module : String = "Satori", p_level : int = LOG_LEVEL.ERROR):
 	_level = p_level
 	_module = p_module
 
-func _log(level : int, msg) -> void:
+func _log(level : int, msg):
 	if level <= _level:
 		if level == LOG_LEVEL.ERROR:
 			printerr("=== %s : ERROR === %s" % [_module, str(msg)])

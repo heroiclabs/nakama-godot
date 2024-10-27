@@ -18,14 +18,14 @@ class Packet extends RefCounted:
 
 var _incoming_packets := []
 
-signal packet_generated (peer_id, buffer)
+signal packet_generated (peer_id: int, buffer: PackedByteArray)
 
 func _get_packet_script() -> PackedByteArray:
 	if _incoming_packets.size() == 0:
 		return PackedByteArray()
 	return _incoming_packets.pop_front().data
 
-func _get_packet_mode() -> int:
+func _get_packet_mode() -> TransferMode:
 	return TRANSFER_MODE_RELIABLE
 
 func _get_packet_channel() -> int:

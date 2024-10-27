@@ -1,0 +1,163 @@
+extends RefCounted
+class_name SatoriSerializer
+
+static func serialize(p_obj : Object) -> Dictionary:
+	var out = {}
+	var schema = p_obj.get("_SCHEMA")
+	if schema == null:
+		return {} # No schema defined
+	for k in schema:
+		var prop = schema[k]
+		var val = p_obj.get(prop["name"])
+		if val == null:
+			continue
+		var type = prop["type"]
+		var content = prop.get("content", TYPE_NIL)
+		if typeof(content) == TYPE_STRING:
+			content = TYPE_OBJECT
+		var val_type = typeof(val)
+		match val_type:
+			TYPE_OBJECT: # Simple objects
+				out[k] = serialize(val)
+			TYPE_ARRAY: # Array of objects
+				var arr = []
+				if val.size() > 0 and typeof(val[0]) == TYPE_OBJECT: # Array of objects
+					for e in val:
+						arr.append(serialize(e))
+				else:
+					arr = val
+				out[k] = arr
+			TYPE_PACKED_INT32_ARRAY, TYPE_PACKED_STRING_ARRAY: # Array of ints, bools, or strings
+				var arr = []
+				for e in val:
+					if content == TYPE_BOOL:
+						e = bool(e)
+					if typeof(e) != content:
+						continue
+					arr.append(e)
+				out[k] = arr
+			TYPE_DICTIONARY: # Maps
+				var dict = {}
+				if content == TYPE_OBJECT: # Map of objects
+					for l in val:
+						if typeof(val[l]) != TYPE_OBJECT:
+							continue
+						dict[l] = serialize(val[l])
+				else: # Map of simple types
+					for l in val:
+						var e = val[l]
+						if content == TYPE_FLOAT:
+							e = float(e)
+						elif content == TYPE_INT:
+							e = int(e)
+						elif content == TYPE_BOOL:
+							e = bool(e)
+						if typeof(e) != content:
+							continue
+						dict[l] = e
+				out[k] = dict
+			_:
+				out[k] = val
+	return out
+
+static func deserialize(p_ns : GDScript, p_cls_name : String, p_dict : Dictionary) -> Object:
+	var cls : GDScript = p_ns.get(p_cls_name)
+	var schema = cls.get("_SCHEMA")
+	if schema == null:
+		return SatoriException.new() # No schema defined
+	var obj = cls.new()
+	for k in schema:
+		var prop = schema[k]
+		var pname = prop["name"]
+		var type = prop["type"]
+		var required = prop["required"]
+		var content = prop.get("content", TYPE_NIL)
+		var type_cmp = type
+		if typeof(type) == TYPE_STRING: # A class
+			type_cmp = TYPE_DICTIONARY
+		if type_cmp == TYPE_PACKED_STRING_ARRAY or type_cmp == TYPE_PACKED_INT32_ARRAY: # A specialized array
+			type_cmp = TYPE_ARRAY
+
+		var content_cmp = content
+		if typeof(content) == TYPE_STRING: # A dictionary or array of classes
+			content_cmp = TYPE_DICTIONARY
+
+		var val = p_dict.get(k, null)
+
+		# Ints might and up being recognized as floats. Change that if needed
+		if type_cmp == TYPE_INT:
+			if typeof(val) == TYPE_FLOAT:
+				val = int(val)
+			elif typeof(val) == TYPE_STRING and val.is_valid_int():
+				val = val.to_int()
+
+		if typeof(val) == type_cmp:
+			if typeof(type) == TYPE_STRING:
+				obj.set(pname, deserialize(p_ns, type, val))
+			elif type_cmp == TYPE_DICTIONARY:
+				var v = {}
+				for l in val:
+					if typeof(content) == TYPE_STRING:
+						v[l] = deserialize(p_ns, content, val[l])
+					elif content == TYPE_FLOAT:
+						v[l] = float(val[l])
+					elif content == TYPE_INT:
+						v[l] = int(val[l])
+					elif content == TYPE_BOOL:
+						v[l] = bool(val[l])
+					else:
+						v[l] = str(val[l])
+				obj.set(pname, v)
+			elif type_cmp == TYPE_ARRAY:
+				var v
+				match content:
+					TYPE_INT, TYPE_BOOL: v = PackedInt32Array()
+					TYPE_STRING: v = PackedStringArray()
+					_: v = Array()
+				for e in val:
+					if typeof(e) == TYPE_DICTIONARY: 
+						v.append(e) # Avoid deserialization if e is already a dictionary
+					elif typeof(content) == TYPE_STRING:
+						v.append(deserialize(p_ns, content, e))
+					elif content == TYPE_FLOAT:
+						v.append(float(e))
+					elif content == TYPE_INT:
+						v.append(int(e))
+					elif content == TYPE_BOOL:
+						v.append(bool(e))
+					else:
+						v.append(str(e))
+				obj.set(pname, v)
+			else:
+				obj.set(pname, val)
+		elif required:
+			obj._ex = SatoriException.new("ERROR [%s]: Missing or invalid required prop %s = %s:\n\t%s" % [p_cls_name, prop, p_dict.get(k), p_dict])
+			return obj
+	return obj
+
+
+###
+# Compatibility with Godot 3.1 which does not expose String.http_escape
+###
+const HEX = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"]
+
+static func escape_http(p_str : String) -> String:
+	var out : String = ""
+	for o in p_str:
+		if (o == '.' or o == '-' or o == '_' or o == '~' or
+			(o >= 'a' and o <= 'z') or
+			(o >= 'A' and o <= 'Z') or
+			(o >= '0' and o <= '9')):
+			out += o
+		else:
+			for b in o.to_utf8_buffer():
+				out += "%%%s" % to_hex(b)
+	return out
+
+static func to_hex(p_val : int) -> String:
+	var v := p_val
+	var o := ""
+	while v != 0:
+		o = HEX[v % 16] + o
+		v /= 16
+	return o

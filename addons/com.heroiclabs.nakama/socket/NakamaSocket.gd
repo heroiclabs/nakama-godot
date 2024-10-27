@@ -442,7 +442,7 @@ func send_match_state_async(p_match_id, p_op_code : int, p_data : String, p_pres
 		p_presences
 	))
 	# This do not return a response from server, you don't really need to wait for it.
-	req.call_deferred("resume", {})
+	call_deferred("_resume_request", req.id, {})
 	return req.completed
 
 # Send input to a multiplayer match on the server.
@@ -460,7 +460,7 @@ func send_match_state_raw_async(p_match_id, p_op_code : int, p_data : PackedByte
 		p_presences
 	))
 	# This do not return a response from server, you don't really need to wait for it.
-	req.call_deferred("resume", {})
+	call_deferred("_resume_request", req.id, {})
 	return req.completed
 
 # Unfollow one or more users from their status updates.

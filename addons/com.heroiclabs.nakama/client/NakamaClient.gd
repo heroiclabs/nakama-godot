@@ -138,7 +138,7 @@ func _init(p_adapter : NakamaHTTPAdapter,
 static func restore_session(auth_token : String):
 	return NakamaSession.new(auth_token, false)
 
-func _to_string():
+func _to_string() -> String:
 	return "Client(Host='%s', Port=%s, Scheme='%s', ServerKey='%s', Timeout=%s)" % [
 		host, port, scheme, server_key, timeout
 	]

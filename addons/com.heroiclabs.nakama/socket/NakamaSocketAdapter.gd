@@ -37,7 +37,7 @@ func close():
 # Connect to the server with an asynchronous operation.
 # @param p_uri - The URI of the server.
 # @param p_timeout - The timeout for the connect attempt on the socket.
-func connect_to_host(p_uri : String, p_timeout : int):
+func connect_to_host(p_uri : String, p_timeout : int) -> void:
 	_timeout = p_timeout
 	_start = Time.get_unix_time_from_system()
 	var err = _ws.connect_to_url(p_uri)
@@ -53,7 +53,7 @@ func connect_to_host(p_uri : String, p_timeout : int):
 func send(p_buffer : PackedByteArray, p_reliable : bool = true) -> int:
 	return _ws.send(p_buffer, WebSocketPeer.WRITE_MODE_TEXT)
 
-func _process(delta):
+func _process(delta: float) -> void:
 	if _ws.get_ready_state() != WebSocketPeer.STATE_CLOSED:
 		_ws.poll()
 

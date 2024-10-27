@@ -1,7 +1,7 @@
 extends RefCounted
-class_name NakamaAsyncResult
+class_name SatoriAsyncResult
 
-var exception : NakamaException:
+var exception : SatoriException:
 	set(v):
 		pass
 	get:
@@ -18,17 +18,17 @@ func is_exception() -> bool:
 func was_cancelled() -> bool:
 	return is_exception() and get_exception().cancelled
 
-func get_exception() -> NakamaException:
-	return _ex as NakamaException
+func get_exception() -> SatoriException:
+	return _ex as SatoriException
 
 func _to_string() -> String:
 	if is_exception():
 		return get_exception()._to_string()
-	return "NakamaAsyncResult<>"
+	return "SatoriAsyncResult<>"
 
 static func _safe_ret(p_obj, p_type : GDScript):
 	if is_instance_of(p_obj, p_type):
-		return p_obj # Correct type
-	elif p_obj is NakamaException:
-		return p_type.new(p_obj) # It's an exception. Incapsulate it
-	return p_type.new(NakamaException.new()) # It's something else. generate an exception
+		return p_obj
+	elif p_obj is SatoriException:
+		return p_type.new(p_obj)
+	return p_type.new(SatoriException.new())
