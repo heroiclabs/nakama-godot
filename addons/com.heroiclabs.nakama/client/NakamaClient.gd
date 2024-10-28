@@ -818,7 +818,7 @@ func session_logout_async(p_session : NakamaSession) -> NakamaAsyncResult:
 func session_refresh_async(p_sesison : NakamaSession, p_vars = null) -> NakamaSession:
 	return _parse_auth(await _api_client.session_refresh_async(server_key, "",
 		NakamaAPI.ApiSessionRefreshRequest.create(NakamaAPI, {
-			"token": p_sesison.refresh_token,
+			"token": p_session.refresh_token,
 			"vars": p_vars
 		})))
 
