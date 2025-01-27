@@ -1,19 +1,19 @@
 @tool
 extends Node
 
-# The default host address of the server.
+## The default host address of the server.
 const DEFAULT_HOST : String = "127.0.0.1"
 
-# The default port number of the server.
+## The default port number of the server.
 const DEFAULT_PORT : int = 7450
 
-# The default timeout for the connections.
+## The default timeout for the connections.
 const DEFAULT_TIMEOUT = 15
 
-# The default protocol scheme for the client connection.
+## The default protocol scheme for the client connection.
 const DEFAULT_CLIENT_SCHEME : String = "http"
 
-# The default log level for the Satori logger.
+## The default log level for the Satori logger.
 const DEFAULT_LOG_LEVEL = SatoriLogger.LOG_LEVEL.DEBUG
 
 var _http_adapter = null

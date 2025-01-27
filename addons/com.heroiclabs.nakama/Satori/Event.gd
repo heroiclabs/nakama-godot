@@ -2,30 +2,29 @@ extends SatoriAsyncResult
 
 class_name Event
 
-# The name of the event.
+## The name of the event.
 var name: String
 
-# The time when the event was triggered.
+## The time when the event was triggered.
 var timestamp: String
 
-# Optional value.
+## Optional value.
 var value: String
 
-# Event metadata, if any.
+## Event metadata, if any.
 var metadata: Dictionary
 
-# Optional event ID assigned by the client, used to de-duplicate in retransmission scenarios.
-# If not supplied the server will assign a randomly generated unique event identifier.
+## Optional event ID assigned by the client, used to de-duplicate in retransmission scenarios. [br]
+## If not supplied the server will assign a randomly generated unique event identifier.
 var id: String
 
-# The event constructor.
- # Initializes a new Event object.
- #
- # @param name The name of the event.
- # @param timestamp The timestamp of the event.
- # @param value The value associated with the event (optional).
- # @param metadata The metadata associated with the event (optional).
- # @param id The ID of the event (optional).
+## The event constructor. [br]
+## Initializes a new Event object. [br]
+## name The name of the event. [br]
+## timestamp The timestamp of the event. [br]
+## value The value associated with the event (optional). [br]
+## metadata The metadata associated with the event (optional). [br]
+## id The ID of the event (optional). [br]
 func _init(name: String, timestamp: float, value: String = "", metadata: Dictionary = {}, id: String = "", p_exception = null):
 	super(p_exception)
 	

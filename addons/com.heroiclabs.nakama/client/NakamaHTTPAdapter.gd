@@ -1,20 +1,23 @@
 @tool
 extends Node
 
-# An adapter which implements the HTTP protocol.
+## An adapter which implements the HTTP protocol.
 class_name NakamaHTTPAdapter
 
-# The logger to use with the adapter.
+## The logger to use with the adapter.
 var logger : RefCounted = NakamaLogger.new()
 
-# The timeout for requests
+## The timeout for requests
 var timeout : int = 3
-# If request should be automatically retried when a network error occurs.
+
+## If request should be automatically retried when a network error occurs.
 var auto_retry : bool = true
-# The maximum number of time a request will be retried when auto_retry is true
+
+## The maximum number of time a request will be retried when auto_retry is true
 var auto_retry_count : int = 3
 var auto_retry_backoff_base : int = 10
-# Whether or not to use threads when making HTTP requests.
+
+## Whether or not to use threads when making HTTP requests.
 var use_threads : bool = true
 
 var _pending = {}
@@ -135,13 +138,13 @@ class AsyncRequest:
 		return parsed
 
 
-# Send a HTTP request.
-# @param method - HTTP method to use for this request.
-# @param uri - The fully qualified URI to use.
-# @param headers - Request headers to set.
-# @param body - Request content body to set.
-# @param timeoutSec - Request timeout.
-# Returns a task which resolves to the contents of the response.
+## Send a HTTP request. [br]
+## method - HTTP method to use for this request. [br]
+## uri - The fully qualified URI to use. [br]
+## headers - Request headers to set. [br]
+## body - Request content body to set. [br]
+## timeoutSec - Request timeout. [br]
+## Returns a task which resolves to the contents of the response.
 func send_async(p_method : String, p_uri : String, p_headers : Dictionary, p_body : PackedByteArray):
 	var req = HTTPRequest.new()
 	req.timeout = timeout

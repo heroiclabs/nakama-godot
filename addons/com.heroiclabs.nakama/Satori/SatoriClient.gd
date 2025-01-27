@@ -65,11 +65,11 @@ func _init(p_adapter : SatoriHTTPAdapter,
 
 #region Client APIs
 
-## Authenticate against the server.
-## [p_id]: An optional user id.
-## [p_default_properties]: Optional default properties to update with this call.
-## If not set, properties are left as they are on the server.
-## [p_custom_properties]: Optional custom properties to update with this call.
+## Authenticate against the server. [br]
+## p_id: An optional user id. [br]
+## p_default_properties: Optional default properties to update with this call. [br]
+## If not set, properties are left as they are on the server. [br]
+## p_custom_properties: Optional custom properties to update with this call. [br]
 ## If not set, properties are left as they are on the server.
 func authenticate_async(p_id: String, p_default_properties: Dictionary = {}, p_custom_properties: Dictionary = {}) -> SatoriSession:
 	return _parse_session(await _api_client.authenticate_async(api_key, "",
@@ -79,8 +79,8 @@ func authenticate_async(p_id: String, p_default_properties: Dictionary = {}, p_c
 			"custom": p_custom_properties
 		})))
 
-## Log out a session, invalidate a refresh token, or log out all sessions/refresh tokens for a user.
-## [p_session]: The session of the user.
+## Log out a session, invalidate a refresh token, or log out all sessions/refresh tokens for a user. [br]
+## p_session: The session of the user.
 func authenticate_logout_async(p_session: SatoriSession) -> SatoriAsyncResult:
 	return await _api_client.authenticate_logout_async(p_session,
 		SatoriAPI.ApiAuthenticateLogoutRequest.create(SatoriAPI, {
@@ -88,15 +88,15 @@ func authenticate_logout_async(p_session: SatoriSession) -> SatoriAsyncResult:
 			"token": p_session.token
 		}))
 
-# Parses the Satori API session and returns a SatoriSession object.
+## Parses the Satori API session and returns a SatoriSession object.
 func _parse_session(p_session: SatoriAPI.ApiSession) -> SatoriSession:
 	if p_session.is_exception():
 		return SatoriSession.new(null, null, p_session.get_exception())
 	
 	return SatoriSession.new(p_session.token, p_session.refresh_token)
 
-## Refresh a user's session using a refresh token retrieved from a previous authentication request.
-## [p_session]: The session of the user.
+## Refresh a user's session using a refresh token retrieved from a previous authentication request. [br]
+## p_sesison: The session of the user.
 func session_refresh_async(p_session : SatoriSession) -> SatoriSession:
 	return _parse_session(await _api_client.authenticate_refresh_async(api_key, "",
 		SatoriAPI.ApiAuthenticateRefreshRequest.create(SatoriAPI, {
@@ -104,17 +104,17 @@ func session_refresh_async(p_session : SatoriSession) -> SatoriSession:
 		})
 	))
 
-## Send an event for this session.
-## [p_session]: The session of the user.
-## [p_event]: The event which will be sent.
+## Send an event for this session. [br]
+## p_session: The session of the user. [br]
+## p_event: The event which will be sent.
 func event_async(p_session: SatoriSession, p_event: Event) -> SatoriAsyncResult:
 	return await events_async(p_session, [
 		p_event
 	])
 
-## Send a batch of events for this session.
-## [p_session]: The session of the user.
-## [p_events]: The batch of events which will be sent.
+## Send a batch of events for this session. [br]
+## p_session: The session of the user. [br]
+## p_events: The batch of events which will be sent.
 func events_async(p_session: SatoriSession, p_events: Array) -> SatoriAsyncResult:
 	var p_dict = {
 		"events": p_events.map(func(e):
@@ -125,23 +125,23 @@ func events_async(p_session: SatoriSession, p_events: Array) -> SatoriAsyncResul
 	return await _api_client.event_async(p_session,
 		req)
 
-## Get all experiments data.
-## [p_session]: The session of the user.
+## Get all experiments data. [br]
+## p_session: The session of the user.
 func get_all_experiments_async(p_session: SatoriSession) -> SatoriAsyncResult:
 	return await _api_client.get_experiments_async(p_session)
 
-## Get specific experiments data.
-## [p_session]: The session of the user.
-## [p_names]: Experiment names.
+## Get specific experiments data. [br]
+## p_session: The session of the user. [br]
+## p_names: Experiment names.
 func get_experiments_async(p_session: SatoriSession, p_names: Array) -> SatoriAPI.ApiExperimentList:
 	return await _api_client.get_experiments_async(p_session, p_names)
 
-## Get a single flag for this identity.
-## This method will return the default value
-## specified and will not raise an exception if the network is unavailable
-## [p_session]: The session of the user.
-## [p_name]: The name of the flag.
-## [p_default]: The default value if the server is unreachable.
+## Get a single flag for this identity. [br]
+## This method will return the default value [br]
+## specified and will not raise an exception if the network is unavailable [br]
+## p_session: The session of the user. [br]
+## p_name: The name of the flag. [br]
+## p_default: The default value if the server is unreachable.
 func get_flag_async(p_session: SatoriSession, p_name: String, p_default: String = "") -> SatoriAPI.ApiFlag:
 	var p_names = [p_name]
 	var flags = await get_flags_async(p_session, p_names)
@@ -158,26 +158,26 @@ func get_flag_async(p_session: SatoriSession, p_name: String, p_default: String 
 	
 	return null
 
-## List all available flags for this identity.
-## [p_session]: The session of the user.
-## [p_names]: Flag names, if empty all flags will be returned.
+## List all available flags for this identity. [br]
+## p_session: The session of the user. [br]
+## p_names: Flag names, if empty all flags will be returned. [br]
 func get_flags_async(p_session: SatoriSession, p_names: Array) -> SatoriAPI.ApiFlagList:
 	return await _api_client.get_flags_async(p_session.token, p_names)
 
-## List available live events.
-## [p_session]: The session of the user.
-## [p_names]: Live event names, if null or empty all live events are returned.
+## List available live events. [br]
+## p_session: The session of the user. [br]
+## p_names: Live event names, if null or empty all live events are returned.
 func get_live_events_async(p_session: SatoriSession, p_names: Array = []) -> SatoriAPI.ApiLiveEventList:
 	return await _api_client.get_live_events_async(p_session, p_names)
 
-## Identify a session with a new ID.
-## [p_session]: The session of the user.
-## [p_id]: Identity ID to enrich the current session and return a new session.
-## The old session will no longer be usable.
-## Must be between eight and 128 characters (inclusive).
-## Must be an alphanumeric string with only underscores and hyphens allowed.
-## [p_default_properties]: The default properties.
-## [p_custom_properties]: The custom event properties.
+## Identify a session with a new ID. [br]
+## p_session: The session of the user. [br]
+## p_id: Identity ID to enrich the current session and return a new session. [br]
+## The old session will no longer be usable. [br]
+## Must be between eight and 128 characters (inclusive). [br]
+## Must be an alphanumeric string with only underscores and hyphens allowed. [br]
+## p_default_properties: The default properties. [br]
+## p_custom_properties: The custom event properties.
 func identify_async(p_session: SatoriSession, p_id: String, p_default_properties: Dictionary = {}, p_custom_properties: Dictionary = {}) -> SatoriSession:
 	var req = SatoriAPI.ApiIdentifyRequest.create(SatoriAPI, {
 		"id": p_id,
@@ -186,16 +186,16 @@ func identify_async(p_session: SatoriSession, p_id: String, p_default_properties
 	})
 	return _parse_session(await _api_client.identify_async(p_session, req))
 
-## List properties associated with this identity.
-## [p_session]: The session of the user.
+## List properties associated with this identity. [br]
+## p_session: The session of the user.
 func list_properties_async(p_session: SatoriSession) -> SatoriAsyncResult:
 	return await _api_client.list_properties_async(p_session)
 
-## Update properties associated with this identity.
-## [p_session]: The session of the user.
-## [p_default_properties]: The default properties to update.
-## [p_custom_properties]: The custom properties to update.
-## [p_recompute]: Whether or not to recompute the user's audience membership immediately after property update.
+## Update properties associated with this identity. [br]
+## p_session: The session of the user. [br]
+## p_default_properties: The default properties to update. [br]
+## p_custom_properties: The custom properties to update. [br]
+## p_recompute: Whether or not to recompute the user's audience membership immediately after property update.
 func update_properties_async(p_session: SatoriSession, p_default_properties: Dictionary, p_custom_properties: Dictionary, p_recompute: bool = false) -> SatoriAsyncResult:
 	var req = SatoriAPI.ApiUpdatePropertiesRequest.create(SatoriAPI, {
 		"default": p_default_properties,
@@ -204,8 +204,8 @@ func update_properties_async(p_session: SatoriSession, p_default_properties: Dic
 	})
 	return await _api_client.update_properties_async(p_session, req)
 
-## Delete the caller's identity and associated data.
-## [p_session]: The session of the user.
+## Delete the caller's identity and associated data. [br]
+## p_session: The session of the user.
 func delete_identity_async(p_session: SatoriSession) -> SatoriAsyncResult:
 	return await _api_client.delete_identity_async(p_session)
 

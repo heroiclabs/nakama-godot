@@ -1,22 +1,22 @@
 @tool
 extends Node
 
-# The default host address of the server.
+## The default host address of the server.
 const DEFAULT_HOST : String = "127.0.0.1"
 
-# The default port number of the server.
+## The default port number of the server.
 const DEFAULT_PORT : int = 7350
 
-# The default timeout for the connections.
+## The default timeout for the connections.
 const DEFAULT_TIMEOUT = 3
 
-# The default protocol scheme for the client connection.
+## The default protocol scheme for the client connection.
 const DEFAULT_CLIENT_SCHEME : String = "http"
 
-# The default protocol scheme for the socket connection.
+## The default protocol scheme for the socket connection.
 const DEFAULT_SOCKET_SCHEME : String = "ws"
 
-# The default log level for the Nakama logger.
+## The default log level for the Nakama logger.
 const DEFAULT_LOG_LEVEL = NakamaLogger.LOG_LEVEL.DEBUG
 
 var _http_adapter = null

@@ -1,16 +1,16 @@
 extends RefCounted
 class_name NakamaStorageObjectId
 
-# The collection which stores the object.
+## The collection which stores the object.
 var collection : String
 
-# The key of the object within the collection.
+## The key of the object within the collection.
 var key : String
 
-# The user owner of the object.
+## The user owner of the object.
 var user_id : String
 
-# The version hash of the object.
+## The version hash of the object.
 var version : String
 
 func _init(p_collection, p_key, p_user_id = "", p_version = ""):

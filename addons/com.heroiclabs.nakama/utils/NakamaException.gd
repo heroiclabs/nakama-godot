@@ -1,7 +1,7 @@
 extends RefCounted
 
-# An exception generated during a request.
-# Usually contains at least an error message.
+## An exception generated during a request. [br]
+## Usually contains at least an error message.
 class_name NakamaException
 
 var _status_code : int = -1

@@ -13,8 +13,8 @@ enum MetaMessageType {
 	ASSIGN_PEER_ID,
 }
 
-# Read-only variables.
 var _nakama_socket: NakamaSocket
+## Read-only variables.
 var nakama_socket: NakamaSocket:
 	get: return _nakama_socket
 	set(_v): pass
@@ -31,7 +31,7 @@ var multiplayer_peer: NakamaMultiplayerPeer:
 	get: return _multiplayer_peer
 	set(_v): pass
 
-# Configuration that can be set by the developer.
+## Configuration that can be set by the developer.
 var meta_op_code: int = 9001
 var rpc_op_code: int = 9002
 
