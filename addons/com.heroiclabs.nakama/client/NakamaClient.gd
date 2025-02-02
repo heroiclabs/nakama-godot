@@ -815,7 +815,7 @@ func session_logout_async(p_session : NakamaSession) -> NakamaAsyncResult:
 ## p_session - The session of the user. [br]
 ## p_vars - Extra information which should be bundled inside the session token. [br]
 ## Returns a task which resolves to a new session object.
-func session_refresh_async(p_sesison : NakamaSession, p_vars = null) -> NakamaSession:
+func session_refresh_async(p_session : NakamaSession, p_vars = null) -> NakamaSession:
 	return _parse_auth(await _api_client.session_refresh_async(server_key, "",
 		NakamaAPI.ApiSessionRefreshRequest.create(NakamaAPI, {
 			"token": p_session.refresh_token,
