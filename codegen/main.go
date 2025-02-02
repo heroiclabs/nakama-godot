@@ -19,7 +19,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 	"strings"
@@ -571,15 +571,22 @@ func main() {
 		return
 	}
 
-	var err error
 	input := inputs[0]
+	className := inputs[1]
+
+	var err error
 	var content []byte
-	if resp, err := http.Get(input); err == nil {
-		if content, err = ioutil.ReadAll(resp.Body); err != nil {
-			fmt.Printf("Unable to read file: %s\n", err)
+	if strings.HasPrefix(input, "https://") {
+		if resp, err := http.Get(input); err == nil {
+			if content, err = io.ReadAll(resp.Body); err != nil {
+				fmt.Printf("Unable to read file: %s\n", err)
+				return
+			}
+		} else {
+			fmt.Printf("Unable to fetch URL: %s\n", err)
 			return
 		}
-	} else if content, err = ioutil.ReadFile(input); err != nil {
+	} else if content, err = os.ReadFile(input); err != nil {
 		fmt.Printf("Unable to read file: %s\n", err)
 		return
 	}
