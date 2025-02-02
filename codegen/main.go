@@ -20,6 +20,7 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"net/http"
 	"os"
 	"strings"
 	"text/template"
@@ -531,9 +532,15 @@ func main() {
 		return
 	}
 
+	var err error
 	input := inputs[0]
-	content, err := ioutil.ReadFile(input)
-	if err != nil {
+	var content []byte
+	if resp, err := http.Get(input); err == nil {
+		if content, err = ioutil.ReadAll(resp.Body); err != nil {
+			fmt.Printf("Unable to read file: %s\n", err)
+			return
+		}
+	} else if content, err = ioutil.ReadFile(input); err != nil {
 		fmt.Printf("Unable to read file: %s\n", err)
 		return
 	}
