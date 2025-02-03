@@ -55,6 +55,7 @@ class_name {{.ClassName}}API
 {{- end -}}
 # {{ $definition | enumDescriptions }}
 enum {{ $classname | title }} { {{- range $idx, $enum := $definition.Enum }}{{ $enum }} = {{ $idx }},{{- end -}} }
+{{- else if eq $classname "ProtobufAny" }}
 {{- else }}
 
 # {{ $definition.Description | stripNewlines }}
