@@ -111,7 +111,7 @@ _global_script_class_icons={
 [application]
 
 run/main_scene="res://tester.tscn"
-config/features=PackedStringArray("4.0")
+config/features=PackedStringArray("4.4")
 
 [autoload]
 
