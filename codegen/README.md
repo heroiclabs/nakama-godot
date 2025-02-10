@@ -5,15 +5,23 @@ codegen
 
 ## Usage
 
+If you have cloned [nakama](https://github.com/heroiclabs/nakama) repo locally:
+
 ```shell
-go run main.go "$GOPATH/src/github.com/heroiclabs/nakama/apigrpc/apigrpc.swagger.json" > ../addons/com.heroiclabs.nakama/api/NakamaAPI.gd
+go run main.go --output ../addons/com.heroiclabs.nakama/api/NakamaAPI.gd "$GOPATH/src/github.com/heroiclabs/nakama/apigrpc/apigrpc.swagger.json" Nakama
+```
+
+If you don't have nakama repo locally, a required file can be fetched from github:
+
+```shell
+go run main.go --output ../addons/com.heroiclabs.nakama/api/NakamaAPI.gd "https://raw.githubusercontent.com/heroiclabs/nakama/master/apigrpc/apigrpc.swagger.json" Nakama
 ```
 
 ### Rationale
 
 We want to maintain a simple lean low level client within our GDScript client which has minimal dependencies so we built our own. This gives us complete control over the dependencies required and structure of the code generated.
 
-The generated code is designed to be supported Godot Engine `3.1+`.
+The generated code is designed to support Godot Engine `4.0+`.
 
 ### Limitations
 
