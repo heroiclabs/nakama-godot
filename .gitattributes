@@ -1,0 +1,11 @@
+# Exclude irrelevant files when downloading from the Asset Library.
+/.github                                 export-ignore
+/.gitignore                              export-ignore
+/.gitattributes                          export-ignore
+/codegen                                 export-ignore
+/test_suite                              export-ignore
+/CHANGELOG.md                            export-ignore
+/LICENSE                                 export-ignore
+/README.md                               export-ignore
+/icon.svg                                export-ignore
+/project.godot                           export-ignore
