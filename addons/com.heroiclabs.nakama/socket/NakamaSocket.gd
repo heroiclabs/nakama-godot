@@ -413,7 +413,7 @@ func remove_matchmaker_async(p_ticket : String) -> NakamaAsyncResult:
 
 ## Execute an RPC function to the server. [br]
 ## p_func_id - The ID of the function to execute. [br]
-## p_payload - An (optional) String payload to send to the server. [br]
+## p_payload - An (optional) String or Object payload to send to the server. [br]
 ## Returns a task which resolves to the RPC function response object.
 func rpc_async(p_func_id : String, p_payload = null) -> NakamaAPI.ApiRpc:
 	var payload = p_payload
