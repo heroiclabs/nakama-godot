@@ -7,3 +7,4 @@ test_suite/.import/*
 *.cache
 .vscode
 .godot
+.DS_Store
