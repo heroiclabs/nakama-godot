@@ -24,20 +24,31 @@ You'll need to setup the server and database before you can connect with the cli
 
 2. Download the client from the [releases page](https://github.com/heroiclabs/nakama-godot/releases) and import it into your project. You can also [download it from the asset repository](#asset-repository).
 
-3. Add the `Nakama.gd` singleton (in `addons/com.heroiclabs.nakama/`) as an [autoload in Godot](https://docs.godotengine.org/en/stable/getting_started/step_by_step/singletons_autoload.html).
+3. Once downloaded, extract the contents of the zip into the ```addons``` folder. Your project directory should look something like this:
 
-4. Use the connection credentials to build a client object using the singleton.
+```
+Your Project
+	addons
+		com.heroiclabs.nakama
+			...plugin files
+		...other plugins
+	...other files
+```
 
-    ```gdscript
-    extends Node
+4. Activate the plugin in the `Plugins` tab, in ```Project Settings > Plugins```
 
-    func _ready():
-    	var scheme = "http"
-    	var host = "127.0.0.1"
-    	var port = 7350
-    	var server_key = "defaultkey"
-    	var client := Nakama.create_client(server_key, host, port, scheme)
-    ```
+5. Use the connection credentials to build a client object using the singleton.
+
+	```gdscript
+	extends Node
+
+	func _ready():
+		var scheme = "http"
+		var host = "127.0.0.1"
+		var port = 7350
+		var server_key = "defaultkey"
+		var client := Nakama.create_client(server_key, host, port, scheme)
+	```
 
 ## Usage
 

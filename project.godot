@@ -13,8 +13,3 @@ config_version=5
 config/name="nakama-godot"
 config/features=PackedStringArray("4.4")
 config/icon="res://icon.svg"
-
-[autoload]
-
-Nakama="*res://addons/com.heroiclabs.nakama/Nakama.gd"
-Satori="*res://addons/com.heroiclabs.nakama/Satori.gd"
