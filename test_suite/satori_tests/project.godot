@@ -12,9 +12,20 @@ config_version=5
 
 config/name="satori-tests"
 run/main_scene="res://tester.tscn"
-config/features=PackedStringArray("4.2")
+config/features=PackedStringArray("4.7")
 
 [autoload]
 
-Satori="*res://addons/com.heroiclabs.nakama/Satori.gd"
 SatoriConfig="*res://utils/config.gd"
+
+[debug]
+
+gdscript/warnings/directory_rules={
+"res://": 0,
+"res://addons/com.heroiclabs.nakama": 1
+}
+gdscript/warnings/untyped_declaration=2
+gdscript/warnings/unsafe_property_access=2
+gdscript/warnings/unsafe_method_access=2
+gdscript/warnings/unsafe_cast=2
+gdscript/warnings/unsafe_call_argument=2

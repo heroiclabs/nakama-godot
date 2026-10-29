@@ -1,0 +1,13 @@
+<Project Sdk="Godot.NET.Sdk/4.7.2">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Build the addon's adapters from their source, not a copy. -->
+    <Compile Include="../../addons/com.heroiclabs.nakama/dotnet-utils/nakama/*.cs" />
+    <Compile Include="../../addons/com.heroiclabs.nakama/dotnet-utils/satori/*.cs" />
+    <PackageReference Include="NakamaClient" Version="3.22.1" />
+    <PackageReference Include="SatoriClient" Version="3.22.1" />
+  </ItemGroup>
+</Project>

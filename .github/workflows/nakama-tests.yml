@@ -1,0 +1,32 @@
+name: Nakama tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      GODOT_VERSION: 4.7.2-stable
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: go-task/setup-task@v1
+
+      - name: Install Godot
+        run: |
+          curl -sSLo godot.zip "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_linux.x86_64.zip"
+          unzip -q godot.zip -d "$RUNNER_TEMP/godot"
+          echo "GODOT=$RUNNER_TEMP/godot/Godot_v${GODOT_VERSION}_linux.x86_64" >> "$GITHUB_ENV"
+
+      - name: Start Nakama
+        run: task run-server
+
+      - name: Run tests
+        run: task test-nakama
+
+      - name: Server logs
+        if: failure()
+        run: docker compose -f test_suite/docker-compose.yml logs nakama

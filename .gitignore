@@ -1,10 +1,11 @@
 *.swp
 *.import
-test_suite/addons
-test_suite/addons/*
 test_suite/.import/*
+test_suite/nakama_tests/addons
+test_suite/satori_tests/addons
 *.cfg
 *.cache
 .vscode
 .godot
 .DS_Store
+nakama-*.zip

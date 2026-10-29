@@ -11,13 +11,12 @@ class Log:
 			return "INFO"
 		elif lvl == DEBUG:
 			return "DEBUG"
-		return "WTF"
+		return "UNKNOWN"
 
 	static func __log(lvl, msg, data):
 		print("======= %s: %s" % [_s(lvl), msg])
 		if not data.is_empty():
-			var json = JSON.new()
-			print(json.stringify(data, "    ", true))
+			print(JSON.stringify(data, "    ", true))
 
 	static func error(msg, data={}):
 		__log(ERROR, msg, data)

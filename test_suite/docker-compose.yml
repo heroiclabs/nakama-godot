@@ -1,0 +1,43 @@
+# Nakama with PostgreSQL for the tests in nakama_tests/; see the Run tests section of README.md.
+name: nakama-godot
+services:
+    postgres:
+        container_name: nakama_godot_postgres
+        environment:
+        - POSTGRES_DB=nakama
+        - POSTGRES_PASSWORD=localdb
+        healthcheck:
+            test: [ "CMD", "pg_isready", "-U", "postgres", "-d", "nakama" ]
+            interval: 3s
+            timeout: 3s
+            retries: 5
+        image: postgres:18-alpine
+        volumes:
+        - data:/var/lib/postgresql
+
+    nakama:
+        container_name: nakama_godot_nakama
+        # Nakama with the Go plugin in server/, for the multiplayer bridge's server-assigned IDs.
+        build: server
+        depends_on:
+            postgres:
+                condition: service_healthy
+        entrypoint:
+        - "/bin/sh"
+        - "-ecx"
+        - >
+            /nakama/nakama migrate up --database.address postgres:localdb@postgres:5432/nakama &&
+            exec /nakama/nakama --database.address postgres:localdb@postgres:5432/nakama --logger.level DEBUG
+        healthcheck:
+            test: [ "CMD", "/nakama/nakama", "healthcheck" ]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+        ports:
+        - "7349:7349"
+        - "7350:7350"
+        - "7351:7351"
+        restart: unless-stopped
+
+volumes:
+    data:

@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bglgahpqv1ojs"]
+[gd_scene format=3 uid="uid://bglgahpqv1ojs"]
 
-[ext_resource type="Script" path="res://tester.gd" id="1"]
+[ext_resource type="Script" uid="uid://q36uku80kmow" path="res://tester.gd" id="1"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" unique_id=1244129623]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
