@@ -7,7 +7,7 @@ func _init():
 	if dir != "res://":
 		print("Must be run with the script dir as the res:// path")
 		print("Current path: ", ProjectSettings.globalize_path(dir))
-		print("RES:// path: ", ProjectSettings.globalize_path("res://"))
+		print("res:// path: ", ProjectSettings.globalize_path("res://"))
 		quit()
 		return
 	var n = load("res://tester.gd").new()

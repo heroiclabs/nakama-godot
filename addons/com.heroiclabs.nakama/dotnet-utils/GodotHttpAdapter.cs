@@ -19,81 +19,126 @@ using System.Threading.Tasks;
 using Nakama.TinyJson;
 using Godot;
 
-namespace Nakama {
-
+namespace Nakama
+{
     /// <summary>
-    /// An Http adapter which uses Godot's HttpRequest node.
+    /// An HTTP adapter for the Nakama .NET client that uses Godot's HttpRequest node.
     /// </summary>
     /// <remarks>
-    /// Note Content-Type header is always set as 'application/json'.
+    /// Every request sends an 'Accept: application/json' header.
     /// </remarks>
-    public partial class GodotHttpAdapter : Node, IHttpAdapter {
-
+    public partial class GodotHttpAdapter : Node, IHttpAdapter
+    {
         /// <inheritdoc cref="IHttpAdapter.Logger"/>
         public ILogger Logger { get; set; }
 
         /// <inheritdoc cref="IHttpAdapter.TransientExceptionDelegate"/>
         public TransientExceptionDelegate TransientExceptionDelegate => IsTransientException;
 
-        /// <inheritdoc cref="IHttpAdapter"/>
+        /// <inheritdoc cref="IHttpAdapter.SendAsync"/>
         public async Task<string> SendAsync(string method, Uri uri, IDictionary<string, string> headers,
             byte[] body, int timeout, CancellationToken? cancellationToken)
         {
+            cancellationToken?.ThrowIfCancellationRequested();
+
             var req = new HttpRequest();
             req.Timeout = timeout;
+            // No threads: in Godot 4.7 a threaded request to a peer that stops replying spins its thread, and then a
+            // timeout or cancel freezes the game waiting for it. https://github.com/godotengine/godot/pull/117749
+            req.UseThreads = false;
+            // Calls from a pause menu must still finish.
+            req.ProcessMode = ProcessModeEnum.Always;
 
-            if (OS.GetName() != "HTML5") {
-                req.UseThreads = true;
+            var godotMethod = HttpClient.Method.Get;
+            if (method == "POST")
+            {
+                godotMethod = HttpClient.Method.Post;
+            }
+            else if (method == "PUT")
+            {
+                godotMethod = HttpClient.Method.Put;
+            }
+            else if (method == "DELETE")
+            {
+                godotMethod = HttpClient.Method.Delete;
+            }
+            else if (method == "HEAD")
+            {
+                godotMethod = HttpClient.Method.Head;
             }
 
-            var godot_method = HttpClient.Method.Get;
-            if (method == "POST") {
-                godot_method = HttpClient.Method.Post;
-            }
-            else if (method == "PUT") {
-                godot_method = HttpClient.Method.Put;
-            }
-            else if (method == "DELETE") {
-                godot_method = HttpClient.Method.Delete;
-            }
-            else if (method == "HEAD") {
-                godot_method = HttpClient.Method.Head;
-            }
-
-            var headers_array = new String[headers.Count + 1];
-            headers_array[0] = "Accept: application/json";
-            int index = 1;
-            foreach (var item in headers) {
-                headers_array[index] = item.Key + ": " + item.Value;
+            var headersArray = new string[headers.Count + 1];
+            headersArray[0] = "Accept: application/json";
+            var index = 1;
+            foreach (var item in headers)
+            {
+                headersArray[index] = item.Key + ": " + item.Value;
                 index++;
             }
 
-            string body_string = body != null ? System.Text.Encoding.UTF8.GetString(body) : "";
+            var bodyString = body != null ? System.Text.Encoding.UTF8.GetString(body) : "";
 
             AddChild(req);
-            req.Request(uri.ToString(), headers_array, godot_method, body_string);
+            var err = req.Request(uri.AbsoluteUri, headersArray, godotMethod, bodyString);
+            if (err != Error.Ok)
+            {
+                // A refused request never emits RequestCompleted. Status 0 is not retried, as in the GDScript client.
+                req.QueueFree();
+                throw new ApiResponseException(0, $"HTTP request to {PathOnly(uri)} failed to send: {err}", 14);
+            }
 
-            Logger?.InfoFormat("Send: method='{0}', uri='{1}', body='{2}'", method, uri, body_string);
+            // No query or body: they can hold credentials, such as the http_key, a password, or a refresh token.
+            Logger?.InfoFormat("Send: method='{0}', path='{1}'", method, PathOnly(uri));
 
-            Variant[] resultObjects = await ToSignal(req, "request_completed");
+            var completed = Await(ToSignal(req, HttpRequest.SignalName.RequestCompleted));
+            if (cancellationToken.HasValue && cancellationToken.Value.CanBeCanceled)
+            {
+                var cancelled = new TaskCompletionSource();
+                using (cancellationToken.Value.Register(() => cancelled.TrySetResult()))
+                {
+                    if (await Task.WhenAny(completed, cancelled.Task) == cancelled.Task)
+                    {
+                        // CancelRequest() does not emit RequestCompleted, so stop waiting for it here.
+                        req.CancelRequest();
+                        req.QueueFree();
+                        cancellationToken.Value.ThrowIfCancellationRequested();
+                    }
+                }
+            }
 
-            HttpRequest.Result result = (HttpRequest.Result)(long)resultObjects[0];
-            long response_code = (long)resultObjects[1];
-            string response_body = System.Text.Encoding.UTF8.GetString((byte[])resultObjects[3]);
+            var resultObjects = await completed;
+
+            var result = (HttpRequest.Result)(long)resultObjects[0];
+            var responseCode = (long)resultObjects[1];
+            var responseBody = System.Text.Encoding.UTF8.GetString((byte[])resultObjects[3]);
 
             req.QueueFree();
 
-            Logger?.InfoFormat("Received: status={0}, contents='{1}'", response_code, response_body);
+            // No contents: a login or refresh reply holds the session's tokens.
+            Logger?.InfoFormat("Received: result={0}, status={1}", result, responseCode);
 
-            if (result == HttpRequest.Result.Success && response_code >= 200 && response_code <= 299) {
-                return response_body;
+            if (result == HttpRequest.Result.Success && responseCode >= 200 && responseCode <= 299)
+            {
+                return responseBody;
             }
 
-            var decoded = response_body.FromJson<Dictionary<string, object>>();
-            string message = decoded.ContainsKey("message") ? decoded["message"].ToString() : string.Empty;
-            int grpcCode = decoded.ContainsKey("code") ? (int) decoded["code"] : -1;
+            // No reply, e.g. the server is unreachable: status -1 marks it transient, so it is retried.
+            if (result != HttpRequest.Result.Success)
+            {
+                throw new ApiResponseException(-1, $"HTTP request to {PathOnly(uri)} failed: {result}", -1);
+            }
 
-            var exception = new ApiResponseException(response_code, message, grpcCode);
+            var decoded = DecodeJsonObject(responseBody);
+            if (decoded == null)
+            {
+                // Not an error body from Nakama, e.g. a proxy's HTML page, so pass it on as the message.
+                throw new ApiResponseException(responseCode, responseBody, -1);
+            }
+
+            var message = decoded.ContainsKey("message") ? decoded["message"].ToString() : string.Empty;
+            var grpcCode = decoded.ContainsKey("code") ? (int)decoded["code"] : -1;
+
+            var exception = new ApiResponseException(responseCode, message, grpcCode);
 
             if (decoded.ContainsKey("error"))
             {
@@ -103,10 +148,34 @@ namespace Nakama {
             throw exception;
         }
 
-        private static bool IsTransientException(Exception e) {
-            return e is ApiResponseException apiException && (apiException.StatusCode >= 500 || apiException.StatusCode == -1);
+        private static async Task<Variant[]> Await(SignalAwaiter signal)
+        {
+            return await signal;
         }
 
-    }
+        // Path only: the query can hold secrets such as the RPC http_key. Unescaped and cut at '?' because a
+        // non-HTTP URI, such as ftp://, keeps the query escaped inside its path.
+        private static string PathOnly(Uri uri)
+        {
+            return Uri.UnescapeDataString(uri.GetLeftPart(UriPartial.Path)).Split('?')[0];
+        }
 
+        // TinyJson throws on some invalid input, such as an empty string, and returns null on other input.
+        private static Dictionary<string, object> DecodeJsonObject(string json)
+        {
+            try
+            {
+                return json.FromJson<Dictionary<string, object>>();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        private static bool IsTransientException(Exception e)
+        {
+            return e is ApiResponseException apiException && (apiException.StatusCode >= 500 || apiException.StatusCode == -1);
+        }
+    }
 }

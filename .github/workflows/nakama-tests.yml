@@ -1,0 +1,57 @@
+name: Nakama tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Latest patch of every Godot version the addon supports.
+        godot: [4.4.1-stable, 4.5.2-stable, 4.6.3-stable, 4.7.2-stable]
+    env:
+      GODOT_VERSION: ${{ matrix.godot }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: go-task/setup-task@v1
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      # The .NET build runs GDScript too, so one download serves every task.
+      - name: Install Godot .NET
+        run: |
+          curl -sSLo godot-dotnet.zip "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_mono_linux_x86_64.zip"
+          unzip -q godot-dotnet.zip -d "$RUNNER_TEMP/godot-dotnet"
+          godot_mono=$(find "$RUNNER_TEMP/godot-dotnet" -type f -name 'Godot_v*_mono_linux.x86_64')
+          # Fail here if the zip's layout changed, not later with test-dotnet's macOS fallback path.
+          test -x "$godot_mono" || { echo "Godot .NET binary not found in the zip"; exit 1; }
+          echo "GODOT=$godot_mono" >> "$GITHUB_ENV"
+          echo "GODOT_MONO=$godot_mono" >> "$GITHUB_ENV"
+
+      - name: Start Nakama
+        run: task run-server
+
+      - name: Run tests
+        run: task test-nakama
+
+      # The Satori tests need a hosted server CI does not have, so only check that its scripts parse.
+      - name: Check Satori addon
+        if: ${{ !cancelled() }}
+        run: task check-satori
+
+      # The C# adapters, built against this Godot version; runs even if the GDScript tests failed.
+      - name: Run C# tests
+        if: ${{ !cancelled() }}
+        run: task test-dotnet
+
+      - name: Server logs
+        if: failure()
+        run: docker compose -f test_suite/docker-compose.yml logs nakama
+

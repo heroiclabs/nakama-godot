@@ -8,13 +8,12 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="nakama-godot"
-config/features=PackedStringArray("4.4")
+config/features=PackedStringArray("4.7")
 config/icon="res://icon.svg"
-
-[autoload]
-
-Nakama="*res://addons/com.heroiclabs.nakama/Nakama.gd"
-Satori="*res://addons/com.heroiclabs.nakama/Satori.gd"

@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://SatoriAdapterTest.cs" id="1"]
+
+[node name="SatoriAdapterTest" type="Node"]
+script = ExtResource("1")
