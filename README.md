@@ -1,370 +1,315 @@
 Nakama Godot
-===========
+============
 
-> Godot client for Nakama server written in GDScript.
+> Godot addon for Nakama and Satori, written in GDScript.
 
-[Nakama](https://github.com/heroiclabs/nakama) is an open-source server designed to power modern games and apps. Features include user accounts, chat, social, matchmaker, realtime multiplayer, and much [more](https://heroiclabs.com).
+[Nakama](https://github.com/heroiclabs/nakama) is an open-source game server for user accounts, chat, social features, matchmaking, realtime multiplayer, and [more](https://heroiclabs.com). [Satori](https://heroiclabs.com/satori/) is a LiveOps server for events, segmentation, A/B tests, feature flags, and live events.
 
-This client implements the full API and socket options with the server. It's written in GDScript to support Godot Engine `4.0+`.
+This addon covers Nakama's full API and realtime socket, and Satori's client API. It needs Godot 4.4 or later. For the full documentation, see [heroiclabs.com/docs](https://heroiclabs.com/docs).
 
-Full documentation is online - https://heroiclabs.com/docs
+## Getting started
 
-## Godot 3 & 4
+1. Run a Nakama server. The quickest way is [Docker](https://heroiclabs.com/docs/nakama/getting-started/install/docker/). For other options, see the [server documentation](https://github.com/heroiclabs/nakama#getting-started).
 
-You're currently looking at the Godot 4 version of the Nakama client for Godot.
+2. Download the addon from the [releases page](https://github.com/heroiclabs/nakama-godot/releases), and copy its `addons/com.heroiclabs.nakama` folder into your project.
 
-If you are using Godot 3, you need to use the ['godot-3'
-branch](https://github.com/heroiclabs/nakama-godot/tree/godot-3) on GitHub.
+3. Create a client. These values connect to a local Docker server:
 
-## Getting Started
+	```gdscript
+	extends Node
 
-You'll need to setup the server and database before you can connect with the client. The simplest way is to use Docker but have a look at the [server documentation](https://github.com/heroiclabs/nakama#getting-started) for other options.
-
-1. Install and run the servers. Follow these [instructions](https://heroiclabs.com/docs/nakama/getting-started/install/docker/).
-
-2. Download the client from the [releases page](https://github.com/heroiclabs/nakama-godot/releases) and import it into your project. You can also [download it from the asset repository](#asset-repository).
-
-3. Add the `Nakama.gd` singleton (in `addons/com.heroiclabs.nakama/`) as an [autoload in Godot](https://docs.godotengine.org/en/stable/getting_started/step_by_step/singletons_autoload.html).
-
-4. Use the connection credentials to build a client object using the singleton.
-
-    ```gdscript
-    extends Node
-
-    func _ready():
-    	var scheme = "http"
-    	var host = "127.0.0.1"
-    	var port = 7350
-    	var server_key = "defaultkey"
-    	var client := Nakama.create_client(server_key, host, port, scheme)
-    ```
+	func _ready():
+		var client := Nakama.new("defaultkey", "127.0.0.1", 7350, "http")
+	```
 
 ## Usage
 
-The client object has many methods to execute various features in the server or open realtime socket connections with the server.
+The `Nakama` client has a function for each server API, such as `authenticate_email_async` or `get_account_async`. Each one is a coroutine, so call it with `await`. It returns a `NakamaResult`: `value` holds the reply, and `error` holds a `NakamaError` when the call fails.
 
 ### Authenticate
 
-There's a variety of ways to [authenticate](https://heroiclabs.com/docs/nakama/concepts/authentication/) with the server. Authentication can create a user if they don't already exist with those credentials. It's also easy to authenticate with a social profile from Google Play Games, Facebook, Game Center, etc.
+Authenticate players with a device ID, email and password, custom ID, or an Apple, Facebook, Game Center, Google, or Steam account. Authenticating creates the account if it doesn't exist. To only log in, pass `false` for the `create` argument. For details, see [Authentication](https://heroiclabs.com/docs/nakama/concepts/authentication/).
 
 ```gdscript
-	var email = "super@heroes.com"
-	var password = "batsignal"
-	# Use 'await' to wait for the request to complete.
-	var session : NakamaSession = await client.authenticate_email_async(email, password)
-	print(session)
+	var result: NakamaResult = await client.authenticate_email_async("super@heroes.com", "batsignal")
+	if result.error:
+		print("Could not authenticate: %s" % result.error)
+		return
+	var session: NakamaSession = result.value
 ```
 
 ### Sessions
 
-When authenticated the server responds with an auth token (JWT) which contains useful properties and gets deserialized into a `NakamaSession` object.
+Every other call takes the `NakamaSession` that authenticating returns, and the client refreshes it before it expires. To keep the player logged in across restarts, save its tokens and restore them. Save the device ID too: it's the player's account, so a new one logs in as a new player.
 
 ```gdscript
-	print(session.token) # raw JWT token
-	print(session.user_id)
-	print(session.username)
-	print("Session has expired: %s" % session.expired)
-	print("Session expires at: %s" % session.expire_time)
+extends Node
+
+const SAVE_PATH := "user://nakama.cfg"
+
+var client := Nakama.new("defaultkey")
+var session: NakamaSession
+var config := ConfigFile.new()
+
+
+func _ready():
+	# Save the new tokens whenever the client refreshes them.
+	client.session_refreshed.connect(save_session)
+	config.load(SAVE_PATH)
+
+	# Restore the last session, unless it can no longer be refreshed.
+	if config.has_section("session"):
+		session = NakamaSession.restore(config.get_value("session", "token"), config.get_value("session", "refresh_token"))
+	if session == null or session.has_refresh_expired():
+		var device_id: String = config.get_value("device", "id", Nakama.generate_device_id())
+		config.set_value("device", "id", device_id)
+		var result: NakamaResult = await client.authenticate_device_async(device_id)
+		if result.error:
+			print("Could not log in: %s" % result.error)
+			return
+		session = result.value
+		save_session(session)
+
+	var account: NakamaResult = await client.get_account_async(session)
+	if account.error == null:
+		print("Logged in as %s" % account.value.user.username)
+
+
+func save_session(current: NakamaSession):
+	config.set_value("session", "token", current.token)
+	config.set_value("session", "refresh_token", current.refresh_token)
+	config.save(SAVE_PATH)
 ```
 
-It is recommended to store the auth token from the session and check at startup if it has expired. If the token has expired you must reauthenticate. The expiry time of the token can be changed as a setting in the server.
-
-```gdscript
-	var authtoken = "restored from somewhere"
-	var session2 = NakamaClient.restore_session(authtoken)
-	if session2.expired:
-		print("Session has expired. Must reauthenticate!")
-```
-
-NOTE: The length of the lifetime of a session can be changed on the server with the `--session.token_expiry_sec` command flag argument.
+To log out, call `session_logout_async(session)`. It invalidates the session's tokens on the server.
 
 ### Requests
 
-The client includes lots of builtin APIs for various features of the game server. These can be accessed with the async methods. It can also call custom logic in RPC functions on the server. These can also be executed with a socket object.
-
-All requests are sent with a session object which authorizes the client.
+Some functions take objects, such as storage writes. Build each object with its constructor, which takes the object's fields in the server API's order:
 
 ```gdscript
-	var account = await client.get_account_async(session)
-	print(account.user.id)
-	print(account.user.username)
-	print(account.wallet)
+	var save := NakamaTypes.WriteStorageObject.new("saves", "slot1", {"level": 3})
+	var written: NakamaResult = await client.write_storage_objects_async(session, [save])
 ```
 
-### Exceptions
-
-Since Godot Engine does not support exceptions, whenever you make an async request via the client or socket, you can check if an error occurred via the `is_exception()` method.
+List arguments are typed arrays, such as `Array[String]`. A list written in the call works as is. A list kept in a variable needs its element type, or Godot stops with a script error:
 
 ```gdscript
-	var an_invalid_session = NakamaSession.new() # An empty session, which will cause and error when we use it.
-	var account2 = await client.get_account_async(an_invalid_session)
-	print(account2) # This will print the exception
-	if account2.is_exception():
-		print("We got an exception")
+	var saves: Array[NakamaTypes.WriteStorageObject] = [save]
 ```
+
+Names that are GDScript keywords or built-in classes get a trailing underscore, such as `NakamaRtTypes.Match.self_` and `NakamaRtTypes.Error_`.
+Call your server's [custom RPCs](https://heroiclabs.com/docs/nakama/server-framework/introduction/#rpc-functions) with `rpc_async`:
+
+```gdscript
+	var reply: NakamaResult = await client.rpc_async(session, "my_rpc", {"level": 3})
+	if reply.error == null:
+		print(reply.value.payload)
+```
+
+Server tools call RPCs without a session through `rpc_with_key_async` and the server's runtime HTTP key. Never ship the HTTP key in a game client.
+
+### Errors
+
+Compare `error.grpc_code` with the constants on `NakamaError`:
+
+```gdscript
+	var result: NakamaResult = await client.get_account_async(session)
+	if result.error and result.error.grpc_code == NakamaError.UNAUTHENTICATED:
+		print("Authenticate again")
+```
+
+When no reply arrives, `http_status` is 0 and `grpc_code` is `UNAVAILABLE` for a connection failure or `DEADLINE_EXCEEDED` for a timeout. The client retries temporary server errors (HTTP 500, 502, 503, and 504) with exponential backoff. Tune it with `timeout_sec`, `retry_max_attempts`, `retry_base_delay_ms`, `retry_max_delay_ms`, and `retry_max_total_ms`.
+
+To give up on calls, pass a `NakamaCanceller`. One canceller can stop many calls, such as all of a scene's calls when it closes:
+
+```gdscript
+	var canceller := NakamaCanceller.new()
+	get_tree().create_timer(5.0).timeout.connect(canceller.cancel)
+	var result: NakamaResult = await client.get_account_async(session, canceller)
+```
+
+The client prints warnings for retries and failed refreshes. For more or less output, set `client.log_level` to a `Nakama.LogLevel` value. It never prints tokens.
 
 ### Socket
 
-The client can create one or more sockets with the server. Each socket can have it's own event listeners registered for responses received from the server.
+A socket carries the realtime features: chat, matches, parties, the matchmaker, notifications, and status. Create it from the client, and connect it with the session:
 
 ```gdscript
-	var socket = Nakama.create_socket_from(client)
-	socket.connected.connect(self._on_socket_connected)
-	socket.closed.connect(self._on_socket_closed)
-	socket.received_error.connect(self._on_socket_error)
-	await socket.connect_async(session)
-	print("Done")
-
-func _on_socket_connected():
-	print("Socket connected.")
-
-func _on_socket_closed():
-	print("Socket closed.")
-
-func _on_socket_error(err):
-	printerr("Socket error %s" % err)
-```
-
-## Integration with Godot's High-level Multiplayer API
-
-Godot provides a [High-level Multiplayer
-API](https://docs.godotengine.org/en/latest/tutorials/networking/high_level_multiplayer.html),
-allowing developers to make RPCs, calling functions that run on other peers in
-a multiplayer match.
-
-For example:
-
-```gdscript
-func _process(delta):
-	if not is_multiplayer_authority():
+	var socket := NakamaSocket.from(client)
+	socket.closed.connect(_on_socket_closed)
+	socket.received_channel_message.connect(_on_channel_message)
+	var error: NakamaError = await socket.connect_async(session)
+	if error:
+		print("Could not connect: %s" % error)
 		return
 
-	var input_vector = get_input_vector()
+	var joined: NakamaResult = await socket.join_chat_async("lobby", NakamaRtTypes.ChannelJoinType.ROOM)
+	if joined.error == null:
+		await socket.write_chat_message_async(joined.value.id, {"text": "Hello!"})
 
-	# Move the player locally.
-	velocity = input_vector * SPEED
-	move_and_slide()
 
-	# Then update the player's position on all other connected clients.
-	update_remote_position.rpc(position)
+func _on_socket_closed(code: int, reason: String):
+	print("Socket closed: %d %s" % [code, reason])
 
-@rpc(any_peer)
-func update_remote_position(new_position):
-	position = new_position
+
+func _on_channel_message(message: NakamaTypes.ChannelMessage):
+	print(message.content)
 ```
 
-Godot provides a number of built-in backends for sending the RPCs, including:
-ENet, WebSockets, and WebRTC.
+Server messages arrive as `received_*` signals, such as `received_match_state`, `received_matchmaker_matched`, and `received_notification`. The socket doesn't reconnect by itself. When it emits `closed`, call `connect_async` again.
 
-However, you can also use the Nakama client as a backend! This can allow you to
-continue using Godot's familiar High-level Multiplayer API, but with the RPCs
-transparently sent over a realtime Nakama match.
+## Godot's high-level multiplayer
 
-To do that, you need to use the `NakamaMultiplayerBridge` class:
+`NakamaMultiplayerBridge` runs Godot's [high-level multiplayer](https://docs.godotengine.org/en/stable/tutorials/networking/high_level_multiplayer.html) over a Nakama match, so `@rpc` functions, peer signals, and multiplayer authority work as they do with ENet or WebRTC:
 
 ```gdscript
-var multiplayer_bridge
+var multiplayer_bridge: NakamaMultiplayerBridge
 
 func _ready():
-	# [...]
-	# You must have a working 'socket', created as described above.
-
+	# socket is a connected NakamaSocket.
 	multiplayer_bridge = NakamaMultiplayerBridge.new(socket)
-	multiplayer_bridge.match_join_error.connect(self._on_match_join_error)
-	multiplayer_bridge.match_joined.connect(self._on_match_joined)
-	get_tree().get_multiplayer().set_multiplayer_peer(multiplayer_bridge.multiplayer_peer)
+	multiplayer_bridge.match_join_error.connect(_on_match_join_error)
+	multiplayer_bridge.match_joined.connect(_on_match_joined)
+	multiplayer.multiplayer_peer = multiplayer_bridge.multiplayer_peer
+	multiplayer.peer_connected.connect(_on_peer_connected)
 
-func _on_match_join_error(error):
-	print ("Unable to join match: ", error.message)
+func _on_match_join_error(error: NakamaError):
+	print("Could not join the match: %s" % error)
 
-func _on_match_join() -> void:
-	print ("Joined match with id: ", multiplayer_bridge.match_id)
+func _on_match_joined():
+	print("Joined match %s as peer %d" % [multiplayer_bridge.match_id, multiplayer.get_unique_id()])
+
+func _on_peer_connected(peer_id: int):
+	print("Peer %d joined" % peer_id)
 ```
 
-You can also connect to any of the usual signals on `MultiplayerAPI`, for
-example:
+Then join a match in one of these ways:
+
+- **Create a match** with this player as the host: `multiplayer_bridge.create_match()`
+- **Join a match** by its ID: `multiplayer_bridge.join_match(match_id)`
+- **Join by name**, creating the match if it's empty: `multiplayer_bridge.join_named_match(match_name)`
+- **Use the matchmaker**:
+
+    ```gdscript
+    	var ticket: NakamaResult = await socket.add_matchmaker_async(2, 4)
+    	if ticket.error == null:
+    		multiplayer_bridge.start_matchmaking(ticket.value)
+    ```
+
+Once the bridge emits `match_joined`, use `rpc()` and the rest of the multiplayer API. To find a peer's Nakama user, call `get_user_presence_for_peer(peer_id)`. To leave the match or the matchmaker, call `leave()`.
+
+### Matches without a host
+
+By default, one player is the host: peer 1, who gives everyone else their peer ID. When the host leaves, nobody else can join. An [authoritative match](https://heroiclabs.com/docs/nakama/concepts/multiplayer/authoritative/) can give out the IDs instead, so every player is equal. Join it with `join_match(match_id)`, and the bridge sets `server_assigned`. The server's match handler must:
+
+- **Assign IDs**: give each player who joins the next peer ID, starting at 2. Send the newcomer its own ID first, then everyone else's, and send everyone else the newcomer's. Send each from the match itself on op code 9001: `{"type": 1, "session_id": ..., "peer_id": ..., "user_id": ..., "username": ...}`.
+- **Route packets**: each op code 9002 message starts with the target peer ID as a little-endian int32: positive for that peer, negative for everyone but that peer, and 0 for everyone. Strip those 4 bytes and forward the rest with the original sender.
+- **Drop player meta messages**: ignore op code 9001 from players, so nobody can fake a peer ID.
+
+## Satori
+
+Create a client with your Satori deployment's host and API key. To find them, see [Connecting your game client](https://heroiclabs.com/docs/heroic-cloud/concepts/titles/satori-deployments/#connecting-your-game-client). The client always uses HTTPS. For the full documentation, see [Satori Godot client](https://heroiclabs.com/docs/satori/client-libraries/godot/index.html).
 
 ```gdscript
-	get_tree().get_multiplayer().peer_connected.connect(self._on_peer_connected)
-	get_tree().get_multiplayer().peer_disconnected.connect(self._on_peer_disconnected)
+extends Node
 
-func _on_peer_connected(peer_id):
-	print ("Peer joined match: ", peer_id)
-
-func _on_peer_disconnected(peer_id):
-	print ("Peer left match: ", peer_id)
+func _ready():
+	var client := Satori.new("your-api-key", "your-satori-host")
+	var result: SatoriResult = await client.authenticate_async("your-player-id")
+	if result.error:
+		print("Could not authenticate: %s" % result.error)
+		return
+	var session: SatoriSession = result.value
 ```
 
-Then you need to join a match, using one of the following methods:
+Satori calls return a `SatoriResult`, and the client refreshes sessions, as the Nakama client does.
 
-- Create a new private match, with your client as the host.
-  ```gdscript
-  multiplayer_bridge.create_match()
-  ```
+Read the player's experiments and feature flags. `get_flag_async` falls back to your default when the flag is unknown or Satori can't be reached. Before login, `get_flag_default_async` reads a flag with the API key:
 
-- Join a private match.
-  ```gdscript
-  multiplayer_bridge.join_match(match_id)
-  ```
+```gdscript
+	var experiments: SatoriResult = await client.get_experiments_async(session)
+	var flag: SatoriResult = await client.get_flag_async(session, "FlagName", "default value")
+	print(flag.value.value)
+```
 
-- Create or join a private match with the given name.
-  ```gdscript
-  multiplayer_bridge.join_named_match(match_name)
-  ```
+Send events that are defined in Satori. Each event is stamped with the time you create it:
 
-- Use the matchmaker to find and join a public match.
-  ```gdscript
-  var ticket = await socket.add_matchmaker_async()
-  if ticket.is_exception():
-	print ("Error joining matchmaking pool: ", ticket.get_exception().message)
-	return
+```gdscript
+	await client.event_async(session, SatoriTypes.Event.new("gameFinished"))
+```
 
-  multiplayer_bridge.start_matchmaking(ticket)
-  ```
+Other calls cover identities, properties, live events, and messages, such as `identify_async`, `update_properties_async`, `get_live_events_async`, and `get_message_list_async`.
 
-After the the "match_joined" signal is emitted, you can start sending RPCs as
-usual with the `rpc()` function, and calling any other functions associated with
-the High-level Multiplayer API, such as `get_tree().get_multiplayer().get_unique_id()`
-and `node.set_network_authority(peer_id)` and `node.is_network_authority()`.
+## .NET and C#
 
-## .NET / C#
-
-If you're using the .NET version of Godot with C# support, you can use the
-[Nakama .NET client](https://github.com/heroiclabs/nakama-dotnet/), which can be
-installed via NuGet:
+With the .NET version of Godot, you can use the [Nakama .NET client](https://github.com/heroiclabs/nakama-dotnet) instead. Install it from NuGet:
 
 ```
 dotnet add package NakamaClient
 ```
 
-This addon includes some C# classes for use with the .NET client, to provide deeper
-integration with Godot:
+The addon's `dotnet-utils/nakama` folder has C# classes that connect the .NET client to Godot:
 
-- `GodotLogger`: A logger which prints to the Godot console.
-- `GodotHttpAdapter`: An HTTP adapter which uses Godot's HTTPRequest node.
-- `GodotWebSocketAdapter`: A socket adapter which uses Godot's WebSocketClient.
+- `GodotHttpAdapter`: an HTTP adapter that uses Godot's `HttpRequest` node.
+- `GodotWebSocketAdapter`: a socket adapter that uses Godot's `WebSocketPeer`.
+- `GodotLogger`: a logger that prints to the Godot console.
 
-Here's an example of how to use them:
+They need the `NakamaClient` package, so if your C# project doesn't use the Nakama .NET client, delete `dotnet-utils/nakama`, or the project won't build. Both adapters are nodes, so add them to the scene tree, for example in an autoload, so they stay alive:
 
 ```csharp
-	var http_adapter = new GodotHttpAdapter();
-	// It's a Node, so it needs to be added to the scene tree.
-	// Consider putting this in an autoload singleton so it won't go away unexpectedly.
-	AddChild(http_adapter);
-
-	const string scheme = "http";
-	const string host = "127.0.0.1";
-	const int port = 7350;
-	const string serverKey = "defaultkey";
-
-	// Pass in the 'http_adapter' as the last argument.
-	var client = new Client(scheme, host, port, serverKey, http_adapter);
-
-	// To log DEBUG messages to the Godot console.
+	var httpAdapter = new GodotHttpAdapter();
+	AddChild(httpAdapter);
+	var client = new Client("http", "127.0.0.1", 7350, "defaultkey", httpAdapter);
 	client.Logger = new GodotLogger("Nakama", GodotLogger.LogLevel.DEBUG);
 
 	ISession session;
-	try {
-		session = await client.AuthenticateDeviceAsync(OS.GetUniqueId(), "TestUser", true);
+	try
+	{
+		session = await client.AuthenticateDeviceAsync(OS.GetUniqueId());
 	}
-	catch (ApiResponseException e) {
+	catch (ApiResponseException e)
+	{
 		GD.PrintErr(e.ToString());
 		return;
 	}
 
-	var websocket_adapter = new GodotWebSocketAdapter();
-	// Like the HTTP adapter, it's a Node, so it needs to be added to the scene tree.
-	// Consider putting this in an autoload singleton so it won't go away unexpectedly.
-	AddChild(websocket_adapter);
-
-	// Pass in the 'websocket_adapter' as the last argument.
-	var socket = Socket.From(client, websocket_adapter);
+	var socketAdapter = new GodotWebSocketAdapter();
+	AddChild(socketAdapter);
+	var socket = Socket.From(client, socketAdapter);
 ```
 
-**Note:** _The out-of-the-box Nakama .NET client will work fine with desktop builds of your game! However, it won't work with HTML5 builds, unless you use the `GodotHttpAdapter` and `GodotWebSocketAdapter` classes._
+For the [Satori .NET client](https://github.com/heroiclabs/nakama-dotnet/tree/master/Satori) (`dotnet add package SatoriClient`), `dotnet-utils/satori` has `GodotSatoriHttpAdapter` and `GodotSatoriLogger`, which work the same way. They need the `SatoriClient` package, so if you don't use Satori, delete `dotnet-utils/satori`.
 
-# Satori
-
-Satori is a liveops server for games that powers actionable analytics, A/B testing and remote configuration. Use the Satori Godot Client to communicate with Satori from within your Godot game.
-
-Satori is only compatible with Godot 4.
-
-Full documentation is online - https://heroiclabs.com/docs/satori/client-libraries/godot/index.html
-
-## Getting Started
-
-Add the `Satori.gd` singleton (in `addons/com.heroiclabs.nakama/`) as an [autoload in Godot](https://docs.godotengine.org/en/stable/getting_started/step_by_step/singletons_autoload.html).
-
-Create a client object that accepts the API key you were given as a Satori customer.
-
-```gdscript
-extends Node
-
-func ready():
-	var scheme = "http"
-	var host = "127.0.0.1"
-	var port: Int = 7450
-	var apiKey = "apiKey"
-	var client := Satori.create_client(apiKey, host, port, scheme)
-```
-
-Then authenticate with the server to obtain your session.
-
-```gdscript
-// Authenticate with the Satori server.
-var session = await _client.authenticate_async("your-id")
-if session.is_exception():
-	print("Error authenticating: " + session.get_exception()._message)
-else:
-	print("Authenticated successfully.")
-```
-
-Using the client you can get any experiments or feature flags, the user belongs to.
-
-```gdscript
-var experiments = await _client.get_experiments_async(session, ["experiment1", "Experiment2"])
-var flag = await _client.get_flag_async(session, "FlagName")
-```
-
-You can also send arbitrary events to the server:
-
-```gdscript
-var _event = Event.new("gameFinished", Time.get_unix_time_from_system())
-await _client.event_async(session, _event)
+```csharp
+	var satoriAdapter = new GodotSatoriHttpAdapter();
+	AddChild(satoriAdapter);
+	var satori = new Satori.Client("https", "your-satori-host", 443, "your-api-key", satoriAdapter);
+	var satoriSession = await satori.AuthenticateAsync("your-player-id");
 ```
 
 ## Contribute
 
-The development roadmap is managed as GitHub issues and pull requests are welcome. If you're interested to improve the code please open an issue to discuss the changes or drop in and discuss it in the [community forum](https://forum.heroiclabs.com).
+The roadmap lives in GitHub issues, and pull requests are welcome. Before a big change, open an issue or post in the [community forum](https://forum.heroiclabs.com). To make a release, see [RELEASEINST.md](./RELEASEINST.md).
 
-### Run Tests
+### Run tests
 
-To run tests you will need to run the server and database. Most tests are written as integration tests which execute against the server. A quick approach we use with our test workflow is to use the Docker compose file described in the [documentation](https://heroiclabs.com/docs/nakama/getting-started/install/docker/).
-
-Additionally, you will need to copy (or symlink) the `addons` folder inside the `test_suite` folder. You can now run the `test_suite` project from the Godot Editor.
-
-To run the tests on a headless machine (without a GPU) you can download a copy of [Godot Headless](https://godotengine.org/download/server) and run it from the command line.
-
-To automate this procedure, move the headless binary to `test_suite/bin/godot.elf`, and run the tests via the `test_suite/run_tests.sh` shell script (exit code will report test failure/success).
+The tests run against real servers. You need [Docker](https://www.docker.com), [Task](https://taskfile.dev), and Godot 4.7. If Godot isn't at `/Applications/Godot.app/Contents/MacOS/Godot`, set `GODOT` to its path.
 
 ```shell
-cd nakama
-docker-compose -f ./docker-compose-postgres.yml up
-cd ..
-cd nakama-godot
-sh test_suite/run_tests.sh
+task run-server   # Nakama, PostgreSQL, and the test plugin in test_suite/server
+task test-nakama   # Nakama tests in test_suite/nakama_tests
+task test-dotnet   # C# adapter tests in test_suite/dotnet_tests; the Satori one runs only with SATORI_HOST and SATORI_API_KEY set
+task stop-server
+SATORI_HOST=... SATORI_API_KEY=... task test-satori   # Satori tests in test_suite/satori_tests
 ```
 
-### Make a new release
+The Satori tests have no default server: set `SATORI_HOST`, or `HOST` in `test_suite/satori_tests/settings.json`. Pass the API key through `SATORI_API_KEY`, never the tracked file. The server needs the `appLaunched` and `gameFinished` events and at least one flag.
 
-To make a new release ready for distribution, simply zip the addons folder recursively (possibly adding `CHANGELOG`, `LICENSE`, and `README.md` too).
+`test-dotnet` needs the [.NET SDK](https://dotnet.microsoft.com/download) and the .NET version of Godot 4.7. If it isn't at `/Applications/Godot_mono.app/Contents/MacOS/Godot`, set `GODOT_MONO` to its path.
 
-On unix systems, you can run the following command (replacing `$VERSION` with the desired version number). Remember to update the `CHANGELOG` file first.
-
-```shell
-zip -r nakama-$VERSION.zip addons/ LICENSE CHANGELOG.md README.md
-```
+Each GDScript task copies `addons` into its test project; `test-dotnet` builds the adapters from `addons` directly. To open a test project in the Godot editor, run its task first.
 
 ### License
 
-This project is licensed under the [Apache-2 License](https://github.com/heroiclabs/nakama-godot/blob/master/LICENSE).
+This project is licensed under the [Apache 2.0 License](https://github.com/heroiclabs/nakama-godot/blob/master/LICENSE).

@@ -1,64 +1,86 @@
 extends "res://base_test.gd"
 
 func setup():
-	var _client = Satori.create_client(SatoriConfig.API_KEY, SatoriConfig.HOST, SatoriConfig.PORT, SatoriConfig.SCHEME, SatoriConfig.TIMEOUT)
-	
-	var session1 = await _client.authenticate_async("11111111-1111-0000-0000-000000000000")
+	var _client := Satori.new(SatoriConfig.API_KEY, SatoriConfig.HOST, SatoriConfig.TIMEOUT)
+
+	var auth1: SatoriResult = await _client.authenticate_async("11111111-1111-0000-0000-000000000000")
+	if assert_cond(auth1.error == null):
+		return
+	var session1: SatoriSession = auth1.value
 
 	var props1 = {
 		"email": "a@b.com",
 		"pushTokenIos": "foo"
 	}
-	var customProps1 = {
+	var custom_props1 = {
 		"earlyAccess": "true"
 	}
-	
-	await _client.update_properties_async(session1, props1, customProps1)
+	var updated1: SatoriResult = await _client.update_properties_async(session1, props1, custom_props1)
+	if assert_cond(updated1.error == null):
+		return
 
-	var events = [
-		Event.new("awardReceived", Time.get_unix_time_from_system()),
-		Event.new("inventoryUpdated", Time.get_unix_time_from_system()),
+	# Satori only accepts events it defines.
+	var events: Array[SatoriTypes.Event] = [
+		SatoriTypes.Event.new("appLaunched"),
+		SatoriTypes.Event.new("gameFinished"),
 	]
-	await _client.events_async(session1, events)
-	
-	await get_tree().create_timer(2.0).timeout # Wait for 2 seconds
+	var sent: SatoriResult = await _client.events_async(session1, events)
+	if assert_cond(sent.error == null):
+		return
 
-	var _session2 = await _client.authenticate_async("22222222-2222-0000-0000-000000000000")
+	await get_tree().create_timer(2.0).timeout
+
+	var auth2: SatoriResult = await _client.authenticate_async("22222222-2222-0000-0000-000000000000")
+	if assert_cond(auth2.error == null):
+		return
 
 	var props2 = {
 		"email": "a@b.com",
 		"pushTokenAndroid": "bar"
 	}
-	var customProps2 = {
+	var custom_props2 = {
 		"earlyAccess": "false"
 	}
-	await _client.update_properties_async(_session2, props2, customProps2)
+	var updated2: SatoriResult = await _client.update_properties_async(auth2.value, props2, custom_props2)
+	if assert_cond(updated2.error == null):
+		return
 
-	await get_tree().create_timer(2.0).timeout # Wait for 2 seconds
+	await get_tree().create_timer(2.0).timeout
 
-	var session = await _client.identify_async(session1, "22222222-2222-0000-0000-000000000000", {}, {})
+	# Identify updates session1 in place, so its holders keep working.
+	var identified: SatoriResult = await _client.identify_async(session1, "22222222-2222-0000-0000-000000000000", {}, {})
+	if assert_cond(identified.error == null):
+		return
+	var session: SatoriSession = identified.value
+	if assert_cond(session == session1 and session.identity_id == "22222222-2222-0000-0000-000000000000"):
+		return
 
-	assert(session != null)
-	assert(session.identity_id == "22222222-2222-0000-0000-000000000000")
-
-	var props = await _client.list_properties_async(session)
-	assert(props.default.size() > 0)
-	assert(props.custom.size() > 0)
+	var listed: SatoriResult = await _client.list_properties_async(session)
+	if assert_cond(listed.error == null):
+		return
+	var props: SatoriTypes.Properties = listed.value
+	# Satori keeps custom properties only if it defines them, so their checks below run when it does.
+	if assert_cond(props.default.size() > 0):
+		return
 
 	for key in props.default.keys():
 		match key:
 			"email":
-				assert(props.default[key] == "a@b.com")
+				if assert_cond(props.default[key] == "a@b.com"):
+					return
 			"pushTokenAndroid":
-				assert(props.default[key] == "bar")
+				if assert_cond(props.default[key] == "bar"):
+					return
 			"pushTokenIos":
-				assert(props.default[key] == "foo")
+				if assert_cond(props.default[key] == "foo"):
+					return
 
 	for key in props.custom.keys():
 		match key:
 			"earlyAccess":
-				assert(props.custom[key] == "false")
-	
+				if assert_cond(props.custom[key] == "false"):
+					return
+
 	done()
 
 func _process(_delta):

@@ -1,0 +1,66 @@
+version: '3'
+
+tasks:
+  run-server:
+    cmds:
+      - docker compose -f test_suite/docker-compose.yml up -d --build --wait nakama
+
+  stop-server:
+    cmds:
+      - docker compose -f test_suite/docker-compose.yml down
+
+  test-nakama:
+    cmds:
+      - rm -rf test_suite/nakama_tests/addons && cp -R addons test_suite/nakama_tests/addons
+      - |
+        godot="${GODOT:-/Applications/Godot.app/Contents/MacOS/Godot}"
+        # --import first registers the addon's class_names, which a plain run does not.
+        "$godot" --headless --path test_suite/nakama_tests --import > /dev/null 2>&1
+        status=0
+        out=$("$godot" --headless --path test_suite/nakama_tests --script res://runner.gd 2>&1) || status=$?
+        echo "$out"
+        # Godot exits 0 on script errors, so judge by the runner's output as well as the exit status.
+        echo "$out" | grep -q "======= TESTS END" || { echo "Run failed!"; exit 1; }
+        if echo "$out" | grep -q "FAILURE\|SCRIPT ERROR"; then echo "Tests failed!"; exit 1; fi
+        [ "$status" -eq 0 ] || { echo "Godot exited with status $status"; exit 1; }
+        echo "Tests passed!"
+
+  test-satori:
+    cmds:
+      - rm -rf test_suite/satori_tests/addons && cp -R addons test_suite/satori_tests/addons
+      - |
+        godot="${GODOT:-/Applications/Godot.app/Contents/MacOS/Godot}"
+        "$godot" --headless --path test_suite/satori_tests --import > /dev/null 2>&1
+        status=0
+        out=$("$godot" --headless --path test_suite/satori_tests --script res://runner.gd 2>&1) || status=$?
+        echo "$out"
+        # Godot exits 0 on script errors, so judge by the runner's output as well as the exit status.
+        echo "$out" | grep -q "======= TESTS END" || { echo "Run failed!"; exit 1; }
+        if echo "$out" | grep -q "FAILURE\|SCRIPT ERROR"; then echo "Tests failed!"; exit 1; fi
+        [ "$status" -eq 0 ] || { echo "Godot exited with status $status"; exit 1; }
+        echo "Tests passed!"
+
+  test-dotnet:
+    cmds:
+      - dotnet build test_suite/dotnet_tests -nologo -v q
+      - |
+        godot="${GODOT_MONO:-/Applications/Godot_mono.app/Contents/MacOS/Godot}"
+        "$godot" --headless --path test_suite/dotnet_tests --import > /dev/null 2>&1
+        # The Satori scene skips itself unless SATORI_HOST and SATORI_API_KEY are set.
+        for scene in res://nakama_adapter_test.tscn res://satori_adapter_test.tscn; do
+          status=0
+          out=$("$godot" --headless --path test_suite/dotnet_tests "$scene" 2>&1) || status=$?
+          echo "$out"
+          # Godot exits 0 on script errors, so judge by the runner's output as well as the exit status.
+          echo "$out" | grep -q "======= TESTS END" || { echo "Run failed!"; exit 1; }
+          if echo "$out" | grep -q "FAILURE\|SCRIPT ERROR"; then echo "Tests failed!"; exit 1; fi
+          [ "$status" -eq 0 ] || { echo "Godot exited with status $status"; exit 1; }
+        done
+        echo "Tests passed!"
+
+  release:
+    requires:
+      vars: [VERSION]
+    cmds:
+      - rm -f nakama-{{.VERSION}}.zip
+      - zip -r nakama-{{.VERSION}}.zip addons/ LICENSE CHANGELOG.md README.md -x "*.DS_Store"

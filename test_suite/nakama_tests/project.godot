@@ -1,0 +1,31 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="nakama-tests"
+run/main_scene="res://tester.tscn"
+config/features=PackedStringArray("4.7")
+
+[autoload]
+
+NakamaConfig="*res://utils/config.gd"
+
+[debug]
+
+gdscript/warnings/directory_rules={
+"res://": 0,
+"res://addons/com.heroiclabs.nakama": 1
+}
+gdscript/warnings/untyped_declaration=2
+gdscript/warnings/unsafe_property_access=2
+gdscript/warnings/unsafe_method_access=2
+gdscript/warnings/unsafe_cast=2
+gdscript/warnings/unsafe_call_argument=2
