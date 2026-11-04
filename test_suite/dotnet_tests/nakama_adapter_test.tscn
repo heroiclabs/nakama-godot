@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://NakamaAdapterTest.cs" id="1"]
+
+[node name="NakamaAdapterTest" type="Node"]
+script = ExtResource("1")

@@ -12,20 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System;
 using Godot;
 
-namespace Nakama {
-
+namespace Nakama
+{
     /// <summary>
-    /// A logger which prints to the Godot console.
+    /// A logger for the Nakama .NET client that prints to the Godot console.
     /// </summary>
-    public class GodotLogger : ILogger {
-
+    public class GodotLogger : ILogger
+    {
         /// <summary>
         /// The log level.
         /// </summary>
-        public enum LogLevel {
+        public enum LogLevel
+        {
             NONE,
             ERROR,
             WARNING,
@@ -39,41 +39,48 @@ namespace Nakama {
         /// <summary>
         /// Constructs a GodotLogger.
         /// </summary>
-        /// <param name="p_module">The label to use for log entries.</param>
-        /// <param name="p_level">The log level (or lower) to print to the console.</param>
-        public GodotLogger(string p_module = "Nakama", LogLevel p_level = LogLevel.ERROR) {
-            module = p_module;
-            level = p_level;
+        /// <param name="module">The label to use for log entries.</param>
+        /// <param name="level">The most verbose log level to print to the console.</param>
+        public GodotLogger(string module = "Nakama", LogLevel level = LogLevel.ERROR)
+        {
+            this.module = module;
+            this.level = level;
         }
 
-        /// <inheritdoc cref="ILogger"/>
-        public void ErrorFormat(string format, params object[] args) {
-            if (level >= LogLevel.ERROR) {
-                GD.PrintErr("=== " + module + " : ERROR === " + String.Format(format, args));
+        /// <inheritdoc cref="ILogger.ErrorFormat"/>
+        public void ErrorFormat(string format, params object[] args)
+        {
+            if (level >= LogLevel.ERROR)
+            {
+                GD.PrintErr("=== " + module + " : ERROR === " + string.Format(format, args));
             }
         }
 
-        /// <inheritdoc cref="ILogger"/>
-        public void WarnFormat(string format, params object[] args) {
-            if (level >= LogLevel.WARNING) {
-                GD.Print("=== " + module + " : WARN === " + String.Format(format, args));
+        /// <inheritdoc cref="ILogger.WarnFormat"/>
+        public void WarnFormat(string format, params object[] args)
+        {
+            if (level >= LogLevel.WARNING)
+            {
+                GD.Print("=== " + module + " : WARNING === " + string.Format(format, args));
             }
         }
 
-        /// <inheritdoc cref="ILogger"/>
-        public void InfoFormat(string format, params object[] args) {
-            if (level >= LogLevel.INFO) {
-                GD.Print("=== " + module + " : INFO === " + String.Format(format, args));
+        /// <inheritdoc cref="ILogger.InfoFormat"/>
+        public void InfoFormat(string format, params object[] args)
+        {
+            if (level >= LogLevel.INFO)
+            {
+                GD.Print("=== " + module + " : INFO === " + string.Format(format, args));
             }
         }
 
-        /// <inheritdoc cref="ILogger"/>
-        public void DebugFormat(string format, params object[] args) {
-            if (level >= LogLevel.DEBUG) {
-                GD.Print("=== " + module + " : DEBUG === " + String.Format(format, args));
+        /// <inheritdoc cref="ILogger.DebugFormat"/>
+        public void DebugFormat(string format, params object[] args)
+        {
+            if (level >= LogLevel.DEBUG)
+            {
+                GD.Print("=== " + module + " : DEBUG === " + string.Format(format, args));
             }
         }
-
     }
-
 }

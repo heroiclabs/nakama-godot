@@ -1,24 +1,24 @@
 extends Node
 
-var HOST = "127.0.0.1"
-var PORT = 7450
-var SCHEME = "http"
+var HOST = ""
 var API_KEY = "apikey"
 var TIMEOUT = 5
 
 func _ready():
+	var parsed = null
 	var f = FileAccess.open("res://settings.json", FileAccess.READ)
-	if not f:
-		return
-	var json = JSON.new()
-	var error = json.parse(f.get_as_text())
-	var parsed = json.get_data()
-	if error != OK or typeof(parsed) != TYPE_DICTIONARY:
-		return
-	for k in parsed:
-		match k:
-			"HOST": HOST = parsed[k]
-			"PORT": PORT = parsed[k]
-			"SCHEME": SCHEME = parsed[k]
-			"API_KEY": API_KEY = parsed[k]
-			"TIMEOUT": TIMEOUT = parsed[k]
+	if f:
+		var json = JSON.new()
+		if json.parse(f.get_as_text()) == OK:
+			parsed = json.get_data()
+	if typeof(parsed) == TYPE_DICTIONARY:
+		for k in parsed:
+			match k:
+				"HOST": HOST = parsed[k]
+				"API_KEY": API_KEY = parsed[k]
+				"TIMEOUT": TIMEOUT = parsed[k]
+	# The environment wins, so an API key need not be written into the tracked settings.json.
+	if OS.get_environment("SATORI_HOST") != "": HOST = OS.get_environment("SATORI_HOST")
+	if OS.get_environment("SATORI_API_KEY") != "": API_KEY = OS.get_environment("SATORI_API_KEY")
+	if HOST == "":
+		push_error("No Satori server: set SATORI_HOST, or HOST in settings.json")
